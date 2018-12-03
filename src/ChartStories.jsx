@@ -36,12 +36,12 @@ const data = [
 
 storiesOf('Bar Chart', module)
   .add('Small', () => (
-    <Chart title="Total Conversations" data={data} width={200} height={100}>
+    <Chart title="Total Reviews" data={data} width={200} height={100}>
       <Bar dataKey="organic" color="#000" />
     </Chart>
   ))
   .add('Axis', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis tickFormatter={humanizeDurationFormatter} />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Bar dataKey="sms" color={colors.cobaltBlue} />
