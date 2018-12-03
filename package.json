@@ -6,16 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "lint": "eslint --fix --config react-app src --ext .js,.jsx",
-    "lint-precommit": "eslint --fix --config react-app src --ext .js,.jsx --max-warnings 0"
+    "lint-precommit": "eslint --fix --config react-app --max-warnings 0",
+    "format-precommit": "prettier --write"
   },
- "husky": {
-   "hooks": {
-     "pre-commit": "lint-staged"
-   }
- },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "src/*.{js,jsx,json,css}": [
+      "npm run format-precommit",
       "npm run lint-precommit",
       "git add"
     ]
@@ -35,7 +36,8 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.0",
-    "lint-staged": "^4.2.3"
+    "lint-staged": "^4.2.3",
+    "prettier": "^1.15.3"
   },
   "dependencies": {
     "humanize-duration": "^3.16.0",
