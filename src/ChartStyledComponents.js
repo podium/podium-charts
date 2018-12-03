@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { colors } from 'podium-ui';
 
 export const ChartWrapper = styled.div`
+  border: 1px solid #e8e9ec;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 24px;
+
   .recharts-tooltip-wrapper-left:after {
     content: '';
     position: absolute;
@@ -36,7 +41,7 @@ export const ChartWrapper = styled.div`
 `;
 
 export const ChartHeader = styled.div`
-  padding-left: 2.5%;
+  margin-bottom: 16px;
 `;
 
 export const ChartTitle = styled.p`
