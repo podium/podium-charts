@@ -48,5 +48,12 @@
     "react-dom": "^16.6.3",
     "recharts": "^1.4.1",
     "styled-components": "^4.1.2"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }
