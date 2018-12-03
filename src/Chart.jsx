@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import * as colors from './colors';
 import Rectangle from './Rectangle';
 import ChartWrapper from './ChartStyledComponents';
@@ -8,7 +7,6 @@ import { detectChartType, getStackPositions, singleLineChart } from './chartHelp
 import {
   Bar as RechartsBar,
   CartesianGrid as RechartsCartesianGrid,
-  Legend as RechartsLegend,
   Line as RechartsLine,
   Tooltip as RechartsTooltip,
   XAxis as RechartsXAxis,

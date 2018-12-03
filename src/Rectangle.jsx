@@ -19,7 +19,7 @@ export default function Rectangle(props) {
     return !!payload[bar.dataKey]
   })
 
-  const isTopBar = renderedBars[renderedBars.length - 1].dataKey == dataKey
+  const isTopBar = renderedBars[renderedBars.length - 1].dataKey === dataKey
   if (isTopBar) return <RechartsRectangle {...props} radius={calculateRadius(width)} />;
   return (<RechartsRectangle {...props} />)
 }
