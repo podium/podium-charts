@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { colors } from 'podium-ui';
 import Rectangle from './Rectangle';
-import ChartWrapper from './ChartStyledComponents';
+import {
+  ChartWrapper,
+  ChartHeader,
+  ChartTitle,
+  RangeLabel
+} from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart
+  singleLineChart,
+  extractRangeLabel
 } from './chartHelpers';
 import {
   Bar as RechartsBar,
@@ -102,7 +108,7 @@ export default class Chart extends React.Component {
   };
 
   render() {
-    const { data, width, height } = this.props;
+    const { title, data, width, height } = this.props;
     const RechartsChartType = this.graph;
     const mapping = {
       XAxis: this.renderXAxis,
@@ -114,6 +120,12 @@ export default class Chart extends React.Component {
 
     return (
       <ChartWrapper>
+        {title && (
+          <ChartHeader>
+            <ChartTitle>{title}</ChartTitle>
+            <RangeLabel>{extractRangeLabel(data, 'date')}</RangeLabel>
+          </ChartHeader>
+        )}
         <RechartsChartType
           width={width}
           height={height}
@@ -132,7 +144,8 @@ export default class Chart extends React.Component {
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  title: PropTypes.string
 };
 
 Chart.defaultProps = {

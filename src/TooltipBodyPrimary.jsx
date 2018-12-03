@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import moment from 'moment';
 import { colors } from 'podium-ui';
+import { dateFormatterFull } from './formatters';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -50,11 +50,6 @@ const Summary = styled.div`
 
 const XAxisLabel = styled.div``;
 
-function formatLabel(label) {
-  if (moment(label).isValid) return moment(label).format('MMMM YYYY');
-  return label;
-}
-
 const typeHandler = {
   total: payload =>
     payload.reduce((acc, dataField) => dataField.value + acc, 0),
@@ -90,7 +85,7 @@ export default function TooltipBodyPrimary(props) {
   return (
     <TooltipBodyWrapper>
       <Header>
-        <XAxisLabel>{formatLabel(props.label)}</XAxisLabel>
+        <XAxisLabel>{dateFormatterFull(props.label)}</XAxisLabel>
         {props.summaryType && <Summary>{renderSummary()}</Summary>}
       </Header>
       {renderTooltipData()}

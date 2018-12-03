@@ -2,12 +2,17 @@ import moment from 'moment';
 import humanizeDuration from 'humanize-duration';
 
 export function dateFormatter(date) {
-  return moment(date).isValid ? moment(date).format('MMM') : ''
-};
+  return moment(date).isValid ? moment(date).format('MMM') : '';
+}
+
+export function dateFormatterFull(date) {
+  if (moment(date).isValid) return moment(date).format('MMMM YYYY');
+  return date;
+}
 
 export function capitalizeFormatter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-};
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export function abbreviateNumberFormatter(value) {
   if (value < 1000) {
@@ -25,7 +30,7 @@ export function abbreviateNumberFormatter(value) {
 
   newValue += suffixes[suffixNum];
   return newValue;
-};
+}
 
 export function humanizeDurationFormatter(seconds) {
   if (seconds < 60) return '< 1 min';
@@ -48,10 +53,9 @@ export function humanizeDurationFormatter(seconds) {
   };
   const displayTime = humanizeDuration(ms, humanizeConfig);
   return displayTime;
-};
+}
 
 const commaFormatNumber = number => {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
-

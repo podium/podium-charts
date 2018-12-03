@@ -36,7 +36,7 @@ const data = [
 
 storiesOf('Bar Chart', module)
   .add('Small', () => (
-    <Chart data={data} width={200} height={100}>
+    <Chart title="Total Conversations" data={data} width={200} height={100}>
       <Bar dataKey="organic" color="#000" />
     </Chart>
   ))
@@ -48,7 +48,7 @@ storiesOf('Bar Chart', module)
     </Chart>
   ))
   .add('Tooltip', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Tooltip
@@ -60,7 +60,7 @@ storiesOf('Bar Chart', module)
     </Chart>
   ))
   .add('Stacked', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Tooltip
@@ -73,7 +73,7 @@ storiesOf('Bar Chart', module)
     </Chart>
   ))
   .add('Multiple', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Tooltip
@@ -88,19 +88,19 @@ storiesOf('Bar Chart', module)
 
 storiesOf('Line Chart', module)
   .add('Small', () => (
-    <Chart data={data} width={200} height={100}>
+    <Chart title="Total Reviews" data={data} width={200} height={100}>
       <Line dataKey="organic" color="#000" />
     </Chart>
   ))
   .add('Axis', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis tickFormatter={abbreviateNumberFormatter} />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Tooltip
@@ -112,7 +112,7 @@ storiesOf('Line Chart', module)
     </Chart>
   ))
   .add('Multiple Lines', () => (
-    <Chart data={data}>
+    <Chart title="Total Reviews" data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={dateFormatter} />
       <Tooltip
@@ -126,7 +126,7 @@ storiesOf('Line Chart', module)
   ));
 
 storiesOf('Mixed Chart', module).add('Mixed', () => (
-  <Chart data={data}>
+  <Chart title="Total Reviews" data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={dateFormatter} />
     <Tooltip
