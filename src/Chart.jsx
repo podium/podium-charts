@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as colors from './colors';
+import { colors } from 'podium-ui';
 import Rectangle from './Rectangle';
 import ChartWrapper from './ChartStyledComponents';
 import {
@@ -38,6 +38,7 @@ export default class Chart extends React.Component {
       axisLine={false}
       tickLine={false}
       stroke={colors.lightSteel}
+      fontFamily="Graphik, Helvetica, sans-serif"
       fontSize={11}
       {...props}
     />
@@ -49,6 +50,7 @@ export default class Chart extends React.Component {
       axisLine={false}
       tickLine={false}
       orientation="left"
+      fontFamily="Graphik, Helvetica, sans-serif"
       fontSize={11}
       {...props}
     />

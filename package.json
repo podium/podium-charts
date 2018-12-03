@@ -47,7 +47,8 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "recharts": "^1.4.1",
-    "styled-components": "^4.1.2"
+    "styled-components": "^4.1.2",
+    "podium-ui": "git+ssh://git@github.com/podium/podium-ui.git#v11.0.7"
   },
   "eslintConfig": {
     "extends": "react-app"

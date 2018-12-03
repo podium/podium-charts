@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
-import * as colors from './colors';
+import { colors } from 'podium-ui';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const ColorLabel = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 2px;
-  background-color: ${(props) => props.fill};
+  background-color: ${props => props.fill};
   margin-right: 8px;
 `;
 
@@ -33,7 +33,7 @@ const TooltipData = styled.div`
 const Label = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const Header = styled.div`
   width: 100%;
@@ -41,14 +41,14 @@ const Header = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 8px;
-`
+`;
 
 const Summary = styled.div`
   font-size: 16px;
   font-weight: 600;
-`
+`;
 
-const XAxisLabel = styled.div``
+const XAxisLabel = styled.div``;
 
 function formatLabel(label) {
   if (moment(label).isValid) return moment(label).format('MMMM YYYY');
@@ -56,16 +56,21 @@ function formatLabel(label) {
 }
 
 const typeHandler = {
-  'total': (payload) => payload.reduce((acc, dataField) => dataField.value + acc, 0),
-  'avg': (payload) => (payload.reduce((acc, dataField) => dataField.value + acc, 0) / payload.length).toFixed(1)
-}
+  total: payload =>
+    payload.reduce((acc, dataField) => dataField.value + acc, 0),
+  avg: payload =>
+    (
+      payload.reduce((acc, dataField) => dataField.value + acc, 0) /
+      payload.length
+    ).toFixed(1)
+};
 
 export default function TooltipBodyPrimary(props) {
   const renderSummary = () => {
     const { payload, summaryTitle, summaryType } = props;
     const result = typeHandler[summaryType](payload);
     return `${result} ${summaryTitle}`;
-  }
+  };
 
   const renderTooltipData = () => {
     return props.payload.map(dataField => {
@@ -76,23 +81,17 @@ export default function TooltipBodyPrimary(props) {
             <ColorLabel fill={color} />
             <div>{dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}</div>
           </Label>
-          <div>
-            {value}
-          </div>
+          <div>{value}</div>
         </TooltipData>
       );
     });
-  }
+  };
 
   return (
     <TooltipBodyWrapper>
       <Header>
         <XAxisLabel>{formatLabel(props.label)}</XAxisLabel>
-        { props.summaryType &&
-          <Summary>
-            {renderSummary()}
-          </Summary>
-        }
+        {props.summaryType && <Summary>{renderSummary()}</Summary>}
       </Header>
       {renderTooltipData()}
     </TooltipBodyWrapper>
@@ -102,4 +101,4 @@ export default function TooltipBodyPrimary(props) {
 TooltipBodyPrimary.propTypes = {
   summaryType: PropTypes.oneOf(['total', 'avg']),
   summaryTitle: PropTypes.string
-}
+};

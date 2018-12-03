@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import * as colors from './colors';
+import { colors } from 'podium-ui';
 
 export default styled.div`
   .recharts-tooltip-wrapper-left:after {
-    content: "";
+    content: '';
     position: absolute;
     margin-left: -12px;
     width: 0;
@@ -15,11 +15,11 @@ export default styled.div`
     box-sizing: border-box;
     border: 8px solid black;
     border-color: transparent transparent ${colors.white} ${colors.white};
-    box-shadow: -3px 2px 4px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: -3px 2px 4px 0 rgba(0, 0, 0, 0.1);
   }
 
   .recharts-tooltip-wrapper-right:after {
-    content: "";
+    content: '';
     position: absolute;
     margin-left: -12px;
     width: 0;
@@ -31,6 +31,6 @@ export default styled.div`
     box-sizing: border-box;
     border: 8px solid black;
     border-color: transparent transparent ${colors.white} ${colors.white};
-    box-shadow: -2px 3px 4px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: -2px 3px 4px 0 rgba(0, 0, 0, 0.1);
   }
-`
+`;

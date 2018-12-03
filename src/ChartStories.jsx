@@ -1,7 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { dateFormatter, abbreviateNumberFormatter, humanizeDurationFormatter, capitalizeFormatter } from './formatters';
-import * as colors from './colors';
+import {
+  dateFormatter,
+  abbreviateNumberFormatter,
+  humanizeDurationFormatter,
+  capitalizeFormatter
+} from './formatters';
+import { colors } from 'podium-ui';
 import {
   Chart,
   XAxis,
@@ -30,101 +35,129 @@ const data = [
 ];
 
 storiesOf('Bar Chart', module)
-.add('Small', () => (
-  <Chart data={data} width={200} height={100}>
-    <Bar dataKey="organic" color="#000" />
-  </Chart>
-))
-.add('Axis', () => (
-  <Chart data={data}>
-    <YAxis tickFormatter={humanizeDurationFormatter} />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Bar dataKey="sms" color={colors.cobaltBlue} />
-  </Chart>
-))
-.add('Tooltip', () => (
-  <Chart data={data}>
-    <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
-    <Bar dataKey="organic" color={colors.cobaltBlue} />
-  </Chart>
-))
-.add('Stacked', () => (
-  <Chart data={data}>
-    <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
-    <Bar stackId="1" dataKey="organic" color={colors.cobaltBlue} />
-    <Bar stackId="1" dataKey="text" color={colors.poppyRed} />
-  </Chart>
-))
-.add('Multiple', () => (
-  <Chart data={data}>
-    <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
-    <Bar dataKey="organic" color={colors.cobaltBlue} />
-    <Bar dataKey="text" color={colors.poppyRed} />
-  </Chart>
-));
+  .add('Small', () => (
+    <Chart data={data} width={200} height={100}>
+      <Bar dataKey="organic" color="#000" />
+    </Chart>
+  ))
+  .add('Axis', () => (
+    <Chart data={data}>
+      <YAxis tickFormatter={humanizeDurationFormatter} />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Bar dataKey="sms" color={colors.cobaltBlue} />
+    </Chart>
+  ))
+  .add('Tooltip', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Bar dataKey="organic" color={colors.cobaltBlue} />
+    </Chart>
+  ))
+  .add('Stacked', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Bar stackId="1" dataKey="organic" color={colors.cobaltBlue} />
+      <Bar stackId="1" dataKey="text" color={colors.poppyRed} />
+    </Chart>
+  ))
+  .add('Multiple', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Bar dataKey="organic" color={colors.cobaltBlue} />
+      <Bar dataKey="text" color={colors.poppyRed} />
+    </Chart>
+  ));
 
 storiesOf('Line Chart', module)
-.add('Small', () => (
-  <Chart data={data} width={200} height={100}>
-    <Line dataKey="organic" color="#000" />
-  </Chart>
-))
-.add('Axis', () => (
-  <Chart data={data}>
-    <YAxis tickFormatter={abbreviateNumberFormatter} />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Line dataKey="sms" color={colors.cobaltBlue} />
-  </Chart>
-))
-.add('Tooltip', () => (
-  <Chart data={data}>
-    <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
-    <Line dataKey="text" color={colors.armyGreen} />
-  </Chart>
-))
-.add('Multiple Lines', () => (
-  <Chart data={data}>
-    <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
-    <Line dataKey="organic" color={colors.cobaltBlue} />
-    <Line dataKey="text" color={colors.poppyRed} />
-  </Chart>
-));
+  .add('Small', () => (
+    <Chart data={data} width={200} height={100}>
+      <Line dataKey="organic" color="#000" />
+    </Chart>
+  ))
+  .add('Axis', () => (
+    <Chart data={data}>
+      <YAxis tickFormatter={abbreviateNumberFormatter} />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Line dataKey="sms" color={colors.cobaltBlue} />
+    </Chart>
+  ))
+  .add('Tooltip', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Line dataKey="text" color={colors.armyGreen} />
+    </Chart>
+  ))
+  .add('Multiple Lines', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Line dataKey="organic" color={colors.cobaltBlue} />
+      <Line dataKey="text" color={colors.poppyRed} />
+    </Chart>
+  ));
 
-storiesOf('Mixed Chart', module)
-.add('Mixed', () => (
+storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={dateFormatter} />
-    <Tooltip content={<TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />} />
+    <Tooltip
+      content={
+        <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+      }
+    />
     <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Line dataKey="text" color={colors.poppyRed} />
   </Chart>
 ));
 
-storiesOf('Tooltip', module)
-.add('Tooltip Primary', () => (
-  <div style={{width: 100}}>
-    <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" payload={[{value: 1, color: colors.cobaltBlue, dataKey: 'google'}]} />
-  </div>
-), { info: { excludedPropTypes: ['payload']} } );
+storiesOf('Tooltip', module).add(
+  'Tooltip Primary',
+  () => (
+    <div style={{ width: 100 }}>
+      <TooltipBodyPrimary
+        summaryType="total"
+        summaryTitle="Reviews"
+        payload={[{ value: 1, color: colors.cobaltBlue, dataKey: 'google' }]}
+      />
+    </div>
+  ),
+  { info: { excludedPropTypes: ['payload'] } }
+);
 
-storiesOf('Summary', module)
-.add('Default', () => (
+storiesOf('Summary', module).add('Default', () => (
   <Summary data={data} aggType="avg" />
 ));
 
-storiesOf('Legend', module)
-.add('Default', () => (
+storiesOf('Legend', module).add('Default', () => (
   <Legend
     data={data}
     aggType="avg"
@@ -133,31 +166,31 @@ storiesOf('Legend', module)
 ));
 
 storiesOf('formatters', module)
-.add('dateFormatter', () => (
-  <div>
-    dateFormatter("2018-01-15T23:43:32")
-    <div>-></div>
-    {dateFormatter("2018-01-15T23:43:32")}
-  </div>
-))
-.add('capitalizeFormatter', () => (
-  <div>
-    capitalizeFormatter("podium")
-    <div>-></div>
-    {capitalizeFormatter("podium")}
-  </div>
-))
-.add('abbreviateNumberFormatter', () => (
-  <div>
-    abbreviateNumberFormatter(100000000)
-    <div>-></div>
-    {abbreviateNumberFormatter(100000000)}
-  </div>
-))
-.add('humanizeDurationFormatter', () => (
-  <div>
-    humanizeDurationFormatter(86400)
-    <div>-></div>
-    {humanizeDurationFormatter(86400)}
-  </div>
-));
+  .add('dateFormatter', () => (
+    <div>
+      dateFormatter("2018-01-15T23:43:32")
+      <div>-></div>
+      {dateFormatter('2018-01-15T23:43:32')}
+    </div>
+  ))
+  .add('capitalizeFormatter', () => (
+    <div>
+      capitalizeFormatter("podium")
+      <div>-></div>
+      {capitalizeFormatter('podium')}
+    </div>
+  ))
+  .add('abbreviateNumberFormatter', () => (
+    <div>
+      abbreviateNumberFormatter(100000000)
+      <div>-></div>
+      {abbreviateNumberFormatter(100000000)}
+    </div>
+  ))
+  .add('humanizeDurationFormatter', () => (
+    <div>
+      humanizeDurationFormatter(86400)
+      <div>-></div>
+      {humanizeDurationFormatter(86400)}
+    </div>
+  ));
