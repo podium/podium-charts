@@ -168,6 +168,13 @@ storiesOf('formatters', module)
       {formatters.date('2018-01-15T23:43:32')}
     </div>
   ))
+  .add('fullDate', () => (
+    <div>
+      formatters.fullDate("2018-01-15T23:43:32")
+      <div>-></div>
+      {formatters.fullDate('2018-01-15T23:43:32')}
+    </div>
+  ))
   .add('capitalize', () => (
     <div>
       formatters.capitalize("podium")
