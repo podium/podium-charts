@@ -5,7 +5,7 @@ export const ChartWrapper = styled.div`
   border: 1px solid #e8e9ec;
   border-radius: 6px;
   display: inline-block;
-  padding: 24px;
+  padding: 24px 16px 0 24px;
 
   .recharts-tooltip-wrapper-left:after {
     content: '';
