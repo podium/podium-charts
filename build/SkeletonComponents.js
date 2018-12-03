@@ -1,41 +1,65 @@
-import PropTypes from 'prop-types';
-import formatters from './formatters';
-export function Bar() {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bar = Bar;
+exports.Line = Line;
+exports.Tooltip = Tooltip;
+exports.XAxis = XAxis;
+exports.YAxis = YAxis;
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _formatters = _interopRequireDefault(require("./formatters"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Bar() {
   return null;
 }
+
 Bar.propTypes = {
-  dataKey: PropTypes.string.isRequired,
-  stackId: PropTypes.string,
-  color: PropTypes.string
+  dataKey: _propTypes.default.string.isRequired,
+  stackId: _propTypes.default.string,
+  color: _propTypes.default.string
 };
-export function Line() {
+
+function Line() {
   return null;
 }
+
 Line.propTypes = {
-  dataKey: PropTypes.string.isRequired,
-  color: PropTypes.string
+  dataKey: _propTypes.default.string.isRequired,
+  color: _propTypes.default.string
 };
-export function Tooltip() {
+
+function Tooltip() {
   return null;
 }
+
 Tooltip.propTypes = {
-  content: PropTypes.element.isRequired
+  content: _propTypes.default.element.isRequired
 };
-export function XAxis() {
+
+function XAxis() {
   return null;
 }
+
 XAxis.propTypes = {
-  dataKey: PropTypes.string.isRequired,
-  tickFormatter: PropTypes.func
+  dataKey: _propTypes.default.string.isRequired,
+  tickFormatter: _propTypes.default.func
 };
 XAxis.defaultProps = {
-  tickFormatter: formatters.capitalizeFormatter
+  tickFormatter: _formatters.default.capitalizeFormatter
 };
-export function YAxis() {
+
+function YAxis() {
   return null;
 }
+
 YAxis.propTypes = {
-  tickFormatter: PropTypes.func
+  tickFormatter: _propTypes.default.func
 };
 YAxis.defaultProps = {
   tickFormatter: function tickFormatter(tick) {

@@ -1,4 +1,21 @@
-import _taggedTemplateLiteral from "/Users/gkkirsch/development/podium-charts/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TooltipBodyPrimary;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _podiumUi = require("podium-ui");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject7() {
   var data = _taggedTemplateLiteral([""]);
@@ -70,22 +87,26 @@ function _templateObject() {
   return data;
 }
 
-import React from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
-import { colors } from 'podium-ui';
-var TooltipBodyWrapper = styled.div(_templateObject(), colors.mineShaft);
-var ColorLabel = styled.div(_templateObject2(), function (props) {
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var TooltipBodyWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mineShaft);
+
+var ColorLabel = _styledComponents.default.div(_templateObject2(), function (props) {
   return props.fill;
 });
-var TooltipData = styled.div(_templateObject3());
-var Label = styled.div(_templateObject4());
-var Header = styled.div(_templateObject5());
-var Summary = styled.div(_templateObject6());
-var XAxisLabel = styled.div(_templateObject7());
+
+var TooltipData = _styledComponents.default.div(_templateObject3());
+
+var Label = _styledComponents.default.div(_templateObject4());
+
+var Header = _styledComponents.default.div(_templateObject5());
+
+var Summary = _styledComponents.default.div(_templateObject6());
+
+var XAxisLabel = _styledComponents.default.div(_templateObject7());
 
 function formatLabel(label) {
-  if (moment(label).isValid) return moment(label).format('MMMM YYYY');
+  if ((0, _moment.default)(label).isValid) return (0, _moment.default)(label).format('MMMM YYYY');
   return label;
 }
 
@@ -101,7 +122,8 @@ var typeHandler = {
     }, 0) / payload.length).toFixed(1);
   }
 };
-export default function TooltipBodyPrimary(props) {
+
+function TooltipBodyPrimary(props) {
   var renderSummary = function renderSummary() {
     var payload = props.payload,
         summaryTitle = props.summaryTitle,
@@ -115,13 +137,18 @@ export default function TooltipBodyPrimary(props) {
       var dataKey = dataField.dataKey,
           value = dataField.value,
           color = dataField.color;
-      return React.createElement(TooltipData, {
+      return _react.default.createElement(TooltipData, {
         key: dataField.dataKey
-      }, React.createElement(Label, null, React.createElement(ColorLabel, {
+      }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), React.createElement("div", null, dataKey.charAt(0).toUpperCase() + dataKey.slice(1))), React.createElement("div", null, value));
+      }), _react.default.createElement("div", null, dataKey.charAt(0).toUpperCase() + dataKey.slice(1))), _react.default.createElement("div", null, value));
     });
   };
 
-  return React.createElement(TooltipBodyWrapper, null, React.createElement(Header, null, React.createElement(XAxisLabel, null, formatLabel(props.label)), props.summaryType && React.createElement(Summary, null, renderSummary())), renderTooltipData());
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, formatLabel(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), renderTooltipData());
 }
+
+TooltipBodyPrimary.propTypes = {
+  summaryType: _propTypes.default.oneOf(['total', 'avg']),
+  summaryTitle: _propTypes.default.string
+};

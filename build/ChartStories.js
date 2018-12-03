@@ -1,8 +1,17 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import formatters from './formatters';
-import { colors } from 'podium-ui';
-import { Chart, XAxis, YAxis, Bar, Line, Legend, Summary, Tooltip, TooltipBodyPrimary } from './';
+"use strict";
+
+var _react = _interopRequireDefault(require("react"));
+
+var _react2 = require("@storybook/react");
+
+var _formatters = _interopRequireDefault(require("./formatters"));
+
+var _podiumUi = require("podium-ui");
+
+var _ = require("./");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var data = [{
   sms: 200,
   text: 1,
@@ -63,166 +72,166 @@ var data = [{
   organic: 20,
   date: '2018-12-15T23:43:32'
 }];
-storiesOf('Bar Chart', module).add('Small', function () {
-  return React.createElement(Chart, {
+(0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
+  return _react.default.createElement(_.Chart, {
     data: data,
     width: 200,
     height: 100
-  }, React.createElement(Bar, {
+  }, _react.default.createElement(_.Bar, {
     dataKey: "organic",
     color: "#000"
   }));
 }).add('Axis', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, {
-    tickFormatter: formatters.humanizeDuration
-  }), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.humanizeDuration
+  }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Bar, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Bar, {
     dataKey: "sms",
-    color: colors.cobaltBlue
+    color: _podiumUi.colors.cobaltBlue
   }));
 }).add('Tooltip', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Bar, {
+  }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: colors.cobaltBlue
+    color: _podiumUi.colors.cobaltBlue
   }));
 }).add('Stacked', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Bar, {
+  }), _react.default.createElement(_.Bar, {
     stackId: "1",
     dataKey: "organic",
-    color: colors.cobaltBlue
-  }), React.createElement(Bar, {
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
     stackId: "1",
     dataKey: "text",
-    color: colors.poppyRed
+    color: _podiumUi.colors.poppyRed
   }));
 }).add('Multiple', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Bar, {
+  }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: colors.cobaltBlue
-  }), React.createElement(Bar, {
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
     dataKey: "text",
-    color: colors.poppyRed
+    color: _podiumUi.colors.poppyRed
   }));
 });
-storiesOf('Line Chart', module).add('Small', function () {
-  return React.createElement(Chart, {
+(0, _react2.storiesOf)('Line Chart', module).add('Small', function () {
+  return _react.default.createElement(_.Chart, {
     data: data,
     width: 200,
     height: 100
-  }, React.createElement(Line, {
+  }, _react.default.createElement(_.Line, {
     dataKey: "organic",
     color: "#000"
   }));
 }).add('Axis', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, {
-    tickFormatter: formatters.abbreviateNumber
-  }), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateNumber
+  }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Line, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: colors.cobaltBlue
+    color: _podiumUi.colors.cobaltBlue
   }));
 }).add('Tooltip', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Line, {
+  }), _react.default.createElement(_.Line, {
     dataKey: "text",
-    color: colors.armyGreen
+    color: _podiumUi.colors.armyGreen
   }));
 }).add('Multiple Lines', function () {
-  return React.createElement(Chart, {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Line, {
+  }), _react.default.createElement(_.Line, {
     dataKey: "organic",
-    color: colors.cobaltBlue
-  }), React.createElement(Line, {
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Line, {
     dataKey: "text",
-    color: colors.poppyRed
+    color: _podiumUi.colors.poppyRed
   }));
 });
-storiesOf('Mixed Chart', module).add('Mixed', function () {
-  return React.createElement(Chart, {
+(0, _react2.storiesOf)('Mixed Chart', module).add('Mixed', function () {
+  return _react.default.createElement(_.Chart, {
     data: data
-  }, React.createElement(YAxis, null), React.createElement(XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: formatters.date
-  }), React.createElement(Tooltip, {
-    content: React.createElement(TooltipBodyPrimary, {
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), React.createElement(Bar, {
+  }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: colors.cobaltBlue
-  }), React.createElement(Line, {
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Line, {
     dataKey: "text",
-    color: colors.poppyRed
+    color: _podiumUi.colors.poppyRed
   }));
 });
-storiesOf('Tooltip', module).add('Tooltip Primary', function () {
-  return React.createElement("div", {
+(0, _react2.storiesOf)('Tooltip', module).add('Tooltip Primary', function () {
+  return _react.default.createElement("div", {
     style: {
       width: 100
     }
-  }, React.createElement(TooltipBodyPrimary, {
+  }, _react.default.createElement(_.TooltipBodyPrimary, {
     summaryType: "total",
     summaryTitle: "Reviews",
     payload: [{
       value: 1,
-      color: colors.cobaltBlue,
+      color: _podiumUi.colors.cobaltBlue,
       dataKey: 'google'
     }]
   }));
@@ -231,30 +240,30 @@ storiesOf('Tooltip', module).add('Tooltip Primary', function () {
     excludedPropTypes: ['payload']
   }
 });
-storiesOf('Summary', module).add('Default', function () {
-  return React.createElement(Summary, {
+(0, _react2.storiesOf)('Summary', module).add('Default', function () {
+  return _react.default.createElement(_.Summary, {
     data: data,
     aggType: "avg"
   });
 });
-storiesOf('Legend', module).add('Default', function () {
-  return React.createElement(Legend, {
+(0, _react2.storiesOf)('Legend', module).add('Default', function () {
+  return _react.default.createElement(_.Legend, {
     data: data,
     aggType: "avg",
     config: {
       webchat: {
-        color: colors.white,
+        color: _podiumUi.colors.white,
         label: 'Web Chat'
       }
     }
   });
 });
-storiesOf('formatters', module).add('date', function () {
-  return React.createElement("div", null, "formatters.date(\"2018-01-15T23:43:32\")", React.createElement("div", null, "->"), formatters.date('2018-01-15T23:43:32'));
+(0, _react2.storiesOf)('formatters', module).add('date', function () {
+  return _react.default.createElement("div", null, "formatters.date(\"2018-01-15T23:43:32\")", _react.default.createElement("div", null, "->"), _formatters.default.date('2018-01-15T23:43:32'));
 }).add('capitalize', function () {
-  return React.createElement("div", null, "formatters.capitalize(\"podium\")", React.createElement("div", null, "->"), formatters.capitalize('podium'));
+  return _react.default.createElement("div", null, "formatters.capitalize(\"podium\")", _react.default.createElement("div", null, "->"), _formatters.default.capitalize('podium'));
 }).add('abbreviateNumber', function () {
-  return React.createElement("div", null, "formatters.abbreviateNumber(100000000)", React.createElement("div", null, "->"), formatters.abbreviateNumber(100000000));
+  return _react.default.createElement("div", null, "formatters.abbreviateNumber(100000000)", _react.default.createElement("div", null, "->"), _formatters.default.abbreviateNumber(100000000));
 }).add('humanizeDuration', function () {
-  return React.createElement("div", null, "formatters.humanizeDuration(86400)", React.createElement("div", null, "->"), formatters.humanizeDuration(86400));
+  return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
 });

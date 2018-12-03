@@ -1,10 +1,21 @@
-import PropTypes from 'prop-types';
-export default function Summary() {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Summary;
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Summary() {
   return null;
 }
+
 Summary.propTypes = {
-  data: PropTypes.array,
-  aggType: PropTypes.oneOf(['avg', 'sum'])
+  data: _propTypes.default.array,
+  aggType: _propTypes.default.oneOf(['avg', 'sum'])
 };
 Summary.defaultProps = {
   aggType: 'sum'
