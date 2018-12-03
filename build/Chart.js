@@ -119,8 +119,7 @@ var _initialiseProps = function _initialiseProps() {
       axisLine: false,
       tickLine: false,
       stroke: _podiumUi.colors.lightSteel,
-      fontFamily: "Graphik, Helvetica, sans-serif",
-      fontSize: "11px"
+      fontFamily: "Graphik, Helvetica, sans-serif"
     }, props));
   };
 
@@ -130,8 +129,7 @@ var _initialiseProps = function _initialiseProps() {
       axisLine: false,
       tickLine: false,
       orientation: "left",
-      fontFamily: "Graphik, Helvetica, sans-serif",
-      fontSize: "11px"
+      fontFamily: "Graphik, Helvetica, sans-serif"
     }, props));
   };
 
