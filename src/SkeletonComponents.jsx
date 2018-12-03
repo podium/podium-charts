@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { capitalizeFormatter } from './formatters';
+import formatters from './formatters';
 
 export function Bar() {
   return null;
@@ -33,7 +33,7 @@ XAxis.propTypes = {
   tickFormatter: PropTypes.func
 };
 XAxis.defaultProps = {
-  tickFormatter: capitalizeFormatter
+  tickFormatter: formatters.capitalizeFormatter
 };
 
 export function YAxis() {
@@ -43,5 +43,5 @@ YAxis.propTypes = {
   tickFormatter: PropTypes.func
 };
 YAxis.defaultProps = {
-  tickFormatter: (tick) => tick
+  tickFormatter: tick => tick
 };

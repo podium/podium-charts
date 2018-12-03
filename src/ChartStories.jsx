@@ -1,11 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {
-  dateFormatter,
-  abbreviateNumberFormatter,
-  humanizeDurationFormatter,
-  capitalizeFormatter
-} from './formatters';
+import formatters from './formatters';
 import { colors } from 'podium-ui';
 import {
   Chart,
@@ -42,15 +37,15 @@ storiesOf('Bar Chart', module)
   ))
   .add('Axis', () => (
     <Chart data={data}>
-      <YAxis tickFormatter={humanizeDurationFormatter} />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <YAxis tickFormatter={formatters.humanizeDuration} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Bar dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
         content={
           <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -62,7 +57,7 @@ storiesOf('Bar Chart', module)
   .add('Stacked', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
         content={
           <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -75,7 +70,7 @@ storiesOf('Bar Chart', module)
   .add('Multiple', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
         content={
           <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -94,15 +89,15 @@ storiesOf('Line Chart', module)
   ))
   .add('Axis', () => (
     <Chart data={data}>
-      <YAxis tickFormatter={abbreviateNumberFormatter} />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <YAxis tickFormatter={formatters.abbreviateNumber} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
         content={
           <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -114,7 +109,7 @@ storiesOf('Line Chart', module)
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={dateFormatter} />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
         content={
           <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -128,7 +123,7 @@ storiesOf('Line Chart', module)
 storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart data={data}>
     <YAxis />
-    <XAxis dataKey="date" tickFormatter={dateFormatter} />
+    <XAxis dataKey="date" tickFormatter={formatters.date} />
     <Tooltip
       content={
         <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
@@ -166,31 +161,31 @@ storiesOf('Legend', module).add('Default', () => (
 ));
 
 storiesOf('formatters', module)
-  .add('dateFormatter', () => (
+  .add('date', () => (
     <div>
-      dateFormatter("2018-01-15T23:43:32")
+      formatters.date("2018-01-15T23:43:32")
       <div>-></div>
-      {dateFormatter('2018-01-15T23:43:32')}
+      {formatters.date('2018-01-15T23:43:32')}
     </div>
   ))
-  .add('capitalizeFormatter', () => (
+  .add('capitalize', () => (
     <div>
-      capitalizeFormatter("podium")
+      formatters.capitalize("podium")
       <div>-></div>
-      {capitalizeFormatter('podium')}
+      {formatters.capitalize('podium')}
     </div>
   ))
-  .add('abbreviateNumberFormatter', () => (
+  .add('abbreviateNumber', () => (
     <div>
-      abbreviateNumberFormatter(100000000)
+      formatters.abbreviateNumber(100000000)
       <div>-></div>
-      {abbreviateNumberFormatter(100000000)}
+      {formatters.abbreviateNumber(100000000)}
     </div>
   ))
-  .add('humanizeDurationFormatter', () => (
+  .add('humanizeDuration', () => (
     <div>
-      humanizeDurationFormatter(86400)
+      formatters.humanizeDuration(86400)
       <div>-></div>
-      {humanizeDurationFormatter(86400)}
+      {formatters.humanizeDuration(86400)}
     </div>
   ));
