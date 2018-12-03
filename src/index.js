@@ -4,4 +4,4 @@ export { default as Summary } from './Summary';
 export { default as TooltipBodyPrimary } from './TooltipBodyPrimary';
 
 export * from './SkeletonComponents';
-export { formatters } from './formatters';
+export { default as formatters } from './formatters';

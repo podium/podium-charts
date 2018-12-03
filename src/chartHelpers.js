@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { dateFormatterFull } from './formatters';
+import { fullDate } from './formatters';
 
 import {
   BarChart as RechartsBarChart,
@@ -55,5 +55,5 @@ export function singleLineChart(children) {
 export function extractRangeLabel(data, rangeDataKey) {
   const start = data[0][rangeDataKey];
   const end = data[data.length - 1][rangeDataKey];
-  return `${dateFormatterFull(start)} - ${dateFormatterFull(end)}`;
+  return `${fullDate(start)} - ${fullDate(end)}`;
 }

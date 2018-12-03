@@ -7,6 +7,10 @@ export const ChartWrapper = styled.div`
   display: inline-block;
   padding: 24px 16px 0 24px;
 
+  .recharts-cartesian-axis-tick-value {
+    font-size: 11px;
+  }
+
   .recharts-tooltip-wrapper-left:after {
     content: '';
     position: absolute;

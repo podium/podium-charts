@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from 'podium-ui';
-import { dateFormatterFull } from './formatters';
+import { fullDate } from './formatters';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export default function TooltipBodyPrimary(props) {
   return (
     <TooltipBodyWrapper>
       <Header>
-        <XAxisLabel>{dateFormatterFull(props.label)}</XAxisLabel>
+        <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
         {props.summaryType && <Summary>{renderSummary()}</Summary>}
       </Header>
       {renderTooltipData()}

@@ -1,20 +1,20 @@
 import moment from 'moment';
-import humanizeDuration from 'humanize-duration';
+import humanReadableDuration from 'humanize-duration';
 
-export function dateFormatter(date) {
-  return moment(date).isValid ? moment(date).format('MMM') : '';
-}
-
-export function dateFormatterFull(date) {
+export function fullDate(date) {
   if (moment(date).isValid) return moment(date).format('MMMM YYYY');
   return date;
 }
 
-export function capitalizeFormatter(string) {
+export function date(date) {
+  return moment(date).isValid ? moment(date).format('MMM') : '';
+}
+
+export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function abbreviateNumberFormatter(value) {
+export function abbreviateNumber(value) {
   if (value < 1000) {
     return commaFormatNumber(value);
   }
@@ -32,7 +32,7 @@ export function abbreviateNumberFormatter(value) {
   return newValue;
 }
 
-export function humanizeDurationFormatter(seconds) {
+export function humanizeDuration(seconds) {
   if (seconds < 60) return '< 1 min';
 
   const ms = seconds * 1000;
@@ -51,11 +51,19 @@ export function humanizeDurationFormatter(seconds) {
       }
     }
   };
-  const displayTime = humanizeDuration(ms, humanizeConfig);
+  const displayTime = humanReadableDuration(ms, humanizeConfig);
   return displayTime;
 }
 
 const commaFormatNumber = number => {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
+};
+
+export default {
+  abbreviateNumber,
+  capitalize,
+  date,
+  fullDate,
+  humanizeDuration
 };

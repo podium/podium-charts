@@ -2,12 +2,13 @@
   "name": "podium-charts",
   "version": "1.0.0",
   "description": "A collection of Podium chart components",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "lint-precommit": "eslint --fix --config react-app --max-warnings 0",
-    "format-precommit": "prettier --write"
+    "format-precommit": "prettier --write",
+    "build": "babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties,lodash"
   },
   "husky": {
     "hooks": {
@@ -24,11 +25,16 @@
   "author": "Some Notion",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
     "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
     "@storybook/addon-info": "^4.0.11",
     "@storybook/react": "^4.0.10",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^5.9.0",
     "eslint-config-react-app": "^3.0.5",
     "eslint-plugin-flowtype": "^2.50.3",

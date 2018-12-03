@@ -45,7 +45,6 @@ export default class Chart extends React.Component {
       tickLine={false}
       stroke={colors.lightSteel}
       fontFamily="Graphik, Helvetica, sans-serif"
-      fontSize={11}
       {...props}
     />
   );
@@ -57,7 +56,6 @@ export default class Chart extends React.Component {
       tickLine={false}
       orientation="left"
       fontFamily="Graphik, Helvetica, sans-serif"
-      fontSize={11}
       {...props}
     />
   );
