@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from 'podium-ui';
 
 const LegendWrapper = styled.div`
+  padding-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;

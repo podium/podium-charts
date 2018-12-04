@@ -151,14 +151,17 @@ storiesOf('Tooltip', module).add(
 );
 
 storiesOf('Summary', module).add('Default', () => (
-  <Summary data={data} aggType="avg" />
+  <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
 ));
 
 storiesOf('Legend', module).add('Default', () => (
   <Legend
     data={data}
-    aggType="avg"
-    config={{ webchat: { color: colors.white, label: 'Web Chat' } }}
+    summaryType="total"
+    config={[
+      { dataKey: 'organic', color: colors.cobaltBlue },
+      { dataKey: 'text', color: colors.poppyRed }
+    ]}
   />
 ));
 
@@ -192,7 +195,7 @@ storiesOf('formatters', module)
     </div>
   ));
 
-storiesOf('Report Card', module).add('w/title', () => (
+storiesOf('Report Card', module).add('default', () => (
   <ReportCard
     title={<ReportTitle title="Total Reviews" data={data} />}
     chart={

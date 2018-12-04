@@ -243,19 +243,21 @@ var data = [{
 (0, _react2.storiesOf)('Summary', module).add('Default', function () {
   return _react.default.createElement(_.Summary, {
     data: data,
-    aggType: "avg"
+    summaryType: "total",
+    dataKeys: ['text', 'organic']
   });
 });
 (0, _react2.storiesOf)('Legend', module).add('Default', function () {
   return _react.default.createElement(_.Legend, {
     data: data,
-    aggType: "avg",
-    config: {
-      webchat: {
-        color: _podiumUi.colors.white,
-        label: 'Web Chat'
-      }
-    }
+    summaryType: "total",
+    config: [{
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
   });
 });
 (0, _react2.storiesOf)('formatters', module).add('date', function () {
@@ -267,7 +269,7 @@ var data = [{
 }).add('humanizeDuration', function () {
   return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
 });
-(0, _react2.storiesOf)('Report Card', module).add('w/title', function () {
+(0, _react2.storiesOf)('Report Card', module).add('default', function () {
   return _react.default.createElement(_.ReportCard, {
     title: _react.default.createElement(_.ReportTitle, {
       title: "Total Reviews",
