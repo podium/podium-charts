@@ -8,6 +8,8 @@ var _exportNames = {
   Legend: true,
   Summary: true,
   TooltipBodyPrimary: true,
+  ReportCard: true,
+  ReportTitle: true,
   formatters: true
 };
 Object.defineProperty(exports, "Chart", {
@@ -34,6 +36,18 @@ Object.defineProperty(exports, "TooltipBodyPrimary", {
     return _TooltipBodyPrimary.default;
   }
 });
+Object.defineProperty(exports, "ReportCard", {
+  enumerable: true,
+  get: function get() {
+    return _ReportCard.default;
+  }
+});
+Object.defineProperty(exports, "ReportTitle", {
+  enumerable: true,
+  get: function get() {
+    return _ReportTitle.default;
+  }
+});
 Object.defineProperty(exports, "formatters", {
   enumerable: true,
   get: function get() {
@@ -41,13 +55,17 @@ Object.defineProperty(exports, "formatters", {
   }
 });
 
-var _Chart = _interopRequireDefault(require("./Chart"));
+var _Chart = _interopRequireDefault(require("./Chart/Chart"));
 
 var _Legend = _interopRequireDefault(require("./Legend"));
 
 var _Summary = _interopRequireDefault(require("./Summary"));
 
 var _TooltipBodyPrimary = _interopRequireDefault(require("./TooltipBodyPrimary"));
+
+var _ReportCard = _interopRequireDefault(require("./ReportCard"));
+
+var _ReportTitle = _interopRequireDefault(require("./ReportTitle/ReportTitle"));
 
 var _SkeletonComponents = require("./SkeletonComponents");
 

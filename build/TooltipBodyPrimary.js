@@ -11,9 +11,9 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _moment = _interopRequireDefault(require("moment"));
-
 var _podiumUi = require("podium-ui");
+
+var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105,22 +105,22 @@ var Summary = _styledComponents.default.div(_templateObject6());
 
 var XAxisLabel = _styledComponents.default.div(_templateObject7());
 
-function formatLabel(label) {
-  if ((0, _moment.default)(label).isValid) return (0, _moment.default)(label).format('MMMM YYYY');
-  return label;
-}
-
 var typeHandler = {
   total: function total(payload) {
     return payload.reduce(function (acc, dataField) {
-      return dataField.value + acc;
+      return (dataField.value || 0) + acc;
     }, 0);
   },
   avg: function avg(payload) {
     return (payload.reduce(function (acc, dataField) {
-      return dataField.value + acc;
+      return (dataField.value || 0) + acc;
     }, 0) / payload.length).toFixed(1);
   }
+};
+
+var fullDate = function fullDate(date) {
+  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format('MMMM YYYY');
+  return date;
 };
 
 function TooltipBodyPrimary(props) {
@@ -138,14 +138,14 @@ function TooltipBodyPrimary(props) {
           value = dataField.value,
           color = dataField.color;
       return _react.default.createElement(TooltipData, {
-        key: dataField.dataKey
+        key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
       }), _react.default.createElement("div", null, dataKey.charAt(0).toUpperCase() + dataKey.slice(1))), _react.default.createElement("div", null, value));
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, formatLabel(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), renderTooltipData());
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), renderTooltipData());
 }
 
 TooltipBodyPrimary.propTypes = {
