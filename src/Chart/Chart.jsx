@@ -114,7 +114,7 @@ export default class Chart extends React.Component {
 
     return (
       <ChartWrapper>
-        <ResponsiveContainer minWidth={width} height={height}>
+        <ResponsiveContainer width={width} height={height}>
           <RechartsChartType
             data={data}
             margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
@@ -137,6 +137,5 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-  width: 730,
-  height: 250
+  height: 300
 };

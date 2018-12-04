@@ -54,7 +54,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  flex: 1;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 25%;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -64,7 +64,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  flex: 3;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  width: 75%;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;

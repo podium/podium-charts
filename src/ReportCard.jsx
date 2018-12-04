@@ -18,11 +18,11 @@ const ReportCardHeader = styled.div`
 const ReportCardMain = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 3;
+  width: 75%;
 `;
 
 const ReportCardRight = styled.div`
-  flex: 1;
+  width: 25%;
 `;
 
 const ReportCardSummary = styled.div`

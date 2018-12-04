@@ -82,7 +82,7 @@ function (_React$Component) {
         Tooltip: this.renderTooltip
       };
       return _react.default.createElement(_ChartStyledComponents.ChartWrapper, null, _react.default.createElement(_recharts.ResponsiveContainer, {
-        minWidth: width,
+        width: width,
         height: height
       }, _react.default.createElement(RechartsChartType, {
         data: data,
@@ -194,6 +194,5 @@ Chart.propTypes = {
   title: _propTypes.default.string
 };
 Chart.defaultProps = {
-  width: 730,
-  height: 250
+  height: 300
 };
