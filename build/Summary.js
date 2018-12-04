@@ -109,10 +109,10 @@ function Summary(_ref) {
 }
 
 Summary.propTypes = {
-  aggType: _propTypes.default.oneOf(['avg', 'total']),
+  summaryType: _propTypes.default.oneOf(['avg', 'total']),
   data: _propTypes.default.array.isRequired,
   dataKeys: _propTypes.default.array.isRequired
 };
 Summary.defaultProps = {
-  aggType: 'total'
+  summaryType: 'total'
 };

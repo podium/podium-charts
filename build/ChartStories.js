@@ -309,4 +309,22 @@ var data = [{
       }]
     })
   });
+}).add('summary', function () {
+  return _react.default.createElement(_.ReportCard, {
+    width: "270px",
+    title: _react.default.createElement(_.ReportSummaryTitle, {
+      formatter: _formatters.default.humanizeDuration,
+      summaryType: "total",
+      dataKeys: ['sms'],
+      title: "Median Response Time",
+      data: data
+    }),
+    chart: _react.default.createElement(_.Chart, {
+      data: data,
+      height: 100
+    }, _react.default.createElement(_.Bar, {
+      dataKey: "sms",
+      color: _podiumUi.colors.cobaltBlue
+    }))
+  });
 });

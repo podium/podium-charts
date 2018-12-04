@@ -10,6 +10,7 @@ var _exportNames = {
   TooltipBodyPrimary: true,
   ReportCard: true,
   ReportTitle: true,
+  ReportSummaryTitle: true,
   formatters: true
 };
 Object.defineProperty(exports, "Chart", {
@@ -48,6 +49,12 @@ Object.defineProperty(exports, "ReportTitle", {
     return _ReportTitle.default;
   }
 });
+Object.defineProperty(exports, "ReportSummaryTitle", {
+  enumerable: true,
+  get: function get() {
+    return _ReportSummaryTitle.default;
+  }
+});
 Object.defineProperty(exports, "formatters", {
   enumerable: true,
   get: function get() {
@@ -66,6 +73,8 @@ var _TooltipBodyPrimary = _interopRequireDefault(require("./TooltipBodyPrimary")
 var _ReportCard = _interopRequireDefault(require("./ReportCard"));
 
 var _ReportTitle = _interopRequireDefault(require("./ReportTitle/ReportTitle"));
+
+var _ReportSummaryTitle = _interopRequireDefault(require("./ReportTitle/ReportSummaryTitle"));
 
 var _SkeletonComponents = require("./SkeletonComponents");
 

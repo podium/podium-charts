@@ -34,7 +34,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  height: 100%;\n  padding: 16px 0px 16px 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  height: 100%;\n  padding: 16px 24px 16px 24px;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -64,7 +64,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  width: 75%;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  width: ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -84,7 +84,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  padding: 0 24px 0 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -95,11 +95,17 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ReportCardWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic);
+var ReportCardWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic, function (_ref) {
+  var width = _ref.width;
+  return width && "width: ".concat(width, ";");
+});
 
 var ReportCardHeader = _styledComponents.default.div(_templateObject2());
 
-var ReportCardMain = _styledComponents.default.div(_templateObject3());
+var ReportCardMain = _styledComponents.default.div(_templateObject3(), function (_ref2) {
+  var fullWidth = _ref2.fullWidth;
+  return fullWidth ? '100%' : '75%';
+});
 
 var ReportCardRight = _styledComponents.default.div(_templateObject4());
 
@@ -125,8 +131,13 @@ function (_React$Component) {
           title = _this$props.title,
           chart = _this$props.chart,
           summary = _this$props.summary,
-          legend = _this$props.legend;
-      return _react.default.createElement(ReportCardWrapper, null, _react.default.createElement(ReportCardMain, null, _react.default.createElement(ReportCardHeader, null, title), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, legend))));
+          legend = _this$props.legend,
+          width = _this$props.width;
+      return _react.default.createElement(ReportCardWrapper, {
+        width: width
+      }, _react.default.createElement(ReportCardMain, {
+        fullWidth: !summary && !legend
+      }, _react.default.createElement(ReportCardHeader, null, title), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, legend))));
     }
   }]);
 
@@ -138,5 +149,6 @@ ReportCard.propTypes = {
   title: _propTypes.default.element,
   chart: _propTypes.default.element,
   summary: _propTypes.default.element,
-  legend: _propTypes.default.element
+  legend: _propTypes.default.element,
+  width: _propTypes.default.string
 };

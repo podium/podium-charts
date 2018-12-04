@@ -38,7 +38,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 16px 0px 16px 0px;\n  margin-bottom: 16px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 16px 0px 16px 24px;\n  margin-bottom: 16px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -72,3 +72,8 @@ function ReportTitle(_ref) {
 
   return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, renderRangeLabel()));
 }
+
+ReportTitle.propTypes = {
+  data: _propTypes.default.array.isRequired,
+  title: _propTypes.default.string.isRequired
+};
