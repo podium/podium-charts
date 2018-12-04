@@ -124,12 +124,12 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart title="Total Reviews" data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={formatters.date} />
+    <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
       content={
         <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
       }
     />
-    <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Line dataKey="text" color={colors.poppyRed} />
   </Chart>
 ));

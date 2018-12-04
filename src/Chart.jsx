@@ -15,6 +15,7 @@ import {
   extractRangeLabel
 } from './chartHelpers';
 import {
+  ResponsiveContainer,
   Bar as RechartsBar,
   CartesianGrid as RechartsCartesianGrid,
   Line as RechartsLine,
@@ -54,6 +55,7 @@ export default class Chart extends React.Component {
       stroke="#ADB6BE"
       axisLine={false}
       tickLine={false}
+      width={20}
       orientation="left"
       fontFamily="Graphik, Helvetica, sans-serif"
       {...props}
@@ -75,7 +77,7 @@ export default class Chart extends React.Component {
       isAnimationActive={false}
       strokeWidth={2}
       activeDot={false}
-      dot={{ strokeWidth: 0, fill: props.color }}
+      dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
   );
@@ -124,16 +126,16 @@ export default class Chart extends React.Component {
             <RangeLabel>{extractRangeLabel(data, 'date')}</RangeLabel>
           </ChartHeader>
         )}
-        <RechartsChartType
-          width={width}
-          height={height}
-          data={data}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          barCategoryGap="30%"
-        >
-          <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
-          {this.renderChildren(mapping)}
-        </RechartsChartType>
+        <ResponsiveContainer minWidth={width} height={height}>
+          <RechartsChartType
+            data={data}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            barCategoryGap="30%"
+          >
+            <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
+            {this.renderChildren(mapping)}
+          </RechartsChartType>
+        </ResponsiveContainer>
       </ChartWrapper>
     );
   }

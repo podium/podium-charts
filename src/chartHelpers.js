@@ -41,13 +41,12 @@ export function getStackPositions(children) {
 }
 
 export function singleLineChart(children) {
+  const graphElements = ['Line', 'Bar'];
   let numberOfLines = 0;
   let lineProps = {};
   React.Children.forEach(children, child => {
-    if (child.type.name === 'Line') {
-      numberOfLines += 1;
-      lineProps = child.props;
-    }
+    if (child.type.name === 'Line') lineProps = child.props;
+    if (graphElements.includes(child.type.name)) numberOfLines += 1;
   });
   return numberOfLines === 1 ? lineProps : false;
 }
