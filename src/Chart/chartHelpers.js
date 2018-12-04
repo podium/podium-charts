@@ -1,7 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { fullDate } from './formatters';
-
 import {
   BarChart as RechartsBarChart,
   ComposedChart as RechartsComposedChart,
@@ -49,10 +47,4 @@ export function singleLineChart(children) {
     if (graphElements.includes(child.type.name)) numberOfLines += 1;
   });
   return numberOfLines === 1 ? lineProps : false;
-}
-
-export function extractRangeLabel(data, rangeDataKey) {
-  const start = data[0][rangeDataKey];
-  const end = data[data.length - 1][rangeDataKey];
-  return `${fullDate(start)} - ${fullDate(end)}`;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from 'podium-ui';
-import { fullDate } from './formatters';
+import moment from 'moment';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -52,12 +52,17 @@ const XAxisLabel = styled.div``;
 
 const typeHandler = {
   total: payload =>
-    payload.reduce((acc, dataField) => dataField.value + acc, 0),
+    payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0),
   avg: payload =>
     (
-      payload.reduce((acc, dataField) => dataField.value + acc, 0) /
+      payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0) /
       payload.length
     ).toFixed(1)
+};
+
+const fullDate = date => {
+  if (moment(date).isValid) return moment(date).format('MMMM YYYY');
+  return date;
 };
 
 export default function TooltipBodyPrimary(props) {
@@ -71,7 +76,7 @@ export default function TooltipBodyPrimary(props) {
     return props.payload.map(dataField => {
       const { dataKey, value, color } = dataField;
       return (
-        <TooltipData key={dataField.dataKey}>
+        <TooltipData key={dataKey}>
           <Label>
             <ColorLabel fill={color} />
             <div>{dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}</div>

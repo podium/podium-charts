@@ -2,17 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { colors } from 'podium-ui';
 import Rectangle from './Rectangle';
-import {
-  ChartWrapper,
-  ChartHeader,
-  ChartTitle,
-  RangeLabel
-} from './ChartStyledComponents';
+import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
   singleLineChart,
-  extractRangeLabel
 } from './chartHelpers';
 import {
   ResponsiveContainer,
@@ -120,12 +114,6 @@ export default class Chart extends React.Component {
 
     return (
       <ChartWrapper>
-        {title && (
-          <ChartHeader>
-            <ChartTitle>{title}</ChartTitle>
-            <RangeLabel>{extractRangeLabel(data, 'date')}</RangeLabel>
-          </ChartHeader>
-        )}
         <ResponsiveContainer minWidth={width} height={height}>
           <RechartsChartType
             data={data}

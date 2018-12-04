@@ -11,7 +11,9 @@ import {
   Legend,
   Summary,
   Tooltip,
-  TooltipBodyPrimary
+  TooltipBodyPrimary,
+  ReportCard,
+  ReportTitle
 } from './';
 
 const data = [
@@ -31,19 +33,19 @@ const data = [
 
 storiesOf('Bar Chart', module)
   .add('Small', () => (
-    <Chart title="Total Reviews" data={data} width={200} height={100}>
+    <Chart data={data} width={200} height={100}>
       <Bar dataKey="organic" color="#000" />
     </Chart>
   ))
   .add('Axis', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis tickFormatter={formatters.humanizeDuration} />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Bar dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
@@ -55,7 +57,7 @@ storiesOf('Bar Chart', module)
     </Chart>
   ))
   .add('Stacked', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
@@ -68,7 +70,7 @@ storiesOf('Bar Chart', module)
     </Chart>
   ))
   .add('Multiple', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
@@ -83,19 +85,19 @@ storiesOf('Bar Chart', module)
 
 storiesOf('Line Chart', module)
   .add('Small', () => (
-    <Chart title="Total Reviews" data={data} width={200} height={100}>
+    <Chart data={data} width={200} height={100}>
       <Line dataKey="organic" color="#000" />
     </Chart>
   ))
   .add('Axis', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis tickFormatter={formatters.abbreviateNumber} />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
@@ -107,7 +109,7 @@ storiesOf('Line Chart', module)
     </Chart>
   ))
   .add('Multiple Lines', () => (
-    <Chart title="Total Reviews" data={data}>
+    <Chart data={data}>
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
@@ -121,7 +123,7 @@ storiesOf('Line Chart', module)
   ));
 
 storiesOf('Mixed Chart', module).add('Mixed', () => (
-  <Chart title="Total Reviews" data={data}>
+  <Chart data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={formatters.date} />
     <Bar dataKey="organic" color={colors.cobaltBlue} />
@@ -168,13 +170,6 @@ storiesOf('formatters', module)
       {formatters.date('2018-01-15T23:43:32')}
     </div>
   ))
-  .add('fullDate', () => (
-    <div>
-      formatters.fullDate("2018-01-15T23:43:32")
-      <div>-></div>
-      {formatters.fullDate('2018-01-15T23:43:32')}
-    </div>
-  ))
   .add('capitalize', () => (
     <div>
       formatters.capitalize("podium")
@@ -196,3 +191,35 @@ storiesOf('formatters', module)
       {formatters.humanizeDuration(86400)}
     </div>
   ));
+
+storiesOf('Report Card', module).add('w/title', () => (
+  <ReportCard
+    title={<ReportTitle title="Total Reviews" data={data} />}
+    chart={
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date} />
+        <Bar dataKey="organic" color={colors.cobaltBlue} />
+        <Tooltip
+          content={
+            <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+          }
+        />
+        <Line dataKey="text" color={colors.poppyRed} />
+      </Chart>
+    }
+    summary={
+      <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
+    }
+    legend={
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    }
+  />
+));

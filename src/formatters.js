@@ -1,11 +1,6 @@
 import moment from 'moment';
 import humanReadableDuration from 'humanize-duration';
 
-export function fullDate(date) {
-  if (moment(date).isValid) return moment(date).format('MMMM YYYY');
-  return date;
-}
-
 export function date(date) {
   return moment(date).isValid ? moment(date).format('MMM') : '';
 }
@@ -64,6 +59,5 @@ export default {
   abbreviateNumber,
   capitalize,
   date,
-  fullDate,
   humanizeDuration
 };
