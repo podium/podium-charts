@@ -13,7 +13,8 @@ import {
   Tooltip,
   TooltipBodyPrimary,
   ReportCard,
-  ReportTitle
+  ReportTitle,
+  ReportSummaryTitle
 } from './';
 
 const data = [
@@ -195,34 +196,58 @@ storiesOf('formatters', module)
     </div>
   ));
 
-storiesOf('Report Card', module).add('default', () => (
-  <ReportCard
-    title={<ReportTitle title="Total Reviews" data={data} />}
-    chart={
-      <Chart data={data}>
-        <YAxis />
-        <XAxis dataKey="date" tickFormatter={formatters.date} />
-        <Bar dataKey="organic" color={colors.cobaltBlue} />
-        <Tooltip
-          content={
-            <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-          }
+storiesOf('Report Card', module)
+  .add('default', () => (
+    <ReportCard
+      title={<ReportTitle title="Total Reviews" data={data} />}
+      chart={
+        <Chart data={data}>
+          <YAxis />
+          <XAxis dataKey="date" tickFormatter={formatters.date} />
+          <Bar dataKey="organic" color={colors.cobaltBlue} />
+          <Tooltip
+            content={
+              <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+            }
+          />
+          <Line dataKey="text" color={colors.poppyRed} />
+        </Chart>
+      }
+      summary={
+        <Summary
+          data={data}
+          summaryType="total"
+          dataKeys={['text', 'organic']}
         />
-        <Line dataKey="text" color={colors.poppyRed} />
-      </Chart>
-    }
-    summary={
-      <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
-    }
-    legend={
-      <Legend
-        data={data}
-        summaryType="total"
-        config={[
-          { dataKey: 'organic', color: colors.cobaltBlue },
-          { dataKey: 'text', color: colors.poppyRed }
-        ]}
-      />
-    }
-  />
-));
+      }
+      legend={
+        <Legend
+          data={data}
+          summaryType="total"
+          config={[
+            { dataKey: 'organic', color: colors.cobaltBlue },
+            { dataKey: 'text', color: colors.poppyRed }
+          ]}
+        />
+      }
+    />
+  ))
+  .add('summary', () => (
+    <ReportCard
+      width="270px"
+      title={
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          summaryType="total"
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+        />
+      }
+      chart={
+        <Chart data={data} height={100}>
+          <Bar dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      }
+    />
+  ));

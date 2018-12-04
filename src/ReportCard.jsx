@@ -7,7 +7,7 @@ const ReportCardWrapper = styled.div`
   display: flex;
   border: 1px solid ${colors.mystic};
   border-radius: 6px;
-  padding: 0 24px 0 24px;
+  ${({ width }) => width && `width: ${width};`};
 `;
 
 const ReportCardHeader = styled.div`
@@ -18,7 +18,7 @@ const ReportCardHeader = styled.div`
 const ReportCardMain = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : '75%')};
 `;
 
 const ReportCardRight = styled.div`
@@ -34,15 +34,15 @@ const ReportCardSummary = styled.div`
 
 const Padding = styled.div`
   height: 100%;
-  padding: 16px 0px 16px 24px;
+  padding: 16px 24px 16px 24px;
 `;
 
 export default class ReportCard extends React.Component {
   render() {
-    const { title, chart, summary, legend } = this.props;
+    const { title, chart, summary, legend, width } = this.props;
     return (
-      <ReportCardWrapper>
-        <ReportCardMain>
+      <ReportCardWrapper width={width}>
+        <ReportCardMain fullWidth={!summary && !legend}>
           <ReportCardHeader>{title}</ReportCardHeader>
           {chart}
         </ReportCardMain>
@@ -65,5 +65,6 @@ ReportCard.propTypes = {
   title: PropTypes.element,
   chart: PropTypes.element,
   summary: PropTypes.element,
-  legend: PropTypes.element
+  legend: PropTypes.element,
+  width: PropTypes.string
 };

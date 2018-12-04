@@ -59,11 +59,11 @@ export default function Summary({ data, dataKeys, summaryType }) {
 }
 
 Summary.propTypes = {
-  aggType: PropTypes.oneOf(['avg', 'total']),
+  summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired
 };
 
 Summary.defaultProps = {
-  aggType: 'total'
+  summaryType: 'total'
 };
