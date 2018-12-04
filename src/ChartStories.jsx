@@ -11,7 +11,9 @@ import {
   Legend,
   Summary,
   Tooltip,
-  TooltipBodyPrimary
+  TooltipBodyPrimary,
+  ReportCard,
+  ReportTitle
 } from './';
 
 const data = [
@@ -124,12 +126,12 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={formatters.date} />
+    <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
       content={
         <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
       }
     />
-    <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Line dataKey="text" color={colors.poppyRed} />
   </Chart>
 ));
@@ -149,14 +151,17 @@ storiesOf('Tooltip', module).add(
 );
 
 storiesOf('Summary', module).add('Default', () => (
-  <Summary data={data} aggType="avg" />
+  <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
 ));
 
 storiesOf('Legend', module).add('Default', () => (
   <Legend
     data={data}
-    aggType="avg"
-    config={{ webchat: { color: colors.white, label: 'Web Chat' } }}
+    summaryType="total"
+    config={[
+      { dataKey: 'organic', color: colors.cobaltBlue },
+      { dataKey: 'text', color: colors.poppyRed }
+    ]}
   />
 ));
 
@@ -189,3 +194,35 @@ storiesOf('formatters', module)
       {formatters.humanizeDuration(86400)}
     </div>
   ));
+
+storiesOf('Report Card', module).add('default', () => (
+  <ReportCard
+    title={<ReportTitle title="Total Reviews" data={data} />}
+    chart={
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date} />
+        <Bar dataKey="organic" color={colors.cobaltBlue} />
+        <Tooltip
+          content={
+            <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+          }
+        />
+        <Line dataKey="text" color={colors.poppyRed} />
+      </Chart>
+    }
+    summary={
+      <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
+    }
+    legend={
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    }
+  />
+));

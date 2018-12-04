@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from 'podium-ui';
 
-export default styled.div`
+export const ChartWrapper = styled.div`
   .recharts-cartesian-axis-tick-value {
     font-size: 11px;
   }

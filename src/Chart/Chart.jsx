@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { colors } from 'podium-ui';
 import Rectangle from './Rectangle';
-import ChartWrapper from './ChartStyledComponents';
+import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart
+  singleLineChart,
 } from './chartHelpers';
 import {
+  ResponsiveContainer,
   Bar as RechartsBar,
   CartesianGrid as RechartsCartesianGrid,
   Line as RechartsLine,
@@ -48,6 +49,7 @@ export default class Chart extends React.Component {
       stroke="#ADB6BE"
       axisLine={false}
       tickLine={false}
+      width={20}
       orientation="left"
       fontFamily="Graphik, Helvetica, sans-serif"
       {...props}
@@ -69,7 +71,7 @@ export default class Chart extends React.Component {
       isAnimationActive={false}
       strokeWidth={2}
       activeDot={false}
-      dot={{ strokeWidth: 0, fill: props.color }}
+      dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
   );
@@ -100,7 +102,7 @@ export default class Chart extends React.Component {
   };
 
   render() {
-    const { data, width, height } = this.props;
+    const { title, data, width, height } = this.props;
     const RechartsChartType = this.graph;
     const mapping = {
       XAxis: this.renderXAxis,
@@ -112,16 +114,16 @@ export default class Chart extends React.Component {
 
     return (
       <ChartWrapper>
-        <RechartsChartType
-          width={width}
-          height={height}
-          data={data}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          barCategoryGap="30%"
-        >
-          <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
-          {this.renderChildren(mapping)}
-        </RechartsChartType>
+        <ResponsiveContainer width={width} height={height}>
+          <RechartsChartType
+            data={data}
+            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            barCategoryGap="30%"
+          >
+            <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
+            {this.renderChildren(mapping)}
+          </RechartsChartType>
+        </ResponsiveContainer>
       </ChartWrapper>
     );
   }
@@ -130,10 +132,10 @@ export default class Chart extends React.Component {
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  title: PropTypes.string
 };
 
 Chart.defaultProps = {
-  width: 730,
-  height: 250
+  height: 300
 };
