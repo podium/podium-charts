@@ -297,8 +297,8 @@ storiesOf('Granularity', module)
   .add('custom', () => (
     <Granularity
       timeRange="custom"
-			startDate="2018-10-01"
-			endDate="2018-12-01"
+      startDate="2018-10-01"
+      endDate="2018-12-01"
       onChange={res => {
         console.log(`You picked ${res}`);
       }}
