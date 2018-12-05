@@ -260,7 +260,7 @@ storiesOf('Report Card', module)
     />
   ));
 
-storiesOf('granularity', module)
+storiesOf('Granularity', module)
   .add('lastTwelveMonths', () => (
 		<Granularity
 			timeRange='lastTwelveMonths'
