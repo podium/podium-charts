@@ -33,6 +33,7 @@ function Rectangle(props) {
   var renderedBars = (0, _filter2.default)(stackOrder, function (bar) {
     return !!payload[bar.dataKey];
   });
+  if (!renderedBars.length) return _react.default.createElement(_recharts.Rectangle, props);
   var isTopBar = renderedBars[renderedBars.length - 1].dataKey === dataKey;
   if (isTopBar) return _react.default.createElement(_recharts.Rectangle, _extends({}, props, {
     radius: calculateRadius(width)

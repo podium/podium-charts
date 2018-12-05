@@ -6,7 +6,7 @@ import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart,
+  singleLineChart
 } from './chartHelpers';
 import {
   ResponsiveContainer,
@@ -15,7 +15,8 @@ import {
   Line as RechartsLine,
   Tooltip as RechartsTooltip,
   XAxis as RechartsXAxis,
-  YAxis as RechartsYAxis
+  YAxis as RechartsYAxis,
+  Dot as RechartsDot
 } from 'recharts';
 
 export default class Chart extends React.Component {
@@ -24,6 +25,7 @@ export default class Chart extends React.Component {
     this.graph = detectChartType(props.children);
     this.stackPosition = getStackPositions(props.children);
     this.singleLineChart = singleLineChart(props.children);
+    this.lastIndex = props.data.length - 1;
   }
 
   renderChildren = mapping => {
@@ -76,6 +78,33 @@ export default class Chart extends React.Component {
     />
   );
 
+  renderSummaryLine = props => (
+    <RechartsLine
+      type="linear"
+      stroke={props.color}
+      isAnimationActive={false}
+      strokeWidth={2}
+      activeDot={false}
+      dot={(data) => {
+        if (data.index === this.lastIndex) {
+          return (
+            <RechartsDot
+              r={2.5}
+              cx={data.cx}
+              cy={data.cy}
+              stroke={props.color}
+              strokeWidth="2"
+              color={props.color}
+              fill={colors.white}
+            />
+          )
+        }
+        return null;
+      }}
+      {...props}
+    />
+  );
+
   renderTooltip = props => {
     let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
     if (this.singleLineChart) {
@@ -109,6 +138,7 @@ export default class Chart extends React.Component {
       YAxis: this.renderYAxis,
       Bar: this.renderBar,
       Line: this.renderLine,
+      SummaryLine: this.renderSummaryLine,
       Tooltip: this.renderTooltip
     };
 

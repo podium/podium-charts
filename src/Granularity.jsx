@@ -27,14 +27,14 @@ const optionsMap = {
 }
 
 const displayMap = {
-  month: byMonth['label'],
-  week: byWeek['label'],
-  day: byDay['label'],
-	hour: byHour['label'],
-	lastTwelveMonths: byMonth['label'],
-	monthToDate: byWeek['label'],
-	weekToDate: byDay['label'],
-	today: byHour['label']
+  month: byMonth.label,
+  week: byWeek.label,
+  day: byDay.label,
+	hour: byHour.label,
+	lastTwelveMonths: byMonth.label,
+	monthToDate: byWeek.label,
+	weekToDate: byDay.label,
+	today: byHour.label
 }
 
 export default class Granularity extends Component {

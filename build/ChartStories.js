@@ -20,7 +20,7 @@ var data = [{
 }, {
   sms: 3000,
   text: 5,
-  organic: 3,
+  organic: 0,
   date: '2018-02-15T23:43:32'
 }, {
   sms: 500,
@@ -29,17 +29,17 @@ var data = [{
 }, {
   sms: 200,
   text: 0,
-  organic: 5,
+  organic: 3,
   date: '2018-04-15T23:43:32'
 }, {
   sms: 300,
   text: 1,
-  organic: 8,
+  organic: 4,
   date: '2018-05-15T23:43:32'
 }, {
   sms: 4000,
   text: 2.33,
-  organic: 10,
+  organic: 8,
   date: '2018-06-15T23:43:32'
 }, {
   sms: 400,
@@ -49,27 +49,27 @@ var data = [{
 }, {
   sms: 400,
   text: 2.33,
-  organic: 8,
+  organic: 1,
   date: '2018-08-15T23:43:32'
 }, {
   sms: 300,
   text: 2.33,
-  organic: 3,
+  organic: 0,
   date: '2018-09-15T23:43:32'
 }, {
   sms: 400,
   text: 2.33,
-  organic: 3,
+  organic: null,
   date: '2018-10-15T23:43:32'
 }, {
   sms: 100,
   text: 2.33,
-  organic: 8,
+  organic: 0,
   date: '2018-11-15T23:43:32'
 }, {
   sms: 400,
   text: 2.33,
-  organic: 20,
+  organic: 0,
   date: '2018-12-15T23:43:32'
 }];
 (0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
@@ -322,7 +322,7 @@ var data = [{
     chart: _react.default.createElement(_.Chart, {
       data: data,
       height: 100
-    }, _react.default.createElement(_.Bar, {
+    }, _react.default.createElement(_.SummaryLine, {
       dataKey: "sms",
       color: _podiumUi.colors.cobaltBlue
     }))
