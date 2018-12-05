@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Select } from 'podium-ui';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const GranularityWrapper = styled.div`
   width: 200px;
@@ -23,7 +24,10 @@ const optionsMap = {
   lastTwelveMonths: [byMonth, byWeek, byDay],
   monthToDate: [byWeek, byDay],
   weekToDate: [byDay, byHour],
-  today: [byHour]
+	today: [byHour],
+	gtNinetyDays: [byMonth, byWeek, byDay],
+	gtThirtyOneDays: [byWeek, byMonth, byDay],
+	ltThirtyOneDays: [byDay, byWeek],
 };
 
 const displayMap = {
@@ -33,10 +37,38 @@ const displayMap = {
   hour: byHour.label
 };
 
+
+
 export default class Granularity extends Component {
+	getOptions = () => {
+    const { timeRange } = this.props;
+		if (timeRange == 'custom') {
+			return this.getCustomRangeOptions();
+		}
+		return optionsMap[timeRange];
+	}
+
+	getCustomRangeOptions = () => {
+    const { startDate, endDate } = this.props;
+		const startDateMoment = moment(startDate);
+		const endDateMoment = moment(endDate);
+		const diff = endDateMoment.diff(startDateMoment)
+		const duration = moment.duration(diff);
+		const days = duration.asDays();
+		console.log(days)
+
+		if (days > 90) {
+			return optionsMap['gtNinetyDays']
+		} else if (days > 31) {
+			return optionsMap['gtThirtyOneDays'];
+		} else {
+			return optionsMap['ltThirtyOneDays'];
+		}
+	}
+
   render() {
     const { current, timeRange, onChange } = this.props;
-    const options = optionsMap[timeRange];
+    const options = this.getOptions();
     const placeholder = displayMap[current] || options[0].label;
 
     return (
@@ -54,7 +86,9 @@ export default class Granularity extends Component {
 
 Granularity.propTypes = {
   current: PropTypes.string,
+	endDate: PropTypes.string,
   onChange: PropTypes.func,
+	startDate: PropTypes.string,
   timeRange: PropTypes.string
 };
 
