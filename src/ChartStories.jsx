@@ -205,9 +205,8 @@ storiesOf('Report Card', module)
 			granularity={
 				<Granularity
 					timeRange="monthToDate"
-					onChange={()=>{console.log("Working :)")}}
-				>
-				</Granularity>
+					onChange={(res)=>{console.log(`You picked ${res}`)}}
+				/>
 			}
       chart={
         <Chart data={data}>
@@ -259,4 +258,29 @@ storiesOf('Report Card', module)
         </Chart>
       }
     />
+  ));
+
+storiesOf('granularity', module)
+  .add('lastTwelveMonths', () => (
+		<Granularity
+			timeRange='lastTwelveMonths'
+			onChange={(res)=>{console.log(`You picked ${res}`)}}
+		/>
+  ))
+  .add('monthToDate', () => (
+		<Granularity
+			onChange={(res)=>{console.log(`You picked ${res}`)}}
+		/>
+  ))
+  .add('weekToDate', () => (
+		<Granularity
+			timeRange='weekToDate'
+			onChange={(res)=>{console.log(`You picked ${res}`)}}
+		/>
+  ))
+  .add('today', () => (
+		<Granularity
+			timeRange='today'
+			onChange={(res)=>{console.log(`You picked ${res}`)}}
+		/>
   ));

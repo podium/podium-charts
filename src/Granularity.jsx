@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Select } from 'podium-ui';
 import styled from 'styled-components';
 
@@ -22,30 +22,30 @@ const byHour = {value: 'hour', label: "By Hour"}
 const optionsMap = {
 	lastTwelveMonths: [byMonth, byWeek, byDay],
 	monthToDate: [byWeek, byDay],
-	today: [byHour],
-	weekToDate: [byDay, byHour]
+	weekToDate: [byDay, byHour],
+	today: [byHour]
 }
 
+// Use the current granularity if one is passed in
+// Otherwise use the time range
 const displayMap = {
   month: byMonth.label,
   week: byWeek.label,
   day: byDay.label,
-	hour: byHour.label,
-	lastTwelveMonths: byMonth.label,
-	monthToDate: byWeek.label,
-	weekToDate: byDay.label,
-	today: byHour.label
+	hour: byHour.label
 }
 
 export default class Granularity extends Component {
 	render() {
 		const { current, timeRange, onChange } = this.props;
+		const options = optionsMap[timeRange];
+		const placeholder = displayMap[current] || options[0].label;
 
 		return (
 			<GranularityWrapper>
 				<Select
-					options={optionsMap[timeRange]}
-					placeholder={displayMap[current] || displayMap[timeRange]}
+					options={options}
+					placeholder={placeholder}
 					onChange={onChange}
 					theme="light"
 				/>
@@ -53,6 +53,12 @@ export default class Granularity extends Component {
 		)
 	}
 }
+
+Granularity.propTypes = {
+	current: PropTypes.string,
+	onChange: PropTypes.func,
+	timeRange: PropTypes.string
+};
 
 Granularity.defaultProps = {
   timeRange: 'monthToDate'
