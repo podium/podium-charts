@@ -26,8 +26,6 @@ const optionsMap = {
 	today: [byHour]
 }
 
-// Use the current granularity if one is passed in
-// Otherwise use the time range
 const displayMap = {
   month: byMonth.label,
   week: byWeek.label,
