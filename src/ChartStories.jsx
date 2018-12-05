@@ -203,7 +203,6 @@ storiesOf('Report Card', module)
       title={<ReportTitle title="Total Reviews" data={data} />}
 			granularity={
 				<Granularity
-					current="day"
 					timeRange="monthToDate"
 					onChange={()=>{console.log("Working :)")}}
 				>
