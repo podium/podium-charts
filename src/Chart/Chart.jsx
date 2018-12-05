@@ -85,7 +85,7 @@ export default class Chart extends React.Component {
       isAnimationActive={false}
       strokeWidth={2}
       activeDot={false}
-      dot={(data) => {
+      dot={data => {
         if (data.index === this.lastIndex) {
           return (
             <RechartsDot
@@ -97,7 +97,7 @@ export default class Chart extends React.Component {
               color={props.color}
               fill={colors.white}
             />
-          )
+          );
         }
         return null;
       }}

@@ -20,27 +20,27 @@ const RangeLabel = styled.p`
   color: ${colors.steel};
 `;
 
-const fullDate = (date) => {
+const fullDate = date => {
   if (moment(date).isValid) return moment(date).format('MMMM YYYY');
   return date;
-}
+};
 
-export default function ReportTitle({data, title}) {
+export default function ReportTitle({ data, title }) {
   const renderRangeLabel = () => {
     const start = data[0]['date'];
     const end = data[data.length - 1]['date'];
     return `${fullDate(start)} - ${fullDate(end)}`;
-  }
+  };
 
   return (
     <TitleWrapper>
       <Title>{title}</Title>
       <RangeLabel>{renderRangeLabel()}</RangeLabel>
     </TitleWrapper>
-  )
+  );
 }
 
 ReportTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired
-}
+};

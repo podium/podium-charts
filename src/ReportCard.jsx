@@ -44,10 +44,10 @@ export default class ReportCard extends React.Component {
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>
-					<ReportCardHeader>
-						{title}
-						{granularity}
-					</ReportCardHeader>
+          <ReportCardHeader>
+            {title}
+            {granularity}
+          </ReportCardHeader>
           {chart}
         </ReportCardMain>
         {(summary || legend) && (
@@ -67,9 +67,9 @@ export default class ReportCard extends React.Component {
 
 ReportCard.propTypes = {
   chart: PropTypes.element,
-	granularity: PropTypes.element,
+  granularity: PropTypes.element,
   legend: PropTypes.element,
   summary: PropTypes.element,
   title: PropTypes.element,
-	width: PropTypes.string
+  width: PropTypes.string
 };

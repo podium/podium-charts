@@ -24,38 +24,44 @@ const MonthToDateLabel = styled.div`
   font-size: 14px;
 `;
 
-export default function ReportSummaryTitle({data, title, summaryType, dataKeys, formatter}) {
+export default function ReportSummaryTitle({
+  data,
+  title,
+  summaryType,
+  dataKeys,
+  formatter
+}) {
   const typeHandler = {
     total: monthData =>
       dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0),
     avg: monthData =>
-      (
-        dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0) /
-        dataKeys.length
-      )
+      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0) /
+      dataKeys.length
   };
 
   const monthToDateValue = () => {
     const monthData = data[data.length - 1];
     return typeHandler[summaryType](monthData);
-  }
+  };
 
   const lastMonthValue = () => {
     const monthData = data[data.length - 2];
     return typeHandler[summaryType](monthData);
-  }
+  };
 
   const compareToLastMonth = () => {
-    return ((lastMonthValue - monthToDateValue) > 0) ? '+' : '-';
-  }
+    return lastMonthValue - monthToDateValue > 0 ? '+' : '-';
+  };
 
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      <MonthToDate>{formatter(monthToDateValue())} {compareToLastMonth()}</MonthToDate>
+      <MonthToDate>
+        {formatter(monthToDateValue())} {compareToLastMonth()}
+      </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
-  )
+  );
 }
 
 ReportSummaryTitle.propTypes = {
@@ -63,9 +69,9 @@ ReportSummaryTitle.propTypes = {
   title: PropTypes.string.isRequired,
   summaryType: PropTypes.oneOf(['avg', 'total']),
   dataKeys: PropTypes.array.isRequired
-}
+};
 
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
-  formatter: (value) => value
+  formatter: value => value
 };

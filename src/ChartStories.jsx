@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
   Bar,
-	Granularity,
+  Granularity,
   Line,
   SummaryLine,
   Legend,
@@ -202,12 +202,14 @@ storiesOf('Report Card', module)
   .add('default', () => (
     <ReportCard
       title={<ReportTitle title="Total Reviews" data={data} />}
-			granularity={
-				<Granularity
-					timeRange="monthToDate"
-					onChange={(res)=>{console.log(`You picked ${res}`)}}
-				/>
-			}
+      granularity={
+        <Granularity
+          timeRange="monthToDate"
+          onChange={res => {
+            console.log(`You picked ${res}`);
+          }}
+        />
+      }
       chart={
         <Chart data={data}>
           <YAxis />
@@ -262,25 +264,33 @@ storiesOf('Report Card', module)
 
 storiesOf('Granularity', module)
   .add('lastTwelveMonths', () => (
-		<Granularity
-			timeRange='lastTwelveMonths'
-			onChange={(res)=>{console.log(`You picked ${res}`)}}
-		/>
+    <Granularity
+      timeRange="lastTwelveMonths"
+      onChange={res => {
+        console.log(`You picked ${res}`);
+      }}
+    />
   ))
   .add('monthToDate', () => (
-		<Granularity
-			onChange={(res)=>{console.log(`You picked ${res}`)}}
-		/>
+    <Granularity
+      onChange={res => {
+        console.log(`You picked ${res}`);
+      }}
+    />
   ))
   .add('weekToDate', () => (
-		<Granularity
-			timeRange='weekToDate'
-			onChange={(res)=>{console.log(`You picked ${res}`)}}
-		/>
+    <Granularity
+      timeRange="weekToDate"
+      onChange={res => {
+        console.log(`You picked ${res}`);
+      }}
+    />
   ))
   .add('today', () => (
-		<Granularity
-			timeRange='today'
-			onChange={(res)=>{console.log(`You picked ${res}`)}}
-		/>
+    <Granularity
+      timeRange="today"
+      onChange={res => {
+        console.log(`You picked ${res}`);
+      }}
+    />
   ));
