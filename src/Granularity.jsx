@@ -50,9 +50,7 @@ export default class Granularity extends Component {
     const { startDate, endDate } = this.props;
     const startDateMoment = moment(startDate);
     const endDateMoment = moment(endDate);
-    const diff = endDateMoment.diff(startDateMoment);
-    const duration = moment.duration(diff);
-    const days = duration.asDays();
+    const days = endDateMoment.diff(startDateMoment, 'days');
 
 		if (days <= 31) {
       return optionsMap['ltThirtyOneDays'];
