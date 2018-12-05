@@ -4,6 +4,7 @@ export { default as Summary } from './Summary';
 export { default as TooltipBodyPrimary } from './TooltipBodyPrimary';
 export { default as ReportCard } from './ReportCard';
 export { default as ReportTitle } from './ReportTitle/ReportTitle';
+export { default as Granularity } from './Granularity';
 export {
   default as ReportSummaryTitle
 } from './ReportTitle/ReportSummaryTitle';

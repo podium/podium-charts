@@ -5,7 +5,6 @@ import moment from 'moment';
 import { colors } from 'podium-ui';
 
 const TitleWrapper = styled.div`
-  padding: 16px 0px 16px 24px;
   margin-bottom: 16px;
 `;
 

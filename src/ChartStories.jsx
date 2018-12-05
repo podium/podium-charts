@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
   Bar,
+	Granularity,
   Line,
   Legend,
   Summary,
@@ -200,6 +201,14 @@ storiesOf('Report Card', module)
   .add('default', () => (
     <ReportCard
       title={<ReportTitle title="Total Reviews" data={data} />}
+			granularity={
+				<Granularity
+					current="day"
+					timeRange="monthToDate"
+					onChange={()=>{console.log("Working :)")}}
+				>
+				</Granularity>
+			}
       chart={
         <Chart data={data}>
           <YAxis />

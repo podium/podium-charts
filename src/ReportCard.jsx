@@ -13,6 +13,7 @@ const ReportCardWrapper = styled.div`
 const ReportCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 16px 24px 16px 24px;
 `;
 
 const ReportCardMain = styled.div`
@@ -39,11 +40,14 @@ const Padding = styled.div`
 
 export default class ReportCard extends React.Component {
   render() {
-    const { title, chart, summary, legend, width } = this.props;
+    const { title, chart, summary, legend, width, granularity } = this.props;
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>
-          <ReportCardHeader>{title}</ReportCardHeader>
+					<ReportCardHeader>
+						{title}
+						{granularity}
+					</ReportCardHeader>
           {chart}
         </ReportCardMain>
         {(summary || legend) && (
@@ -62,9 +66,10 @@ export default class ReportCard extends React.Component {
 }
 
 ReportCard.propTypes = {
-  title: PropTypes.element,
   chart: PropTypes.element,
-  summary: PropTypes.element,
+	granularity: PropTypes.element,
   legend: PropTypes.element,
-  width: PropTypes.string
+  summary: PropTypes.element,
+  title: PropTypes.element,
+	width: PropTypes.string
 };
