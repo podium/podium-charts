@@ -40,7 +40,7 @@ const displayMap = {
 export default class Granularity extends Component {
   getOptions = () => {
     const { timeRange } = this.props;
-    if (timeRange == 'custom') {
+    if (timeRange === 'custom') {
       return this.getCustomRangeOptions();
     }
     return optionsMap[timeRange];
@@ -65,7 +65,7 @@ export default class Granularity extends Component {
   };
 
   render() {
-    const { current, timeRange, onChange } = this.props;
+    const { current, onChange } = this.props;
     const options = this.getOptions();
     const placeholder = displayMap[current] || options[0].label;
 
