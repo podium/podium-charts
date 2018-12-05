@@ -1,8 +1,13 @@
 import moment from 'moment';
 import humanReadableDuration from 'humanize-duration';
 
-export function date(date) {
-  return moment(date).isValid ? moment(date).format('MMM') : '';
+export function date(date, granularity) {
+  const granularityMap = {
+    week: 'D'
+  };
+  return moment(date).isValid
+    ? moment(date).format(granularityMap[granularity])
+    : '';
 }
 
 export function capitalize(string) {
