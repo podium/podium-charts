@@ -16,8 +16,10 @@ export default function Rectangle(props) {
   if (!stackOrder) return <RechartsRectangle {...props} radius={calculateRadius(width)} />
 
   const renderedBars = _.filter(stackOrder, (bar) => {
-    return !!payload[bar.dataKey]
+    return !!payload[bar.dataKey];
   })
+
+  if (!renderedBars.length) return <RechartsRectangle {...props} />
 
   const isTopBar = renderedBars[renderedBars.length - 1].dataKey === dataKey
   if (isTopBar) return <RechartsRectangle {...props} radius={calculateRadius(width)} />;

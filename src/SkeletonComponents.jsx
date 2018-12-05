@@ -18,6 +18,14 @@ Line.propTypes = {
   color: PropTypes.string
 };
 
+export function SummaryLine() {
+  return null;
+}
+SummaryLine.propTypes = {
+  dataKey: PropTypes.string.isRequired,
+  color: PropTypes.string
+};
+
 export function Tooltip() {
   return null;
 }

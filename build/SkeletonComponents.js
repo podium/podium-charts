@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Bar = Bar;
 exports.Line = Line;
+exports.SummaryLine = SummaryLine;
 exports.Tooltip = Tooltip;
 exports.XAxis = XAxis;
 exports.YAxis = YAxis;
@@ -30,6 +31,15 @@ function Line() {
 }
 
 Line.propTypes = {
+  dataKey: _propTypes.default.string.isRequired,
+  color: _propTypes.default.string
+};
+
+function SummaryLine() {
+  return null;
+}
+
+SummaryLine.propTypes = {
   dataKey: _propTypes.default.string.isRequired,
   color: _propTypes.default.string
 };

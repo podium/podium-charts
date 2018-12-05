@@ -146,8 +146,8 @@ function (_React$Component) {
 
 exports.default = ReportCard;
 ReportCard.propTypes = {
-  title: _propTypes.default.element,
-  chart: _propTypes.default.element,
+  title: _propTypes.default.element.isRequired,
+  chart: _propTypes.default.element.isRequired,
   summary: _propTypes.default.element,
   legend: _propTypes.default.element,
   width: _propTypes.default.string

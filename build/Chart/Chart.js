@@ -62,6 +62,7 @@ function (_React$Component) {
     _this.graph = (0, _chartHelpers.detectChartType)(props.children);
     _this.stackPosition = (0, _chartHelpers.getStackPositions)(props.children);
     _this.singleLineChart = (0, _chartHelpers.singleLineChart)(props.children);
+    _this.lastIndex = props.data.length - 1;
     return _this;
   }
 
@@ -79,6 +80,7 @@ function (_React$Component) {
         YAxis: this.renderYAxis,
         Bar: this.renderBar,
         Line: this.renderLine,
+        SummaryLine: this.renderSummaryLine,
         Tooltip: this.renderTooltip
       };
       return _react.default.createElement(_ChartStyledComponents.ChartWrapper, null, _react.default.createElement(_recharts.ResponsiveContainer, {
@@ -156,6 +158,31 @@ var _initialiseProps = function _initialiseProps() {
         r: 2.5,
         strokeWidth: 0,
         fill: props.color
+      }
+    }, props));
+  };
+
+  this.renderSummaryLine = function (props) {
+    return _react.default.createElement(_recharts.Line, _extends({
+      type: "linear",
+      stroke: props.color,
+      isAnimationActive: false,
+      strokeWidth: 2,
+      activeDot: false,
+      dot: function dot(data) {
+        if (data.index === _this2.lastIndex) {
+          return _react.default.createElement(_recharts.Dot, {
+            r: 2.5,
+            cx: data.cx,
+            cy: data.cy,
+            stroke: props.color,
+            strokeWidth: "2",
+            color: props.color,
+            fill: _podiumUi.colors.white
+          });
+        }
+
+        return null;
       }
     }, props));
   };

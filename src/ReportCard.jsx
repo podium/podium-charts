@@ -62,8 +62,8 @@ export default class ReportCard extends React.Component {
 }
 
 ReportCard.propTypes = {
-  title: PropTypes.element,
-  chart: PropTypes.element,
+  title: PropTypes.element.isRequired,
+  chart: PropTypes.element.isRequired,
   summary: PropTypes.element,
   legend: PropTypes.element,
   width: PropTypes.string
