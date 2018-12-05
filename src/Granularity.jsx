@@ -53,7 +53,6 @@ export default class Granularity extends Component {
     const diff = endDateMoment.diff(startDateMoment);
     const duration = moment.duration(diff);
     const days = duration.asDays();
-    console.log(days);
 
     if (days > 90) {
       return optionsMap['gtNinetyDays'];
