@@ -7,7 +7,7 @@ var _exportNames = {
   Chart: true,
   Legend: true,
   Summary: true,
-  TooltipBodyPrimary: true,
+  TooltipBody: true,
   ReportCard: true,
   ReportTitle: true,
   ReportSummaryTitle: true,
@@ -31,10 +31,10 @@ Object.defineProperty(exports, "Summary", {
     return _Summary.default;
   }
 });
-Object.defineProperty(exports, "TooltipBodyPrimary", {
+Object.defineProperty(exports, "TooltipBody", {
   enumerable: true,
   get: function get() {
-    return _TooltipBodyPrimary.default;
+    return _TooltipBody.default;
   }
 });
 Object.defineProperty(exports, "ReportCard", {
@@ -62,29 +62,29 @@ Object.defineProperty(exports, "formatters", {
   }
 });
 
-var _Chart = _interopRequireDefault(require("./Chart/Chart"));
+var _Chart = _interopRequireDefault(require("./Chart"));
 
 var _Legend = _interopRequireDefault(require("./Legend"));
 
 var _Summary = _interopRequireDefault(require("./Summary"));
 
-var _TooltipBodyPrimary = _interopRequireDefault(require("./TooltipBodyPrimary"));
+var _TooltipBody = _interopRequireDefault(require("./TooltipBody"));
 
 var _ReportCard = _interopRequireDefault(require("./ReportCard"));
 
-var _ReportTitle = _interopRequireDefault(require("./ReportTitle/ReportTitle"));
+var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
 
-var _ReportSummaryTitle = _interopRequireDefault(require("./ReportTitle/ReportSummaryTitle"));
+var _ReportSummaryTitle = _interopRequireDefault(require("./ReportSummaryTitle"));
 
-var _SkeletonComponents = require("./SkeletonComponents");
+var _skeletonComponents = require("./skeletonComponents");
 
-Object.keys(_SkeletonComponents).forEach(function (key) {
+Object.keys(_skeletonComponents).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function get() {
-      return _SkeletonComponents[key];
+      return _skeletonComponents[key];
     }
   });
 });

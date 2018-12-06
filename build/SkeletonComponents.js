@@ -23,7 +23,8 @@ function Bar() {
 Bar.propTypes = {
   dataKey: _propTypes.default.string.isRequired,
   stackId: _propTypes.default.string,
-  color: _propTypes.default.string
+  color: _propTypes.default.string,
+  name: _propTypes.default.string
 };
 
 function Line() {
@@ -32,7 +33,8 @@ function Line() {
 
 Line.propTypes = {
   dataKey: _propTypes.default.string.isRequired,
-  color: _propTypes.default.string
+  color: _propTypes.default.string,
+  name: _propTypes.default.string
 };
 
 function SummaryLine() {
@@ -41,7 +43,8 @@ function SummaryLine() {
 
 SummaryLine.propTypes = {
   dataKey: _propTypes.default.string.isRequired,
-  color: _propTypes.default.string
+  color: _propTypes.default.string,
+  name: _propTypes.default.string
 };
 
 function Tooltip() {

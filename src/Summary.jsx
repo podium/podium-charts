@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from 'podium-ui';
+import moment from 'moment';
 
 const SummaryWrapper = styled.div``;
 
-const MonthToDate = styled.div`
+const ToDate = styled.div`
   color: ${colors.steel};
   font-size: 12px;
 `;
@@ -47,9 +48,20 @@ export default function Summary({ data, dataKeys, summaryType }) {
       .toFixed(1);
   };
 
+  const granularity = () => {
+    const granInMili = moment(data[1].date).diff(moment(data[0].date));
+    const duration = moment.duration(granInMili);
+    if (duration.years()) return 'Year';
+    if (duration.months()) return 'Month';
+    if (duration.weeks()) return 'Week';
+    if (duration.days()) return 'Day';
+    if (duration.hours()) return 'Hour';
+    return '';
+  };
+
   return (
     <SummaryWrapper>
-      <MonthToDate>Month to Date</MonthToDate>
+      <ToDate>{granularity()} to Date</ToDate>
       <SummaryLabel>{monthToDate()}</SummaryLabel>
       <Space />
       <Last12Months>Last 12 Months</Last12Months>

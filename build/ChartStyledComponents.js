@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.ChartWrapper = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
@@ -23,6 +23,6 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var _default = _styledComponents.default.div(_templateObject(), _podiumUi.colors.white, _podiumUi.colors.white, _podiumUi.colors.white, _podiumUi.colors.white);
+var ChartWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.white, _podiumUi.colors.white, _podiumUi.colors.white, _podiumUi.colors.white);
 
-exports.default = _default;
+exports.ChartWrapper = ChartWrapper;

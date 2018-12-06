@@ -100,11 +100,27 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Bar, {
+    dataKey: "organic",
+    color: _podiumUi.colors.cobaltBlue
+  }));
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Bar, {
+    name: "My Custom Name!",
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
   }));
@@ -115,7 +131,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -135,7 +151,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -175,13 +191,29 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Line, {
     dataKey: "text",
     color: _podiumUi.colors.armyGreen
+  }));
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Line, {
+    name: "My Custom Name!",
+    dataKey: "text",
+    color: _podiumUi.colors.cobaltBlue
   }));
 }).add('Multiple Lines', function () {
   return _react.default.createElement(_.Chart, {
@@ -190,7 +222,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -212,7 +244,7 @@ var data = [{
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -226,7 +258,7 @@ var data = [{
     style: {
       width: 100
     }
-  }, _react.default.createElement(_.TooltipBodyPrimary, {
+  }, _react.default.createElement(_.TooltipBody, {
     summaryType: "total",
     summaryTitle: "Reviews",
     payload: [{
@@ -259,6 +291,20 @@ var data = [{
       color: _podiumUi.colors.poppyRed
     }]
   });
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Legend, {
+    data: data,
+    summaryType: "total",
+    config: [{
+      name: 'My Custom Name!',
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      name: 'My Other Custom Name!',
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
+  });
 });
 (0, _react2.storiesOf)('formatters', module).add('date', function () {
   return _react.default.createElement("div", null, "formatters.date(\"2018-01-15T23:43:32\")", _react.default.createElement("div", null, "->"), _formatters.default.date('2018-01-15T23:43:32'));
@@ -284,7 +330,7 @@ var data = [{
       dataKey: "organic",
       color: _podiumUi.colors.cobaltBlue
     }), _react.default.createElement(_.Tooltip, {
-      content: _react.default.createElement(_.TooltipBodyPrimary, {
+      content: _react.default.createElement(_.TooltipBody, {
         summaryType: "total",
         summaryTitle: "Reviews"
       })

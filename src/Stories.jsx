@@ -13,7 +13,7 @@ import {
   Legend,
   Summary,
   Tooltip,
-  TooltipBodyPrimary,
+  TooltipBody,
   ReportCard,
   ReportTitle,
   ReportSummaryTitle
@@ -52,11 +52,19 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
+    </Chart>
+  ))
+  .add('Custom Named Data', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <Tooltip
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
+      />
+      <Bar name="My Custom Name!" dataKey="organic" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Stacked', () => (
@@ -64,9 +72,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar stackId="1" dataKey="organic" color={colors.cobaltBlue} />
       <Bar stackId="1" dataKey="text" color={colors.poppyRed} />
@@ -77,9 +83,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
       <Bar dataKey="text" color={colors.poppyRed} />
@@ -104,11 +108,19 @@ storiesOf('Line Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Line dataKey="text" color={colors.armyGreen} />
+    </Chart>
+  ))
+  .add('Custom Named Data', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <Tooltip
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
+      />
+      <Line name="My Custom Name!" dataKey="text" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Multiple Lines', () => (
@@ -116,9 +128,7 @@ storiesOf('Line Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Line dataKey="organic" color={colors.cobaltBlue} />
       <Line dataKey="text" color={colors.poppyRed} />
@@ -131,9 +141,7 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
     <XAxis dataKey="date" tickFormatter={formatters.date} />
     <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
-      content={
-        <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-      }
+      content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
     />
     <Line dataKey="text" color={colors.poppyRed} />
   </Chart>
@@ -143,7 +151,7 @@ storiesOf('Tooltip', module).add(
   'Tooltip Primary',
   () => (
     <div style={{ width: 100 }}>
-      <TooltipBodyPrimary
+      <TooltipBody
         summaryType="total"
         summaryTitle="Reviews"
         payload={[{ value: 1, color: colors.cobaltBlue, dataKey: 'google' }]}
@@ -157,16 +165,35 @@ storiesOf('Summary', module).add('Default', () => (
   <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
 ));
 
-storiesOf('Legend', module).add('Default', () => (
-  <Legend
-    data={data}
-    summaryType="total"
-    config={[
-      { dataKey: 'organic', color: colors.cobaltBlue },
-      { dataKey: 'text', color: colors.poppyRed }
-    ]}
-  />
-));
+storiesOf('Legend', module)
+  .add('Default', () => (
+    <Legend
+      data={data}
+      summaryType="total"
+      config={[
+        { dataKey: 'organic', color: colors.cobaltBlue },
+        { dataKey: 'text', color: colors.poppyRed }
+      ]}
+    />
+  ))
+  .add('Custom Named Data', () => (
+    <Legend
+      data={data}
+      summaryType="total"
+      config={[
+        {
+          name: 'My Custom Name!',
+          dataKey: 'organic',
+          color: colors.cobaltBlue
+        },
+        {
+          name: 'My Other Custom Name!',
+          dataKey: 'text',
+          color: colors.poppyRed
+        }
+      ]}
+    />
+  ));
 
 storiesOf('formatters', module)
   .add('date', () => (
@@ -216,9 +243,7 @@ storiesOf('Report Card', module)
           <XAxis dataKey="date" tickFormatter={formatters.date} />
           <Bar dataKey="organic" color={colors.cobaltBlue} />
           <Tooltip
-            content={
-              <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-            }
+            content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
           />
           <Line dataKey="text" color={colors.poppyRed} />
         </Chart>

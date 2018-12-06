@@ -13,6 +13,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("podium-ui");
 
+var _moment = _interopRequireDefault(require("moment"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -69,7 +71,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var SummaryWrapper = _styledComponents.default.div(_templateObject());
 
-var MonthToDate = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.steel);
+var ToDate = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.steel);
 
 var Last12Months = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
 
@@ -105,7 +107,20 @@ function Summary(_ref) {
     }, 0).toFixed(1);
   };
 
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(MonthToDate, null, "Month to Date"), _react.default.createElement(SummaryLabel, null, monthToDate()), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, last12Months()));
+  var granularity = function granularity() {
+    var granInMili = (0, _moment.default)(data[1].date).diff((0, _moment.default)(data[0].date));
+
+    var duration = _moment.default.duration(granInMili);
+
+    if (duration.years()) return 'Year';
+    if (duration.months()) return 'Month';
+    if (duration.weeks()) return 'Week';
+    if (duration.days()) return 'Day';
+    if (duration.hours()) return 'Hour';
+    return '';
+  };
+
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, granularity(), " to Date"), _react.default.createElement(SummaryLabel, null, monthToDate()), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, last12Months()));
 }
 
 Summary.propTypes = {
