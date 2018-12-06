@@ -11,6 +11,7 @@ var _exportNames = {
   ReportCard: true,
   ReportTitle: true,
   ReportSummaryTitle: true,
+  Granularity: true,
   formatters: true
 };
 Object.defineProperty(exports, "Chart", {
@@ -55,6 +56,12 @@ Object.defineProperty(exports, "ReportSummaryTitle", {
     return _ReportSummaryTitle.default;
   }
 });
+Object.defineProperty(exports, "Granularity", {
+  enumerable: true,
+  get: function get() {
+    return _Granularity.default;
+  }
+});
 Object.defineProperty(exports, "formatters", {
   enumerable: true,
   get: function get() {
@@ -75,6 +82,8 @@ var _ReportCard = _interopRequireDefault(require("./ReportCard"));
 var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
 
 var _ReportSummaryTitle = _interopRequireDefault(require("./ReportSummaryTitle"));
+
+var _Granularity = _interopRequireDefault(require("./Granularity"));
 
 var _skeletonComponents = require("./skeletonComponents");
 

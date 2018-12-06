@@ -38,7 +38,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 16px 0px 16px 24px;\n  margin-bottom: 16px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 16px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;

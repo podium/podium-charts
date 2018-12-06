@@ -321,6 +321,12 @@ var data = [{
       title: "Total Reviews",
       data: data
     }),
+    granularity: _react.default.createElement(_.Granularity, {
+      timeRange: "monthToDate",
+      onChange: function onChange(res) {
+        console.log("You picked ".concat(res));
+      }
+    }),
     chart: _react.default.createElement(_.Chart, {
       data: data
     }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
@@ -372,5 +378,42 @@ var data = [{
       dataKey: "sms",
       color: _podiumUi.colors.cobaltBlue
     }))
+  });
+});
+(0, _react2.storiesOf)('Granularity', module).add('lastTwelveMonths', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "lastTwelveMonths",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('monthToDate', function () {
+  return _react.default.createElement(_.Granularity, {
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('weekToDate', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "weekToDate",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('today', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "today",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('custom', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "custom",
+    startDate: "2018-10-01",
+    endDate: "2018-12-01",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
   });
 });

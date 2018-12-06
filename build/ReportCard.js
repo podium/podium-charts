@@ -74,7 +74,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  padding: 16px 24px 16px 24px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -132,12 +132,13 @@ function (_React$Component) {
           chart = _this$props.chart,
           summary = _this$props.summary,
           legend = _this$props.legend,
-          width = _this$props.width;
+          width = _this$props.width,
+          granularity = _this$props.granularity;
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {
         fullWidth: !summary && !legend
-      }, _react.default.createElement(ReportCardHeader, null, title), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, legend))));
+      }, _react.default.createElement(ReportCardHeader, null, title, granularity), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, legend))));
     }
   }]);
 
@@ -146,9 +147,10 @@ function (_React$Component) {
 
 exports.default = ReportCard;
 ReportCard.propTypes = {
-  title: _propTypes.default.element.isRequired,
-  chart: _propTypes.default.element.isRequired,
-  summary: _propTypes.default.element,
+  chart: _propTypes.default.element,
+  granularity: _propTypes.default.element,
   legend: _propTypes.default.element,
+  summary: _propTypes.default.element,
+  title: _propTypes.default.element,
   width: _propTypes.default.string
 };
