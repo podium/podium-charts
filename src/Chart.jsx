@@ -73,7 +73,6 @@ export default class Chart extends React.Component {
       isAnimationActive={false}
       strokeWidth={2}
       activeDot={false}
-      connectNulls={true}
       dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
