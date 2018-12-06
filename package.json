@@ -5,7 +5,6 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
