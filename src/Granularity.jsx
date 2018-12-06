@@ -52,9 +52,9 @@ export default class Granularity extends Component {
     const endDateMoment = moment(endDate);
     const days = endDateMoment.diff(startDateMoment, 'days');
 
-		if (days <= 31) {
+    if (days <= 31) {
       return optionsMap['ltThirtyOneDays'];
-		} else if (days <= 90) {
+    } else if (days <= 90) {
       return optionsMap['gtThirtyOneDays'];
     } else {
       return optionsMap['gtNinetyDays'];
@@ -84,7 +84,12 @@ Granularity.propTypes = {
   endDate: PropTypes.string,
   onChange: PropTypes.func,
   startDate: PropTypes.string,
-  timeRange: PropTypes.string
+  timeRange: PropTypes.oneOf([
+    'lastTwelveMonths',
+    'monthToDate',
+    'weekToDate',
+    'today'
+  ])
 };
 
 Granularity.defaultProps = {

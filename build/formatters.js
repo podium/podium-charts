@@ -15,8 +15,22 @@ var _humanizeDuration = _interopRequireDefault(require("humanize-duration"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function date(date) {
-  return (0, _moment.default)(date).isValid ? (0, _moment.default)(date).format('MMM') : '';
+function date() {
+  var granularity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'month';
+  var granularityMap = {
+    'hour': 'ha',
+    'day': 'MMM D',
+    'week': 'MMM D',
+    'month': 'MMM',
+    'year': 'YYYY'
+  };
+  var granularityFormat = granularityMap[granularity];
+  if (!granularityFormat) return function () {
+    return '';
+  };
+  return function (date) {
+    return (0, _moment.default)(date).isValid ? (0, _moment.default)(date).format(granularityFormat) : '';
+  };
 }
 
 function capitalize(string) {
