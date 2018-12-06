@@ -27,8 +27,8 @@ const data = [
   { sms: 300, text: 1, organic: 4, date: '2018-05-15T23:43:32' },
   { sms: 4000, text: 2.33, organic: 8, date: '2018-06-15T23:43:32' },
   { sms: 400, text: 2.33, organic: 9, date: '2018-07-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 1, date: '2018-08-15T23:43:32' },
-  { sms: 300, text: 2.33, organic: 0, date: '2018-09-15T23:43:32' },
+  { sms: null, text: null, organic: null, date: '2018-08-15T23:43:32' },
+  { sms: null, text: null, organic: null, date: '2018-09-15T23:43:32' },
   { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
   { sms: 100, text: 2.33, organic: 0, date: '2018-11-15T23:43:32' },
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' }
