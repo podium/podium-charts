@@ -13,6 +13,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("podium-ui");
 
+var _formatters = _interopRequireDefault(require("./formatters"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
@@ -97,7 +99,7 @@ function Legend(_ref) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : formatters.capitalize(dataKey))), _react.default.createElement("div", null, calculateValue(dataKey)));
+      }), _react.default.createElement("div", null, name ? name : _formatters.default.capitalize(dataKey))), _react.default.createElement("div", null, calculateValue(dataKey)));
     });
   };
 

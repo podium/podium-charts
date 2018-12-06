@@ -11,7 +11,7 @@ addDecorator(withInfo(
 }));
 
 function loadStories() {
-  require('../src/ChartStories.jsx');
+  require('../src/Stories.jsx');
 }
 
 configure(loadStories, module);

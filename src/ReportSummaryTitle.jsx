@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import moment from 'moment';
 import { colors, IconArrow } from 'podium-ui';
-import formatters from '../formatters';
 
 const TrendWrapper = styled.div`
   margin-left: 8px;
@@ -89,9 +87,7 @@ export default function ReportSummaryTitle({
       <MonthToDate>
         {formatter(currentValue())} {compareToLastMonth()}
       </MonthToDate>
-      <MonthToDateLabel>
-        {formatters.capitalize(granularity)} To Date
-      </MonthToDateLabel>
+      <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );
 }
@@ -100,12 +96,10 @@ ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   summaryType: PropTypes.oneOf(['avg', 'total']),
-  dataKeys: PropTypes.array.isRequired,
-  granularity: PropTypes.string
+  dataKeys: PropTypes.array.isRequired
 };
 
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
-  formatter: value => value,
-  granularity: ''
+  formatter: value => value
 };

@@ -12,7 +12,7 @@ import {
   Legend,
   Summary,
   Tooltip,
-  TooltipBodyPrimary,
+  TooltipBody,
   ReportCard,
   ReportTitle,
   ReportSummaryTitle
@@ -51,9 +51,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
     </Chart>
@@ -63,9 +61,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar name="My Custom Name!" dataKey="organic" color={colors.cobaltBlue} />
     </Chart>
@@ -75,9 +71,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar stackId="1" dataKey="organic" color={colors.cobaltBlue} />
       <Bar stackId="1" dataKey="text" color={colors.poppyRed} />
@@ -88,9 +82,7 @@ storiesOf('Bar Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
       <Bar dataKey="text" color={colors.poppyRed} />
@@ -115,9 +107,7 @@ storiesOf('Line Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Line dataKey="text" color={colors.armyGreen} />
     </Chart>
@@ -127,9 +117,7 @@ storiesOf('Line Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Line name="My Custom Name!" dataKey="text" color={colors.cobaltBlue} />
     </Chart>
@@ -139,9 +127,7 @@ storiesOf('Line Chart', module)
       <YAxis />
       <XAxis dataKey="date" tickFormatter={formatters.date} />
       <Tooltip
-        content={
-          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-        }
+        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Line dataKey="organic" color={colors.cobaltBlue} />
       <Line dataKey="text" color={colors.poppyRed} />
@@ -154,9 +140,7 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
     <XAxis dataKey="date" tickFormatter={formatters.date} />
     <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
-      content={
-        <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-      }
+      content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
     />
     <Line dataKey="text" color={colors.poppyRed} />
   </Chart>
@@ -166,7 +150,7 @@ storiesOf('Tooltip', module).add(
   'Tooltip Primary',
   () => (
     <div style={{ width: 100 }}>
-      <TooltipBodyPrimary
+      <TooltipBody
         summaryType="total"
         summaryTitle="Reviews"
         payload={[{ value: 1, color: colors.cobaltBlue, dataKey: 'google' }]}
@@ -250,9 +234,7 @@ storiesOf('Report Card', module)
           <XAxis dataKey="date" tickFormatter={formatters.date} />
           <Bar dataKey="organic" color={colors.cobaltBlue} />
           <Tooltip
-            content={
-              <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
-            }
+            content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
           />
           <Line dataKey="text" color={colors.poppyRed} />
         </Chart>
@@ -286,7 +268,6 @@ storiesOf('Report Card', module)
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          granularity="month"
         />
       }
       chart={

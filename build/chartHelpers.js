@@ -1,4 +1,4 @@
-
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -39,8 +39,6 @@ function detectChartType(children) {
   return _recharts.ComposedChart;
 }
 
-;
-
 function getStackPositions(children) {
   var stackPosition = [];
 
@@ -57,14 +55,13 @@ function getStackPositions(children) {
 }
 
 function singleLineChart(children) {
+  var graphElements = ['Line', 'Bar'];
   var numberOfLines = 0;
   var lineProps = {};
 
   _react.default.Children.forEach(children, function (child) {
-    if (child.type.name === 'Line') {
-      numberOfLines += 1;
-      lineProps = child.props;
-    }
+    if (child.type.name === 'Line') lineProps = child.props;
+    if (graphElements.includes(child.type.name)) numberOfLines += 1;
   });
 
   return numberOfLines === 1 ? lineProps : false;

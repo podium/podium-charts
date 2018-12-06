@@ -1,4 +1,4 @@
-
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -11,11 +11,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _moment = _interopRequireDefault(require("moment"));
-
 var _podiumUi = require("podium-ui");
-
-var _formatters = _interopRequireDefault(require("../formatters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -134,15 +130,14 @@ function ReportSummaryTitle(_ref3) {
     });
   };
 
-  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(currentValue()), " ", compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, _formatters.default.capitalize(granularity), " To Date"));
+  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(currentValue()), " ", compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
 
 ReportSummaryTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
-  dataKeys: _propTypes.default.array.isRequired,
-  granularity: _propTypes.default.string
+  dataKeys: _propTypes.default.array.isRequired
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',

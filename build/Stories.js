@@ -1,4 +1,4 @@
-
+"use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -100,7 +100,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -115,7 +115,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -131,7 +131,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -151,7 +151,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -191,7 +191,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -206,7 +206,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -222,7 +222,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -244,7 +244,7 @@ var data = [{
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyPrimary, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
@@ -258,7 +258,7 @@ var data = [{
     style: {
       width: 100
     }
-  }, _react.default.createElement(_.TooltipBodyPrimary, {
+  }, _react.default.createElement(_.TooltipBody, {
     summaryType: "total",
     summaryTitle: "Reviews",
     payload: [{
@@ -330,7 +330,7 @@ var data = [{
       dataKey: "organic",
       color: _podiumUi.colors.cobaltBlue
     }), _react.default.createElement(_.Tooltip, {
-      content: _react.default.createElement(_.TooltipBodyPrimary, {
+      content: _react.default.createElement(_.TooltipBody, {
         summaryType: "total",
         summaryTitle: "Reviews"
       })

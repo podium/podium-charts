@@ -1,4 +1,4 @@
-
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -13,7 +13,7 @@ var _podiumUi = require("podium-ui");
 
 var _Rectangle = _interopRequireDefault(require("./Rectangle"));
 
-var _ChartStyledComponents = _interopRequireDefault(require("./ChartStyledComponents"));
+var _ChartStyledComponents = require("./ChartStyledComponents");
 
 var _chartHelpers = require("./chartHelpers");
 
@@ -62,6 +62,7 @@ function (_React$Component) {
     _this.graph = (0, _chartHelpers.detectChartType)(props.children);
     _this.stackPosition = (0, _chartHelpers.getStackPositions)(props.children);
     _this.singleLineChart = (0, _chartHelpers.singleLineChart)(props.children);
+    _this.lastIndex = props.data.length - 1;
     return _this;
   }
 
@@ -78,11 +79,13 @@ function (_React$Component) {
         YAxis: this.renderYAxis,
         Bar: this.renderBar,
         Line: this.renderLine,
+        SummaryLine: this.renderSummaryLine,
         Tooltip: this.renderTooltip
       };
-      return _react.default.createElement(_ChartStyledComponents.default, null, _react.default.createElement(RechartsChartType, {
+      return _react.default.createElement(_ChartStyledComponents.ChartWrapper, null, _react.default.createElement(_recharts.ResponsiveContainer, {
         width: width,
-        height: height,
+        height: height
+      }, _react.default.createElement(RechartsChartType, {
         data: data,
         margin: {
           top: 20,
@@ -94,7 +97,7 @@ function (_React$Component) {
       }, _react.default.createElement(_recharts.CartesianGrid, {
         vertical: false,
         stroke: _podiumUi.colors.mystic
-      }), this.renderChildren(mapping)));
+      }), this.renderChildren(mapping))));
     }
   }]);
 
@@ -128,6 +131,7 @@ var _initialiseProps = function _initialiseProps() {
       stroke: "#ADB6BE",
       axisLine: false,
       tickLine: false,
+      width: 20,
       orientation: "left",
       fontFamily: "Graphik, Helvetica, sans-serif"
     }, props));
@@ -150,8 +154,34 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dot: {
+        r: 2.5,
         strokeWidth: 0,
         fill: props.color
+      }
+    }, props));
+  };
+
+  this.renderSummaryLine = function (props) {
+    return _react.default.createElement(_recharts.Line, _extends({
+      type: "linear",
+      stroke: props.color,
+      isAnimationActive: false,
+      strokeWidth: 2,
+      activeDot: false,
+      dot: function dot(data) {
+        if (data.index === _this2.lastIndex) {
+          return _react.default.createElement(_recharts.Dot, {
+            r: 2.5,
+            cx: data.cx,
+            cy: data.cy,
+            stroke: props.color,
+            strokeWidth: "2",
+            color: props.color,
+            fill: _podiumUi.colors.white
+          });
+        }
+
+        return null;
       }
     }, props));
   };
@@ -186,9 +216,9 @@ var _initialiseProps = function _initialiseProps() {
 Chart.propTypes = {
   data: _propTypes.default.array.isRequired,
   width: _propTypes.default.number,
-  height: _propTypes.default.number
+  height: _propTypes.default.number,
+  title: _propTypes.default.string
 };
 Chart.defaultProps = {
-  width: 730,
-  height: 250
+  height: 300
 };

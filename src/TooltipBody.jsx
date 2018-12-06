@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from 'podium-ui';
-import formatters from './formatters';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -51,7 +50,7 @@ const Summary = styled.div`
 
 const XAxisLabel = styled.div``;
 
-const typeHandler = {
+const summaryHandler = {
   total: payload =>
     payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0),
   avg: payload =>
@@ -66,22 +65,21 @@ const fullDate = date => {
   return date;
 };
 
-export default function TooltipBodyPrimary(props) {
+export default function TooltipBody(props) {
   const renderSummary = () => {
     const { payload, summaryTitle, summaryType } = props;
-    const result = typeHandler[summaryType](payload);
+    const result = summaryHandler[summaryType](payload);
     return `${result} ${summaryTitle}`;
   };
 
   const renderTooltipData = () => {
     return props.payload.map(dataField => {
       const { dataKey, value, color, name } = dataField;
-
       return (
         <TooltipData key={dataKey}>
           <Label>
             <ColorLabel fill={color} />
-            <div>{name ? name : formatters.capitalize(dataKey)}</div>
+            <div>{name ? name : dataKey}</div>
           </Label>
           <div>{value}</div>
         </TooltipData>
@@ -100,7 +98,7 @@ export default function TooltipBodyPrimary(props) {
   );
 }
 
-TooltipBodyPrimary.propTypes = {
+TooltipBody.propTypes = {
   summaryType: PropTypes.oneOf(['total', 'avg']),
   summaryTitle: PropTypes.string
 };
