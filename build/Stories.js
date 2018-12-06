@@ -88,7 +88,7 @@ var data = [{
     tickFormatter: _formatters.default.humanizeDuration
   }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Bar, {
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
@@ -98,7 +98,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -113,7 +113,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -129,7 +129,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -149,7 +149,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -179,7 +179,7 @@ var data = [{
     tickFormatter: _formatters.default.abbreviateNumber
   }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
@@ -189,7 +189,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -204,7 +204,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -220,7 +220,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -239,7 +239,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
@@ -307,7 +307,7 @@ var data = [{
   });
 });
 (0, _react2.storiesOf)('formatters', module).add('date', function () {
-  return _react.default.createElement("div", null, "formatters.date(\"2018-01-15T23:43:32\")", _react.default.createElement("div", null, "->"), _formatters.default.date('2018-01-15T23:43:32'));
+  return _react.default.createElement("div", null, _react.default.createElement("div", null, "formatters.date('hour')", _react.default.createElement("div", null, "->"), _formatters.default.date('hour')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('day')", _react.default.createElement("div", null, "->"), _formatters.default.date('day')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('week')", _react.default.createElement("div", null, "->"), _formatters.default.date('week')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('month')", _react.default.createElement("div", null, "->"), _formatters.default.date('month')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('year')", _react.default.createElement("div", null, "->"), _formatters.default.date('year')('2018-01-15T23:43:32')));
 }).add('capitalize', function () {
   return _react.default.createElement("div", null, "formatters.capitalize(\"podium\")", _react.default.createElement("div", null, "->"), _formatters.default.capitalize('podium'));
 }).add('abbreviateNumber', function () {

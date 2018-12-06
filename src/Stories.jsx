@@ -43,14 +43,14 @@ storiesOf('Bar Chart', module)
   .add('Axis', () => (
     <Chart data={data}>
       <YAxis tickFormatter={formatters.humanizeDuration} />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Bar dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -60,7 +60,7 @@ storiesOf('Bar Chart', module)
   .add('Custom Named Data', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -70,7 +70,7 @@ storiesOf('Bar Chart', module)
   .add('Stacked', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -81,7 +81,7 @@ storiesOf('Bar Chart', module)
   .add('Multiple', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -99,14 +99,14 @@ storiesOf('Line Chart', module)
   .add('Axis', () => (
     <Chart data={data}>
       <YAxis tickFormatter={formatters.abbreviateNumber} />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
   .add('Tooltip', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -116,7 +116,7 @@ storiesOf('Line Chart', module)
   .add('Custom Named Data', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -130,7 +130,7 @@ storiesOf('Line Chart', module)
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -142,7 +142,7 @@ storiesOf('Line Chart', module)
 storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart data={data}>
     <YAxis />
-    <XAxis dataKey="date" tickFormatter={formatters.date} />
+    <XAxis dataKey="date" tickFormatter={formatters.date()} />
     <Bar dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
       content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
@@ -202,9 +202,35 @@ storiesOf('Legend', module)
 storiesOf('formatters', module)
   .add('date', () => (
     <div>
-      formatters.date("2018-01-15T23:43:32")
-      <div>-></div>
-      {formatters.date('2018-01-15T23:43:32')}
+      <div>
+        formatters.date('hour')
+        <div>-></div>
+        {formatters.date('hour')('2018-01-15T23:43:32')}
+      </div>
+      <br />
+      <div>
+        formatters.date('day')
+        <div>-></div>
+        {formatters.date('day')('2018-01-15T23:43:32')}
+      </div>
+      <br />
+      <div>
+        formatters.date('week')
+        <div>-></div>
+        {formatters.date('week')('2018-01-15T23:43:32')}
+      </div>
+      <br />
+      <div>
+        formatters.date('month')
+        <div>-></div>
+        {formatters.date('month')('2018-01-15T23:43:32')}
+      </div>
+      <br />
+      <div>
+        formatters.date('year')
+        <div>-></div>
+        {formatters.date('year')('2018-01-15T23:43:32')}
+      </div>
     </div>
   ))
   .add('capitalize', () => (
@@ -244,7 +270,7 @@ storiesOf('Report Card', module)
       chart={
         <Chart data={data}>
           <YAxis />
-          <XAxis dataKey="date" tickFormatter={formatters.date} />
+          <XAxis dataKey="date" tickFormatter={formatters.date()} />
           <Bar dataKey="organic" color={colors.cobaltBlue} />
           <Tooltip
             content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
