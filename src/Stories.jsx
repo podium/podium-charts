@@ -270,7 +270,7 @@ storiesOf('Report Card', module)
       chart={
         <Chart data={data}>
           <YAxis />
-          <XAxis dataKey="date" tickFormatter={formatters.date} />
+          <XAxis dataKey="date" tickFormatter={formatters.date()} />
           <Bar dataKey="organic" color={colors.cobaltBlue} />
           <Tooltip
             content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
