@@ -7,7 +7,8 @@ export function Bar() {
 Bar.propTypes = {
   dataKey: PropTypes.string.isRequired,
   stackId: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
+  name: PropTypes.string
 };
 
 export function Line() {
@@ -15,7 +16,8 @@ export function Line() {
 }
 Line.propTypes = {
   dataKey: PropTypes.string.isRequired,
-  color: PropTypes.string
+  color: PropTypes.string,
+  name: PropTypes.string
 };
 
 export function SummaryLine() {
@@ -23,7 +25,8 @@ export function SummaryLine() {
 }
 SummaryLine.propTypes = {
   dataKey: PropTypes.string.isRequired,
-  color: PropTypes.string
+  color: PropTypes.string,
+  name: PropTypes.string
 };
 
 export function Tooltip() {

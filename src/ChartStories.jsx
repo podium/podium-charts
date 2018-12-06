@@ -58,6 +58,18 @@ storiesOf('Bar Chart', module)
       <Bar dataKey="organic" color={colors.cobaltBlue} />
     </Chart>
   ))
+  .add('Custom Named Data', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Bar name="My Custom Name!" dataKey="organic" color={colors.cobaltBlue} />
+    </Chart>
+  ))
   .add('Stacked', () => (
     <Chart data={data}>
       <YAxis />
@@ -110,6 +122,18 @@ storiesOf('Line Chart', module)
       <Line dataKey="text" color={colors.armyGreen} />
     </Chart>
   ))
+  .add('Custom Named Data', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={formatters.date} />
+      <Tooltip
+        content={
+          <TooltipBodyPrimary summaryType="total" summaryTitle="Reviews" />
+        }
+      />
+      <Line name="My Custom Name!" dataKey="text" color={colors.cobaltBlue} />
+    </Chart>
+  ))
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
@@ -156,16 +180,35 @@ storiesOf('Summary', module).add('Default', () => (
   <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
 ));
 
-storiesOf('Legend', module).add('Default', () => (
-  <Legend
-    data={data}
-    summaryType="total"
-    config={[
-      { dataKey: 'organic', color: colors.cobaltBlue },
-      { dataKey: 'text', color: colors.poppyRed }
-    ]}
-  />
-));
+storiesOf('Legend', module)
+  .add('Default', () => (
+    <Legend
+      data={data}
+      summaryType="total"
+      config={[
+        { dataKey: 'organic', color: colors.cobaltBlue },
+        { dataKey: 'text', color: colors.poppyRed }
+      ]}
+    />
+  ))
+  .add('Custom Named Data', () => (
+    <Legend
+      data={data}
+      summaryType="total"
+      config={[
+        {
+          name: 'My Custom Name!',
+          dataKey: 'organic',
+          color: colors.cobaltBlue
+        },
+        {
+          name: 'My Other Custom Name!',
+          dataKey: 'text',
+          color: colors.poppyRed
+        }
+      ]}
+    />
+  ));
 
 storiesOf('formatters', module)
   .add('date', () => (
@@ -243,6 +286,7 @@ storiesOf('Report Card', module)
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
+          granularity="month"
         />
       }
       chart={

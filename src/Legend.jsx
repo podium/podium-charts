@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from 'podium-ui';
+import formatters from './formatters';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -50,12 +51,12 @@ export default function Legend({ data, summaryType, config }) {
 
   const renderLegendItem = () => {
     return config.map(legendItem => {
-      const { dataKey, color } = legendItem;
+      const { dataKey, color, name } = legendItem;
       return (
         <ItemWrapper key={dataKey}>
           <Label>
             <ColorLabel color={color} />
-            <div>{dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}</div>
+            <div>{name ? name : formatters.capitalize(dataKey)}</div>
           </Label>
           <div>{calculateValue(dataKey)}</div>
         </ItemWrapper>
@@ -70,6 +71,7 @@ Legend.propTypes = {
   summaryType: PropTypes.oneOf(['avg', 'total']),
   config: PropTypes.arrayOf(
     PropTypes.shape({
+      name: PropTypes.string,
       color: PropTypes.string,
       dataKey: PropTypes.string
     })

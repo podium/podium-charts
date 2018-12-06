@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors } from 'podium-ui';
 import moment from 'moment';
+import { colors } from 'podium-ui';
+import formatters from './formatters';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -74,12 +75,13 @@ export default function TooltipBodyPrimary(props) {
 
   const renderTooltipData = () => {
     return props.payload.map(dataField => {
-      const { dataKey, value, color } = dataField;
+      const { dataKey, value, color, name } = dataField;
+
       return (
         <TooltipData key={dataKey}>
           <Label>
             <ColorLabel fill={color} />
-            <div>{dataKey.charAt(0).toUpperCase() + dataKey.slice(1)}</div>
+            <div>{name ? name : formatters.capitalize(dataKey)}</div>
           </Label>
           <div>{value}</div>
         </TooltipData>

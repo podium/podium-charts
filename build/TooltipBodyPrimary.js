@@ -11,9 +11,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _moment = _interopRequireDefault(require("moment"));
+
 var _podiumUi = require("podium-ui");
 
-var _moment = _interopRequireDefault(require("moment"));
+var _formatters = _interopRequireDefault(require("./formatters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -136,12 +138,13 @@ function TooltipBodyPrimary(props) {
     return props.payload.map(function (dataField) {
       var dataKey = dataField.dataKey,
           value = dataField.value,
-          color = dataField.color;
+          color = dataField.color,
+          name = dataField.name;
       return _react.default.createElement(TooltipData, {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, dataKey.charAt(0).toUpperCase() + dataKey.slice(1))), _react.default.createElement("div", null, value));
+      }), _react.default.createElement("div", null, name ? name : _formatters.default.capitalize(dataKey))), _react.default.createElement("div", null, value));
     });
   };
 

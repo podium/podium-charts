@@ -108,6 +108,22 @@ var data = [{
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
   }));
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Bar, {
+    name: "My Custom Name!",
+    dataKey: "organic",
+    color: _podiumUi.colors.cobaltBlue
+  }));
 }).add('Stacked', function () {
   return _react.default.createElement(_.Chart, {
     data: data
@@ -183,6 +199,22 @@ var data = [{
     dataKey: "text",
     color: _podiumUi.colors.armyGreen
   }));
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyPrimary, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Line, {
+    name: "My Custom Name!",
+    dataKey: "text",
+    color: _podiumUi.colors.cobaltBlue
+  }));
 }).add('Multiple Lines', function () {
   return _react.default.createElement(_.Chart, {
     data: data
@@ -255,6 +287,20 @@ var data = [{
       dataKey: 'organic',
       color: _podiumUi.colors.cobaltBlue
     }, {
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
+  });
+}).add('Custom Named Data', function () {
+  return _react.default.createElement(_.Legend, {
+    data: data,
+    summaryType: "total",
+    config: [{
+      name: 'My Custom Name!',
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      name: 'My Other Custom Name!',
       dataKey: 'text',
       color: _podiumUi.colors.poppyRed
     }]

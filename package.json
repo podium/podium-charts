@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
-    "lint-precommit": "eslint --fix --config react-app --max-warnings 0",
-    "format-precommit": "prettier --write",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
+    "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
     "build": "babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties,lodash"
   },
   "husky": {
@@ -16,9 +16,9 @@
     }
   },
   "lint-staged": {
-    "src/*.{js,jsx,json,css}": [
-      "npm run format-precommit",
-      "npm run lint-precommit",
+    "src/**/*.{js,jsx,ts,tsx,json,css}": [
+      "prettier --write",
+      "eslint --fix --config react-app --max-warnings 0",
       "git add"
     ]
   },

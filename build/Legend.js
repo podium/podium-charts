@@ -91,12 +91,13 @@ function Legend(_ref) {
   var renderLegendItem = function renderLegendItem() {
     return config.map(function (legendItem) {
       var dataKey = legendItem.dataKey,
-          color = legendItem.color;
+          color = legendItem.color,
+          name = legendItem.name;
       return _react.default.createElement(ItemWrapper, {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, dataKey.charAt(0).toUpperCase() + dataKey.slice(1))), _react.default.createElement("div", null, calculateValue(dataKey)));
+      }), _react.default.createElement("div", null, name ? name : formatters.capitalize(dataKey))), _react.default.createElement("div", null, calculateValue(dataKey)));
     });
   };
 
@@ -107,6 +108,7 @@ Legend.propTypes = {
   data: _propTypes.default.array.isRequired,
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
   config: _propTypes.default.arrayOf(_propTypes.default.shape({
+    name: _propTypes.default.string,
     color: _propTypes.default.string,
     dataKey: _propTypes.default.string
   })).isRequired

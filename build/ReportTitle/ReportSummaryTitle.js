@@ -15,10 +15,22 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _podiumUi = require("podium-ui");
 
+var _formatters = _interopRequireDefault(require("../formatters"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject4() {
+function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-size: 32px;\n  font-weight: 600;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -28,7 +40,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 32px;\n  font-weight: 600;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -38,7 +50,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 24px 0px 0px 24px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -48,7 +60,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 24px 0px 0px 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-left: 8px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 22px;\n  height: 22px;\n  border-radius: 2px;\n  background-color: ", ";\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -59,55 +71,78 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
+var TrendWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.poppyRed, function (_ref) {
+  var direction = _ref.direction;
+  return direction === 'up' && "\n      background-color: ".concat(_podiumUi.colors.podiumBrand, "\n      svg {\n        transform: translate(90deg);\n      }\n    ");
+});
 
-var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);
+var SummaryTitleWrapper = _styledComponents.default.div(_templateObject2());
 
-var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft);
+var Title = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft);
 
-var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel);
+var MonthToDate = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.mineShaft);
 
-function ReportSummaryTitle(_ref) {
-  var data = _ref.data,
-      title = _ref.title,
-      summaryType = _ref.summaryType,
-      dataKeys = _ref.dataKeys,
-      formatter = _ref.formatter;
-  var typeHandler = {
-    total: function total(monthData) {
+var MonthToDateLabel = _styledComponents.default.div(_templateObject5(), _podiumUi.colors.steel);
+
+var Trend = function Trend(_ref2) {
+  var direction = _ref2.direction;
+  return _react.default.createElement(TrendWrapper, {
+    direction: direction
+  }, _react.default.createElement(_podiumUi.IconArrow, {
+    color: _podiumUi.colors.white,
+    size: "12",
+    direction: direction
+  }));
+};
+
+function ReportSummaryTitle(_ref3) {
+  var data = _ref3.data,
+      title = _ref3.title,
+      summaryType = _ref3.summaryType,
+      dataKeys = _ref3.dataKeys,
+      formatter = _ref3.formatter,
+      granularity = _ref3.granularity;
+  var summaryHandler = {
+    total: function total(periodData) {
       return dataKeys.reduce(function (acc, key) {
-        return (monthData[key] || 0) + acc;
+        return (periodData[key] || 0) + acc;
       }, 0);
     },
-    avg: function avg(monthData) {
+    avg: function avg(periodData) {
       return dataKeys.reduce(function (acc, key) {
-        return (monthData[key] || 0) + acc;
+        return (periodData[key] || 0) + acc;
       }, 0) / dataKeys.length;
     }
   };
 
-  var monthToDateValue = function monthToDateValue() {
-    var monthData = data[data.length - 1];
-    return typeHandler[summaryType](monthData);
+  var currentValue = function currentValue() {
+    var currentData = data[data.length - 1];
+    return summaryHandler[summaryType](currentData);
   };
 
-  var lastMonthValue = function lastMonthValue() {
-    var monthData = data[data.length - 2];
-    return typeHandler[summaryType](monthData);
+  var lastValue = function lastValue() {
+    var lastData = data[data.length - 2];
+    return summaryHandler[summaryType](lastData);
   };
 
   var compareToLastMonth = function compareToLastMonth() {
-    return lastMonthValue - monthToDateValue > 0 ? '+' : '-';
+    if (lastValue() - currentValue() < 0) return _react.default.createElement(Trend, {
+      direction: "up"
+    });
+    return _react.default.createElement(Trend, {
+      direction: "down"
+    });
   };
 
-  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(monthToDateValue()), " ", compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(currentValue()), " ", compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, _formatters.default.capitalize(granularity), " To Date"));
 }
 
 ReportSummaryTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
-  dataKeys: _propTypes.default.array.isRequired
+  dataKeys: _propTypes.default.array.isRequired,
+  granularity: _propTypes.default.string
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
