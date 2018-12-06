@@ -18,11 +18,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function date() {
   var granularity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'month';
   var granularityMap = {
-    'hour': 'ha',
-    'day': 'MMM D',
-    'week': 'MMM D',
-    'month': 'MMM',
-    'year': 'YYYY'
+    hour: 'ha',
+    day: 'MMM D',
+    week: 'MMM D',
+    month: 'MMM',
+    year: 'YYYY'
   };
   var granularityFormat = granularityMap[granularity];
   if (!granularityFormat) return function () {

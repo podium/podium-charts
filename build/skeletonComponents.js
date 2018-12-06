@@ -34,7 +34,8 @@ function Line() {
 Line.propTypes = {
   dataKey: _propTypes.default.string.isRequired,
   color: _propTypes.default.string,
-  name: _propTypes.default.string
+  name: _propTypes.default.string,
+  connectNulls: _propTypes.default.bool
 };
 
 function SummaryLine() {
