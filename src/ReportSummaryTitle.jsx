@@ -23,7 +23,7 @@ const TrendWrapper = styled.div`
 `;
 
 const SummaryTitleWrapper = styled.div`
-  padding: 24px 0px 0px 24px;
+  padding-top: 8px;
 `;
 
 const Title = styled.div`
