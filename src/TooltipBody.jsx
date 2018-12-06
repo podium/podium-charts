@@ -35,6 +35,10 @@ const Label = styled.div`
   align-items: center;
 `;
 
+const LabelValue = styled.div`
+  margin-left: 16px;
+`;
+
 const Header = styled.div`
   width: 100%;
   display: flex;
@@ -81,7 +85,7 @@ export default function TooltipBody(props) {
             <ColorLabel fill={color} />
             <div>{name ? name : dataKey}</div>
           </Label>
-          <div>{value}</div>
+          <LabelValue>{value}</LabelValue>
         </TooltipData>
       );
     });

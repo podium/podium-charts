@@ -120,7 +120,11 @@ storiesOf('Line Chart', module)
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
-      <Line name="My Custom Name!" dataKey="text" color={colors.cobaltBlue} />
+      <Line
+        name="My Custom Name That Is Super Long!"
+        dataKey="text"
+        color={colors.cobaltBlue}
+      />
     </Chart>
   ))
   .add('Multiple Lines', () => (

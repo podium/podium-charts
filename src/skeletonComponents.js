@@ -33,7 +33,8 @@ export function Tooltip() {
   return null;
 }
 Tooltip.propTypes = {
-  content: PropTypes.element.isRequired
+  content: PropTypes.element.isRequired,
+  formatter: PropTypes.func
 };
 
 export function XAxis() {

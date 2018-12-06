@@ -17,8 +17,18 @@ var _podiumUi = require("podium-ui");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject7() {
+function _templateObject8() {
   var data = _taggedTemplateLiteral([""]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -28,7 +38,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  margin-bottom: 8px;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -38,7 +48,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  margin-bottom: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-left: 16px;\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -99,11 +109,13 @@ var TooltipData = _styledComponents.default.div(_templateObject3());
 
 var Label = _styledComponents.default.div(_templateObject4());
 
-var Header = _styledComponents.default.div(_templateObject5());
+var LabelValue = _styledComponents.default.div(_templateObject5());
 
-var Summary = _styledComponents.default.div(_templateObject6());
+var Header = _styledComponents.default.div(_templateObject6());
 
-var XAxisLabel = _styledComponents.default.div(_templateObject7());
+var Summary = _styledComponents.default.div(_templateObject7());
+
+var XAxisLabel = _styledComponents.default.div(_templateObject8());
 
 var summaryHandler = {
   total: function total(payload) {
@@ -142,7 +154,7 @@ function TooltipBody(props) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : dataKey)), _react.default.createElement("div", null, value));
+      }), _react.default.createElement("div", null, name ? name : dataKey)), _react.default.createElement(LabelValue, null, value));
     });
   };
 

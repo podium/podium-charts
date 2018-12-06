@@ -52,7 +52,8 @@ function Tooltip() {
 }
 
 Tooltip.propTypes = {
-  content: _propTypes.default.element.isRequired
+  content: _propTypes.default.element.isRequired,
+  formatter: _propTypes.default.func
 };
 
 function XAxis() {

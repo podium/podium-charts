@@ -211,7 +211,7 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Line, {
-    name: "My Custom Name!",
+    name: "My Custom Name That Is Super Long!",
     dataKey: "text",
     color: _podiumUi.colors.cobaltBlue
   }));

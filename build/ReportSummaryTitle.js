@@ -46,7 +46,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  padding: 24px 0px 0px 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding-top: 8px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
