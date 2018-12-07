@@ -56,7 +56,7 @@ var Title = _styledComponents.default.p(_templateObject2());
 var RangeLabel = _styledComponents.default.p(_templateObject3(), _podiumUi.colors.steel);
 
 var fullDate = function fullDate(date) {
-  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format('MMMM YYYY');
+  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format('MMMM D, YYYY');
   return date;
 };
 

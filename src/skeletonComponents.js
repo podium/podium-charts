@@ -17,7 +17,8 @@ export function Line() {
 Line.propTypes = {
   dataKey: PropTypes.string.isRequired,
   color: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  connectNulls: PropTypes.bool
 };
 
 export function SummaryLine() {

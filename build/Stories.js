@@ -47,18 +47,18 @@ var data = [{
   organic: 9,
   date: '2018-07-15T23:43:32'
 }, {
-  sms: 400,
+  sms: 200,
   text: 2.33,
-  organic: 1,
+  organic: 15,
   date: '2018-08-15T23:43:32'
 }, {
-  sms: 300,
-  text: 2.33,
-  organic: 0,
+  sms: 100,
+  text: 5,
+  organic: 13,
   date: '2018-09-15T23:43:32'
 }, {
-  sms: 400,
-  text: 2.33,
+  sms: null,
+  text: null,
   organic: null,
   date: '2018-10-15T23:43:32'
 }, {
@@ -331,7 +331,7 @@ var data = [{
       data: data
     }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
       dataKey: "date",
-      tickFormatter: _formatters.default.date
+      tickFormatter: _formatters.default.date()
     }), _react.default.createElement(_.Bar, {
       dataKey: "organic",
       color: _podiumUi.colors.cobaltBlue

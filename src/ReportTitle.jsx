@@ -21,7 +21,7 @@ const RangeLabel = styled.p`
 `;
 
 const fullDate = date => {
-  if (moment(date).isValid) return moment(date).format('MMMM YYYY');
+  if (moment(date).isValid) return moment(date).format('MMMM D, YYYY');
   return date;
 };
 

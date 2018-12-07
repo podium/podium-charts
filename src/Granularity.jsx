@@ -43,7 +43,7 @@ export default class Granularity extends Component {
     if (timeRange === 'custom') {
       return this.getCustomRangeOptions();
     }
-    return optionsMap[timeRange];
+    return optionsMap[timeRange] || optionsMap.monthToDate;
   };
 
   getCustomRangeOptions = () => {
@@ -62,9 +62,9 @@ export default class Granularity extends Component {
   };
 
   render() {
-    const { current, onChange } = this.props;
+    const { value, onChange } = this.props;
     const options = this.getOptions();
-    const placeholder = displayMap[current] || options[0].label;
+    const placeholder = displayMap[value] || options[0].label;
 
     return (
       <GranularityWrapper>
@@ -73,6 +73,7 @@ export default class Granularity extends Component {
           placeholder={placeholder}
           onChange={onChange}
           theme="light"
+          value={value}
         />
       </GranularityWrapper>
     );
@@ -80,7 +81,7 @@ export default class Granularity extends Component {
 }
 
 Granularity.propTypes = {
-  current: PropTypes.string,
+  value: PropTypes.string,
   endDate: PropTypes.string,
   onChange: PropTypes.func,
   startDate: PropTypes.string,

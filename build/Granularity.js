@@ -106,7 +106,7 @@ function (_Component) {
         return _this.getCustomRangeOptions();
       }
 
-      return optionsMap[timeRange];
+      return optionsMap[timeRange] || optionsMap.monthToDate;
     }, _this.getCustomRangeOptions = function () {
       var _this$props = _this.props,
           startDate = _this$props.startDate,
@@ -129,15 +129,16 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this$props2 = this.props,
-          current = _this$props2.current,
+          value = _this$props2.value,
           onChange = _this$props2.onChange;
       var options = this.getOptions();
-      var placeholder = displayMap[current] || options[0].label;
+      var placeholder = displayMap[value] || options[0].label;
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
         onChange: onChange,
-        theme: "light"
+        theme: "light",
+        value: value
       }));
     }
   }]);
@@ -147,7 +148,7 @@ function (_Component) {
 
 exports.default = Granularity;
 Granularity.propTypes = {
-  current: _propTypes.default.string,
+  value: _propTypes.default.string,
   endDate: _propTypes.default.string,
   onChange: _propTypes.default.func,
   startDate: _propTypes.default.string,
