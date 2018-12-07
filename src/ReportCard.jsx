@@ -89,12 +89,6 @@ export default class ReportCard extends React.Component {
 }
 
 ReportCard.propTypes = {
-  children: PropTypes.shape({
-    chart: PropTypes.element,
-    granularity: PropTypes.element,
-    legend: PropTypes.element,
-    summary: PropTypes.element,
-    title: PropTypes.element
-  }),
+  children: PropTypes.array,
   width: PropTypes.string
 };
