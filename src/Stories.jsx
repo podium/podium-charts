@@ -183,6 +183,21 @@ storiesOf('Tooltip', module)
     { info: { excludedPropTypes: ['payload'] } }
   );
 
+storiesOf('Report Card Summary', module).add('default', () => (
+  <ReportCard width="270px">
+    <ReportSummaryTitle
+      formatter={formatters.humanizeDuration}
+      summaryType="total"
+      dataKeys={['sms']}
+      title="Median Response Time"
+      data={data}
+    />
+    <Chart data={data} height={100}>
+      <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+    </Chart>
+  </ReportCard>
+));
+
 storiesOf('Report Card', module)
   .add('w/Chart,Title', () => (
     <ReportCard>
@@ -268,21 +283,6 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ));
-
-storiesOf('Report Overview', module).add('default', () => (
-  <ReportCard width="270px">
-    <ReportSummaryTitle
-      formatter={formatters.humanizeDuration}
-      summaryType="total"
-      dataKeys={['sms']}
-      title="Median Response Time"
-      data={data}
-    />
-    <Chart data={data} height={100}>
-      <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-    </Chart>
-  </ReportCard>
-));
 
 storiesOf('formatters', module)
   .add('date', () => (

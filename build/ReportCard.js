@@ -163,6 +163,13 @@ function (_React$Component) {
   }
 
   _createClass(ReportCard, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.children !== this.props.children) {
+        this.components = collectChildren(this.props.children);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var width = this.props.width;
@@ -176,7 +183,7 @@ function (_React$Component) {
         width: width
       }, _react.default.createElement(ReportCardMain, {
         fullWidth: !summary && !legend
-      }, _react.default.createElement(ReportCardHeader, null, " ", title, " ", granularity, " "), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, " ", summary, " ", legend, " "))));
+      }, _react.default.createElement(ReportCardHeader, null, ' ', title, " ", granularity, ' '), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, ' ', summary, " ", legend, ' '))));
     }
   }]);
 

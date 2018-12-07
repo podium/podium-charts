@@ -298,6 +298,24 @@ var data = [{
     excludedPropTypes: ['payload']
   }
 });
+(0, _react2.storiesOf)('Report Card Summary', module).add('default', function () {
+  return _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    summaryType: "total",
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  })));
+});
 (0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
     title: "Total Reviews",
@@ -406,24 +424,6 @@ var data = [{
       color: _podiumUi.colors.poppyRed
     }]
   }));
-});
-(0, _react2.storiesOf)('Report Overview', module).add('default', function () {
-  return _react.default.createElement(_.ReportCard, {
-    width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.humanizeDuration,
-    summaryType: "total",
-    dataKeys: ['sms'],
-    title: "Median Response Time",
-    data: data
-  }), _react.default.createElement(_.Chart, {
-    data: data,
-    height: 100
-  }, _react.default.createElement(_.SummaryLine, {
-    connectNulls: true,
-    dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
-  })));
 });
 (0, _react2.storiesOf)('formatters', module).add('date', function () {
   return _react.default.createElement("div", null, _react.default.createElement("div", null, "formatters.date('hour')", _react.default.createElement("div", null, "->"), _formatters.default.date('hour')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('day')", _react.default.createElement("div", null, "->"), _formatters.default.date('day')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('week')", _react.default.createElement("div", null, "->"), _formatters.default.date('week')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('month')", _react.default.createElement("div", null, "->"), _formatters.default.date('month')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('year')", _react.default.createElement("div", null, "->"), _formatters.default.date('year')('2018-01-15T23:43:32')));
