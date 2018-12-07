@@ -107,6 +107,9 @@ var data = [{
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    dataKey: "text",
+    color: _podiumUi.colors.poppyRed
   }));
 }).add('Custom Named Data', function () {
   return _react.default.createElement(_.Chart, {
@@ -316,69 +319,61 @@ var data = [{
   return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
 });
 (0, _react2.storiesOf)('Report Card', module).add('default', function () {
-  return _react.default.createElement(_.ReportCard, {
-    title: _react.default.createElement(_.ReportTitle, {
-      title: "Total Reviews",
-      data: data
-    }),
-    granularity: _react.default.createElement(_.Granularity, {
-      timeRange: "monthToDate",
-      onChange: function onChange(res) {
-        console.log("You picked ".concat(res));
-      }
-    }),
-    chart: _react.default.createElement(_.Chart, {
-      data: data
-    }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
-      dataKey: "date",
-      tickFormatter: _formatters.default.date()
-    }), _react.default.createElement(_.Bar, {
-      dataKey: "organic",
-      color: _podiumUi.colors.cobaltBlue
-    }), _react.default.createElement(_.Tooltip, {
-      content: _react.default.createElement(_.TooltipBody, {
-        summaryType: "total",
-        summaryTitle: "Reviews"
-      })
-    }), _react.default.createElement(_.Line, {
-      dataKey: "text",
-      color: _podiumUi.colors.poppyRed
-    })),
-    summary: _react.default.createElement(_.Summary, {
-      data: data,
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Granularity, {
+    timeRange: "monthToDate",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Bar, {
+    dataKey: "organic",
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
-      dataKeys: ['text', 'organic']
-    }),
-    legend: _react.default.createElement(_.Legend, {
-      data: data,
-      summaryType: "total",
-      config: [{
-        dataKey: 'organic',
-        color: _podiumUi.colors.cobaltBlue
-      }, {
-        dataKey: 'text',
-        color: _podiumUi.colors.poppyRed
-      }]
+      summaryTitle: "Reviews"
     })
-  });
+  }), _react.default.createElement(_.Line, {
+    dataKey: "text",
+    color: _podiumUi.colors.poppyRed
+  })), _react.default.createElement(_.Summary, {
+    data: data,
+    summaryType: "total",
+    dataKeys: ['text', 'organic']
+  }), _react.default.createElement(_.Legend, {
+    data: data,
+    summaryType: "total",
+    config: [{
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
+  }));
 }).add('summary', function () {
   return _react.default.createElement(_.ReportCard, {
-    width: "270px",
-    title: _react.default.createElement(_.ReportSummaryTitle, {
-      formatter: _formatters.default.humanizeDuration,
-      summaryType: "total",
-      dataKeys: ['sms'],
-      title: "Median Response Time",
-      data: data
-    }),
-    chart: _react.default.createElement(_.Chart, {
-      data: data,
-      height: 100
-    }, _react.default.createElement(_.SummaryLine, {
-      dataKey: "sms",
-      color: _podiumUi.colors.cobaltBlue
-    }))
-  });
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    summaryType: "total",
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  })));
 });
 (0, _react2.storiesOf)('Granularity', module).add('lastTwelveMonths', function () {
   return _react.default.createElement(_.Granularity, {

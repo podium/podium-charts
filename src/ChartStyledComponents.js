@@ -12,7 +12,7 @@ export const ChartWrapper = styled.div`
     margin-left: -12px;
     width: 0;
     height: 0;
-    top: 60px;
+    top: 60%;
     right: -15px;
     transform: rotate(225deg);
     transform-origin: 0 0;
@@ -28,7 +28,7 @@ export const ChartWrapper = styled.div`
     margin-left: -12px;
     width: 0;
     height: 0;
-    top: 40px;
+    top: 35%;
     left: 13px;
     transform: rotate(45deg);
     transform-origin: 0 0;

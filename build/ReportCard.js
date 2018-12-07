@@ -113,27 +113,50 @@ var ReportCardSummary = _styledComponents.default.div(_templateObject5(), _podiu
 
 var Padding = _styledComponents.default.div(_templateObject6());
 
+var componentKeyMap = {
+  ReportTitle: 'title',
+  ReportSummaryTitle: 'title',
+  Chart: 'chart',
+  Summary: 'summary',
+  Granularity: 'granularity',
+  Legend: 'legend'
+};
+
+var collectChildren = function collectChildren(children) {
+  var components = {};
+
+  _react.default.Children.forEach(children, function (child) {
+    components[componentKeyMap[child.type.name]] = child;
+  });
+
+  return components;
+};
+
 var ReportCard =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(ReportCard, _React$Component);
 
-  function ReportCard() {
+  function ReportCard(props) {
+    var _this;
+
     _classCallCheck(this, ReportCard);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
+    _this.components = collectChildren(props.children);
+    return _this;
   }
 
   _createClass(ReportCard, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          title = _this$props.title,
-          chart = _this$props.chart,
-          summary = _this$props.summary,
-          legend = _this$props.legend,
-          width = _this$props.width,
-          granularity = _this$props.granularity;
+      var width = this.props.width;
+      var _this$components = this.components,
+          title = _this$components.title,
+          chart = _this$components.chart,
+          summary = _this$components.summary,
+          legend = _this$components.legend,
+          granularity = _this$components.granularity;
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {
@@ -147,10 +170,12 @@ function (_React$Component) {
 
 exports.default = ReportCard;
 ReportCard.propTypes = {
-  chart: _propTypes.default.element,
-  granularity: _propTypes.default.element,
-  legend: _propTypes.default.element,
-  summary: _propTypes.default.element,
-  title: _propTypes.default.element,
+  children: _propTypes.default.shape({
+    chart: _propTypes.default.element,
+    granularity: _propTypes.default.element,
+    legend: _propTypes.default.element,
+    summary: _propTypes.default.element,
+    title: _propTypes.default.element
+  }),
   width: _propTypes.default.string
 };

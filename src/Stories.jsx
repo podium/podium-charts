@@ -55,6 +55,7 @@ storiesOf('Bar Chart', module)
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
+      <Bar dataKey="text" color={colors.poppyRed} />
     </Chart>
   ))
   .add('Custom Named Data', () => (
@@ -257,64 +258,47 @@ storiesOf('formatters', module)
 
 storiesOf('Report Card', module)
   .add('default', () => (
-    <ReportCard
-      title={<ReportTitle title="Total Reviews" data={data} />}
-      granularity={
-        <Granularity
-          timeRange="monthToDate"
-          onChange={res => {
-            console.log(`You picked ${res}`);
-          }}
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Granularity
+        timeRange="monthToDate"
+        onChange={res => {
+          console.log(`You picked ${res}`);
+        }}
+      />
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Bar dataKey="organic" color={colors.cobaltBlue} />
+        <Tooltip
+          content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
         />
-      }
-      chart={
-        <Chart data={data}>
-          <YAxis />
-          <XAxis dataKey="date" tickFormatter={formatters.date()} />
-          <Bar dataKey="organic" color={colors.cobaltBlue} />
-          <Tooltip
-            content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
-          />
-          <Line dataKey="text" color={colors.poppyRed} />
-        </Chart>
-      }
-      summary={
-        <Summary
-          data={data}
-          summaryType="total"
-          dataKeys={['text', 'organic']}
-        />
-      }
-      legend={
-        <Legend
-          data={data}
-          summaryType="total"
-          config={[
-            { dataKey: 'organic', color: colors.cobaltBlue },
-            { dataKey: 'text', color: colors.poppyRed }
-          ]}
-        />
-      }
-    />
+        <Line dataKey="text" color={colors.poppyRed} />
+      </Chart>
+      <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
   ))
   .add('summary', () => (
-    <ReportCard
-      width="270px"
-      title={
-        <ReportSummaryTitle
-          formatter={formatters.humanizeDuration}
-          summaryType="total"
-          dataKeys={['sms']}
-          title="Median Response Time"
-          data={data}
-        />
-      }
-      chart={
-        <Chart data={data} height={100}>
-          <SummaryLine dataKey="sms" color={colors.cobaltBlue} />
-        </Chart>
-      }
-    />
+    <ReportCard width="270px">
+      <ReportSummaryTitle
+        formatter={formatters.humanizeDuration}
+        summaryType="total"
+        dataKeys={['sms']}
+        title="Median Response Time"
+        data={data}
+      />
+      <Chart data={data} height={100}>
+        <SummaryLine dataKey="sms" color={colors.cobaltBlue} />
+      </Chart>
+    </ReportCard>
   ));
 
 storiesOf('Granularity', module)

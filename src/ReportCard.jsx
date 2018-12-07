@@ -38,9 +38,32 @@ const Padding = styled.div`
   padding: 16px 24px 16px 24px;
 `;
 
+const componentKeyMap = {
+  ReportTitle: 'title',
+  ReportSummaryTitle: 'title',
+  Chart: 'chart',
+  Summary: 'summary',
+  Granularity: 'granularity',
+  Legend: 'legend'
+};
+
+const collectChildren = children => {
+  const components = {};
+  React.Children.forEach(children, child => {
+    components[componentKeyMap[child.type.name]] = child;
+  });
+  return components;
+};
+
 export default class ReportCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.components = collectChildren(props.children);
+  }
+
   render() {
-    const { title, chart, summary, legend, width, granularity } = this.props;
+    const { width } = this.props;
+    const { title, chart, summary, legend, granularity } = this.components;
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>
@@ -66,10 +89,12 @@ export default class ReportCard extends React.Component {
 }
 
 ReportCard.propTypes = {
-  chart: PropTypes.element,
-  granularity: PropTypes.element,
-  legend: PropTypes.element,
-  summary: PropTypes.element,
-  title: PropTypes.element,
+  children: PropTypes.shape({
+    chart: PropTypes.element,
+    granularity: PropTypes.element,
+    legend: PropTypes.element,
+    summary: PropTypes.element,
+    title: PropTypes.element
+  }),
   width: PropTypes.string
 };
