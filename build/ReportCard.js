@@ -123,10 +123,25 @@ var componentKeyMap = {
 };
 
 var collectChildren = function collectChildren(children) {
-  var components = {};
+  var components = {
+    title: null,
+    chart: null,
+    summary: null,
+    granularity: null,
+    legend: null
+  };
+  if (!children) return components;
 
   _react.default.Children.forEach(children, function (child) {
-    components[componentKeyMap[child.type.name]] = child;
+    if (componentKeyMap[child.type.name]) {
+      components[componentKeyMap[child.type.name]] = child;
+    } else if (child.props.children) {
+      _react.default.Children.forEach(child.props.children, function (subChild) {
+        if (componentKeyMap[subChild.type.name]) {
+          components[componentKeyMap[subChild.type.name]] = child;
+        }
+      });
+    }
   });
 
   return components;
@@ -170,12 +185,6 @@ function (_React$Component) {
 
 exports.default = ReportCard;
 ReportCard.propTypes = {
-  children: _propTypes.default.shape({
-    chart: _propTypes.default.element,
-    granularity: _propTypes.default.element,
-    legend: _propTypes.default.element,
-    summary: _propTypes.default.element,
-    title: _propTypes.default.element
-  }),
+  children: _propTypes.default.array,
   width: _propTypes.default.string
 };

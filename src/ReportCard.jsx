@@ -48,9 +48,24 @@ const componentKeyMap = {
 };
 
 const collectChildren = children => {
-  const components = {};
+  const components = {
+    title: null,
+    chart: null,
+    summary: null,
+    granularity: null,
+    legend: null
+  };
+  if (!children) return components;
   React.Children.forEach(children, child => {
-    components[componentKeyMap[child.type.name]] = child;
+    if (componentKeyMap[child.type.name]) {
+      components[componentKeyMap[child.type.name]] = child;
+    } else if (child.props.children) {
+      React.Children.forEach(child.props.children, subChild => {
+        if (componentKeyMap[subChild.type.name]) {
+          components[componentKeyMap[subChild.type.name]] = child;
+        }
+      });
+    }
   });
   return components;
 };
@@ -89,12 +104,6 @@ export default class ReportCard extends React.Component {
 }
 
 ReportCard.propTypes = {
-  children: PropTypes.shape({
-    chart: PropTypes.element,
-    granularity: PropTypes.element,
-    legend: PropTypes.element,
-    summary: PropTypes.element,
-    title: PropTypes.element
-  }),
+  children: PropTypes.array,
   width: PropTypes.string
 };
