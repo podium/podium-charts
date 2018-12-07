@@ -8,6 +8,7 @@ var _exportNames = {
   Legend: true,
   Summary: true,
   TooltipBody: true,
+  TooltipBodyTime: true,
   ReportCard: true,
   ReportTitle: true,
   ReportSummaryTitle: true,
@@ -37,6 +38,12 @@ Object.defineProperty(exports, "TooltipBody", {
   enumerable: true,
   get: function get() {
     return _TooltipBody.default;
+  }
+});
+Object.defineProperty(exports, "TooltipBodyTime", {
+  enumerable: true,
+  get: function get() {
+    return _TooltipBodyTime.default;
   }
 });
 Object.defineProperty(exports, "ReportCard", {
@@ -83,6 +90,8 @@ var _Legend = _interopRequireDefault(require("./Legend"));
 var _Summary = _interopRequireDefault(require("./Summary"));
 
 var _TooltipBody = _interopRequireDefault(require("./TooltipBody"));
+
+var _TooltipBodyTime = _interopRequireDefault(require("./TooltipBodyTime"));
 
 var _ReportCard = _interopRequireDefault(require("./ReportCard"));
 

@@ -4,8 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.date = date;
+exports.secondsToMinutes = secondsToMinutes;
 exports.capitalize = capitalize;
 exports.abbreviateNumber = abbreviateNumber;
+exports.abbreviateTime = abbreviateTime;
 exports.humanizeDuration = humanizeDuration;
 exports.default = void 0;
 
@@ -33,16 +35,41 @@ function date() {
   };
 }
 
+function secondsToMinutes(int) {
+  return Math.round(int / 60);
+}
+
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function abbreviateNumber(value) {
-  if (value < 1000) {
+  if (value < 10000) {
     return commaFormatNumber(value);
   }
 
   var newValue = value;
+  var suffixes = ['', 'K', 'M', 'B', 'T'];
+  var suffixNum = 0;
+
+  while (newValue >= 1000) {
+    newValue /= 1000;
+    suffixNum++;
+  }
+
+  newValue = newValue.toPrecision(3);
+  newValue += suffixes[suffixNum];
+  return newValue;
+}
+
+function abbreviateTime(seconds) {
+  var minutes = seconds / 60;
+
+  if (minutes < 10000) {
+    return commaFormatNumber(minutes);
+  }
+
+  var newValue = minutes;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
   var suffixNum = 0;
 
@@ -62,7 +89,7 @@ function humanizeDuration(seconds) {
   var humanizeConfig = {
     largest: 2,
     // unicode for space, html collapses it otherwise
-    delimiter: "\xA0\xA0\xA0",
+    delimiter: "\xA0",
     units: ['h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
@@ -89,8 +116,10 @@ var commaFormatNumber = function commaFormatNumber(number) {
 
 var _default = {
   abbreviateNumber: abbreviateNumber,
+  abbreviateTime: abbreviateTime,
   capitalize: capitalize,
   date: date,
-  humanizeDuration: humanizeDuration
+  humanizeDuration: humanizeDuration,
+  secondsToMinutes: secondsToMinutes
 };
 exports.default = _default;

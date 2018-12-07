@@ -82,7 +82,8 @@ var Space = _styledComponents.default.div(_templateObject5());
 function Summary(_ref) {
   var data = _ref.data,
       dataKeys = _ref.dataKeys,
-      summaryType = _ref.summaryType;
+      summaryType = _ref.summaryType,
+      formatter = _ref.formatter;
   var typeHandler = {
     total: function total(monthData) {
       return dataKeys.reduce(function (acc, key) {
@@ -96,15 +97,16 @@ function Summary(_ref) {
     }
   };
 
-  var monthToDate = function monthToDate() {
-    var monthData = data[data.length - 1];
-    return typeHandler[summaryType](monthData).toFixed(1);
+  var currentData = function currentData() {
+    var currentDataObj = data[data.length - 1];
+    console.log('Data', currentDataObj);
+    return typeHandler[summaryType](currentDataObj);
   };
 
-  var last12Months = function last12Months() {
+  var entireData = function entireData() {
     return data.reduce(function (acc, monthData) {
       return typeHandler[summaryType](monthData) + acc;
-    }, 0).toFixed(1);
+    }, 0) / data.length;
   };
 
   var granularity = function granularity() {
@@ -120,14 +122,18 @@ function Summary(_ref) {
     return '';
   };
 
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, granularity(), " to Date"), _react.default.createElement(SummaryLabel, null, monthToDate()), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, last12Months()));
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, granularity(), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
 }
 
 Summary.propTypes = {
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
   data: _propTypes.default.array.isRequired,
-  dataKeys: _propTypes.default.array.isRequired
+  dataKeys: _propTypes.default.array.isRequired,
+  formatter: _propTypes.default.func
 };
 Summary.defaultProps = {
-  summaryType: 'total'
+  summaryType: 'total',
+  formatter: function formatter(value) {
+    return value;
+  }
 };

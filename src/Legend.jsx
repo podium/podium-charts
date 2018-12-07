@@ -36,7 +36,7 @@ const Label = styled.div`
   align-items: center;
 `;
 
-export default function Legend({ data, summaryType, config }) {
+export default function Legend({ data, summaryType, config, formatter }) {
   const typeHandler = {
     total: dataKey =>
       data.reduce((acc, dataField) => (dataField[dataKey] || 0) + acc, 0),
@@ -46,7 +46,7 @@ export default function Legend({ data, summaryType, config }) {
   };
 
   const calculateValue = dataKey => {
-    return typeHandler[summaryType](dataKey).toFixed(1);
+    return typeHandler[summaryType](dataKey);
   };
 
   const renderLegendItem = () => {
@@ -58,7 +58,7 @@ export default function Legend({ data, summaryType, config }) {
             <ColorLabel color={color} />
             <div>{name ? name : formatters.capitalize(dataKey)}</div>
           </Label>
-          <div>{calculateValue(dataKey)}</div>
+          <div>{formatter(calculateValue(dataKey))}</div>
         </ItemWrapper>
       );
     });
@@ -75,9 +75,11 @@ Legend.propTypes = {
       color: PropTypes.string,
       dataKey: PropTypes.string
     })
-  ).isRequired
+  ).isRequired,
+  formatter: PropTypes.func
 };
 
 Legend.defaultProps = {
-  summaryType: 'total'
+  summaryType: 'total',
+  formatter: value => value
 };

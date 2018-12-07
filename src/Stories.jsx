@@ -14,6 +14,7 @@ import {
   Summary,
   Tooltip,
   TooltipBody,
+  TooltipBodyTime,
   ReportCard,
   ReportTitle,
   ReportSummaryTitle
@@ -21,7 +22,7 @@ import {
 
 const data = [
   { sms: 200, text: 1, organic: 2, date: '2018-01-15T23:43:32' },
-  { sms: 3000, text: 5, organic: 0, date: '2018-02-15T23:43:32' },
+  { sms: 30000, text: 5, organic: 0, date: '2018-02-15T23:43:32' },
   { sms: 500, text: 3, date: '2018-03-15T23:43:32' },
   { sms: 200, text: 0, organic: 3, date: '2018-04-15T23:43:32' },
   { sms: 300, text: 1, organic: 4, date: '2018-05-15T23:43:32' },
@@ -104,14 +105,12 @@ storiesOf('Line Chart', module)
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
-  .add('Tooltip', () => (
+  .add('TooltipBodyTime', () => (
     <Chart data={data}>
-      <YAxis />
+      <YAxis tickFormatter={formatters.abbreviateTime} />
       <XAxis dataKey="date" tickFormatter={formatters.date()} />
-      <Tooltip
-        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
-      />
-      <Line dataKey="text" color={colors.armyGreen} />
+      <Tooltip content={<TooltipBodyTime />} />
+      <Line dataKey="sms" color={colors.armyGreen} />
     </Chart>
   ))
   .add('Custom Named Data', () => (
@@ -152,19 +151,37 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
   </Chart>
 ));
 
-storiesOf('Tooltip', module).add(
-  'Tooltip Primary',
-  () => (
-    <div style={{ width: 100 }}>
-      <TooltipBody
-        summaryType="total"
-        summaryTitle="Reviews"
-        payload={[{ value: 1, color: colors.cobaltBlue, dataKey: 'google' }]}
-      />
-    </div>
-  ),
-  { info: { excludedPropTypes: ['payload'] } }
-);
+storiesOf('Tooltip', module)
+  .add(
+    'TooltipBody',
+    () => (
+      <div style={{ width: 100 }}>
+        <TooltipBody
+          summaryType="total"
+          summaryTitle="Reviews"
+          payload={[
+            { value: 1, color: colors.cobaltBlue, dataKey: 'google' },
+            { value: 2, color: colors.poppyRed, dataKey: 'jooble' }
+          ]}
+        />
+      </div>
+    ),
+    { info: { excludedPropTypes: ['payload'] } }
+  )
+  .add(
+    'TooltipBodyTime',
+    () => (
+      <div style={{ width: 100 }}>
+        <TooltipBodyTime
+          payload={[
+            { value: 60, color: colors.cobaltBlue, dataKey: 'google' },
+            { value: 800, color: colors.poppyRed, dataKey: 'jooble' }
+          ]}
+        />
+      </div>
+    ),
+    { info: { excludedPropTypes: ['payload'] } }
+  );
 
 storiesOf('Summary', module).add('Default', () => (
   <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
@@ -267,22 +284,16 @@ storiesOf('Report Card', module)
         }}
       />
       <Chart data={data}>
-        <YAxis />
+        <YAxis tickFormatter={formatters.abbreviateTime} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Bar dataKey="organic" color={colors.cobaltBlue} />
-        <Tooltip
-          content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
-        />
-        <Line dataKey="text" color={colors.poppyRed} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
       </Chart>
-      <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
-      <Legend
+      <Summary
+        formatter={formatters.humanizeDuration}
         data={data}
-        summaryType="total"
-        config={[
-          { dataKey: 'organic', color: colors.cobaltBlue },
-          { dataKey: 'text', color: colors.poppyRed }
-        ]}
+        summaryType="avg"
+        dataKeys={['sms']}
       />
     </ReportCard>
   ))

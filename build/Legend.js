@@ -72,7 +72,8 @@ var Label = _styledComponents.default.div(_templateObject4());
 function Legend(_ref) {
   var data = _ref.data,
       summaryType = _ref.summaryType,
-      config = _ref.config;
+      config = _ref.config,
+      formatter = _ref.formatter;
   var typeHandler = {
     total: function total(dataKey) {
       return data.reduce(function (acc, dataField) {
@@ -87,7 +88,7 @@ function Legend(_ref) {
   };
 
   var calculateValue = function calculateValue(dataKey) {
-    return typeHandler[summaryType](dataKey).toFixed(1);
+    return typeHandler[summaryType](dataKey);
   };
 
   var renderLegendItem = function renderLegendItem() {
@@ -99,7 +100,7 @@ function Legend(_ref) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : _formatters.default.capitalize(dataKey))), _react.default.createElement("div", null, calculateValue(dataKey)));
+      }), _react.default.createElement("div", null, name ? name : _formatters.default.capitalize(dataKey))), _react.default.createElement("div", null, formatter(calculateValue(dataKey))));
     });
   };
 
@@ -113,8 +114,12 @@ Legend.propTypes = {
     name: _propTypes.default.string,
     color: _propTypes.default.string,
     dataKey: _propTypes.default.string
-  })).isRequired
+  })).isRequired,
+  formatter: _propTypes.default.func
 };
 Legend.defaultProps = {
-  summaryType: 'total'
+  summaryType: 'total',
+  formatter: function formatter(value) {
+    return value;
+  }
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from 'podium-ui';
+import { formatters } from './';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -54,9 +55,16 @@ const Header = styled.div`
 const Summary = styled.div`
   font-size: 16px;
   font-weight: 600;
+  white-space: nowrap;
 `;
 
 const XAxisLabel = styled.div``;
+
+const Humanized = styled.div`
+  font-size: 12px;
+  color: ${colors.jumbo};
+  font-weight: 500;
+`;
 
 const granMap = {
   month: 'MMMM YYYY',
@@ -65,13 +73,9 @@ const granMap = {
   week: 'MMMM D, YYYY'
 };
 
-const summaryHandler = {
-  total: payload =>
-    payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0),
-  avg: payload =>
-    payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0) /
-    payload.length
-};
+const summaryAverage = payload =>
+  payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0) /
+  payload.length;
 
 const fullDate = (date, granularity) => {
   const format = granMap[granularity] || 'MMMM YYYY';
@@ -81,9 +85,17 @@ const fullDate = (date, granularity) => {
 
 export default function TooltipBody(props) {
   const renderSummary = () => {
-    const { payload, summaryTitle, summaryType } = props;
-    const result = summaryHandler[summaryType](payload);
-    return `${result} ${summaryTitle}`;
+    const { payload } = props;
+    const seconds = summaryAverage(payload).toFixed(1);
+    const minutes = seconds / 60;
+    return (
+      <div>
+        {minutes < 1 ? `${seconds} Seconds` : `${Math.round(minutes)} Minutes`}
+        {minutes > 60 && (
+          <Humanized>{`${formatters.humanizeDuration(seconds)}`}</Humanized>
+        )}
+      </div>
+    );
   };
 
   const renderToolTipLegend = () => {
@@ -95,7 +107,7 @@ export default function TooltipBody(props) {
             <ColorLabel fill={color} />
             <div>{name ? name : dataKey}</div>
           </Label>
-          <LabelValue>{value}</LabelValue>
+          <LabelValue>{formatters.secondsToMinutes(value)}</LabelValue>
         </TooltipData>
       );
     });
@@ -104,8 +116,8 @@ export default function TooltipBody(props) {
   return (
     <TooltipBodyWrapper>
       <Header>
-        <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
-        {props.summaryType && <Summary>{renderSummary()}</Summary>}
+        <XAxisLabel>{fullDate(props.label, props.granularity)}</XAxisLabel>
+        <Summary>{renderSummary()}</Summary>
       </Header>
       {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>
@@ -113,8 +125,6 @@ export default function TooltipBody(props) {
 }
 
 TooltipBody.propTypes = {
-  summaryType: PropTypes.oneOf(['total', 'avg']),
-  summaryTitle: PropTypes.string,
   granularity: PropTypes.string
 };
 

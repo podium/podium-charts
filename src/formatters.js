@@ -16,15 +16,38 @@ export function date(granularity = 'month') {
     moment(date).isValid ? moment(date).format(granularityFormat) : '';
 }
 
+export function secondsToMinutes(int) {
+  return Math.round(int / 60);
+}
+
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export function abbreviateNumber(value) {
-  if (value < 1000) {
+  if (value < 10000) {
     return commaFormatNumber(value);
   }
   let newValue = value;
+  const suffixes = ['', 'K', 'M', 'B', 'T'];
+  let suffixNum = 0;
+  while (newValue >= 1000) {
+    newValue /= 1000;
+    suffixNum++;
+  }
+
+  newValue = newValue.toPrecision(3);
+
+  newValue += suffixes[suffixNum];
+  return newValue;
+}
+
+export function abbreviateTime(seconds) {
+  const minutes = seconds / 60;
+  if (minutes < 10000) {
+    return commaFormatNumber(minutes);
+  }
+  let newValue = minutes;
   const suffixes = ['', 'K', 'M', 'B', 'T'];
   let suffixNum = 0;
   while (newValue >= 1000) {
@@ -45,7 +68,7 @@ export function humanizeDuration(seconds) {
   const humanizeConfig = {
     largest: 2,
     // unicode for space, html collapses it otherwise
-    delimiter: '\u00A0\u00A0\u00A0',
+    delimiter: '\u00A0',
     units: ['h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
@@ -68,7 +91,9 @@ const commaFormatNumber = number => {
 
 export default {
   abbreviateNumber,
+  abbreviateTime,
   capitalize,
   date,
-  humanizeDuration
+  humanizeDuration,
+  secondsToMinutes
 };

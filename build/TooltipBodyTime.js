@@ -15,7 +15,19 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _podiumUi = require("podium-ui");
 
+var _ = require("./");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject10() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  color: ", ";\n  font-weight: 500;\n"]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject9() {
   var data = _taggedTemplateLiteral([""]);
@@ -28,7 +40,7 @@ function _templateObject9() {
 }
 
 function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n"]);
+  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n  white-space: nowrap;\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -129,23 +141,19 @@ var Summary = _styledComponents.default.div(_templateObject8());
 
 var XAxisLabel = _styledComponents.default.div(_templateObject9());
 
+var Humanized = _styledComponents.default.div(_templateObject10(), _podiumUi.colors.jumbo);
+
 var granMap = {
   month: 'MMMM YYYY',
   year: 'YYYY',
   day: 'MMMM D, YYYY',
   week: 'MMMM D, YYYY'
 };
-var summaryHandler = {
-  total: function total(payload) {
-    return payload.reduce(function (acc, dataField) {
-      return (dataField.value || 0) + acc;
-    }, 0);
-  },
-  avg: function avg(payload) {
-    return payload.reduce(function (acc, dataField) {
-      return (dataField.value || 0) + acc;
-    }, 0) / payload.length;
-  }
+
+var summaryAverage = function summaryAverage(payload) {
+  return payload.reduce(function (acc, dataField) {
+    return (dataField.value || 0) + acc;
+  }, 0) / payload.length;
 };
 
 var fullDate = function fullDate(date, granularity) {
@@ -156,11 +164,10 @@ var fullDate = function fullDate(date, granularity) {
 
 function TooltipBody(props) {
   var renderSummary = function renderSummary() {
-    var payload = props.payload,
-        summaryTitle = props.summaryTitle,
-        summaryType = props.summaryType;
-    var result = summaryHandler[summaryType](payload);
-    return "".concat(result, " ").concat(summaryTitle);
+    var payload = props.payload;
+    var seconds = summaryAverage(payload).toFixed(1);
+    var minutes = seconds / 60;
+    return _react.default.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(Math.round(minutes), " Minutes"), minutes > 60 && _react.default.createElement(Humanized, null, "".concat(_.formatters.humanizeDuration(seconds))));
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
@@ -173,16 +180,14 @@ function TooltipBody(props) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : dataKey)), _react.default.createElement(LabelValue, null, value));
+      }), _react.default.createElement("div", null, name ? name : dataKey)), _react.default.createElement(LabelValue, null, _.formatters.secondsToMinutes(value)));
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {
-  summaryType: _propTypes.default.oneOf(['total', 'avg']),
-  summaryTitle: _propTypes.default.string,
   granularity: _propTypes.default.string
 };
 TooltipBody.defaultProps = {

@@ -26,7 +26,7 @@ const Space = styled.div`
   padding: 8px;
 `;
 
-export default function Summary({ data, dataKeys, summaryType }) {
+export default function Summary({ data, dataKeys, summaryType, formatter }) {
   const typeHandler = {
     total: monthData =>
       dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0),
@@ -35,17 +35,18 @@ export default function Summary({ data, dataKeys, summaryType }) {
       dataKeys.length
   };
 
-  const monthToDate = () => {
-    const monthData = data[data.length - 1];
-    return typeHandler[summaryType](monthData).toFixed(1);
+  const currentData = () => {
+    const currentDataObj = data[data.length - 1];
+    console.log('Data', currentDataObj);
+    return typeHandler[summaryType](currentDataObj);
   };
 
-  const last12Months = () => {
-    return data
-      .reduce((acc, monthData) => {
+  const entireData = () => {
+    return (
+      data.reduce((acc, monthData) => {
         return typeHandler[summaryType](monthData) + acc;
-      }, 0)
-      .toFixed(1);
+      }, 0) / data.length
+    );
   };
 
   const granularity = () => {
@@ -62,10 +63,10 @@ export default function Summary({ data, dataKeys, summaryType }) {
   return (
     <SummaryWrapper>
       <ToDate>{granularity()} to Date</ToDate>
-      <SummaryLabel>{monthToDate()}</SummaryLabel>
+      <SummaryLabel>{formatter(currentData())}</SummaryLabel>
       <Space />
       <Last12Months>Last 12 Months</Last12Months>
-      <SummaryLabel>{last12Months()}</SummaryLabel>
+      <SummaryLabel>{formatter(entireData())}</SummaryLabel>
     </SummaryWrapper>
   );
 }
@@ -73,9 +74,11 @@ export default function Summary({ data, dataKeys, summaryType }) {
 Summary.propTypes = {
   summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
-  dataKeys: PropTypes.array.isRequired
+  dataKeys: PropTypes.array.isRequired,
+  formatter: PropTypes.func
 };
 
 Summary.defaultProps = {
-  summaryType: 'total'
+  summaryType: 'total',
+  formatter: value => value
 };

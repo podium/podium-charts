@@ -18,7 +18,7 @@ var data = [{
   organic: 2,
   date: '2018-01-15T23:43:32'
 }, {
-  sms: 3000,
+  sms: 30000,
   text: 5,
   organic: 0,
   date: '2018-02-15T23:43:32'
@@ -187,19 +187,18 @@ var data = [{
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
   }));
-}).add('Tooltip', function () {
+}).add('TooltipBodyTime', function () {
   return _react.default.createElement(_.Chart, {
     data: data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
-    })
+    content: _react.default.createElement(_.TooltipBodyTime, null)
   }), _react.default.createElement(_.Line, {
-    dataKey: "text",
+    dataKey: "sms",
     color: _podiumUi.colors.armyGreen
   }));
 }).add('Custom Named Data', function () {
@@ -256,7 +255,7 @@ var data = [{
     color: _podiumUi.colors.poppyRed
   }));
 });
-(0, _react2.storiesOf)('Tooltip', module).add('Tooltip Primary', function () {
+(0, _react2.storiesOf)('Tooltip', module).add('TooltipBody', function () {
   return _react.default.createElement("div", {
     style: {
       width: 100
@@ -268,6 +267,30 @@ var data = [{
       value: 1,
       color: _podiumUi.colors.cobaltBlue,
       dataKey: 'google'
+    }, {
+      value: 2,
+      color: _podiumUi.colors.poppyRed,
+      dataKey: 'jooble'
+    }]
+  }));
+}, {
+  info: {
+    excludedPropTypes: ['payload']
+  }
+}).add('TooltipBodyTime', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: 100
+    }
+  }, _react.default.createElement(_.TooltipBodyTime, {
+    payload: [{
+      value: 60,
+      color: _podiumUi.colors.cobaltBlue,
+      dataKey: 'google'
+    }, {
+      value: 800,
+      color: _podiumUi.colors.poppyRed,
+      dataKey: 'jooble'
     }]
   }));
 }, {
@@ -329,34 +352,21 @@ var data = [{
     }
   }), _react.default.createElement(_.Chart, {
     data: data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Bar, {
-    dataKey: "organic",
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
-    })
-  }), _react.default.createElement(_.Line, {
-    dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.humanizeDuration,
     data: data,
-    summaryType: "total",
-    dataKeys: ['text', 'organic']
-  }), _react.default.createElement(_.Legend, {
-    data: data,
-    summaryType: "total",
-    config: [{
-      dataKey: 'organic',
-      color: _podiumUi.colors.cobaltBlue
-    }, {
-      dataKey: 'text',
-      color: _podiumUi.colors.poppyRed
-    }]
+    summaryType: "avg",
+    dataKeys: ['sms']
   }));
 }).add('summary', function () {
   return _react.default.createElement(_.ReportCard, {
