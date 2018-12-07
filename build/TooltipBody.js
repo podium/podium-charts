@@ -17,8 +17,18 @@ var _podiumUi = require("podium-ui");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject8() {
+function _templateObject9() {
   var data = _taggedTemplateLiteral([""]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -28,7 +38,7 @@ function _templateObject8() {
 }
 
 function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: 600;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -38,7 +48,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  margin-bottom: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  margin-top: 8px;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -111,11 +121,13 @@ var Label = _styledComponents.default.div(_templateObject4());
 
 var LabelValue = _styledComponents.default.div(_templateObject5());
 
-var Header = _styledComponents.default.div(_templateObject6());
+var Body = _styledComponents.default.div(_templateObject6());
 
-var Summary = _styledComponents.default.div(_templateObject7());
+var Header = _styledComponents.default.div(_templateObject7());
 
-var XAxisLabel = _styledComponents.default.div(_templateObject8());
+var Summary = _styledComponents.default.div(_templateObject8());
+
+var XAxisLabel = _styledComponents.default.div(_templateObject9());
 
 var summaryHandler = {
   total: function total(payload) {
@@ -144,7 +156,7 @@ function TooltipBody(props) {
     return "".concat(result, " ").concat(summaryTitle);
   };
 
-  var renderTooltipData = function renderTooltipData() {
+  var renderToolTipLegend = function renderToolTipLegend() {
     return props.payload.map(function (dataField) {
       var dataKey = dataField.dataKey,
           value = dataField.value,
@@ -158,7 +170,7 @@ function TooltipBody(props) {
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), renderTooltipData());
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {

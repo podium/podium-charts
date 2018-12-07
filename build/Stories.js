@@ -107,6 +107,9 @@ var data = [{
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
     color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    dataKey: "text",
+    color: _podiumUi.colors.poppyRed
   }));
 }).add('Custom Named Data', function () {
   return _react.default.createElement(_.Chart, {

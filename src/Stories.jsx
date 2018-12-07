@@ -55,6 +55,7 @@ storiesOf('Bar Chart', module)
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
       <Bar dataKey="organic" color={colors.cobaltBlue} />
+      <Bar dataKey="text" color={colors.poppyRed} />
     </Chart>
   ))
   .add('Custom Named Data', () => (

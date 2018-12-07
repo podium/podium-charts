@@ -39,12 +39,16 @@ const LabelValue = styled.div`
   margin-left: 16px;
 `;
 
+const Body = styled.div`
+  width: 100%;
+  margin-top: 8px;
+`;
+
 const Header = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 8px;
 `;
 
 const Summary = styled.div`
@@ -76,7 +80,7 @@ export default function TooltipBody(props) {
     return `${result} ${summaryTitle}`;
   };
 
-  const renderTooltipData = () => {
+  const renderToolTipLegend = () => {
     return props.payload.map(dataField => {
       const { dataKey, value, color, name } = dataField;
       return (
@@ -97,7 +101,7 @@ export default function TooltipBody(props) {
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
         {props.summaryType && <Summary>{renderSummary()}</Summary>}
       </Header>
-      {renderTooltipData()}
+      {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>
   );
 }

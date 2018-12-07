@@ -12,7 +12,8 @@ var _exportNames = {
   ReportTitle: true,
   ReportSummaryTitle: true,
   Granularity: true,
-  formatters: true
+  formatters: true,
+  transformer: true
 };
 Object.defineProperty(exports, "Chart", {
   enumerable: true,
@@ -68,6 +69,12 @@ Object.defineProperty(exports, "formatters", {
     return _formatters.default;
   }
 });
+Object.defineProperty(exports, "transformer", {
+  enumerable: true,
+  get: function get() {
+    return _transformer.default;
+  }
+});
 
 var _Chart = _interopRequireDefault(require("./Chart"));
 
@@ -99,5 +106,7 @@ Object.keys(_skeletonComponents).forEach(function (key) {
 });
 
 var _formatters = _interopRequireDefault(require("./formatters"));
+
+var _transformer = _interopRequireDefault(require("./transformer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
