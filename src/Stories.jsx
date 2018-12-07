@@ -174,8 +174,8 @@ storiesOf('Tooltip', module)
       <div style={{ width: 100 }}>
         <TooltipBodyTime
           payload={[
-            { value: 60, color: colors.cobaltBlue, dataKey: 'google' },
-            { value: 800, color: colors.poppyRed, dataKey: 'jooble' }
+            { value: 6000, color: colors.cobaltBlue, dataKey: 'google' },
+            { value: 80000, color: colors.poppyRed, dataKey: 'jooble' }
           ]}
         />
       </div>
@@ -183,39 +183,106 @@ storiesOf('Tooltip', module)
     { info: { excludedPropTypes: ['payload'] } }
   );
 
-storiesOf('Summary', module).add('Default', () => (
-  <Summary data={data} summaryType="total" dataKeys={['text', 'organic']} />
-));
-
-storiesOf('Legend', module)
-  .add('Default', () => (
-    <Legend
-      data={data}
-      summaryType="total"
-      config={[
-        { dataKey: 'organic', color: colors.cobaltBlue },
-        { dataKey: 'text', color: colors.poppyRed }
-      ]}
-    />
+storiesOf('Report Card', module)
+  .add('w/Chart,Title', () => (
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Chart data={data}>
+        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
+      </Chart>
+    </ReportCard>
   ))
-  .add('Custom Named Data', () => (
-    <Legend
-      data={data}
-      summaryType="total"
-      config={[
-        {
-          name: 'My Custom Name!',
-          dataKey: 'organic',
-          color: colors.cobaltBlue
-        },
-        {
-          name: 'My Other Custom Name!',
-          dataKey: 'text',
-          color: colors.poppyRed
-        }
-      ]}
-    />
+  .add('w/Summary', () => (
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Chart data={data}>
+        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        summaryType="total"
+        dataKeys={['text', 'organic']}
+      />
+    </ReportCard>
+  ))
+  .add('w/Legend', () => (
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Chart data={data}>
+        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        summaryType="total"
+        dataKeys={['text', 'organic']}
+      />
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
+  .add('w/Granularity', () => (
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Granularity
+        timeRange="monthToDate"
+        onChange={res => {
+          console.log(`You picked ${res}`);
+        }}
+      />
+      <Chart data={data}>
+        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        summaryType="total"
+        dataKeys={['text', 'organic']}
+      />
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
   ));
+
+storiesOf('Report Overview', module).add('default', () => (
+  <ReportCard width="270px">
+    <ReportSummaryTitle
+      formatter={formatters.humanizeDuration}
+      summaryType="total"
+      dataKeys={['sms']}
+      title="Median Response Time"
+      data={data}
+    />
+    <Chart data={data} height={100}>
+      <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+    </Chart>
+  </ReportCard>
+));
 
 storiesOf('formatters', module)
   .add('date', () => (
@@ -271,86 +338,4 @@ storiesOf('formatters', module)
       <div>-></div>
       {formatters.humanizeDuration(86400)}
     </div>
-  ));
-
-storiesOf('Report Card', module)
-  .add('default', () => (
-    <ReportCard>
-      <ReportTitle title="Total Reviews" data={data} />
-      <Granularity
-        timeRange="monthToDate"
-        onChange={res => {
-          console.log(`You picked ${res}`);
-        }}
-      />
-      <Chart data={data}>
-        <YAxis tickFormatter={formatters.abbreviateTime} />
-        <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Line dataKey="sms" color={colors.cobaltBlue} />
-        <Tooltip content={<TooltipBodyTime />} />
-      </Chart>
-      <Summary
-        formatter={formatters.humanizeDuration}
-        data={data}
-        summaryType="avg"
-        dataKeys={['sms']}
-      />
-    </ReportCard>
-  ))
-  .add('summary', () => (
-    <ReportCard width="270px">
-      <ReportSummaryTitle
-        formatter={formatters.humanizeDuration}
-        summaryType="total"
-        dataKeys={['sms']}
-        title="Median Response Time"
-        data={data}
-      />
-      <Chart data={data} height={100}>
-        <SummaryLine dataKey="sms" color={colors.cobaltBlue} />
-      </Chart>
-    </ReportCard>
-  ));
-
-storiesOf('Granularity', module)
-  .add('lastTwelveMonths', () => (
-    <Granularity
-      timeRange="lastTwelveMonths"
-      onChange={res => {
-        console.log(`You picked ${res}`);
-      }}
-    />
-  ))
-  .add('monthToDate', () => (
-    <Granularity
-      onChange={res => {
-        console.log(`You picked ${res}`);
-      }}
-    />
-  ))
-  .add('weekToDate', () => (
-    <Granularity
-      timeRange="weekToDate"
-      onChange={res => {
-        console.log(`You picked ${res}`);
-      }}
-    />
-  ))
-  .add('today', () => (
-    <Granularity
-      timeRange="today"
-      onChange={res => {
-        console.log(`You picked ${res}`);
-      }}
-    />
-  ))
-  .add('custom', () => (
-    <Granularity
-      timeRange="custom"
-      startDate="2018-10-01"
-      endDate="2018-12-01"
-      onChange={res => {
-        console.log(`You picked ${res}`);
-      }}
-    />
   ));

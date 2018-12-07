@@ -121,15 +121,15 @@ var componentKeyMap = {
   Granularity: 'granularity',
   Legend: 'legend'
 };
+var components = {
+  title: null,
+  chart: null,
+  summary: null,
+  granularity: null,
+  legend: null
+};
 
 var collectChildren = function collectChildren(children) {
-  var components = {
-    title: null,
-    chart: null,
-    summary: null,
-    granularity: null,
-    legend: null
-  };
   if (!children) return components;
 
   _react.default.Children.forEach(children, function (child) {
@@ -176,7 +176,7 @@ function (_React$Component) {
         width: width
       }, _react.default.createElement(ReportCardMain, {
         fullWidth: !summary && !legend
-      }, _react.default.createElement(ReportCardHeader, null, title, granularity), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, legend))));
+      }, _react.default.createElement(ReportCardHeader, null, " ", title, " ", granularity, " "), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, " ", summary, " ", legend, " "))));
     }
   }]);
 

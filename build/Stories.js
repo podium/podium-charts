@@ -284,11 +284,11 @@ var data = [{
     }
   }, _react.default.createElement(_.TooltipBodyTime, {
     payload: [{
-      value: 60,
+      value: 6000,
       color: _podiumUi.colors.cobaltBlue,
       dataKey: 'google'
     }, {
-      value: 800,
+      value: 80000,
       color: _podiumUi.colors.poppyRed,
       dataKey: 'jooble'
     }]
@@ -298,15 +298,67 @@ var data = [{
     excludedPropTypes: ['payload']
   }
 });
-(0, _react2.storiesOf)('Summary', module).add('Default', function () {
-  return _react.default.createElement(_.Summary, {
+(0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyTime, null)
+  })));
+}).add('w/Summary', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyTime, null)
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
     data: data,
     summaryType: "total",
     dataKeys: ['text', 'organic']
-  });
-});
-(0, _react2.storiesOf)('Legend', module).add('Default', function () {
-  return _react.default.createElement(_.Legend, {
+  }));
+}).add('w/Legend', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyTime, null)
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: data,
+    summaryType: "total",
+    dataKeys: ['text', 'organic']
+  }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",
     config: [{
@@ -316,32 +368,8 @@ var data = [{
       dataKey: 'text',
       color: _podiumUi.colors.poppyRed
     }]
-  });
-}).add('Custom Named Data', function () {
-  return _react.default.createElement(_.Legend, {
-    data: data,
-    summaryType: "total",
-    config: [{
-      name: 'My Custom Name!',
-      dataKey: 'organic',
-      color: _podiumUi.colors.cobaltBlue
-    }, {
-      name: 'My Other Custom Name!',
-      dataKey: 'text',
-      color: _podiumUi.colors.poppyRed
-    }]
-  });
-});
-(0, _react2.storiesOf)('formatters', module).add('date', function () {
-  return _react.default.createElement("div", null, _react.default.createElement("div", null, "formatters.date('hour')", _react.default.createElement("div", null, "->"), _formatters.default.date('hour')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('day')", _react.default.createElement("div", null, "->"), _formatters.default.date('day')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('week')", _react.default.createElement("div", null, "->"), _formatters.default.date('week')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('month')", _react.default.createElement("div", null, "->"), _formatters.default.date('month')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('year')", _react.default.createElement("div", null, "->"), _formatters.default.date('year')('2018-01-15T23:43:32')));
-}).add('capitalize', function () {
-  return _react.default.createElement("div", null, "formatters.capitalize(\"podium\")", _react.default.createElement("div", null, "->"), _formatters.default.capitalize('podium'));
-}).add('abbreviateNumber', function () {
-  return _react.default.createElement("div", null, "formatters.abbreviateNumber(100000000)", _react.default.createElement("div", null, "->"), _formatters.default.abbreviateNumber(100000000));
-}).add('humanizeDuration', function () {
-  return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
-});
-(0, _react2.storiesOf)('Report Card', module).add('default', function () {
+  }));
+}).add('w/Granularity', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
     title: "Total Reviews",
     data: data
@@ -363,12 +391,23 @@ var data = [{
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.humanizeDuration,
+    formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "avg",
-    dataKeys: ['sms']
+    summaryType: "total",
+    dataKeys: ['text', 'organic']
+  }), _react.default.createElement(_.Legend, {
+    data: data,
+    summaryType: "total",
+    config: [{
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
   }));
-}).add('summary', function () {
+});
+(0, _react2.storiesOf)('Report Overview', module).add('default', function () {
   return _react.default.createElement(_.ReportCard, {
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
@@ -381,44 +420,17 @@ var data = [{
     data: data,
     height: 100
   }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
   })));
 });
-(0, _react2.storiesOf)('Granularity', module).add('lastTwelveMonths', function () {
-  return _react.default.createElement(_.Granularity, {
-    timeRange: "lastTwelveMonths",
-    onChange: function onChange(res) {
-      console.log("You picked ".concat(res));
-    }
-  });
-}).add('monthToDate', function () {
-  return _react.default.createElement(_.Granularity, {
-    onChange: function onChange(res) {
-      console.log("You picked ".concat(res));
-    }
-  });
-}).add('weekToDate', function () {
-  return _react.default.createElement(_.Granularity, {
-    timeRange: "weekToDate",
-    onChange: function onChange(res) {
-      console.log("You picked ".concat(res));
-    }
-  });
-}).add('today', function () {
-  return _react.default.createElement(_.Granularity, {
-    timeRange: "today",
-    onChange: function onChange(res) {
-      console.log("You picked ".concat(res));
-    }
-  });
-}).add('custom', function () {
-  return _react.default.createElement(_.Granularity, {
-    timeRange: "custom",
-    startDate: "2018-10-01",
-    endDate: "2018-12-01",
-    onChange: function onChange(res) {
-      console.log("You picked ".concat(res));
-    }
-  });
+(0, _react2.storiesOf)('formatters', module).add('date', function () {
+  return _react.default.createElement("div", null, _react.default.createElement("div", null, "formatters.date('hour')", _react.default.createElement("div", null, "->"), _formatters.default.date('hour')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('day')", _react.default.createElement("div", null, "->"), _formatters.default.date('day')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('week')", _react.default.createElement("div", null, "->"), _formatters.default.date('week')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('month')", _react.default.createElement("div", null, "->"), _formatters.default.date('month')('2018-01-15T23:43:32')), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.date('year')", _react.default.createElement("div", null, "->"), _formatters.default.date('year')('2018-01-15T23:43:32')));
+}).add('capitalize', function () {
+  return _react.default.createElement("div", null, "formatters.capitalize(\"podium\")", _react.default.createElement("div", null, "->"), _formatters.default.capitalize('podium'));
+}).add('abbreviateNumber', function () {
+  return _react.default.createElement("div", null, "formatters.abbreviateNumber(100000000)", _react.default.createElement("div", null, "->"), _formatters.default.abbreviateNumber(100000000));
+}).add('humanizeDuration', function () {
+  return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
 });

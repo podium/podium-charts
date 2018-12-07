@@ -16,6 +16,13 @@ export function date(granularity = 'month') {
     moment(date).isValid ? moment(date).format(granularityFormat) : '';
 }
 
+export const roundToPlaces = places => input => {
+  const number = Number(input);
+  const modifier = Math.pow(10, places);
+  const roundedNumber = Math.round(number * modifier) / modifier;
+  return roundedNumber.toString();
+};
+
 export function secondsToMinutes(int) {
   return Math.round(int / 60);
 }
@@ -25,9 +32,7 @@ export function capitalize(string) {
 }
 
 export function abbreviateNumber(value) {
-  if (value < 10000) {
-    return commaFormatNumber(value);
-  }
+  if (value < 10000) return commaFormatNumber(value);
   let newValue = value;
   const suffixes = ['', 'K', 'M', 'B', 'T'];
   let suffixNum = 0;
@@ -35,30 +40,14 @@ export function abbreviateNumber(value) {
     newValue /= 1000;
     suffixNum++;
   }
-
   newValue = newValue.toPrecision(3);
-
   newValue += suffixes[suffixNum];
   return newValue;
 }
 
 export function abbreviateTime(seconds) {
   const minutes = seconds / 60;
-  if (minutes < 10000) {
-    return commaFormatNumber(minutes);
-  }
-  let newValue = minutes;
-  const suffixes = ['', 'K', 'M', 'B', 'T'];
-  let suffixNum = 0;
-  while (newValue >= 1000) {
-    newValue /= 1000;
-    suffixNum++;
-  }
-
-  newValue = newValue.toPrecision(3);
-
-  newValue += suffixes[suffixNum];
-  return newValue;
+  return abbreviateNumber(minutes);
 }
 
 export function humanizeDuration(seconds) {
@@ -67,17 +56,13 @@ export function humanizeDuration(seconds) {
   const ms = seconds * 1000;
   const humanizeConfig = {
     largest: 2,
-    // unicode for space, html collapses it otherwise
     delimiter: '\u00A0',
     units: ['h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
     round: true,
     languages: {
-      abbreviations: {
-        h: () => 'hr',
-        m: () => 'min'
-      }
+      abbreviations: { h: () => 'hr', m: () => 'min' }
     }
   };
   const displayTime = humanReadableDuration(ms, humanizeConfig);
@@ -95,5 +80,6 @@ export default {
   capitalize,
   date,
   humanizeDuration,
-  secondsToMinutes
+  secondsToMinutes,
+  roundToPlaces
 };

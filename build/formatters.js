@@ -9,7 +9,7 @@ exports.capitalize = capitalize;
 exports.abbreviateNumber = abbreviateNumber;
 exports.abbreviateTime = abbreviateTime;
 exports.humanizeDuration = humanizeDuration;
-exports.default = void 0;
+exports.default = exports.roundToPlaces = void 0;
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -35,6 +35,17 @@ function date() {
   };
 }
 
+var roundToPlaces = function roundToPlaces(places) {
+  return function (input) {
+    var number = Number(input);
+    var modifier = Math.pow(10, places);
+    var roundedNumber = Math.round(number * modifier) / modifier;
+    return roundedNumber.toString();
+  };
+};
+
+exports.roundToPlaces = roundToPlaces;
+
 function secondsToMinutes(int) {
   return Math.round(int / 60);
 }
@@ -44,10 +55,7 @@ function capitalize(string) {
 }
 
 function abbreviateNumber(value) {
-  if (value < 10000) {
-    return commaFormatNumber(value);
-  }
-
+  if (value < 10000) return commaFormatNumber(value);
   var newValue = value;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
   var suffixNum = 0;
@@ -64,23 +72,7 @@ function abbreviateNumber(value) {
 
 function abbreviateTime(seconds) {
   var minutes = seconds / 60;
-
-  if (minutes < 10000) {
-    return commaFormatNumber(minutes);
-  }
-
-  var newValue = minutes;
-  var suffixes = ['', 'K', 'M', 'B', 'T'];
-  var suffixNum = 0;
-
-  while (newValue >= 1000) {
-    newValue /= 1000;
-    suffixNum++;
-  }
-
-  newValue = newValue.toPrecision(3);
-  newValue += suffixes[suffixNum];
-  return newValue;
+  return abbreviateNumber(minutes);
 }
 
 function humanizeDuration(seconds) {
@@ -88,7 +80,6 @@ function humanizeDuration(seconds) {
   var ms = seconds * 1000;
   var humanizeConfig = {
     largest: 2,
-    // unicode for space, html collapses it otherwise
     delimiter: "\xA0",
     units: ['h', 'm'],
     language: 'abbreviations',
@@ -120,6 +111,7 @@ var _default = {
   capitalize: capitalize,
   date: date,
   humanizeDuration: humanizeDuration,
-  secondsToMinutes: secondsToMinutes
+  secondsToMinutes: secondsToMinutes,
+  roundToPlaces: roundToPlaces
 };
 exports.default = _default;

@@ -47,14 +47,15 @@ const componentKeyMap = {
   Legend: 'legend'
 };
 
+const components = {
+  title: null,
+  chart: null,
+  summary: null,
+  granularity: null,
+  legend: null
+};
+
 const collectChildren = children => {
-  const components = {
-    title: null,
-    chart: null,
-    summary: null,
-    granularity: null,
-    legend: null
-  };
   if (!children) return components;
   React.Children.forEach(children, child => {
     if (componentKeyMap[child.type.name]) {
@@ -83,8 +84,8 @@ export default class ReportCard extends React.Component {
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>
           <ReportCardHeader>
-            {title}
-            {granularity}
+            {' '}
+            {title} {granularity}{' '}
           </ReportCardHeader>
           {chart}
         </ReportCardMain>
@@ -92,8 +93,8 @@ export default class ReportCard extends React.Component {
           <ReportCardRight>
             <ReportCardSummary>
               <Padding>
-                {summary}
-                {legend}
+                {' '}
+                {summary} {legend}{' '}
               </Padding>
             </ReportCardSummary>
           </ReportCardRight>
