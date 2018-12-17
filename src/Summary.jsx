@@ -43,7 +43,6 @@ export default function Summary({
 
   const currentData = () => {
     const currentDataObj = data[data.length - 1];
-    console.log('Data', currentDataObj);
     return typeHandler[summaryType](currentDataObj);
   };
 
