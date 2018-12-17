@@ -162,6 +162,8 @@ function (_React$Component) {
     _classCallCheck(this, ReportCard);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
+    console.log(props);
+    console.log('yo bro');
     _this.components = _objectSpread({}, components, collectChildren(props.children));
     return _this;
   }

@@ -74,6 +74,8 @@ const collectChildren = children => {
 export default class ReportCard extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
+    console.log('yo bro');
     this.components = {
       ...components,
       ...collectChildren(props.children)
