@@ -80,6 +80,8 @@ export default class ReportCard extends React.Component {
       ...components,
       ...collectChildren(props.children)
     };
+    console.log('1');
+    console.log(this.components);
   }
 
   componentDidUpdate(prevProps) {
@@ -89,6 +91,8 @@ export default class ReportCard extends React.Component {
   }
 
   render() {
+    console.log('2');
+    console.log(this.components);
     const { width } = this.props;
     const { title, chart, summary, legend, granularity } = this.components;
     return (

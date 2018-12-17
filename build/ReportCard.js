@@ -165,6 +165,8 @@ function (_React$Component) {
     console.log(props);
     console.log('yo bro');
     _this.components = _objectSpread({}, components, collectChildren(props.children));
+    console.log('1');
+    console.log(_this.components);
     return _this;
   }
 
@@ -178,6 +180,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log('2');
+      console.log(this.components);
       var width = this.props.width;
       var _this$components = this.components,
           title = _this$components.title,
