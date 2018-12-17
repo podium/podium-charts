@@ -77,7 +77,9 @@ export default function Summary({
       <ToDate>{titleCase(granularity)} to Date</ToDate>
       <SummaryLabel>{formatter(currentData())}</SummaryLabel>
       <Space />
-      <Last12Months>Last 12 Months</Last12Months>
+      <Last12Months>
+        Last {data.length} {titleCase(granularity)}
+      </Last12Months>
       <SummaryLabel>{formatter(entireData())}</SummaryLabel>
     </SummaryWrapper>
   );
