@@ -165,9 +165,7 @@ function (_React$Component) {
   _createClass(ReportCard, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (prevProps.children !== this.props.children) {
-        this.components = collectChildren(this.props.children);
-      }
+      this.components = collectChildren(this.props.children);
     }
   }, {
     key: "render",
@@ -179,7 +177,6 @@ function (_React$Component) {
           summary = _this$components.summary,
           legend = _this$components.legend,
           granularity = _this$components.granularity;
-      console.log(legend);
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {
