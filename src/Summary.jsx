@@ -41,12 +41,19 @@ export default function Summary({ data, dataKeys, summaryType, formatter }) {
     return typeHandler[summaryType](currentDataObj);
   };
 
-  const entireData = () => {
-    return (
+  const entireDataTypeHandler = {
+    total: data =>
+      data.reduce((acc, monthData) => {
+        return typeHandler[summaryType](monthData) + acc;
+      }, 0),
+    avg: data =>
       data.reduce((acc, monthData) => {
         return typeHandler[summaryType](monthData) + acc;
       }, 0) / data.length
-    );
+  };
+
+  const entireData = () => {
+    return entireDataTypeHandler[summaryType](data);
   };
 
   const granularity = () => {
