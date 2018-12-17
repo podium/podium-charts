@@ -127,7 +127,7 @@ function Summary(_ref) {
     }).join(' ');
   };
 
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last ", data.length, " ", titleCase(granularity)), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
 }
 
 Summary.propTypes = {
