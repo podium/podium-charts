@@ -100,7 +100,6 @@ function Summary(_ref) {
 
   var currentData = function currentData() {
     var currentDataObj = data[data.length - 1];
-    console.log('Data', currentDataObj);
     return typeHandler[summaryType](currentDataObj);
   };
 

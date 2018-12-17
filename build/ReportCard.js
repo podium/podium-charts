@@ -158,6 +158,7 @@ function (_React$Component) {
     _classCallCheck(this, ReportCard);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
+    console.log(props.children);
     _this.components = collectChildren(props.children);
     return _this;
   }
@@ -165,7 +166,6 @@ function (_React$Component) {
   _createClass(ReportCard, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      console.log(this.props.children);
       this.components = collectChildren(this.props.children);
     }
   }, {
