@@ -34,14 +34,8 @@ export default function Summary({
   granularity
 }) {
   const typeHandler = {
-    total: monthData => {
-      console.log(monthData);
-      console.log(dataKeys);
-      console.log(
-        dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0)
-      );
-      return dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0);
-    },
+    total: monthData =>
+      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0),
     avg: monthData =>
       dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0) /
       dataKeys.length
@@ -49,6 +43,7 @@ export default function Summary({
 
   const currentData = () => {
     const currentDataObj = data[data.length - 1];
+    console.log('Data', currentDataObj);
     return typeHandler[summaryType](currentDataObj);
   };
 

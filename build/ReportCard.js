@@ -179,6 +179,7 @@ function (_React$Component) {
           summary = _this$components.summary,
           legend = _this$components.legend,
           granularity = _this$components.granularity;
+      console.log(legend);
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {

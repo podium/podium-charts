@@ -86,6 +86,7 @@ export default class ReportCard extends React.Component {
   render() {
     const { width } = this.props;
     const { title, chart, summary, legend, granularity } = this.components;
+    console.log(legend);
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>

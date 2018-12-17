@@ -224,6 +224,7 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
+        granularity="week"
       />
     </ReportCard>
   ))
@@ -241,6 +242,7 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
+        granularity="week"
       />
       <Legend
         data={data}
@@ -272,6 +274,7 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
+        granularity="week"
       />
       <Legend
         data={data}
