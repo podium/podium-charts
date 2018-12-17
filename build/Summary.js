@@ -105,8 +105,7 @@ function Summary(_ref) {
 
   var entireDataTypeHandler = {
     total: function total(data) {
-      console.log(data);
-      data.reduce(function (acc, monthData) {
+      return data.reduce(function (acc, monthData) {
         return typeHandler[summaryType](monthData) + acc;
       }, 0);
     },
