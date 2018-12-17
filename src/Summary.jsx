@@ -44,7 +44,10 @@ export default function Summary({
   const currentData = () => {
     const currentDataObj = data[data.length - 1];
     console.log('Data', currentDataObj);
-    console.log(dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0));
+    console.log(dataKeys);
+    console.log(
+      dataKeys.reduce((acc, key) => (currentDataObj[key] || 0) + acc, 0)
+    );
     return typeHandler[summaryType](currentDataObj);
   };
 
