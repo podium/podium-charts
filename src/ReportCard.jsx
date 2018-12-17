@@ -74,12 +74,16 @@ const collectChildren = children => {
 export default class ReportCard extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.children);
-    this.components = collectChildren(props.children);
+    this.components = {
+      ...components,
+      ...collectChildren(props.children)
+    };
   }
 
   componentDidUpdate(prevProps) {
-    this.components = collectChildren(this.props.children);
+    if (prevProps.children !== this.props.children) {
+      this.components = collectChildren(this.props.children);
+    }
   }
 
   render() {
