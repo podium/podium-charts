@@ -47,7 +47,7 @@ const componentKeyMap = {
   Legend: 'legend'
 };
 
-const components = {
+const defaultComponents = {
   title: null,
   chart: null,
   summary: null,
@@ -55,44 +55,38 @@ const components = {
   legend: null
 };
 
-const collectChildren = children => {
-  if (!children) return components;
-  React.Children.forEach(children, child => {
-    if (componentKeyMap[child.type.name]) {
-      components[componentKeyMap[child.type.name]] = child;
-    } else if (child.props.children) {
-      React.Children.forEach(child.props.children, subChild => {
-        if (componentKeyMap[subChild.type.name]) {
-          components[componentKeyMap[subChild.type.name]] = child;
-        }
-      });
-    }
-  });
-  return components;
-};
-
 export default class ReportCard extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    console.log('yo bro');
     this.components = {
-      ...components,
-      ...collectChildren(props.children)
+      ...defaultComponents,
+      ...this.collectChildren(props.children)
     };
-    console.log('1');
-    console.log(this.components);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.children !== this.props.children) {
-      this.components = collectChildren(this.props.children);
+      this.components = this.collectChildren(this.props.children);
     }
   }
 
+  collectChildren = children => {
+    if (!children) return defaultComponents;
+    React.Children.forEach(children, child => {
+      if (componentKeyMap[child.type.name]) {
+        this.components[componentKeyMap[child.type.name]] = child;
+      } else if (child.props.children) {
+        React.Children.forEach(child.props.children, subChild => {
+          if (componentKeyMap[subChild.type.name]) {
+            this.components[componentKeyMap[subChild.type.name]] = child;
+          }
+        });
+      }
+    });
+    return this.components;
+  };
+
   render() {
-    console.log('2');
-    console.log(this.components);
     const { width } = this.props;
     const { title, chart, summary, legend, granularity } = this.components;
     return (

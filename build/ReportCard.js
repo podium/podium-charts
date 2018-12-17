@@ -125,30 +125,12 @@ var componentKeyMap = {
   Granularity: 'granularity',
   Legend: 'legend'
 };
-var components = {
+var defaultComponents = {
   title: null,
   chart: null,
   summary: null,
   granularity: null,
   legend: null
-};
-
-var collectChildren = function collectChildren(children) {
-  if (!children) return components;
-
-  _react.default.Children.forEach(children, function (child) {
-    if (componentKeyMap[child.type.name]) {
-      components[componentKeyMap[child.type.name]] = child;
-    } else if (child.props.children) {
-      _react.default.Children.forEach(child.props.children, function (subChild) {
-        if (componentKeyMap[subChild.type.name]) {
-          components[componentKeyMap[subChild.type.name]] = child;
-        }
-      });
-    }
-  });
-
-  return components;
 };
 
 var ReportCard =
@@ -162,11 +144,26 @@ function (_React$Component) {
     _classCallCheck(this, ReportCard);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
-    console.log(props);
-    console.log('yo bro');
-    _this.components = _objectSpread({}, components, collectChildren(props.children));
-    console.log('1');
-    console.log(_this.components);
+
+    _this.collectChildren = function (children) {
+      if (!children) return defaultComponents;
+
+      _react.default.Children.forEach(children, function (child) {
+        if (componentKeyMap[child.type.name]) {
+          _this.components[componentKeyMap[child.type.name]] = child;
+        } else if (child.props.children) {
+          _react.default.Children.forEach(child.props.children, function (subChild) {
+            if (componentKeyMap[subChild.type.name]) {
+              _this.components[componentKeyMap[subChild.type.name]] = child;
+            }
+          });
+        }
+      });
+
+      return _this.components;
+    };
+
+    _this.components = _objectSpread({}, defaultComponents, _this.collectChildren(props.children));
     return _this;
   }
 
@@ -174,14 +171,12 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (prevProps.children !== this.props.children) {
-        this.components = collectChildren(this.props.children);
+        this.components = this.collectChildren(this.props.children);
       }
     }
   }, {
     key: "render",
     value: function render() {
-      console.log('2');
-      console.log(this.components);
       var width = this.props.width;
       var _this$components = this.components,
           title = _this$components.title,
