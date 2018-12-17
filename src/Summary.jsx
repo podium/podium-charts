@@ -42,10 +42,12 @@ export default function Summary({ data, dataKeys, summaryType, formatter }) {
   };
 
   const entireDataTypeHandler = {
-    total: data =>
+    total: data => {
+      console.log(data);
       data.reduce((acc, monthData) => {
         return typeHandler[summaryType](monthData) + acc;
-      }, 0),
+      }, 0);
+    },
     avg: data =>
       data.reduce((acc, monthData) => {
         return typeHandler[summaryType](monthData) + acc;
