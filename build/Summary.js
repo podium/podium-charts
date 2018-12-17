@@ -87,6 +87,11 @@ function Summary(_ref) {
       granularity = _ref.granularity;
   var typeHandler = {
     total: function total(monthData) {
+      console.log(monthData);
+      console.log(dataKeys);
+      console.log(dataKeys.reduce(function (acc, key) {
+        return (monthData[key] || 0) + acc;
+      }, 0));
       return dataKeys.reduce(function (acc, key) {
         return (monthData[key] || 0) + acc;
       }, 0);
@@ -100,11 +105,6 @@ function Summary(_ref) {
 
   var currentData = function currentData() {
     var currentDataObj = data[data.length - 1];
-    console.log('Data', currentDataObj);
-    console.log(dataKeys);
-    console.log(dataKeys.reduce(function (acc, key) {
-      return (currentDataObj[key] || 0) + acc;
-    }, 0));
     return typeHandler[summaryType](currentDataObj);
   };
 
