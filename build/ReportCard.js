@@ -165,6 +165,7 @@ function (_React$Component) {
   _createClass(ReportCard, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      console.log(this.props.children);
       this.components = collectChildren(this.props.children);
     }
   }, {

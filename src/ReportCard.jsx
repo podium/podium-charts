@@ -78,6 +78,7 @@ export default class ReportCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.props.children);
     this.components = collectChildren(this.props.children);
   }
 
