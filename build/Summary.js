@@ -103,10 +103,22 @@ function Summary(_ref) {
     return typeHandler[summaryType](currentDataObj);
   };
 
+  var entireDataTypeHandler = {
+    total: function total(data) {
+      console.log(data);
+      data.reduce(function (acc, monthData) {
+        return typeHandler[summaryType](monthData) + acc;
+      }, 0);
+    },
+    avg: function avg(data) {
+      return data.reduce(function (acc, monthData) {
+        return typeHandler[summaryType](monthData) + acc;
+      }, 0) / data.length;
+    }
+  };
+
   var entireData = function entireData() {
-    return data.reduce(function (acc, monthData) {
-      return typeHandler[summaryType](monthData) + acc;
-    }, 0) / data.length;
+    return entireDataTypeHandler[summaryType](data);
   };
 
   var granularity = function granularity() {
