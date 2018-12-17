@@ -146,24 +146,26 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
 
     _this.collectChildren = function (children) {
-      if (!children) return defaultComponents;
+      if (!children) return _objectSpread({}, defaultComponents);
+
+      var newComponents = _objectSpread({}, defaultComponents);
 
       _react.default.Children.forEach(children, function (child) {
         if (componentKeyMap[child.type.name]) {
-          _this.components[componentKeyMap[child.type.name]] = child;
+          newComponents[componentKeyMap[child.type.name]] = child;
         } else if (child.props.children) {
           _react.default.Children.forEach(child.props.children, function (subChild) {
             if (componentKeyMap[subChild.type.name]) {
-              _this.components[componentKeyMap[subChild.type.name]] = child;
+              newComponents[componentKeyMap[subChild.type.name]] = child;
             }
           });
         }
       });
 
-      return _this.components;
+      return newComponents;
     };
 
-    _this.components = _objectSpread({}, defaultComponents, _this.collectChildren(props.children));
+    _this.components = _this.collectChildren(props.children);
     return _this;
   }
 

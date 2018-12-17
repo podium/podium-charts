@@ -58,10 +58,7 @@ const defaultComponents = {
 export default class ReportCard extends React.Component {
   constructor(props) {
     super(props);
-    this.components = {
-      ...defaultComponents,
-      ...this.collectChildren(props.children)
-    };
+    this.components = this.collectChildren(props.children);
   }
 
   componentDidUpdate(prevProps) {
@@ -71,19 +68,20 @@ export default class ReportCard extends React.Component {
   }
 
   collectChildren = children => {
-    if (!children) return defaultComponents;
+    if (!children) return { ...defaultComponents };
+    const newComponents = { ...defaultComponents };
     React.Children.forEach(children, child => {
       if (componentKeyMap[child.type.name]) {
-        this.components[componentKeyMap[child.type.name]] = child;
+        newComponents[componentKeyMap[child.type.name]] = child;
       } else if (child.props.children) {
         React.Children.forEach(child.props.children, subChild => {
           if (componentKeyMap[subChild.type.name]) {
-            this.components[componentKeyMap[subChild.type.name]] = child;
+            newComponents[componentKeyMap[subChild.type.name]] = child;
           }
         });
       }
     });
-    return this.components;
+    return newComponents;
   };
 
   render() {
