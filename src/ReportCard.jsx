@@ -47,7 +47,7 @@ const componentKeyMap = {
   Legend: 'legend'
 };
 
-const components = {
+const defaultComponents = {
   title: null,
   chart: null,
   summary: null,
@@ -55,33 +55,34 @@ const components = {
   legend: null
 };
 
-const collectChildren = children => {
-  if (!children) return components;
-  React.Children.forEach(children, child => {
-    if (componentKeyMap[child.type.name]) {
-      components[componentKeyMap[child.type.name]] = child;
-    } else if (child.props.children) {
-      React.Children.forEach(child.props.children, subChild => {
-        if (componentKeyMap[subChild.type.name]) {
-          components[componentKeyMap[subChild.type.name]] = child;
-        }
-      });
-    }
-  });
-  return components;
-};
-
 export default class ReportCard extends React.Component {
   constructor(props) {
     super(props);
-    this.components = collectChildren(props.children);
+    this.components = this.collectChildren(props.children);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.children !== this.props.children) {
-      this.components = collectChildren(this.props.children);
+      this.components = this.collectChildren(this.props.children);
     }
   }
+
+  collectChildren = children => {
+    if (!children) return { ...defaultComponents };
+    const newComponents = { ...defaultComponents };
+    React.Children.forEach(children, child => {
+      if (componentKeyMap[child.type.name]) {
+        newComponents[componentKeyMap[child.type.name]] = child;
+      } else if (child.props.children) {
+        React.Children.forEach(child.props.children, subChild => {
+          if (componentKeyMap[subChild.type.name]) {
+            newComponents[componentKeyMap[subChild.type.name]] = child;
+          }
+        });
+      }
+    });
+    return newComponents;
+  };
 
   render() {
     const { width } = this.props;

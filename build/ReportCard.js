@@ -17,6 +17,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -121,30 +125,12 @@ var componentKeyMap = {
   Granularity: 'granularity',
   Legend: 'legend'
 };
-var components = {
+var defaultComponents = {
   title: null,
   chart: null,
   summary: null,
   granularity: null,
   legend: null
-};
-
-var collectChildren = function collectChildren(children) {
-  if (!children) return components;
-
-  _react.default.Children.forEach(children, function (child) {
-    if (componentKeyMap[child.type.name]) {
-      components[componentKeyMap[child.type.name]] = child;
-    } else if (child.props.children) {
-      _react.default.Children.forEach(child.props.children, function (subChild) {
-        if (componentKeyMap[subChild.type.name]) {
-          components[componentKeyMap[subChild.type.name]] = child;
-        }
-      });
-    }
-  });
-
-  return components;
 };
 
 var ReportCard =
@@ -158,7 +144,28 @@ function (_React$Component) {
     _classCallCheck(this, ReportCard);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
-    _this.components = collectChildren(props.children);
+
+    _this.collectChildren = function (children) {
+      if (!children) return _objectSpread({}, defaultComponents);
+
+      var newComponents = _objectSpread({}, defaultComponents);
+
+      _react.default.Children.forEach(children, function (child) {
+        if (componentKeyMap[child.type.name]) {
+          newComponents[componentKeyMap[child.type.name]] = child;
+        } else if (child.props.children) {
+          _react.default.Children.forEach(child.props.children, function (subChild) {
+            if (componentKeyMap[subChild.type.name]) {
+              newComponents[componentKeyMap[subChild.type.name]] = child;
+            }
+          });
+        }
+      });
+
+      return newComponents;
+    };
+
+    _this.components = _this.collectChildren(props.children);
     return _this;
   }
 
@@ -166,7 +173,7 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (prevProps.children !== this.props.children) {
-        this.components = collectChildren(this.props.children);
+        this.components = this.collectChildren(this.props.children);
       }
     }
   }, {

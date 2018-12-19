@@ -353,7 +353,8 @@ var data = [{
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
     summaryType: "total",
-    dataKeys: ['text', 'organic']
+    dataKeys: ['text', 'organic'],
+    granularity: "week"
   }));
 }).add('w/Legend', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
@@ -375,7 +376,8 @@ var data = [{
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
     summaryType: "total",
-    dataKeys: ['text', 'organic']
+    dataKeys: ['text', 'organic'],
+    granularity: "week"
   }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",
@@ -412,7 +414,8 @@ var data = [{
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
     summaryType: "total",
-    dataKeys: ['text', 'organic']
+    dataKeys: ['text', 'organic'],
+    granularity: "week"
   }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",

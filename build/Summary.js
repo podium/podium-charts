@@ -83,7 +83,8 @@ function Summary(_ref) {
   var data = _ref.data,
       dataKeys = _ref.dataKeys,
       summaryType = _ref.summaryType,
-      formatter = _ref.formatter;
+      formatter = _ref.formatter,
+      granularity = _ref.granularity;
   var typeHandler = {
     total: function total(monthData) {
       return dataKeys.reduce(function (acc, key) {
@@ -99,30 +100,33 @@ function Summary(_ref) {
 
   var currentData = function currentData() {
     var currentDataObj = data[data.length - 1];
-    console.log('Data', currentDataObj);
     return typeHandler[summaryType](currentDataObj);
   };
 
+  var entireDataTypeHandler = {
+    total: function total(data) {
+      return data.reduce(function (acc, monthData) {
+        return typeHandler[summaryType](monthData) + acc;
+      }, 0);
+    },
+    avg: function avg(data) {
+      return data.reduce(function (acc, monthData) {
+        return typeHandler[summaryType](monthData) + acc;
+      }, 0) / data.length;
+    }
+  };
+
   var entireData = function entireData() {
-    return data.reduce(function (acc, monthData) {
-      return typeHandler[summaryType](monthData) + acc;
-    }, 0) / data.length;
+    return entireDataTypeHandler[summaryType](data);
   };
 
-  var granularity = function granularity() {
-    var granInMili = (0, _moment.default)(data[1].date).diff((0, _moment.default)(data[0].date));
-
-    var duration = _moment.default.duration(granInMili);
-
-    if (duration.years()) return 'Year';
-    if (duration.months()) return 'Month';
-    if (duration.weeks()) return 'Week';
-    if (duration.days()) return 'Day';
-    if (duration.hours()) return 'Hour';
-    return '';
+  var titleCase = function titleCase(str) {
+    return str.toLowerCase().split(' ').map(function (word) {
+      return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
   };
 
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, granularity(), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last 12 Months"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last ", data.length, " ", titleCase(granularity), "s"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
 }
 
 Summary.propTypes = {
