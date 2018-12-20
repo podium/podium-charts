@@ -138,14 +138,18 @@ var ReportCard =
 function (_React$Component) {
   _inherits(ReportCard, _React$Component);
 
-  function ReportCard(props) {
-    var _this;
+  function ReportCard() {
+    var _getPrototypeOf2;
+
+    var _temp, _this;
 
     _classCallCheck(this, ReportCard);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReportCard).call(this, props));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.collectChildren = function (children) {
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ReportCard)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.collectChildren = function (children) {
       if (!children) return _objectSpread({}, defaultComponents);
 
       var newComponents = _objectSpread({}, defaultComponents);
@@ -163,30 +167,20 @@ function (_React$Component) {
       });
 
       return newComponents;
-    };
-
-    _this.components = _this.collectChildren(props.children);
-    return _this;
+    }, _temp));
   }
 
   _createClass(ReportCard, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (prevProps.children !== this.props.children) {
-        this.components = this.collectChildren(this.props.children);
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       var width = this.props.width;
-      var _this$components = this.components,
-          title = _this$components.title,
-          chart = _this$components.chart,
-          summary = _this$components.summary,
-          legend = _this$components.legend,
-          granularity = _this$components.granularity;
-      console.log('REPORT CARD CHART', chart);
+      var components = this.collectChildren(this.props.children);
+      console.log('REPORT CARD RERENDER', components);
+      var title = components.title,
+          chart = components.chart,
+          summary = components.summary,
+          legend = components.legend,
+          granularity = components.granularity;
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {

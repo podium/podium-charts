@@ -62,7 +62,6 @@ function (_React$Component) {
     _this.graph = (0, _chartHelpers.detectChartType)(props.children);
     _this.stackPosition = (0, _chartHelpers.getStackPositions)(props.children);
     _this.singleLineChart = (0, _chartHelpers.singleLineChart)(props.children);
-    _this.lastIndex = props.data.length - 1;
     return _this;
   }
 
@@ -170,7 +169,7 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dot: function dot(data) {
-        if (data.index === _this2.lastIndex) {
+        if (data.index === props.data.length - 1) {
           return _react.default.createElement(_recharts.Dot, {
             r: 2.5,
             cx: data.cx,

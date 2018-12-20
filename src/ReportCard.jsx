@@ -56,17 +56,6 @@ const defaultComponents = {
 };
 
 export default class ReportCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.components = this.collectChildren(props.children);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.children !== this.props.children) {
-      this.components = this.collectChildren(this.props.children);
-    }
-  }
-
   collectChildren = children => {
     if (!children) return { ...defaultComponents };
     const newComponents = { ...defaultComponents };
@@ -86,8 +75,9 @@ export default class ReportCard extends React.Component {
 
   render() {
     const { width } = this.props;
-    const { title, chart, summary, legend, granularity } = this.components;
-    console.log('REPORT CARD CHART', chart);
+    const components = this.collectChildren(this.props.children);
+    console.log('REPORT CARD RERENDER', components);
+    const { title, chart, summary, legend, granularity } = components;
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>

@@ -25,7 +25,6 @@ export default class Chart extends React.Component {
     this.graph = detectChartType(props.children);
     this.stackPosition = getStackPositions(props.children);
     this.singleLineChart = singleLineChart(props.children);
-    this.lastIndex = props.data.length - 1;
   }
 
   renderChildren = mapping => {
@@ -86,7 +85,7 @@ export default class Chart extends React.Component {
       strokeWidth={2}
       activeDot={false}
       dot={data => {
-        if (data.index === this.lastIndex) {
+        if (data.index === props.data.length - 1) {
           return (
             <RechartsDot
               r={2.5}
