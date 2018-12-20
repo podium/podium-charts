@@ -55,8 +55,8 @@ const defaultComponents = {
   legend: null
 };
 
-export default class ReportCard extends React.Component {
-  collectChildren = children => {
+export default function ReportCard({ width, children }) {
+  const collectChildren = () => {
     if (!children) return { ...defaultComponents };
     const newComponents = { ...defaultComponents };
     React.Children.forEach(children, child => {
@@ -73,31 +73,27 @@ export default class ReportCard extends React.Component {
     return newComponents;
   };
 
-  render() {
-    const { width } = this.props;
-    const components = this.collectChildren(this.props.children);
-    console.log('REPORT CARD RERENDER', components);
-    const { title, chart, summary, legend, granularity } = components;
-    return (
-      <ReportCardWrapper width={width}>
-        <ReportCardMain fullWidth={!summary && !legend}>
-          <ReportCardHeader>
-            {title} {granularity}
-          </ReportCardHeader>
-          {chart}
-        </ReportCardMain>
-        {(summary || legend) && (
-          <ReportCardRight>
-            <ReportCardSummary>
-              <Padding>
-                {summary} {legend}
-              </Padding>
-            </ReportCardSummary>
-          </ReportCardRight>
-        )}
-      </ReportCardWrapper>
-    );
-  }
+  const { title, chart, summary, legend, granularity } = collectChildren();
+
+  return (
+    <ReportCardWrapper width={width}>
+      <ReportCardMain fullWidth={!summary && !legend}>
+        <ReportCardHeader>
+          {title} {granularity}
+        </ReportCardHeader>
+        {chart}
+      </ReportCardMain>
+      {(summary || legend) && (
+        <ReportCardRight>
+          <ReportCardSummary>
+            <Padding>
+              {summary} {legend}
+            </Padding>
+          </ReportCardSummary>
+        </ReportCardRight>
+      )}
+    </ReportCardWrapper>
+  );
 }
 
 ReportCard.propTypes = {
