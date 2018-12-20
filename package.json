@@ -43,24 +43,18 @@
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.0",
     "lint-staged": "^4.2.3",
-    "prettier": "^1.15.3",
-    "podium-ui": "git+ssh://git@github.com/podium/podium-ui.git#v11.0.7",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "styled-components": "^4.1.2"
-  },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0 || ^16",
-    "react-dom": "^0.14.0 || ^15.0.0 || ^16",
-    "styled-components": "^2.1.0",
-    "@podiumhq/podium-ui": "^11.6.11"
+    "prettier": "^1.15.3"
   },
   "dependencies": {
     "humanize-duration": "^3.16.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
-    "recharts": "^1.4.1"
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "recharts": "^1.4.1",
+    "styled-components": "^4.1.2",
+    "podium-ui": "git+ssh://git@github.com/podium/podium-ui.git#v11.0.7"
   },
   "eslintConfig": {
     "extends": "react-app"
