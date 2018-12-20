@@ -150,7 +150,7 @@ var _initialiseProps = function _initialiseProps() {
     return _react.default.createElement(_recharts.Line, _extends({
       type: "linear",
       stroke: props.color,
-      isAnimationActive: false,
+      isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
       dot: {
@@ -165,7 +165,7 @@ var _initialiseProps = function _initialiseProps() {
     return _react.default.createElement(_recharts.Line, _extends({
       type: "linear",
       stroke: props.color,
-      isAnimationActive: false,
+      isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
       dot: function dot(data) {
