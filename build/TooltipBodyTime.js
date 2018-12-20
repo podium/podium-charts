@@ -13,7 +13,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _podiumUi = require("podium-ui");
+var _podiumUi = require("@podiumhq/podium-ui");
 
 var _ = require("./");
 

@@ -9,7 +9,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _podiumUi = require("podium-ui");
+var _podiumUi = require("@podiumhq/podium-ui");
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
