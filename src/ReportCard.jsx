@@ -87,12 +87,12 @@ export default class ReportCard extends React.Component {
   render() {
     const { width } = this.props;
     const { title, chart, summary, legend, granularity } = this.components;
+    console.log('REPORT CARD CHART', chart);
     return (
       <ReportCardWrapper width={width}>
         <ReportCardMain fullWidth={!summary && !legend}>
           <ReportCardHeader>
-            {' '}
-            {title} {granularity}{' '}
+            {title} {granularity}
           </ReportCardHeader>
           {chart}
         </ReportCardMain>
@@ -100,8 +100,7 @@ export default class ReportCard extends React.Component {
           <ReportCardRight>
             <ReportCardSummary>
               <Padding>
-                {' '}
-                {summary} {legend}{' '}
+                {summary} {legend}
               </Padding>
             </ReportCardSummary>
           </ReportCardRight>

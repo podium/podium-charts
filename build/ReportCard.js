@@ -186,11 +186,12 @@ function (_React$Component) {
           summary = _this$components.summary,
           legend = _this$components.legend,
           granularity = _this$components.granularity;
+      console.log('REPORT CARD CHART', chart);
       return _react.default.createElement(ReportCardWrapper, {
         width: width
       }, _react.default.createElement(ReportCardMain, {
         fullWidth: !summary && !legend
-      }, _react.default.createElement(ReportCardHeader, null, ' ', title, " ", granularity, ' '), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, ' ', summary, " ", legend, ' '))));
+      }, _react.default.createElement(ReportCardHeader, null, title, " ", granularity), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, " ", legend))));
     }
   }]);
 

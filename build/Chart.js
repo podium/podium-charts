@@ -74,7 +74,7 @@ function (_React$Component) {
           width = _this$props.width,
           height = _this$props.height;
       var RechartsChartType = this.graph;
-      console.log("CHART", data);
+      console.log('CHART', data);
       var mapping = {
         XAxis: this.renderXAxis,
         YAxis: this.renderYAxis,
