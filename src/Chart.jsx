@@ -70,7 +70,7 @@ export default class Chart extends React.Component {
     <RechartsLine
       type="linear"
       stroke={props.color}
-      isAnimationActive={false}
+      isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
       dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
@@ -82,7 +82,7 @@ export default class Chart extends React.Component {
     <RechartsLine
       type="linear"
       stroke={props.color}
-      isAnimationActive={false}
+      isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
       dot={data => {
