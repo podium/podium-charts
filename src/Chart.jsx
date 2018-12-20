@@ -133,7 +133,7 @@ export default class Chart extends React.Component {
   render() {
     const { data, width, height } = this.props;
     const RechartsChartType = this.graph;
-
+    console.log('CHART', data);
     const mapping = {
       XAxis: this.renderXAxis,
       YAxis: this.renderYAxis,
