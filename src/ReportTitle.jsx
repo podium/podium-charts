@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
-import { colors } from 'podium-ui';
+import { colors } from '@podiumhq/podium-ui';
 
 const TitleWrapper = styled.div`
   margin-bottom: 16px;

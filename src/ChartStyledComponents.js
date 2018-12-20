@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from 'podium-ui';
+import { colors } from '@podiumhq/podium-ui';
 
 export const ChartWrapper = styled.div`
   .recharts-cartesian-axis-tick-value {

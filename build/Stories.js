@@ -6,7 +6,7 @@ var _react2 = require("@storybook/react");
 
 var _formatters = _interopRequireDefault(require("./formatters"));
 
-var _podiumUi = require("podium-ui");
+var _podiumUi = require("@podiumhq/podium-ui");
 
 var _ = require("./");
 

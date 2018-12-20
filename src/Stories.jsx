@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from './formatters';
-import { colors } from 'podium-ui';
+import { colors } from '@podiumhq/podium-ui';
 import {
   Chart,
   XAxis,

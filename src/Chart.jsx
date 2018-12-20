@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { colors } from 'podium-ui';
+import { colors } from '@podiumhq/podium-ui';
 import Rectangle from './Rectangle';
 import { ChartWrapper } from './ChartStyledComponents';
 import {
