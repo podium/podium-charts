@@ -132,6 +132,10 @@ function (_Component) {
           onChange = _this$props2.onChange;
       var options = this.getOptions();
       var placeholder = options[0].label || '';
+      var validRangeValues = options.map(function (option) {
+        return option.value;
+      });
+      if (!(value in validRangeValues)) onChange(validRangeValues[0]);
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
