@@ -21,13 +21,18 @@ const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
 const optionsMap = {
-  lastTwelveMonths: [byMonth, byWeek, byDay],
-  monthToDate: [byWeek, byDay],
-  weekToDate: [byDay, byHour],
-  today: [byHour],
   gtNinetyDays: [byMonth, byWeek, byDay],
   gtThirtyOneDays: [byWeek, byMonth, byDay],
-  ltThirtyOneDays: [byDay, byWeek]
+  ltThirtyOneDays: [byDay, byWeek],
+  lastMonth: [byWeek, byDay],
+  lastTwelveMonths: [byMonth, byWeek, byDay],
+  lastWeek: [byDay, byHour],
+  lastYear: [byMonth, byWeek],
+  monthToDate: [byWeek, byDay],
+  today: [byHour],
+  weekToDate: [byDay, byHour],
+  yearToDate: [byMonth, byWeek],
+  yesterday: [byHour]
 };
 
 export default class Granularity extends Component {
@@ -79,10 +84,16 @@ Granularity.propTypes = {
   onChange: PropTypes.func,
   startDate: PropTypes.string,
   timeRange: PropTypes.oneOf([
+    'custom',
+    'lastMonth',
     'lastTwelveMonths',
+    'lastWeek',
+    'lastYear',
     'monthToDate',
+    'today',
     'weekToDate',
-    'today'
+    'yearToDate',
+    'yesterday'
   ])
 };
 
