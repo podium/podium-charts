@@ -68,19 +68,18 @@ var byHour = {
   label: 'By Hour'
 };
 var optionsMap = {
-  lastTwelveMonths: [byMonth, byWeek, byDay],
-  monthToDate: [byWeek, byDay],
-  weekToDate: [byDay, byHour],
-  today: [byHour],
   gtNinetyDays: [byMonth, byWeek, byDay],
   gtThirtyOneDays: [byWeek, byMonth, byDay],
-  ltThirtyOneDays: [byDay, byWeek]
-};
-var displayMap = {
-  month: byMonth.label,
-  week: byWeek.label,
-  day: byDay.label,
-  hour: byHour.label
+  ltThirtyOneDays: [byDay, byWeek],
+  lastMonth: [byWeek, byDay],
+  lastTwelveMonths: [byMonth, byWeek, byDay],
+  lastWeek: [byDay, byHour],
+  lastYear: [byMonth, byWeek],
+  monthToDate: [byWeek, byDay],
+  today: [byHour],
+  weekToDate: [byDay, byHour],
+  yearToDate: [byMonth, byWeek],
+  yesterday: [byHour]
 };
 
 var Granularity =
@@ -132,7 +131,7 @@ function (_Component) {
           value = _this$props2.value,
           onChange = _this$props2.onChange;
       var options = this.getOptions();
-      var placeholder = displayMap[value] || options[0].label;
+      var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
@@ -152,7 +151,7 @@ Granularity.propTypes = {
   endDate: _propTypes.default.string,
   onChange: _propTypes.default.func,
   startDate: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['lastTwelveMonths', 'monthToDate', 'weekToDate', 'today'])
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'lastTwelveMonths', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate'
