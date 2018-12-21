@@ -30,13 +30,6 @@ const optionsMap = {
   ltThirtyOneDays: [byDay, byWeek]
 };
 
-const displayMap = {
-  month: byMonth.label,
-  week: byWeek.label,
-  day: byDay.label,
-  hour: byHour.label
-};
-
 export default class Granularity extends Component {
   getOptions = () => {
     const { timeRange } = this.props;
@@ -64,7 +57,7 @@ export default class Granularity extends Component {
   render() {
     const { value, onChange } = this.props;
     const options = this.getOptions();
-    const placeholder = displayMap[value] || options[0].label;
+    const placeholder = options[0].label || '';
 
     return (
       <GranularityWrapper>
