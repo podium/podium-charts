@@ -152,7 +152,7 @@ Granularity.propTypes = {
   endDate: _propTypes.default.string,
   onChange: _propTypes.default.func,
   startDate: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['lastTwelveMonths', 'monthToDate', 'weekToDate', 'today'])
+  timeRange: _propTypes.default.oneOf(['lastTwelveMonths', 'monthToDate', 'weekToDate', 'today', 'custom'])
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate'
