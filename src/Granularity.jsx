@@ -89,7 +89,8 @@ Granularity.propTypes = {
     'lastTwelveMonths',
     'monthToDate',
     'weekToDate',
-    'today'
+    'today',
+    'custom'
   ])
 };
 

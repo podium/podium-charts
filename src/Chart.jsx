@@ -85,7 +85,7 @@ export default class Chart extends React.Component {
       strokeWidth={2}
       activeDot={false}
       dot={data => {
-        if (data.index === props.data.length - 1) {
+        if (props.data && data.index === props.data.length - 1) {
           return (
             <RechartsDot
               r={2.5}
