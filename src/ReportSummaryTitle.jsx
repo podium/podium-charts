@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, IconArrow } from '@podiumhq/podium-ui';
+import { colors, IconArrow, IconPlus } from '@podiumhq/podium-ui';
+import Ghost from './Ghost';
 
 const TrendWrapper = styled.div`
   margin-left: 8px;
@@ -20,6 +21,8 @@ const TrendWrapper = styled.div`
         transform: translate(90deg);
       }
     `}
+  ${({ direction }) =>
+    direction === 'neutral' && `background-color: ${colors.iron} `}
 `;
 
 const SummaryTitleWrapper = styled.div`
@@ -46,7 +49,11 @@ const MonthToDateLabel = styled.div`
 
 const Trend = ({ direction }) => (
   <TrendWrapper direction={direction}>
-    <IconArrow color={colors.white} size="12" direction={direction} />
+    {direction === 'neutral' ? (
+      <IconPlus color={colors.white} size="12" />
+    ) : (
+      <IconArrow color={colors.white} size="12" direction={direction} />
+    )}
   </TrendWrapper>
 );
 
@@ -56,7 +63,9 @@ export default function ReportSummaryTitle({
   summaryType,
   dataKeys,
   formatter,
-  granularity
+  granularity,
+  trendDirection,
+  loading
 }) {
   const summaryHandler = {
     total: periodData =>
@@ -84,9 +93,18 @@ export default function ReportSummaryTitle({
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      <MonthToDate>
-        {formatter(currentValue())} {compareToLastMonth()}
-      </MonthToDate>
+      {loading ? (
+        <Ghost />
+      ) : (
+        <MonthToDate>
+          {formatter(currentValue())}
+          {trendDirection ? (
+            <Trend direction={trendDirection} />
+          ) : (
+            compareToLastMonth()
+          )}
+        </MonthToDate>
+      )}
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );
@@ -96,7 +114,9 @@ ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   summaryType: PropTypes.oneOf(['avg', 'total']),
-  dataKeys: PropTypes.array.isRequired
+  dataKeys: PropTypes.array.isRequired,
+  trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
+  loading: PropTypes.bool
 };
 
 ReportSummaryTitle.defaultProps = {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import formatters from './formatters';
+import Ghost from './Ghost';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -36,7 +37,13 @@ const Label = styled.div`
   align-items: center;
 `;
 
-export default function Legend({ data, summaryType, config, formatter }) {
+export default function Legend({
+  loading,
+  data,
+  summaryType,
+  config,
+  formatter
+}) {
   const typeHandler = {
     total: dataKey =>
       data.reduce((acc, dataField) => (dataField[dataKey] || 0) + acc, 0),
@@ -63,7 +70,19 @@ export default function Legend({ data, summaryType, config, formatter }) {
       );
     });
   };
-  return <LegendWrapper>{renderLegendItem()}</LegendWrapper>;
+  return (
+    <LegendWrapper>
+      {loading ? (
+        <>
+          <Ghost row />
+          <Ghost row />
+          <Ghost row />
+        </>
+      ) : (
+        renderLegendItem()
+      )}
+    </LegendWrapper>
+  );
 }
 
 Legend.propTypes = {
@@ -76,7 +95,8 @@ Legend.propTypes = {
       dataKey: PropTypes.string
     })
   ).isRequired,
-  formatter: PropTypes.func
+  formatter: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 Legend.defaultProps = {

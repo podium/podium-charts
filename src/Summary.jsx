@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
+import Ghost from './Ghost';
 
 const SummaryWrapper = styled.div``;
 
@@ -30,7 +31,8 @@ export default function Summary({
   dataKeys,
   summaryType,
   formatter,
-  granularity
+  granularity,
+  loading
 }) {
   const typeHandler = {
     total: monthData =>
@@ -72,13 +74,29 @@ export default function Summary({
 
   return (
     <SummaryWrapper>
-      <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{formatter(currentData())}</SummaryLabel>
+      {loading ? (
+        <Ghost height="14px" width="78px" />
+      ) : (
+        <ToDate>{titleCase(granularity)} to Date</ToDate>
+      )}
+      {loading ? (
+        <Ghost height="27px" width="44px" />
+      ) : (
+        <SummaryLabel>{formatter(currentData())}</SummaryLabel>
+      )}
       <Space />
-      <Last12Months>
-        Last {data.length} {titleCase(granularity)}s
-      </Last12Months>
-      <SummaryLabel>{formatter(entireData())}</SummaryLabel>
+      {loading ? (
+        <Ghost height="14px" width="78px" />
+      ) : (
+        <Last12Months>
+          Last {data.length} {titleCase(granularity)}s
+        </Last12Months>
+      )}
+      {loading ? (
+        <Ghost height="27px" width="44px" />
+      ) : (
+        <SummaryLabel>{formatter(entireData())}</SummaryLabel>
+      )}
     </SummaryWrapper>
   );
 }
@@ -87,7 +105,8 @@ Summary.propTypes = {
   summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
-  formatter: PropTypes.func
+  formatter: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 Summary.defaultProps = {
