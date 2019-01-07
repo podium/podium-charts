@@ -29,7 +29,7 @@
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
-    "@podiumhq/podium-ui": "^12.1.1",
+    "@podiumhq/podium-ui": "^12.1.2",
     "@storybook/addon-info": "^4.0.11",
     "@storybook/react": "^4.0.10",
     "babel-eslint": "^9.0.0",

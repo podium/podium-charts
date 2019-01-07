@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, IconArrow, IconPlus } from '@podiumhq/podium-ui';
+import { colors, IconArrow, IconMinus } from '@podiumhq/podium-ui';
 import Ghost from './Ghost';
 
 const TrendWrapper = styled.div`
@@ -50,7 +50,7 @@ const MonthToDateLabel = styled.div`
 const Trend = ({ direction }) => (
   <TrendWrapper direction={direction}>
     {direction === 'neutral' ? (
-      <IconPlus color={colors.white} size="12" />
+      <IconMinus color={colors.white} size="12" />
     ) : (
       <IconArrow color={colors.white} size="12" direction={direction} />
     )}
