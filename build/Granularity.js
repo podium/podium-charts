@@ -135,7 +135,7 @@ function (_Component) {
       var validRangeValues = options.map(function (option) {
         return option.value;
       });
-      if (!(value in validRangeValues) & value !== 'custom') onChange(validRangeValues[0]);
+      if (!(value in validRangeValues) && value !== 'custom') onChange(validRangeValues[0]);
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
