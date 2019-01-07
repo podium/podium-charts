@@ -315,6 +315,29 @@ var data = [{
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
   })));
+}).add('Custom Trend Direction', function () {
+  return _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    summaryType: "total",
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: data,
+    trendDirection: "neutral"
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  })));
+}).add('Loading', function () {
+  return _react.default.createElement(_.ReportCardSummaryLoading, {
+    width: "270px",
+    title: "Median Response Time"
+  });
 });
 (0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
@@ -389,6 +412,10 @@ var data = [{
       color: _podiumUi.colors.poppyRed
     }]
   }));
+}).add('Loading', function () {
+  return _react.default.createElement(_.ReportCardLoading, {
+    title: "Median Response Time"
+  });
 }).add('w/Granularity', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
     title: "Total Reviews",

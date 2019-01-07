@@ -13,6 +13,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _Ghost = _interopRequireDefault(require("./Ghost"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -56,7 +58,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: 8px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 22px;\n  height: 22px;\n  border-radius: 2px;\n  background-color: ", ";\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-left: 8px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 22px;\n  height: 22px;\n  border-radius: 2px;\n  background-color: ", ";\n  ", "\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -70,6 +72,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var TrendWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.poppyRed, function (_ref) {
   var direction = _ref.direction;
   return direction === 'up' && "\n      background-color: ".concat(_podiumUi.colors.podiumBrand, "\n      svg {\n        transform: translate(90deg);\n      }\n    ");
+}, function (_ref2) {
+  var direction = _ref2.direction;
+  return direction === 'neutral' && "background-color: ".concat(_podiumUi.colors.iron, " ");
 });
 
 var SummaryTitleWrapper = _styledComponents.default.div(_templateObject2());
@@ -80,24 +85,29 @@ var MonthToDate = _styledComponents.default.div(_templateObject4(), _podiumUi.co
 
 var MonthToDateLabel = _styledComponents.default.div(_templateObject5(), _podiumUi.colors.steel);
 
-var Trend = function Trend(_ref2) {
-  var direction = _ref2.direction;
+var Trend = function Trend(_ref3) {
+  var direction = _ref3.direction;
   return _react.default.createElement(TrendWrapper, {
     direction: direction
-  }, _react.default.createElement(_podiumUi.IconArrow, {
+  }, direction === 'neutral' ? _react.default.createElement(_podiumUi.IconMinus, {
+    color: _podiumUi.colors.white,
+    size: "12"
+  }) : _react.default.createElement(_podiumUi.IconArrow, {
     color: _podiumUi.colors.white,
     size: "12",
     direction: direction
   }));
 };
 
-function ReportSummaryTitle(_ref3) {
-  var data = _ref3.data,
-      title = _ref3.title,
-      summaryType = _ref3.summaryType,
-      dataKeys = _ref3.dataKeys,
-      formatter = _ref3.formatter,
-      granularity = _ref3.granularity;
+function ReportSummaryTitle(_ref4) {
+  var data = _ref4.data,
+      title = _ref4.title,
+      summaryType = _ref4.summaryType,
+      dataKeys = _ref4.dataKeys,
+      formatter = _ref4.formatter,
+      granularity = _ref4.granularity,
+      trendDirection = _ref4.trendDirection,
+      loading = _ref4.loading;
   var summaryHandler = {
     total: function total(periodData) {
       return dataKeys.reduce(function (acc, key) {
@@ -130,14 +140,18 @@ function ReportSummaryTitle(_ref3) {
     });
   };
 
-  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(currentValue()), " ", compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), loading ? _react.default.createElement(_Ghost.default, null) : _react.default.createElement(MonthToDate, null, formatter(currentValue()), trendDirection ? _react.default.createElement(Trend, {
+    direction: trendDirection
+  }) : compareToLastMonth()), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
 
 ReportSummaryTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
-  dataKeys: _propTypes.default.array.isRequired
+  dataKeys: _propTypes.default.array.isRequired,
+  trendDirection: _propTypes.default.oneOf(['up', 'down', 'neutral']),
+  loading: _propTypes.default.bool
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',

@@ -45,6 +45,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+var GRAPHIK = 'Graphik, Helvetica, sans-serif';
+
 var Chart =
 /*#__PURE__*/
 function (_React$Component) {
@@ -121,7 +123,7 @@ var _initialiseProps = function _initialiseProps() {
       axisLine: false,
       tickLine: false,
       stroke: _podiumUi.colors.lightSteel,
-      fontFamily: "Graphik, Helvetica, sans-serif"
+      fontFamily: GRAPHIK
     }, props));
   };
 
@@ -132,7 +134,7 @@ var _initialiseProps = function _initialiseProps() {
       tickLine: false,
       width: 20,
       orientation: "left",
-      fontFamily: "Graphik, Helvetica, sans-serif"
+      fontFamily: GRAPHIK
     }, props));
   };
 
@@ -168,7 +170,7 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dot: function dot(data) {
-        if (props.data && data.index === props.data.length - 1) {
+        if (data.index === _this2.props.data.length - 1) {
           return _react.default.createElement(_recharts.Dot, {
             r: 2.5,
             cx: data.cx,
