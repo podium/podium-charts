@@ -216,7 +216,7 @@ storiesOf('Report Card Summary', module)
     </ReportCard>
   ))
   .add('Loading', () => (
-    <ReportCardSummaryLoading title="Median Response Time" />
+    <ReportCardSummaryLoading width="270px" title="Median Response Time" />
   ));
 
 storiesOf('Report Card', module)

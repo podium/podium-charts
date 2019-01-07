@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if git diff-index --quiet HEAD --; then
+  BRANCH=$(git symbolic-ref HEAD | sed 's!refs\/heads\/!!')
+
+  git checkout --detach
+  npm run build
+
+  if [ $? -ne 0 ]; then
+    git checkout $BRANCH
+    exit 1
+  fi
+  git add -f build
+  git add -f legacy-build
+  git commit -am "Publish b-$BRANCH -- with build and legacy-build"
+
+  git tag -d b-$BRANCH
+  git push origin :b-$BRANCH
+
+  git tag -a b-$BRANCH -m "b-$BRANCH"
+
+  git push origin b-$BRANCH
+
+  git checkout $BRANCH
+
+  echo "Branch published!"
+  echo "-----------------"
+  echo "install via: (in the project you want to try it on)"
+  echo "    npm install -S git+ssh://git@github.com/podium/podium-charts.git#b-$BRANCH"
+  echo "------------------"
+else
+  echo "⚠️  You have uncommitted changes to your current branch not publishing your branch."
+  exit 1
+fi
