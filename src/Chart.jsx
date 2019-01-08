@@ -43,6 +43,7 @@ export default class Chart extends React.Component {
       tickLine={false}
       stroke={colors.lightSteel}
       fontFamily={GRAPHIK}
+      interval={Math.floor((this.props.data.length - 1) / 18)}
       {...props}
     />
   );
