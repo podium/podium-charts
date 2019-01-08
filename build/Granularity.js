@@ -138,6 +138,7 @@ function (_Component) {
         var validRangeValues = options.map(function (option) {
           return option.value;
         });
+        console.log(validRangeValues);
         if (!(value in validRangeValues) && value !== 'custom') onChange(validRangeValues[0]);
       }
     }, _temp));
