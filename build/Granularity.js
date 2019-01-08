@@ -70,9 +70,9 @@ var byHour = {
   label: 'By Hour'
 };
 var optionsMap = {
-  gtNinetyDays: [byMonth, byWeek, byDay],
-  gtThirtyOneDays: [byWeek, byMonth, byDay],
-  ltThirtyOneDays: [byDay, byWeek],
+  gtNinetyDays: [byMonth, byWeek],
+  gtThirtyOneDays: [byMonth, byWeek, byDay],
+  ltThirtyOneDays: [byWeek, byDay],
   lastMonth: [byWeek, byDay],
   lastTwelveMonths: [byMonth, byWeek, byDay],
   lastWeek: [byDay, byHour],
