@@ -59,14 +59,19 @@ export default class Granularity extends Component {
     }
   };
 
+  componentDidUpdate(prevProps, props) {
+    if (prevProps.timeRange !== props.timeRange) {
+      const options = this.getOptions();
+      const validRangeValues = options.map(option => option.value);
+      if (!(props.value in validRangeValues) && props.value !== 'custom')
+        props.onChange(validRangeValues[0]);
+    }
+  }
+
   render() {
     const { value, onChange } = this.props;
     const options = this.getOptions();
     const placeholder = options[0].label || '';
-
-    // const validRangeValues = options.map(option => option.value);
-    // if (!(value in validRangeValues) && value !== 'custom')
-    //   onChange(validRangeValues[0]);
 
     return (
       <GranularityWrapper>
