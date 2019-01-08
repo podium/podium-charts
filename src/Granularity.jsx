@@ -73,6 +73,7 @@ export default class Granularity extends Component {
     if (this.timeRangeChanged(prevProps)) {
       const options = this.getOptions();
       const validRangeValues = options.map(option => option.value);
+      console.log(validRangeValues);
       if (!(value in validRangeValues) && value !== 'custom')
         onChange(validRangeValues[0]);
     }
