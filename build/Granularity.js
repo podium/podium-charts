@@ -131,11 +131,10 @@ function (_Component) {
           value = _this$props2.value,
           onChange = _this$props2.onChange;
       var options = this.getOptions();
-      var placeholder = options[0].label || '';
-      var validRangeValues = options.map(function (option) {
-        return option.value;
-      });
-      if (!(value in validRangeValues) && value !== 'custom') onChange(validRangeValues[0]);
+      var placeholder = options[0].label || ''; // const validRangeValues = options.map(option => option.value);
+      // if (!(value in validRangeValues) && value !== 'custom')
+      //   onChange(validRangeValues[0]);
+
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
