@@ -13,6 +13,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _Ghost = _interopRequireDefault(require("./Ghost"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -82,7 +84,8 @@ function Summary(_ref) {
       dataKeys = _ref.dataKeys,
       summaryType = _ref.summaryType,
       formatter = _ref.formatter,
-      granularity = _ref.granularity;
+      granularity = _ref.granularity,
+      loading = _ref.loading;
   var typeHandler = {
     total: function total(monthData) {
       return dataKeys.reduce(function (acc, key) {
@@ -124,14 +127,27 @@ function Summary(_ref) {
     }).join(' ');
   };
 
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last ", data.length, " ", titleCase(granularity), "s"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
+  return _react.default.createElement(SummaryWrapper, null, loading ? _react.default.createElement(_Ghost.default, {
+    height: "14px",
+    width: "78px"
+  }) : _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), loading ? _react.default.createElement(_Ghost.default, {
+    height: "27px",
+    width: "44px"
+  }) : _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), loading ? _react.default.createElement(_Ghost.default, {
+    height: "14px",
+    width: "78px"
+  }) : _react.default.createElement(Last12Months, null, "Last ", data.length, " ", titleCase(granularity), "s"), loading ? _react.default.createElement(_Ghost.default, {
+    height: "27px",
+    width: "44px"
+  }) : _react.default.createElement(SummaryLabel, null, formatter(entireData())));
 }
 
 Summary.propTypes = {
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
   data: _propTypes.default.array.isRequired,
   dataKeys: _propTypes.default.array.isRequired,
-  formatter: _propTypes.default.func
+  formatter: _propTypes.default.func,
+  loading: _propTypes.default.bool
 };
 Summary.defaultProps = {
   summaryType: 'total',
