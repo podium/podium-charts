@@ -64,9 +64,9 @@ export default class Granularity extends Component {
     const options = this.getOptions();
     const placeholder = options[0].label || '';
 
-    const validRangeValues = options.map(option => option.value);
-    if (!(value in validRangeValues) && value !== 'custom')
-      onChange(validRangeValues[0]);
+    // const validRangeValues = options.map(option => option.value);
+    // if (!(value in validRangeValues) && value !== 'custom')
+    //   onChange(validRangeValues[0]);
 
     return (
       <GranularityWrapper>
