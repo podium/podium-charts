@@ -121,31 +121,34 @@ function (_Component) {
       } else {
         return optionsMap['gtNinetyDays'];
       }
-    }, _temp));
-  }
-
-  _createClass(Granularity, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _this$props2 = this.props,
+    }, _this.timeRangeChanged = function (prevProps) {
+      var _this$props2 = _this.props,
           timeRange = _this$props2.timeRange,
-          value = _this$props2.value,
-          onChange = _this$props2.onChange;
+          startDate = _this$props2.startDate,
+          endDate = _this$props2.endDate;
+      return prevProps.timeRange !== timeRange || prevProps.startDate !== startDate || prevProps.endDate !== endDate;
+    }, _this.componentDidUpdate = function (prevProps) {
+      var _this$props3 = _this.props,
+          value = _this$props3.value,
+          onChange = _this$props3.onChange;
 
-      if (prevProps.timeRange !== timeRange) {
-        var options = this.getOptions();
+      if (_this.timeRangeChanged(prevProps)) {
+        var options = _this.getOptions();
+
         var validRangeValues = options.map(function (option) {
           return option.value;
         });
         if (!(value in validRangeValues) && value !== 'custom') onChange(validRangeValues[0]);
       }
-    }
-  }, {
+    }, _temp));
+  }
+
+  _createClass(Granularity, [{
     key: "render",
     value: function render() {
-      var _this$props3 = this.props,
-          value = _this$props3.value,
-          onChange = _this$props3.onChange;
+      var _this$props4 = this.props,
+          value = _this$props4.value,
+          onChange = _this$props4.onChange;
       var options = this.getOptions();
       var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
