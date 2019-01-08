@@ -125,16 +125,24 @@ function (_Component) {
   }
 
   _createClass(Granularity, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, props) {
+      if (prevProps.timeRange !== props.timeRange) {
+        var options = this.getOptions();
+        var validRangeValues = options.map(function (option) {
+          return option.value;
+        });
+        if (!(props.value in validRangeValues) && props.value !== 'custom') props.onChange(validRangeValues[0]);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props2 = this.props,
           value = _this$props2.value,
           onChange = _this$props2.onChange;
       var options = this.getOptions();
-      var placeholder = options[0].label || ''; // const validRangeValues = options.map(option => option.value);
-      // if (!(value in validRangeValues) && value !== 'custom')
-      //   onChange(validRangeValues[0]);
-
+      var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
