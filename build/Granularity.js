@@ -126,21 +126,26 @@ function (_Component) {
 
   _createClass(Granularity, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, props) {
-      if (prevProps.timeRange !== props.timeRange) {
+    value: function componentDidUpdate(prevProps) {
+      var _this$props2 = this.props,
+          timeRange = _this$props2.timeRange,
+          value = _this$props2.value,
+          onChange = _this$props2.onChange;
+
+      if (prevProps.timeRange !== timeRange) {
         var options = this.getOptions();
         var validRangeValues = options.map(function (option) {
           return option.value;
         });
-        if (!(props.value in validRangeValues) && props.value !== 'custom') props.onChange(validRangeValues[0]);
+        if (!(value in validRangeValues) && value !== 'custom') onChange(validRangeValues[0]);
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          value = _this$props2.value,
-          onChange = _this$props2.onChange;
+      var _this$props3 = this.props,
+          value = _this$props3.value,
+          onChange = _this$props3.onChange;
       var options = this.getOptions();
       var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
