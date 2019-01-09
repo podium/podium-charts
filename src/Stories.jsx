@@ -16,8 +16,10 @@ import {
   TooltipBody,
   TooltipBodyTime,
   ReportCard,
+  ReportCardLoading,
   ReportTitle,
-  ReportSummaryTitle
+  ReportSummaryTitle,
+  ReportCardSummaryLoading
 } from './';
 
 const data = [
@@ -183,20 +185,42 @@ storiesOf('Tooltip', module)
     { info: { excludedPropTypes: ['payload'] } }
   );
 
-storiesOf('Report Card Summary', module).add('default', () => (
-  <ReportCard width="270px">
-    <ReportSummaryTitle
-      formatter={formatters.humanizeDuration}
-      summaryType="total"
-      dataKeys={['sms']}
-      title="Median Response Time"
-      data={data}
-    />
-    <Chart data={data} height={100}>
-      <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-    </Chart>
-  </ReportCard>
-));
+storiesOf('Report Card Summary', module)
+  .add('Default', () => (
+    <ReportCard width="270px">
+      <ReportSummaryTitle
+        formatter={formatters.humanizeDuration}
+        summaryType="total"
+        dataKeys={['sms']}
+        title="Median Response Time"
+        data={data}
+        trendDirection="up"
+      />
+      <Chart data={data} height={100}>
+        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+      </Chart>
+    </ReportCard>
+  ))
+  .add('Prefer Downward Trend', () => (
+    <ReportCard width="270px">
+      <ReportSummaryTitle
+        formatter={formatters.humanizeDuration}
+        summaryType="total"
+        dataKeys={['sms']}
+        title="Median Response Time"
+        data={data}
+        trendDirection="down"
+        preferDown
+      />
+      <Chart data={data} height={100}>
+        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+      </Chart>
+    </ReportCard>
+  ))
+
+  .add('Loading', () => (
+    <ReportCardSummaryLoading width="270px" title="Median Response Time" />
+  ));
 
 storiesOf('Report Card', module)
   .add('w/Chart,Title', () => (
@@ -254,6 +278,8 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
+  .add('Loading', () => <ReportCardLoading title="Median Response Time" />)
+
   .add('w/Granularity', () => (
     <ReportCard>
       <ReportTitle title="Total Reviews" data={data} />

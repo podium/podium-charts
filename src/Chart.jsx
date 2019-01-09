@@ -19,6 +19,8 @@ import {
   Dot as RechartsDot
 } from 'recharts';
 
+const GRAPHIK = 'Graphik, Helvetica, sans-serif';
+
 export default class Chart extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ export default class Chart extends React.Component {
       axisLine={false}
       tickLine={false}
       stroke={colors.lightSteel}
-      fontFamily="Graphik, Helvetica, sans-serif"
+      fontFamily={GRAPHIK}
       {...props}
     />
   );
@@ -52,7 +54,7 @@ export default class Chart extends React.Component {
       tickLine={false}
       width={20}
       orientation="left"
-      fontFamily="Graphik, Helvetica, sans-serif"
+      fontFamily={GRAPHIK}
       {...props}
     />
   );
@@ -85,7 +87,7 @@ export default class Chart extends React.Component {
       strokeWidth={2}
       activeDot={false}
       dot={data => {
-        if (props.data && data.index === props.data.length - 1) {
+        if (data.index === this.props.data.length - 1) {
           return (
             <RechartsDot
               r={2.5}

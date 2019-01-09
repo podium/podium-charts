@@ -4,6 +4,10 @@ export { default as Summary } from './Summary';
 export { default as TooltipBody } from './TooltipBody';
 export { default as TooltipBodyTime } from './TooltipBodyTime';
 export { default as ReportCard } from './ReportCard';
+export { default as ReportCardLoading } from './ReportCardLoading';
+export {
+  default as ReportCardSummaryLoading
+} from './ReportCardSummaryLoading';
 export { default as ReportTitle } from './ReportTitle';
 export { default as ReportSummaryTitle } from './ReportSummaryTitle';
 export { default as Granularity } from './Granularity';

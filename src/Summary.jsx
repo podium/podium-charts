@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
+import Ghost from './Ghost';
 
 const SummaryWrapper = styled.div``;
 
@@ -30,7 +31,8 @@ export default function Summary({
   dataKeys,
   summaryType,
   formatter,
-  granularity
+  granularity,
+  loading
 }) {
   const typeHandler = {
     total: monthData =>
@@ -70,6 +72,18 @@ export default function Summary({
       .join(' ');
   };
 
+  const renderGhostState = () => (
+    <SummaryWrapper>
+      <Ghost height="14px" width="78px" />
+      <Ghost height="27px" width="44px" />
+      <Space />
+      <Ghost height="14px" width="78px" />
+      <Ghost height="27px" width="44px" />
+    </SummaryWrapper>
+  );
+
+  if (loading) return renderGhostState();
+
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
@@ -87,7 +101,8 @@ Summary.propTypes = {
   summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
-  formatter: PropTypes.func
+  formatter: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 Summary.defaultProps = {
