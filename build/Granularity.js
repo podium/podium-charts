@@ -74,7 +74,7 @@ var optionsMap = {
   gtThirtyOneDays: [byMonth, byWeek, byDay],
   ltThirtyOneDays: [byWeek, byDay],
   lastMonth: [byWeek, byDay],
-  lastTwelveMonths: [byMonth, byWeek, byDay],
+  lastTwelveMonths: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
   lastYear: [byMonth, byWeek],
   monthToDate: [byWeek, byDay],
