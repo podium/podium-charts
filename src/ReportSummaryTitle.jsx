@@ -4,6 +4,18 @@ import styled from 'styled-components';
 import { colors, IconArrow, IconMinus } from '@podiumhq/podium-ui';
 import Ghost from './Ghost';
 
+const calculateTrendColor = ({ direction, preferDown }) => {
+  console.log(direction, preferDown);
+  switch (direction) {
+    case 'up':
+      return preferDown ? colors.poppyRed : colors.podiumBrand;
+    case 'down':
+      return preferDown ? colors.podiumBrand : colors.poppyRed;
+    default:
+      return colors.iron;
+  }
+};
+
 const TrendWrapper = styled.div`
   margin-left: 8px;
   display: flex;
@@ -12,17 +24,13 @@ const TrendWrapper = styled.div`
   width: 22px;
   height: 22px;
   border-radius: 2px;
-  background-color: ${colors.poppyRed};
+	
+	//background-color: ${colors.podiumBrand}
+
   ${({ direction }) =>
-    direction === 'up' &&
-    `
-      background-color: ${colors.podiumBrand}
-      svg {
-        transform: translate(90deg);
-      }
-    `}
-  ${({ direction }) =>
-    direction === 'neutral' && `background-color: ${colors.iron} `}
+    direction === 'up' && `svg { transform: translate(90deg); } `}
+
+	background-color: ${props => calculateTrendColor(props)}	;
 `;
 
 const SummaryTitleWrapper = styled.div`
@@ -47,8 +55,8 @@ const MonthToDateLabel = styled.div`
   font-size: 14px;
 `;
 
-const Trend = ({ direction }) => (
-  <TrendWrapper direction={direction}>
+const Trend = ({ direction, preferDown }) => (
+  <TrendWrapper direction={direction} preferDown={preferDown}>
     {direction === 'neutral' ? (
       <IconMinus color={colors.white} size="12" />
     ) : (
@@ -65,6 +73,7 @@ export default function ReportSummaryTitle({
   formatter,
   granularity,
   trendDirection,
+  preferDown,
   loading
 }) {
   const summaryHandler = {
@@ -99,7 +108,7 @@ export default function ReportSummaryTitle({
         <MonthToDate>
           {formatter(currentValue())}
           {trendDirection ? (
-            <Trend direction={trendDirection} />
+            <Trend direction={trendDirection} preferDown={preferDown} />
           ) : (
             compareToLastMonth()
           )}
@@ -116,10 +125,12 @@ ReportSummaryTitle.propTypes = {
   summaryType: PropTypes.oneOf(['avg', 'total']),
   dataKeys: PropTypes.array.isRequired,
   trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  preferDown: PropTypes.bool
 };
 
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
-  formatter: value => value
+  formatter: value => value,
+  preferDown: false
 };

@@ -26,8 +26,8 @@ const ReportCardLoading = ({ title }) => {
         <YAxis tickFormatter={() => ''} dataKey="uv" />
         <XAxis dataKey="name" />
       </Chart>
-      <Summary loading />
-      <Legend loading />
+      <Summary loading data={data} dataKeys={['uv']} />
+      <Legend loading data={data} config={[]} />
     </ReportCard>
   );
 };

@@ -14,7 +14,7 @@ const data = [
 const ReportCardSummaryLoading = ({ title, width }) => {
   return (
     <ReportCard width={width}>
-      <ReportSummaryTitle title={title} loading />
+      <ReportSummaryTitle title={title} loading data={data} dataKeys={['uv']} />
       <Chart data={data} height={100}>
         <YAxis width={1} tickCount={3} tickFormatter={() => ''} dataKey="uv" />
       </Chart>

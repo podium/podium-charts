@@ -215,6 +215,23 @@ storiesOf('Report Card Summary', module)
       </Chart>
     </ReportCard>
   ))
+  .add('Prefer Downward Trend', () => (
+    <ReportCard width="270px">
+      <ReportSummaryTitle
+        formatter={formatters.humanizeDuration}
+        summaryType="total"
+        dataKeys={['sms']}
+        title="Median Response Time"
+        data={data}
+        trendDirection="down"
+        preferDown
+      />
+      <Chart data={data} height={100}>
+        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+      </Chart>
+    </ReportCard>
+  ))
+
   .add('Loading', () => (
     <ReportCardSummaryLoading width="270px" title="Median Response Time" />
   ));
