@@ -168,7 +168,7 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dot: function dot(data) {
-        if (data.index === props.data.length - 1) {
+        if (props.data && data.index === props.data.length - 1) {
           return _react.default.createElement(_recharts.Dot, {
             r: 2.5,
             cx: data.cx,
