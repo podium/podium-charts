@@ -15,6 +15,8 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _formatters = _interopRequireDefault(require("./formatters"));
 
+var _Ghost = _interopRequireDefault(require("./Ghost"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
@@ -70,7 +72,8 @@ var ColorLabel = _styledComponents.default.div(_templateObject3(), function (pro
 var Label = _styledComponents.default.div(_templateObject4());
 
 function Legend(_ref) {
-  var data = _ref.data,
+  var loading = _ref.loading,
+      data = _ref.data,
       summaryType = _ref.summaryType,
       config = _ref.config,
       formatter = _ref.formatter;
@@ -91,6 +94,16 @@ function Legend(_ref) {
     return typeHandler[summaryType](dataKey);
   };
 
+  var renderGhostState = function renderGhostState() {
+    return _react.default.createElement(LegendWrapper, null, _react.default.createElement(_Ghost.default, {
+      row: true
+    }), _react.default.createElement(_Ghost.default, {
+      row: true
+    }), _react.default.createElement(_Ghost.default, {
+      row: true
+    }));
+  };
+
   var renderLegendItem = function renderLegendItem() {
     return config.map(function (legendItem) {
       var dataKey = legendItem.dataKey,
@@ -104,6 +117,7 @@ function Legend(_ref) {
     });
   };
 
+  if (loading) return renderGhostState();
   return _react.default.createElement(LegendWrapper, null, renderLegendItem());
 }
 
@@ -115,7 +129,8 @@ Legend.propTypes = {
     color: _propTypes.default.string,
     dataKey: _propTypes.default.string
   })).isRequired,
-  formatter: _propTypes.default.func
+  formatter: _propTypes.default.func,
+  loading: _propTypes.default.bool
 };
 Legend.defaultProps = {
   summaryType: 'total',
