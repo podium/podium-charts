@@ -186,7 +186,7 @@ storiesOf('Tooltip', module)
   );
 
 storiesOf('Report Card Summary', module)
-  .add('default', () => (
+  .add('Default', () => (
     <ReportCard width="270px">
       <ReportSummaryTitle
         formatter={formatters.humanizeDuration}
@@ -194,21 +194,7 @@ storiesOf('Report Card Summary', module)
         dataKeys={['sms']}
         title="Median Response Time"
         data={data}
-      />
-      <Chart data={data} height={100}>
-        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-      </Chart>
-    </ReportCard>
-  ))
-  .add('Custom Trend Direction', () => (
-    <ReportCard width="270px">
-      <ReportSummaryTitle
-        formatter={formatters.humanizeDuration}
-        summaryType="total"
-        dataKeys={['sms']}
-        title="Median Response Time"
-        data={data}
-        trendDirection="neutral"
+        trendDirection="up"
       />
       <Chart data={data} height={100}>
         <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />

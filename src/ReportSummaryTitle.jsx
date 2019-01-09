@@ -1,37 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, IconArrow, IconMinus } from '@podiumhq/podium-ui';
+import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost';
+import Trend from './Trend';
 
-const calculateTrendColor = ({ direction, preferDown }) => {
-  console.log(direction, preferDown);
-  switch (direction) {
-    case 'up':
-      return preferDown ? colors.poppyRed : colors.podiumBrand;
-    case 'down':
-      return preferDown ? colors.podiumBrand : colors.poppyRed;
-    default:
-      return colors.iron;
-  }
-};
+//const calculateTrendColor = ({ direction, preferDown }) => {
+//switch (direction) {
+//case 'up':
+//return preferDown ? colors.poppyRed : colors.podiumBrand;
+//case 'down':
+//return preferDown ? colors.podiumBrand : colors.poppyRed;
+//default:
+//return colors.iron;
+//}
+//};
 
-const TrendWrapper = styled.div`
-  margin-left: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 2px;
-	
-	//background-color: ${colors.podiumBrand}
+//const TrendWrapper = styled.div`
+//margin-left: 8px;
+//display: flex;
+//justify-content: center;
+//align-items: center;
+//width: 22px;
+//height: 22px;
+//border-radius: 2px;
+//background-color: ${props => calculateTrendColor(props)};
 
-  ${({ direction }) =>
-    direction === 'up' && `svg { transform: translate(90deg); } `}
-
-	background-color: ${props => calculateTrendColor(props)}	;
-`;
+//${({ direction }) =>
+//direction === 'up' && `svg { transform: translate(90deg); } `}
+//`;
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -55,15 +52,15 @@ const MonthToDateLabel = styled.div`
   font-size: 14px;
 `;
 
-const Trend = ({ direction, preferDown }) => (
-  <TrendWrapper direction={direction} preferDown={preferDown}>
-    {direction === 'neutral' ? (
-      <IconMinus color={colors.white} size="12" />
-    ) : (
-      <IconArrow color={colors.white} size="12" direction={direction} />
-    )}
-  </TrendWrapper>
-);
+//const Trend = ({ direction, preferDown }) => (
+//<TrendWrapper direction={direction} preferDown={preferDown}>
+//{direction === 'neutral' ? (
+//<IconMinus color={colors.white} size="12" />
+//) : (
+//<IconArrow color={colors.white} size="12" direction={direction} />
+//)}
+//</TrendWrapper>
+//);
 
 export default function ReportSummaryTitle({
   data,
@@ -89,31 +86,23 @@ export default function ReportSummaryTitle({
     return summaryHandler[summaryType](currentData);
   };
 
-  const lastValue = () => {
-    const lastData = data[data.length - 2];
-    return summaryHandler[summaryType](lastData);
-  };
+  const renderGhostState = () => (
+    <SummaryTitleWrapper>
+      <Title>{title}</Title>
+      <Ghost />
+      <MonthToDateLabel>Month To Date</MonthToDateLabel>
+    </SummaryTitleWrapper>
+  );
 
-  const compareToLastMonth = () => {
-    if (lastValue() - currentValue() < 0) return <Trend direction="up" />;
-    return <Trend direction="down" />;
-  };
+  if (loading) return renderGhostState();
 
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      {loading ? (
-        <Ghost />
-      ) : (
-        <MonthToDate>
-          {formatter(currentValue())}
-          {trendDirection ? (
-            <Trend direction={trendDirection} preferDown={preferDown} />
-          ) : (
-            compareToLastMonth()
-          )}
-        </MonthToDate>
-      )}
+      <MonthToDate>
+        {formatter(currentValue())}
+        <Trend direction={trendDirection} preferDown={preferDown} />
+      </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );
@@ -132,5 +121,6 @@ ReportSummaryTitle.propTypes = {
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
   formatter: value => value,
-  preferDown: false
+  preferDown: false,
+  trendDirection: 'neutral'
 };

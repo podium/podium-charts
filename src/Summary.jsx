@@ -72,31 +72,27 @@ export default function Summary({
       .join(' ');
   };
 
+  const renderGhostState = () => (
+    <SummaryWrapper>
+      <Ghost height="14px" width="78px" />
+      <Ghost height="27px" width="44px" />
+      <Space />
+      <Ghost height="14px" width="78px" />
+      <Ghost height="27px" width="44px" />
+    </SummaryWrapper>
+  );
+
+  if (loading) return renderGhostState();
+
   return (
     <SummaryWrapper>
-      {loading ? (
-        <Ghost height="14px" width="78px" />
-      ) : (
-        <ToDate>{titleCase(granularity)} to Date</ToDate>
-      )}
-      {loading ? (
-        <Ghost height="27px" width="44px" />
-      ) : (
-        <SummaryLabel>{formatter(currentData())}</SummaryLabel>
-      )}
+      <ToDate>{titleCase(granularity)} to Date</ToDate>
+      <SummaryLabel>{formatter(currentData())}</SummaryLabel>
       <Space />
-      {loading ? (
-        <Ghost height="14px" width="78px" />
-      ) : (
-        <Last12Months>
-          Last {data.length} {titleCase(granularity)}s
-        </Last12Months>
-      )}
-      {loading ? (
-        <Ghost height="27px" width="44px" />
-      ) : (
-        <SummaryLabel>{formatter(entireData())}</SummaryLabel>
-      )}
+      <Last12Months>
+        Last {data.length} {titleCase(granularity)}s
+      </Last12Months>
+      <SummaryLabel>{formatter(entireData())}</SummaryLabel>
     </SummaryWrapper>
   );
 }

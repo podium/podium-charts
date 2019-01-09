@@ -56,6 +56,14 @@ export default function Legend({
     return typeHandler[summaryType](dataKey);
   };
 
+  const renderGhostState = () => (
+    <LegendWrapper>
+      <Ghost row />
+      <Ghost row />
+      <Ghost row />
+    </LegendWrapper>
+  );
+
   const renderLegendItem = () => {
     return config.map(legendItem => {
       const { dataKey, color, name } = legendItem;
@@ -70,19 +78,10 @@ export default function Legend({
       );
     });
   };
-  return (
-    <LegendWrapper>
-      {loading ? (
-        <>
-          <Ghost row />
-          <Ghost row />
-          <Ghost row />
-        </>
-      ) : (
-        renderLegendItem()
-      )}
-    </LegendWrapper>
-  );
+
+  if (loading) return renderGhostState();
+
+  return <LegendWrapper>{renderLegendItem()}</LegendWrapper>;
 }
 
 Legend.propTypes = {
