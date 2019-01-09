@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _includes2 = _interopRequireDefault(require("lodash/includes"));
+
 var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
@@ -15,9 +17,9 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -68,19 +70,18 @@ var byHour = {
   label: 'By Hour'
 };
 var optionsMap = {
+  gtNinetyDays: [byMonth, byWeek],
+  gtThirtyOneDays: [byMonth, byWeek, byDay],
+  ltThirtyOneDays: [byWeek, byDay],
+  lastMonth: [byWeek, byDay],
   lastTwelveMonths: [byMonth, byWeek, byDay],
+  lastWeek: [byDay, byHour],
+  lastYear: [byMonth, byWeek],
   monthToDate: [byWeek, byDay],
-  weekToDate: [byDay, byHour],
   today: [byHour],
-  gtNinetyDays: [byMonth, byWeek, byDay],
-  gtThirtyOneDays: [byWeek, byMonth, byDay],
-  ltThirtyOneDays: [byDay, byWeek]
-};
-var displayMap = {
-  month: byMonth.label,
-  week: byWeek.label,
-  day: byDay.label,
-  hour: byHour.label
+  weekToDate: [byDay, byHour],
+  yearToDate: [byMonth, byWeek],
+  yesterday: [byHour]
 };
 
 var Granularity =
@@ -122,17 +123,36 @@ function (_Component) {
       } else {
         return optionsMap['gtNinetyDays'];
       }
+    }, _this.timeRangeChanged = function (prevProps) {
+      var _this$props2 = _this.props,
+          timeRange = _this$props2.timeRange,
+          startDate = _this$props2.startDate,
+          endDate = _this$props2.endDate;
+      return prevProps.timeRange !== timeRange || prevProps.startDate !== startDate || prevProps.endDate !== endDate;
+    }, _this.componentDidUpdate = function (prevProps) {
+      var _this$props3 = _this.props,
+          value = _this$props3.value,
+          onChange = _this$props3.onChange;
+
+      if (_this.timeRangeChanged(prevProps)) {
+        var options = _this.getOptions();
+
+        var validRangeValues = options.map(function (option) {
+          return option.value;
+        });
+        if (!(0, _includes2.default)(validRangeValues, value)) onChange(validRangeValues[0]);
+      }
     }, _temp));
   }
 
   _createClass(Granularity, [{
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          value = _this$props2.value,
-          onChange = _this$props2.onChange;
+      var _this$props4 = this.props,
+          value = _this$props4.value,
+          onChange = _this$props4.onChange;
       var options = this.getOptions();
-      var placeholder = displayMap[value] || options[0].label;
+      var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
         placeholder: placeholder,
@@ -152,7 +172,7 @@ Granularity.propTypes = {
   endDate: _propTypes.default.string,
   onChange: _propTypes.default.func,
   startDate: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['lastTwelveMonths', 'monthToDate', 'weekToDate', 'today', 'custom'])
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'lastTwelveMonths', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate'

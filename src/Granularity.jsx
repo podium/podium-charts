@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
+import _ from 'lodash';
 
 const GranularityWrapper = styled.div`
   width: 200px;
@@ -21,20 +22,18 @@ const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
 const optionsMap = {
-  lastTwelveMonths: [byMonth, byWeek, byDay],
+  gtNinetyDays: [byMonth, byWeek],
+  gtThirtyOneDays: [byMonth, byWeek, byDay],
+  ltThirtyOneDays: [byWeek, byDay],
+  lastMonth: [byWeek, byDay],
+  lastTwelveMonths: [byMonth, byWeek],
+  lastWeek: [byDay, byHour],
+  lastYear: [byMonth, byWeek],
   monthToDate: [byWeek, byDay],
-  weekToDate: [byDay, byHour],
   today: [byHour],
-  gtNinetyDays: [byMonth, byWeek, byDay],
-  gtThirtyOneDays: [byWeek, byMonth, byDay],
-  ltThirtyOneDays: [byDay, byWeek]
-};
-
-const displayMap = {
-  month: byMonth.label,
-  week: byWeek.label,
-  day: byDay.label,
-  hour: byHour.label
+  weekToDate: [byDay, byHour],
+  yearToDate: [byMonth, byWeek],
+  yesterday: [byHour]
 };
 
 export default class Granularity extends Component {
@@ -61,10 +60,28 @@ export default class Granularity extends Component {
     }
   };
 
+  timeRangeChanged = prevProps => {
+    const { timeRange, startDate, endDate } = this.props;
+    return (
+      prevProps.timeRange !== timeRange ||
+      prevProps.startDate !== startDate ||
+      prevProps.endDate !== endDate
+    );
+  };
+
+  componentDidUpdate = prevProps => {
+    const { value, onChange } = this.props;
+    if (this.timeRangeChanged(prevProps)) {
+      const options = this.getOptions();
+      const validRangeValues = options.map(option => option.value);
+      if (!_.includes(validRangeValues, value)) onChange(validRangeValues[0]);
+    }
+  };
+
   render() {
     const { value, onChange } = this.props;
     const options = this.getOptions();
-    const placeholder = displayMap[value] || options[0].label;
+    const placeholder = options[0].label || '';
 
     return (
       <GranularityWrapper>
@@ -86,11 +103,16 @@ Granularity.propTypes = {
   onChange: PropTypes.func,
   startDate: PropTypes.string,
   timeRange: PropTypes.oneOf([
+    'custom',
+    'lastMonth',
     'lastTwelveMonths',
+    'lastWeek',
+    'lastYear',
     'monthToDate',
-    'weekToDate',
     'today',
-    'custom'
+    'weekToDate',
+    'yearToDate',
+    'yesterday'
   ])
 };
 
