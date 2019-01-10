@@ -34,7 +34,8 @@ const data = [
   { sms: 100, text: 5, organic: 13, date: '2018-09-15T23:43:32' },
   { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
   { sms: 100, text: 2.33, organic: 0, date: '2018-11-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' }
+  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' },
+  { sms: 500, text: 7, organic: 1, date: '2019-01-01T07:00:00.000Z' }
 ];
 
 storiesOf('Bar Chart', module)

@@ -13,7 +13,7 @@ export function date(granularity = 'month') {
 
   if (!granularityFormat) return () => '';
   return date =>
-    moment(date).isValid ? moment(date).format(granularityFormat) : '';
+    moment.utc(date).isValid ? moment.utc(date).format(granularityFormat) : '';
 }
 
 export const roundToPlaces = places => input => {
