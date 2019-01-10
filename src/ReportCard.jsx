@@ -44,7 +44,8 @@ const componentKeyMap = {
   Chart: 'chart',
   Summary: 'summary',
   Granularity: 'granularity',
-  Legend: 'legend'
+  Legend: 'legend',
+  GhostChart: 'ghost'
 };
 
 const defaultComponents = {
@@ -52,7 +53,8 @@ const defaultComponents = {
   chart: null,
   summary: null,
   granularity: null,
-  legend: null
+  legend: null,
+  ghost: null
 };
 
 export default function ReportCard({ width, children }) {
@@ -73,7 +75,14 @@ export default function ReportCard({ width, children }) {
     return newComponents;
   };
 
-  const { title, chart, summary, legend, granularity } = collectChildren();
+  const {
+    title,
+    chart,
+    summary,
+    legend,
+    granularity,
+    ghost
+  } = collectChildren();
 
   return (
     <ReportCardWrapper width={width}>
@@ -81,7 +90,7 @@ export default function ReportCard({ width, children }) {
         <ReportCardHeader>
           {title} {granularity}
         </ReportCardHeader>
-        {chart}
+        {chart || ghost}
       </ReportCardMain>
       {(summary || legend) && (
         <ReportCardRight>
