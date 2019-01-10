@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import formatters from './formatters';
-import Ghost from './Ghost';
+import Ghost from './Ghost/Ghost';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;

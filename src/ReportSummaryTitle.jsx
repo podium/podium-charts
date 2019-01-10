@@ -2,33 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
-import Ghost from './Ghost';
+import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
-
-//const calculateTrendColor = ({ direction, preferDown }) => {
-//switch (direction) {
-//case 'up':
-//return preferDown ? colors.poppyRed : colors.podiumBrand;
-//case 'down':
-//return preferDown ? colors.podiumBrand : colors.poppyRed;
-//default:
-//return colors.iron;
-//}
-//};
-
-//const TrendWrapper = styled.div`
-//margin-left: 8px;
-//display: flex;
-//justify-content: center;
-//align-items: center;
-//width: 22px;
-//height: 22px;
-//border-radius: 2px;
-//background-color: ${props => calculateTrendColor(props)};
-
-//${({ direction }) =>
-//direction === 'up' && `svg { transform: translate(90deg); } `}
-//`;
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -51,16 +26,6 @@ const MonthToDateLabel = styled.div`
   color: ${colors.steel};
   font-size: 14px;
 `;
-
-//const Trend = ({ direction, preferDown }) => (
-//<TrendWrapper direction={direction} preferDown={preferDown}>
-//{direction === 'neutral' ? (
-//<IconMinus color={colors.white} size="12" />
-//) : (
-//<IconArrow color={colors.white} size="12" direction={direction} />
-//)}
-//</TrendWrapper>
-//);
 
 export default function ReportSummaryTitle({
   data,

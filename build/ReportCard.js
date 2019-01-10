@@ -105,14 +105,16 @@ var componentKeyMap = {
   Chart: 'chart',
   Summary: 'summary',
   Granularity: 'granularity',
-  Legend: 'legend'
+  Legend: 'legend',
+  GhostChart: 'ghost'
 };
 var defaultComponents = {
   title: null,
   chart: null,
   summary: null,
   granularity: null,
-  legend: null
+  legend: null,
+  ghost: null
 };
 
 function ReportCard(_ref3) {
@@ -144,13 +146,14 @@ function ReportCard(_ref3) {
       chart = _collectChildren.chart,
       summary = _collectChildren.summary,
       legend = _collectChildren.legend,
-      granularity = _collectChildren.granularity;
+      granularity = _collectChildren.granularity,
+      ghost = _collectChildren.ghost;
 
   return _react.default.createElement(ReportCardWrapper, {
     width: width
   }, _react.default.createElement(ReportCardMain, {
     fullWidth: !summary && !legend
-  }, _react.default.createElement(ReportCardHeader, null, title, " ", granularity), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, " ", legend))));
+  }, _react.default.createElement(ReportCardHeader, null, title, " ", granularity), chart || ghost), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, " ", legend))));
 }
 
 ReportCard.propTypes = {

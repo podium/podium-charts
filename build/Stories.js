@@ -71,6 +71,11 @@ var data = [{
   text: 2.33,
   organic: 0,
   date: '2018-12-15T23:43:32'
+}, {
+  sms: 500,
+  text: 7,
+  organic: 1,
+  date: '2019-01-01T07:00:00.000Z'
 }];
 (0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
   return _react.default.createElement(_.Chart, {

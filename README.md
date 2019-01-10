@@ -24,3 +24,6 @@ Start storybook on port 9001
 ```
 npm run storybook
 ```
+
+### Important Notes
+All dates and times are displayed as they are received. If you need data displayed in a certain timezone, the data needs to be converted beforehand.

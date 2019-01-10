@@ -15,7 +15,7 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _formatters = _interopRequireDefault(require("./formatters"));
 
-var _Ghost = _interopRequireDefault(require("./Ghost"));
+var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

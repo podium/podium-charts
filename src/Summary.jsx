@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
-import Ghost from './Ghost';
+import Ghost from './Ghost/Ghost';
 
 const SummaryWrapper = styled.div``;
 
