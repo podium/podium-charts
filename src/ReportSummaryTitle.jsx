@@ -36,7 +36,8 @@ export default function ReportSummaryTitle({
   granularity,
   trendDirection,
   preferDown,
-  loading
+  loading,
+  tooltip
 }) {
   const summaryHandler = {
     total: periodData =>
@@ -66,7 +67,11 @@ export default function ReportSummaryTitle({
       <Title>{title}</Title>
       <MonthToDate>
         {formatter(currentValue())}
-        <Trend direction={trendDirection} preferDown={preferDown} />
+        <Trend
+          tooltip={tooltip}
+          direction={trendDirection}
+          preferDown={preferDown}
+        />
       </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
@@ -80,7 +85,8 @@ ReportSummaryTitle.propTypes = {
   dataKeys: PropTypes.array.isRequired,
   trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
   loading: PropTypes.bool,
-  preferDown: PropTypes.bool
+  preferDown: PropTypes.bool,
+  tooltip: PropTypes.string
 };
 
 ReportSummaryTitle.defaultProps = {

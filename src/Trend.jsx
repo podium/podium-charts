@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors, IconArrow, IconMinus } from '@podiumhq/podium-ui';
+import { colors, IconArrow, IconMinus, ToolTip } from '@podiumhq/podium-ui';
 
 const calculateTrendColor = ({ direction, preferDown }) => {
   switch (direction) {
@@ -28,19 +28,22 @@ const TrendWrapper = styled.div`
     direction === 'up' && `svg { transform: translate(90deg); } `}
 `;
 
-const Trend = ({ direction, preferDown }) => (
-  <TrendWrapper direction={direction} preferDown={preferDown}>
-    {direction === 'neutral' ? (
-      <IconMinus color={colors.white} size="12" />
-    ) : (
-      <IconArrow color={colors.white} size="12" direction={direction} />
-    )}
-  </TrendWrapper>
+const Trend = ({ direction, preferDown, tooltip }) => (
+  <ToolTip type="arrow" tip={tooltip} position="top">
+    <TrendWrapper direction={direction} preferDown={preferDown}>
+      {direction === 'neutral' ? (
+        <IconMinus color={colors.white} size="12" />
+      ) : (
+        <IconArrow color={colors.white} size="12" direction={direction} />
+      )}
+    </TrendWrapper>
+  </ToolTip>
 );
 
 Trend.propTypes = {
   direction: PropTypes.string.isRequired,
-  preferDown: PropTypes.bool
+  preferDown: PropTypes.bool,
+  tooltip: PropTypes.string.isRequired
 };
 
 Trend.defaultProps = {
