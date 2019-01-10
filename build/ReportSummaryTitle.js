@@ -13,7 +13,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
-var _Ghost = _interopRequireDefault(require("./Ghost"));
+var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 var _Trend = _interopRequireDefault(require("./Trend"));
 
@@ -61,44 +61,13 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-//const calculateTrendColor = ({ direction, preferDown }) => {
-//switch (direction) {
-//case 'up':
-//return preferDown ? colors.poppyRed : colors.podiumBrand;
-//case 'down':
-//return preferDown ? colors.podiumBrand : colors.poppyRed;
-//default:
-//return colors.iron;
-//}
-//};
-//const TrendWrapper = styled.div`
-//margin-left: 8px;
-//display: flex;
-//justify-content: center;
-//align-items: center;
-//width: 22px;
-//height: 22px;
-//border-radius: 2px;
-//background-color: ${props => calculateTrendColor(props)};
-//${({ direction }) =>
-//direction === 'up' && `svg { transform: translate(90deg); } `}
-//`;
 var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);
 
 var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft);
 
-var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel); //const Trend = ({ direction, preferDown }) => (
-//<TrendWrapper direction={direction} preferDown={preferDown}>
-//{direction === 'neutral' ? (
-//<IconMinus color={colors.white} size="12" />
-//) : (
-//<IconArrow color={colors.white} size="12" direction={direction} />
-//)}
-//</TrendWrapper>
-//);
-
+var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel);
 
 function ReportSummaryTitle(_ref) {
   var data = _ref.data,

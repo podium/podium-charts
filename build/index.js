@@ -109,9 +109,9 @@ var _TooltipBodyTime = _interopRequireDefault(require("./TooltipBodyTime"));
 
 var _ReportCard = _interopRequireDefault(require("./ReportCard"));
 
-var _ReportCardLoading = _interopRequireDefault(require("./ReportCardLoading"));
+var _ReportCardLoading = _interopRequireDefault(require("./Ghost/ReportCardLoading"));
 
-var _ReportCardSummaryLoading = _interopRequireDefault(require("./ReportCardSummaryLoading"));
+var _ReportCardSummaryLoading = _interopRequireDefault(require("./Ghost/ReportCardSummaryLoading"));
 
 var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
 
