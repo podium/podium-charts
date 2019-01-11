@@ -19,6 +19,8 @@ var _chartHelpers = require("./chartHelpers");
 
 var _recharts = require("recharts");
 
+var _GhostChart = _interopRequireDefault(require("./Ghost/GhostChart"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -73,7 +75,8 @@ function (_React$Component) {
       var _this$props = this.props,
           data = _this$props.data,
           width = _this$props.width,
-          height = _this$props.height;
+          height = _this$props.height,
+          loading = _this$props.loading;
       var RechartsChartType = this.graph;
       var mapping = {
         XAxis: this.renderXAxis,
@@ -83,6 +86,9 @@ function (_React$Component) {
         SummaryLine: this.renderSummaryLine,
         Tooltip: this.renderTooltip
       };
+      if (loading) return _react.default.createElement(_GhostChart.default, {
+        height: height
+      });
       return _react.default.createElement(_ChartStyledComponents.ChartWrapper, null, _react.default.createElement(_recharts.ResponsiveContainer, {
         width: width,
         height: height
@@ -218,7 +224,8 @@ Chart.propTypes = {
   data: _propTypes.default.array.isRequired,
   width: _propTypes.default.number,
   height: _propTypes.default.number,
-  title: _propTypes.default.string
+  title: _propTypes.default.string,
+  loading: _propTypes.default.bool
 };
 Chart.defaultProps = {
   height: 300

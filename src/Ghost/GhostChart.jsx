@@ -8,44 +8,34 @@ const Line = styled.div`
 
 const Container = styled.div`
   display: flex;
-  height: 300px;
+  height: ${({ height }) => `${height}px`};
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-flow: column;
   box-sizing: border-box;
   padding: 0 24px;
-  padding-top: 21px;
-  padding-bottom: 48px;
-
-  ${({ summary }) =>
-    summary &&
-    `
-		height: 100px;
-		padding-top: 24px;
-    padding-bottom: 16px;
-	`};
 `;
 
-const GhostChart = ({ summary }) => (
-  <Container summary={summary}>
-    <Line />
-    <Line />
-    <Line />
-    {!summary && (
-      <>
-        <Line />
-        <Line />
-      </>
-    )}
-  </Container>
-);
+const calculateLines = height => {
+  if (height >= 300) return 5;
+  return 3;
+};
+
+const GhostChart = ({ height }) => {
+  const numberOfLines = calculateLines(height);
+  const renderLines = () => {
+    return [...new Array(numberOfLines)].map(() => <Line />);
+  };
+
+  return <Container height={height}>{renderLines()}</Container>;
+};
 
 GhostChart.propTypes = {
-  summary: PropTypes.bool
+  height: PropTypes.number.isRequired
 };
 
 GhostChart.defaultProps = {
-  summary: false
+  height: 300
 };
 
 export default GhostChart;

@@ -20,12 +20,17 @@ const RangeLabel = styled.p`
   color: ${colors.steel};
 `;
 
+const DateRangePlaceholder = styled.span`
+  font-size: 12px;
+  color: white;
+`;
+
 const fullDate = date => {
   if (moment(date).isValid) return moment(date).format('MMMM D, YYYY');
   return date;
 };
 
-export default function ReportTitle({ data, title }) {
+export default function ReportTitle({ data, title, loading }) {
   const renderRangeLabel = () => {
     const start = data[0]['date'];
     const end = data[data.length - 1]['date'];
@@ -35,12 +40,19 @@ export default function ReportTitle({ data, title }) {
   return (
     <TitleWrapper>
       <Title>{title}</Title>
-      <RangeLabel>{renderRangeLabel()}</RangeLabel>
+      <RangeLabel>
+        {loading ? (
+          <DateRangePlaceholder>Date Range</DateRangePlaceholder>
+        ) : (
+          renderRangeLabel()
+        )}
+      </RangeLabel>
     </TitleWrapper>
   );
 }
 
 ReportTitle.propTypes = {
   data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  loading: PropTypes.bool
 };

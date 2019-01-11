@@ -16,10 +16,8 @@ import {
   TooltipBody,
   TooltipBodyTime,
   ReportCard,
-  ReportCardLoading,
   ReportTitle,
-  ReportSummaryTitle,
-  ReportCardSummaryLoading
+  ReportSummaryTitle
 } from './';
 
 const data = [
@@ -188,39 +186,59 @@ storiesOf('Tooltip', module)
 
 storiesOf('Report Card Summary', module)
   .add('Default', () => (
-    <ReportCard width="270px">
-      <ReportSummaryTitle
-        formatter={formatters.humanizeDuration}
-        summaryType="total"
-        dataKeys={['sms']}
-        title="Median Response Time"
-        data={data}
-        trendDirection="up"
-      />
-      <Chart data={data} height={100}>
-        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-      </Chart>
-    </ReportCard>
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          summaryType="total"
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          trendDirection="up"
+          tooltip="This is some data!"
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
   ))
   .add('Prefer Downward Trend', () => (
-    <ReportCard width="270px">
-      <ReportSummaryTitle
-        formatter={formatters.humanizeDuration}
-        summaryType="total"
-        dataKeys={['sms']}
-        title="Median Response Time"
-        data={data}
-        trendDirection="down"
-        preferDown
-      />
-      <Chart data={data} height={100}>
-        <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-      </Chart>
-    </ReportCard>
+    <div style={{ width: '270px' }}>
+      <ReportCard>
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          summaryType="total"
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          trendDirection="down"
+          preferDown
+          tooltip="This is some data!"
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
   ))
-
   .add('Loading', () => (
-    <ReportCardSummaryLoading width="270px" title="Median Response Time" />
+    <div style={{ width: '270px' }}>
+      <ReportCard loading>
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          summaryType="total"
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          trendDirection="up"
+          tooltip="This is some data!"
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
   ));
 
 storiesOf('Report Card', module)
@@ -279,7 +297,40 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
-  .add('Loading', () => <ReportCardLoading title="Median Response Time" />)
+  .add('Loading', () => (
+    <ReportCard loading>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Granularity
+        timeRange="monthToDate"
+        onChange={res => {
+          console.log(`You picked ${res}`);
+        }}
+      />
+
+      <Chart data={data}>
+        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+        <Tooltip content={<TooltipBodyTime />} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        summaryType="total"
+        dataKeys={['text', 'organic']}
+        granularity="week"
+      />
+
+      <Legend
+        data={data}
+        summaryType="total"
+        config={[
+          { dataKey: 'organic', color: colors.cobaltBlue },
+          { dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
 
   .add('w/Granularity', () => (
     <ReportCard>
