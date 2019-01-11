@@ -54,7 +54,7 @@ export default function ReportSummaryTitle({
   const renderGhostState = () => (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      <Ghost />
+      <Ghost height="24px" />
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );

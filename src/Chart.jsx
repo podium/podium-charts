@@ -18,6 +18,7 @@ import {
   YAxis as RechartsYAxis,
   Dot as RechartsDot
 } from 'recharts';
+import GhostChart from './Ghost/GhostChart';
 
 const GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
@@ -132,7 +133,7 @@ export default class Chart extends React.Component {
   };
 
   render() {
-    const { data, width, height } = this.props;
+    const { data, width, height, loading } = this.props;
     const RechartsChartType = this.graph;
     const mapping = {
       XAxis: this.renderXAxis,
@@ -142,6 +143,7 @@ export default class Chart extends React.Component {
       SummaryLine: this.renderSummaryLine,
       Tooltip: this.renderTooltip
     };
+    if (loading) return <GhostChart height={height} />;
 
     return (
       <ChartWrapper>
@@ -164,7 +166,8 @@ Chart.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
-  title: PropTypes.string
+  title: PropTypes.string,
+  loading: PropTypes.bool
 };
 
 Chart.defaultProps = {
