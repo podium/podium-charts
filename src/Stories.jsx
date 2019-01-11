@@ -195,6 +195,7 @@ storiesOf('Report Card Summary', module)
           title="Median Response Time"
           data={data}
           trendDirection="up"
+          tooltip="This is some data!"
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -213,6 +214,7 @@ storiesOf('Report Card Summary', module)
           data={data}
           trendDirection="down"
           preferDown
+          tooltip="This is some data!"
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -220,7 +222,6 @@ storiesOf('Report Card Summary', module)
       </ReportCard>
     </div>
   ))
-
   .add('Loading', () => (
     <div style={{ width: '270px' }}>
       <ReportCard loading>
@@ -231,6 +232,7 @@ storiesOf('Report Card Summary', module)
           title="Median Response Time"
           data={data}
           trendDirection="up"
+          tooltip="This is some data!"
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
