@@ -1,6 +1,6 @@
 {
   "name": "podium-charts",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A collection of Podium chart components",
   "main": "build/index.js",
   "scripts": {
@@ -44,20 +44,26 @@
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.0",
     "lint-staged": "^4.2.3",
-    "prettier": "^1.15.3"
-  },
-  "dependencies": {
-    "humanize-duration": "^3.16.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
+    "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "recharts": "^1.4.1",
     "styled-components": "^4.1.2"
   },
+  "dependencies": {
+    "humanize-duration": "^3.16.0",
+    "recharts": "^1.4.1"
+  },
   "peerDependencies": {
-    "@podiumhq/podium-ui": "^12.1.0"
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "@podiumhq/podium-ui": "^12.1.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "styled-components": "^4.1.2"
   },
   "eslintConfig": {
     "extends": "react-app"
