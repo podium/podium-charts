@@ -63,9 +63,10 @@ function (_React$Component) {
 
     _initialiseProps.call(_assertThisInitialized(_assertThisInitialized(_this)));
 
-    _this.graph = (0, _chartHelpers.detectChartType)(props.children);
-    _this.stackPosition = (0, _chartHelpers.getStackPositions)(props.children);
-    _this.singleLineChart = (0, _chartHelpers.singleLineChart)(props.children);
+    var filteredChildren = (0, _chartHelpers.filterChildren)(props.children);
+    _this.graph = (0, _chartHelpers.detectChartType)(filteredChildren);
+    _this.stackPosition = (0, _chartHelpers.getStackPositions)(filteredChildren);
+    _this.singleLineChart = (0, _chartHelpers.singleLineChart)(filteredChildren);
     return _this;
   }
 
@@ -118,7 +119,8 @@ var _initialiseProps = function _initialiseProps() {
 
   this.renderChildren = function (mapping) {
     var children = _this2.props.children;
-    return _react.default.Children.map(children, function (child) {
+    var filteredChildren = (0, _chartHelpers.filterChildren)(children);
+    return _react.default.Children.map(filteredChildren, function (child) {
       var renderComponent = mapping[child.type.name];
       if (renderComponent) return renderComponent(child.props);
     });

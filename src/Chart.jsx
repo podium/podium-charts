@@ -6,7 +6,8 @@ import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart
+  singleLineChart,
+  filterChildren
 } from './chartHelpers';
 import {
   ResponsiveContainer,
@@ -25,14 +26,16 @@ const GRAPHIK = 'Graphik, Helvetica, sans-serif';
 export default class Chart extends React.Component {
   constructor(props) {
     super(props);
-    this.graph = detectChartType(props.children);
-    this.stackPosition = getStackPositions(props.children);
-    this.singleLineChart = singleLineChart(props.children);
+    const filteredChildren = filterChildren(props.children);
+    this.graph = detectChartType(filteredChildren);
+    this.stackPosition = getStackPositions(filteredChildren);
+    this.singleLineChart = singleLineChart(filteredChildren);
   }
 
   renderChildren = mapping => {
     const { children } = this.props;
-    return React.Children.map(children, child => {
+    const filteredChildren = filterChildren(children);
+    return React.Children.map(filteredChildren, child => {
       const renderComponent = mapping[child.type.name];
       if (renderComponent) return renderComponent(child.props);
     });
