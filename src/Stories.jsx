@@ -106,6 +106,14 @@ storiesOf('Line Chart', module)
       <Line dataKey="sms" color={colors.cobaltBlue} />
     </Chart>
   ))
+  .add('test', () => (
+    <Chart data={data}>
+      <YAxis tickFormatter={formatters.abbreviateNumber} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
+      {null}
+    </Chart>
+  ))
+
   .add('TooltipBodyTime', () => (
     <Chart data={data}>
       <YAxis tickFormatter={formatters.abbreviateTime} />
