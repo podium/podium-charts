@@ -105,6 +105,5 @@ export default function ReportCard({ width, children, loading }) {
 
 ReportCard.propTypes = {
   children: PropTypes.array,
-  width: PropTypes.string,
   loading: PropTypes.bool
 };

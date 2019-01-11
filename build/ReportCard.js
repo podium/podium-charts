@@ -157,6 +157,5 @@ function ReportCard(_ref2) {
 
 ReportCard.propTypes = {
   children: _propTypes.default.array,
-  width: _propTypes.default.string,
   loading: _propTypes.default.bool
 };
