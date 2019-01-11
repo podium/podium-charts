@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.detectChartType = detectChartType;
 exports.getStackPositions = getStackPositions;
 exports.singleLineChart = singleLineChart;
+exports.filterChildren = void 0;
 
 var _groupBy2 = _interopRequireDefault(require("lodash/groupBy"));
 
@@ -24,10 +25,11 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function detectChartType(children) {
+  var filteredChildren = filterChildren(children);
   var allowedTypes = ['Line', 'Bar'];
   var childrenTypes = [];
 
-  _react.default.Children.forEach(children, function (child) {
+  _react.default.Children.forEach(filteredChildren, function (child) {
     if (!childrenTypes.includes(child.type.name) && allowedTypes.includes(child.type.name)) {
       childrenTypes = _toConsumableArray(childrenTypes).concat([child.type.name]);
     }
@@ -40,9 +42,10 @@ function detectChartType(children) {
 }
 
 function getStackPositions(children) {
+  var filteredChildren = filterChildren(children);
   var stackPosition = [];
 
-  _react.default.Children.forEach(children, function (child) {
+  _react.default.Children.forEach(filteredChildren, function (child) {
     if (child.type.name === 'Bar' && child.props.stackId) {
       stackPosition = stackPosition.concat([{
         stackId: child.props.stackId,
@@ -55,14 +58,23 @@ function getStackPositions(children) {
 }
 
 function singleLineChart(children) {
+  var filteredChildren = filterChildren(children);
   var graphElements = ['Line', 'Bar'];
   var numberOfLines = 0;
   var lineProps = {};
 
-  _react.default.Children.forEach(children, function (child) {
+  _react.default.Children.forEach(filteredChildren, function (child) {
     if (child.type.name === 'Line') lineProps = child.props;
     if (graphElements.includes(child.type.name)) numberOfLines += 1;
   });
 
   return numberOfLines === 1 ? lineProps : false;
 }
+
+var filterChildren = function filterChildren(children) {
+  return _react.default.Children.toArray(children).filter(function (child) {
+    return child;
+  });
+};
+
+exports.filterChildren = filterChildren;
