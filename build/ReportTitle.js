@@ -17,6 +17,16 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  color: white;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  margin: 0;\n  font-size: 12px;\n  color: ", ";\n"]);
 
@@ -55,6 +65,8 @@ var Title = _styledComponents.default.p(_templateObject2());
 
 var RangeLabel = _styledComponents.default.p(_templateObject3(), _podiumUi.colors.steel);
 
+var DateRangePlaceholder = _styledComponents.default.span(_templateObject4());
+
 var fullDate = function fullDate(date) {
   if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format('MMMM D, YYYY');
   return date;
@@ -62,7 +74,8 @@ var fullDate = function fullDate(date) {
 
 function ReportTitle(_ref) {
   var data = _ref.data,
-      title = _ref.title;
+      title = _ref.title,
+      loading = _ref.loading;
 
   var renderRangeLabel = function renderRangeLabel() {
     var start = data[0]['date'];
@@ -70,10 +83,11 @@ function ReportTitle(_ref) {
     return "".concat(fullDate(start), " - ").concat(fullDate(end));
   };
 
-  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, renderRangeLabel()));
+  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : renderRangeLabel()));
 }
 
 ReportTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
-  title: _propTypes.default.string.isRequired
+  title: _propTypes.default.string.isRequired,
+  loading: _propTypes.default.bool
 };
