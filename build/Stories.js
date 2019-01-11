@@ -192,15 +192,6 @@ var data = [{
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
   }));
-}).add('test', function () {
-  return _react.default.createElement(_.Chart, {
-    data: data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateNumber
-  }), _react.default.createElement(_.XAxis, {
-    dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), null);
 }).add('TooltipBodyTime', function () {
   return _react.default.createElement(_.Chart, {
     data: data
