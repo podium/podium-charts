@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors } from '@podiumhq/podium-ui';
+import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
 
@@ -25,6 +25,10 @@ const MonthToDate = styled.div`
 const MonthToDateLabel = styled.div`
   color: ${colors.steel};
   font-size: 14px;
+`;
+
+const ToolTipWrapper = styled.div`
+  white-space: nowrap;
 `;
 
 export default function ReportSummaryTitle({
@@ -60,6 +64,10 @@ export default function ReportSummaryTitle({
     </SummaryTitleWrapper>
   );
 
+  const renderToolTip = () => {
+    return <ToolTipWrapper>{tooltip}</ToolTipWrapper>;
+  };
+
   if (loading) return renderGhostState();
 
   return (
@@ -67,11 +75,9 @@ export default function ReportSummaryTitle({
       <Title>{title}</Title>
       <MonthToDate>
         {formatter(currentValue())}
-        <Trend
-          tooltip={tooltip}
-          direction={trendDirection}
-          preferDown={preferDown}
-        />
+        <ToolTip type="arrow" tip={renderToolTip()} position="top">
+          <Trend direction={trendDirection} preferDown={preferDown} />
+        </ToolTip>
       </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
@@ -86,7 +92,7 @@ ReportSummaryTitle.propTypes = {
   trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.string.isRequired
 };
 
 ReportSummaryTitle.defaultProps = {

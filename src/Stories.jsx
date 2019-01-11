@@ -212,6 +212,7 @@ storiesOf('Report Card Summary', module)
         title="Median Response Time"
         data={data}
         trendDirection="down"
+        tooltip="This is some data!"
         preferDown
       />
       <Chart data={data} height={100}>
