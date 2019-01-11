@@ -59,7 +59,7 @@ export default function ReportSummaryTitle({
   const renderGhostState = () => (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      <Ghost />
+      <Ghost height="24px" />
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );
@@ -74,7 +74,7 @@ export default function ReportSummaryTitle({
     <SummaryTitleWrapper>
       <Title>{title}</Title>
       <MonthToDate>
-        {formatter(currentValue())}
+        <span style={{ marginRight: '8px' }}>{formatter(currentValue())}</span>
         <ToolTip type="arrow" tip={renderToolTip()} position="top">
           <Trend direction={trendDirection} preferDown={preferDown} />
         </ToolTip>

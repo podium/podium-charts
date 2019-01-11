@@ -10,8 +10,6 @@ var _exportNames = {
   TooltipBody: true,
   TooltipBodyTime: true,
   ReportCard: true,
-  ReportCardLoading: true,
-  ReportCardSummaryLoading: true,
   ReportTitle: true,
   ReportSummaryTitle: true,
   Granularity: true,
@@ -52,18 +50,6 @@ Object.defineProperty(exports, "ReportCard", {
   enumerable: true,
   get: function get() {
     return _ReportCard.default;
-  }
-});
-Object.defineProperty(exports, "ReportCardLoading", {
-  enumerable: true,
-  get: function get() {
-    return _ReportCardLoading.default;
-  }
-});
-Object.defineProperty(exports, "ReportCardSummaryLoading", {
-  enumerable: true,
-  get: function get() {
-    return _ReportCardSummaryLoading.default;
   }
 });
 Object.defineProperty(exports, "ReportTitle", {
@@ -108,10 +94,6 @@ var _TooltipBody = _interopRequireDefault(require("./TooltipBody"));
 var _TooltipBodyTime = _interopRequireDefault(require("./TooltipBodyTime"));
 
 var _ReportCard = _interopRequireDefault(require("./ReportCard"));
-
-var _ReportCardLoading = _interopRequireDefault(require("./Ghost/ReportCardLoading"));
-
-var _ReportCardSummaryLoading = _interopRequireDefault(require("./Ghost/ReportCardSummaryLoading"));
 
 var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
 

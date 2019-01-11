@@ -15,7 +15,6 @@ const calculateTrendColor = ({ direction, preferDown }) => {
 };
 
 const TrendWrapper = styled.div`
-  margin-left: 8px;
   display: flex;
   justify-content: center;
   align-items: center;

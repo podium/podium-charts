@@ -7,7 +7,6 @@ const ReportCardWrapper = styled.div`
   display: flex;
   border: 1px solid ${colors.mystic};
   border-radius: 6px;
-  ${({ width }) => width && `width: ${width};`};
 `;
 
 const ReportCardHeader = styled.div`
@@ -57,40 +56,39 @@ const defaultComponents = {
   ghost: null
 };
 
-export default function ReportCard({ width, children }) {
+export default function ReportCard({ width, children, loading }) {
   const collectChildren = () => {
     if (!children) return { ...defaultComponents };
     const newComponents = { ...defaultComponents };
     React.Children.forEach(children, child => {
       if (componentKeyMap[child.type.name]) {
-        newComponents[componentKeyMap[child.type.name]] = child;
+        newComponents[componentKeyMap[child.type.name]] = React.cloneElement(
+          child,
+          { loading: loading }
+        );
       } else if (child.props.children) {
         React.Children.forEach(child.props.children, subChild => {
           if (componentKeyMap[subChild.type.name]) {
-            newComponents[componentKeyMap[subChild.type.name]] = child;
+            newComponents[
+              componentKeyMap[subChild.type.name]
+            ] = React.cloneElement(child, { loading: loading });
           }
         });
       }
     });
+
     return newComponents;
   };
 
-  const {
-    title,
-    chart,
-    summary,
-    legend,
-    granularity,
-    ghost
-  } = collectChildren();
+  const { title, chart, summary, legend, granularity } = collectChildren();
 
   return (
-    <ReportCardWrapper width={width}>
+    <ReportCardWrapper>
       <ReportCardMain fullWidth={!summary && !legend}>
         <ReportCardHeader>
           {title} {granularity}
         </ReportCardHeader>
-        {chart || ghost}
+        {chart}
       </ReportCardMain>
       {(summary || legend) && (
         <ReportCardRight>
@@ -107,5 +105,5 @@ export default function ReportCard({ width, children }) {
 
 ReportCard.propTypes = {
   children: PropTypes.array,
-  width: PropTypes.string
+  loading: PropTypes.bool
 };
