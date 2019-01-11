@@ -19,6 +19,16 @@ var _Trend = _interopRequireDefault(require("./Trend"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  white-space: nowrap;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
 
@@ -69,6 +79,8 @@ var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.co
 
 var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel);
 
+var ToolTipWrapper = _styledComponents.default.div(_templateObject5());
+
 function ReportSummaryTitle(_ref) {
   var data = _ref.data,
       title = _ref.title,
@@ -78,7 +90,8 @@ function ReportSummaryTitle(_ref) {
       granularity = _ref.granularity,
       trendDirection = _ref.trendDirection,
       preferDown = _ref.preferDown,
-      loading = _ref.loading;
+      loading = _ref.loading,
+      tooltip = _ref.tooltip;
   var summaryHandler = {
     total: function total(periodData) {
       return dataKeys.reduce(function (acc, key) {
@@ -98,14 +111,28 @@ function ReportSummaryTitle(_ref) {
   };
 
   var renderGhostState = function renderGhostState() {
-    return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, null), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+    return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, {
+      height: "24px"
+    }), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+  };
+
+  var renderToolTip = function renderToolTip() {
+    return _react.default.createElement(ToolTipWrapper, null, tooltip);
   };
 
   if (loading) return renderGhostState();
-  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, formatter(currentValue()), _react.default.createElement(_Trend.default, {
+  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
+    style: {
+      marginRight: '8px'
+    }
+  }, formatter(currentValue())), _react.default.createElement(_podiumUi.ToolTip, {
+    type: "arrow",
+    tip: renderToolTip(),
+    position: "top"
+  }, _react.default.createElement(_Trend.default, {
     direction: trendDirection,
     preferDown: preferDown
-  })), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+  }))), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
 
 ReportSummaryTitle.propTypes = {
@@ -115,7 +142,8 @@ ReportSummaryTitle.propTypes = {
   dataKeys: _propTypes.default.array.isRequired,
   trendDirection: _propTypes.default.oneOf(['up', 'down', 'neutral']),
   loading: _propTypes.default.bool,
-  preferDown: _propTypes.default.bool
+  preferDown: _propTypes.default.bool,
+  tooltip: _propTypes.default.string.isRequired
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',

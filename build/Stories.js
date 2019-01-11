@@ -304,7 +304,11 @@ var data = [{
   }
 });
 (0, _react2.storiesOf)('Report Card Summary', module).add('Default', function () {
-  return _react.default.createElement(_.ReportCard, {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
@@ -312,7 +316,8 @@ var data = [{
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendDirection: "up"
+    trendDirection: "up",
+    tooltip: "This is some data!"
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -320,18 +325,21 @@ var data = [{
     connectNulls: true,
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
-  })));
+  }))));
 }).add('Prefer Downward Trend', function () {
-  return _react.default.createElement(_.ReportCard, {
-    width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
     summaryType: "total",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
     trendDirection: "down",
-    preferDown: true
+    preferDown: true,
+    tooltip: "This is some data!"
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -339,12 +347,30 @@ var data = [{
     connectNulls: true,
     dataKey: "sms",
     color: _podiumUi.colors.cobaltBlue
-  })));
+  }))));
 }).add('Loading', function () {
-  return _react.default.createElement(_.ReportCardSummaryLoading, {
-    width: "270px",
-    title: "Median Response Time"
-  });
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
+    loading: true
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    summaryType: "total",
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: data,
+    trendDirection: "up",
+    tooltip: "This is some data!"
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  }))));
 });
 (0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
@@ -420,9 +446,45 @@ var data = [{
     }]
   }));
 }).add('Loading', function () {
-  return _react.default.createElement(_.ReportCardLoading, {
-    title: "Median Response Time"
-  });
+  return _react.default.createElement(_.ReportCard, {
+    loading: true
+  }, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Granularity, {
+    timeRange: "monthToDate",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateTime
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    color: _podiumUi.colors.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyTime, null)
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: data,
+    summaryType: "total",
+    dataKeys: ['text', 'organic'],
+    granularity: "week"
+  }), _react.default.createElement(_.Legend, {
+    data: data,
+    summaryType: "total",
+    config: [{
+      dataKey: 'organic',
+      color: _podiumUi.colors.cobaltBlue
+    }, {
+      dataKey: 'text',
+      color: _podiumUi.colors.poppyRed
+    }]
+  }));
 }).add('w/Granularity', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
     title: "Total Reviews",

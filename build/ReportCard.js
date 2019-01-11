@@ -70,7 +70,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -81,15 +81,12 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ReportCardWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic, function (_ref) {
-  var width = _ref.width;
-  return width && "width: ".concat(width, ";");
-});
+var ReportCardWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic);
 
 var ReportCardHeader = _styledComponents.default.div(_templateObject2());
 
-var ReportCardMain = _styledComponents.default.div(_templateObject3(), function (_ref2) {
-  var fullWidth = _ref2.fullWidth;
+var ReportCardMain = _styledComponents.default.div(_templateObject3(), function (_ref) {
+  var fullWidth = _ref.fullWidth;
   return fullWidth ? '100%' : '75%';
 });
 
@@ -117,9 +114,10 @@ var defaultComponents = {
   ghost: null
 };
 
-function ReportCard(_ref3) {
-  var width = _ref3.width,
-      children = _ref3.children;
+function ReportCard(_ref2) {
+  var width = _ref2.width,
+      children = _ref2.children,
+      loading = _ref2.loading;
 
   var collectChildren = function collectChildren() {
     if (!children) return _objectSpread({}, defaultComponents);
@@ -128,11 +126,15 @@ function ReportCard(_ref3) {
 
     _react.default.Children.forEach(children, function (child) {
       if (componentKeyMap[child.type.name]) {
-        newComponents[componentKeyMap[child.type.name]] = child;
+        newComponents[componentKeyMap[child.type.name]] = _react.default.cloneElement(child, {
+          loading: loading
+        });
       } else if (child.props.children) {
         _react.default.Children.forEach(child.props.children, function (subChild) {
           if (componentKeyMap[subChild.type.name]) {
-            newComponents[componentKeyMap[subChild.type.name]] = child;
+            newComponents[componentKeyMap[subChild.type.name]] = _react.default.cloneElement(child, {
+              loading: loading
+            });
           }
         });
       }
@@ -146,17 +148,15 @@ function ReportCard(_ref3) {
       chart = _collectChildren.chart,
       summary = _collectChildren.summary,
       legend = _collectChildren.legend,
-      granularity = _collectChildren.granularity,
-      ghost = _collectChildren.ghost;
+      granularity = _collectChildren.granularity;
 
-  return _react.default.createElement(ReportCardWrapper, {
-    width: width
-  }, _react.default.createElement(ReportCardMain, {
+  return _react.default.createElement(ReportCardWrapper, null, _react.default.createElement(ReportCardMain, {
     fullWidth: !summary && !legend
-  }, _react.default.createElement(ReportCardHeader, null, title, " ", granularity), chart || ghost), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, " ", legend))));
+  }, _react.default.createElement(ReportCardHeader, null, title, " ", granularity), chart), (summary || legend) && _react.default.createElement(ReportCardRight, null, _react.default.createElement(ReportCardSummary, null, _react.default.createElement(Padding, null, summary, " ", legend))));
 }
 
 ReportCard.propTypes = {
   children: _propTypes.default.array,
-  width: _propTypes.default.string
+  width: _propTypes.default.string,
+  loading: _propTypes.default.bool
 };

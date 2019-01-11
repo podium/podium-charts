@@ -13,8 +13,16 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  height: 300px;\n  width: 100%;\n  justify-content: space-between;\n  flex-flow: column;\n  box-sizing: border-box;\n  padding: 0 24px;\n  padding-top: 21px;\n  padding-bottom: 48px;\n\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  height: ", ";\n  width: 100%;\n  justify-content: space-around;\n  flex-flow: column;\n  box-sizing: border-box;\n  padding: 0 24px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -38,22 +46,35 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var Line = _styledComponents.default.div(_templateObject());
 
 var Container = _styledComponents.default.div(_templateObject2(), function (_ref) {
-  var summary = _ref.summary;
-  return summary && "\n\t\theight: 100px;\n\t\tpadding-top: 24px;\n    padding-bottom: 16px;\n\t";
+  var height = _ref.height;
+  return "".concat(height, "px");
 });
 
+var calculateLines = function calculateLines(height) {
+  if (height >= 300) return 5;
+  return 3;
+};
+
 var GhostChart = function GhostChart(_ref2) {
-  var summary = _ref2.summary;
+  var height = _ref2.height;
+  var numberOfLines = calculateLines(height);
+
+  var renderLines = function renderLines() {
+    return _toConsumableArray(new Array(numberOfLines)).map(function () {
+      return _react.default.createElement(Line, null);
+    });
+  };
+
   return _react.default.createElement(Container, {
-    summary: summary
-  }, _react.default.createElement(Line, null), _react.default.createElement(Line, null), _react.default.createElement(Line, null), !summary && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(Line, null), _react.default.createElement(Line, null)));
+    height: height
+  }, renderLines());
 };
 
 GhostChart.propTypes = {
-  summary: _propTypes.default.bool
+  height: _propTypes.default.number.isRequired
 };
 GhostChart.defaultProps = {
-  summary: false
+  height: 300
 };
 var _default = GhostChart;
 exports.default = _default;
