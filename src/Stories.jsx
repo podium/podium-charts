@@ -32,8 +32,7 @@ const data = [
   { sms: 100, text: 5, organic: 13, date: '2018-09-15T23:43:32' },
   { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
   { sms: 100, text: 2.33, organic: 0, date: '2018-11-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' },
-  { sms: 500, text: 7, organic: 1, date: '2019-01-01T07:00:00.000Z' }
+  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' }
 ];
 
 storiesOf('Bar Chart', module)
@@ -131,7 +130,7 @@ storiesOf('Line Chart', module)
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date()} />
+      <XAxis dataKey="date" tickForwmatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
@@ -267,7 +266,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
     </ReportCard>
   ))
@@ -285,7 +285,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
       <Legend
         data={data}
@@ -301,7 +302,7 @@ storiesOf('Report Card', module)
     <ReportCard loading>
       <ReportTitle title="Total Reviews" data={data} />
       <Granularity
-        timeRange="monthToDate"
+        timeRange="lastYear"
         onChange={res => {
           console.log(`You picked ${res}`);
         }}
@@ -318,7 +319,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
 
       <Legend
@@ -336,7 +338,7 @@ storiesOf('Report Card', module)
     <ReportCard>
       <ReportTitle title="Total Reviews" data={data} />
       <Granularity
-        timeRange="monthToDate"
+        timeRange="lastYear"
         onChange={res => {
           console.log(`You picked ${res}`);
         }}
@@ -352,7 +354,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="custom"
       />
       <Legend
         data={data}

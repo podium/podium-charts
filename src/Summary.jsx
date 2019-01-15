@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
+import { renderRangeLabel } from './chartHelpers';
 
 const SummaryWrapper = styled.div``;
 
@@ -11,7 +12,7 @@ const ToDate = styled.div`
   font-size: 12px;
 `;
 
-const Last12Months = styled.div`
+const TimeRange = styled.div`
   color: ${colors.steel};
   font-size: 12px;
 `;
@@ -32,7 +33,9 @@ export default function Summary({
   summaryType,
   formatter,
   granularity,
-  loading
+  unit,
+  loading,
+  timeRange
 }) {
   const typeHandler = {
     total: monthData =>
@@ -82,22 +85,28 @@ export default function Summary({
     </SummaryWrapper>
   );
 
+  const renderTimeRange = () => {
+    if (timeRange === 'custom') {
+      return <TimeRange>{renderRangeLabel(data, 'MMM')}</TimeRange>;
+    } else {
+      return (
+        <TimeRange>
+          Last {data.length} {titleCase(granularity)}
+          {data.length === 1 ? '' : 's'}
+        </TimeRange>
+      );
+    }
+  };
+
   if (loading) return renderGhostState();
 
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{`${formatter(currentData())} ${
-        this.props.unit
-      }`}</SummaryLabel>
+      <SummaryLabel>{`${formatter(currentData())} ${unit}`}</SummaryLabel>
       <Space />
-      <Last12Months>
-        Last {data.length} {titleCase(granularity)}
-        {data.length === 1 ? '' : 's'}
-      </Last12Months>
-      <SummaryLabel>{`${formatter(entireData())} ${
-        this.props.unit
-      }`}</SummaryLabel>
+      {renderTimeRange()}
+      <SummaryLabel>{`${formatter(entireData())} ${unit}`}</SummaryLabel>
     </SummaryWrapper>
   );
 }
@@ -108,7 +117,19 @@ Summary.propTypes = {
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
   loading: PropTypes.bool,
-  unit: PropTypes.string
+  unit: PropTypes.string,
+  timeRange: PropTypes.oneOf([
+    'custom',
+    'lastMonth',
+    'lastTwelveMonths',
+    'lastWeek',
+    'lastYear',
+    'monthToDate',
+    'today',
+    'weekToDate',
+    'yearToDate',
+    'yesterday'
+  ])
 };
 
 Summary.defaultProps = {

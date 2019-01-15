@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import moment from 'moment';
 import { colors } from '@podiumhq/podium-ui';
+import { renderRangeLabel } from './chartHelpers';
 
 const TitleWrapper = styled.div`
   margin-bottom: 16px;
@@ -25,18 +25,7 @@ const DateRangePlaceholder = styled.span`
   color: white;
 `;
 
-const fullDate = date => {
-  if (moment(date).isValid) return moment(date).format('MMMM D, YYYY');
-  return date;
-};
-
 export default function ReportTitle({ data, title, loading }) {
-  const renderRangeLabel = () => {
-    const start = data[0]['date'];
-    const end = data[data.length - 1]['date'];
-    return `${fullDate(start)} - ${fullDate(end)}`;
-  };
-
   return (
     <TitleWrapper>
       <Title>{title}</Title>
@@ -44,7 +33,7 @@ export default function ReportTitle({ data, title, loading }) {
         {loading ? (
           <DateRangePlaceholder>Date Range</DateRangePlaceholder>
         ) : (
-          renderRangeLabel()
+          renderRangeLabel(data)
         )}
       </RangeLabel>
     </TitleWrapper>
