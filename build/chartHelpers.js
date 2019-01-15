@@ -6,13 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.detectChartType = detectChartType;
 exports.getStackPositions = getStackPositions;
 exports.singleLineChart = singleLineChart;
-exports.filterChildren = void 0;
+exports.renderRangeLabel = exports.filterChildren = void 0;
 
 var _groupBy2 = _interopRequireDefault(require("lodash/groupBy"));
 
 var _react = _interopRequireDefault(require("react"));
 
 var _recharts = require("recharts");
+
+var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78,3 +80,17 @@ var filterChildren = function filterChildren(children) {
 };
 
 exports.filterChildren = filterChildren;
+
+var fullDate = function fullDate(date, monthFormat) {
+  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format("".concat(monthFormat, " D, YYYY"));
+  return date;
+};
+
+var renderRangeLabel = function renderRangeLabel(data) {
+  var monthFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MMMM';
+  var start = data[0]['date'];
+  var end = data[data.length - 1]['date'];
+  return "".concat(fullDate(start, monthFormat), " - ").concat(fullDate(end, monthFormat));
+};
+
+exports.renderRangeLabel = renderRangeLabel;

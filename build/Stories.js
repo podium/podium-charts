@@ -71,11 +71,6 @@ var data = [{
   text: 2.33,
   organic: 0,
   date: '2018-12-15T23:43:32'
-}, {
-  sms: 500,
-  text: 7,
-  organic: 1,
-  date: '2019-01-01T07:00:00.000Z'
 }];
 (0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
   return _react.default.createElement(_.Chart, {
@@ -227,7 +222,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
+    tickForwmatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -410,7 +405,8 @@ var data = [{
     data: data,
     summaryType: "total",
     dataKeys: ['text', 'organic'],
-    granularity: "week"
+    granularity: "month",
+    timeRange: "lastYear"
   }));
 }).add('w/Legend', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
@@ -433,7 +429,8 @@ var data = [{
     data: data,
     summaryType: "total",
     dataKeys: ['text', 'organic'],
-    granularity: "week"
+    granularity: "month",
+    timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",
@@ -452,7 +449,7 @@ var data = [{
     title: "Total Reviews",
     data: data
   }), _react.default.createElement(_.Granularity, {
-    timeRange: "monthToDate",
+    timeRange: "lastYear",
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }
@@ -473,7 +470,8 @@ var data = [{
     data: data,
     summaryType: "total",
     dataKeys: ['text', 'organic'],
-    granularity: "week"
+    granularity: "month",
+    timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",
@@ -490,7 +488,7 @@ var data = [{
     title: "Total Reviews",
     data: data
   }), _react.default.createElement(_.Granularity, {
-    timeRange: "monthToDate",
+    timeRange: "lastYear",
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }
@@ -511,7 +509,8 @@ var data = [{
     data: data,
     summaryType: "total",
     dataKeys: ['text', 'organic'],
-    granularity: "week"
+    granularity: "month",
+    timeRange: "custom"
   }), _react.default.createElement(_.Legend, {
     data: data,
     summaryType: "total",

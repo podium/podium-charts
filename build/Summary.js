@@ -15,6 +15,8 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
+var _chartHelpers = require("./chartHelpers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -73,7 +75,7 @@ var SummaryWrapper = _styledComponents.default.div(_templateObject());
 
 var ToDate = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.steel);
 
-var Last12Months = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
+var TimeRange = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
 
 var SummaryLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.mineShaft);
 
@@ -85,7 +87,9 @@ function Summary(_ref) {
       summaryType = _ref.summaryType,
       formatter = _ref.formatter,
       granularity = _ref.granularity,
-      loading = _ref.loading;
+      unit = _ref.unit,
+      loading = _ref.loading,
+      timeRange = _ref.timeRange;
   var typeHandler = {
     total: function total(monthData) {
       return dataKeys.reduce(function (acc, key) {
@@ -143,8 +147,16 @@ function Summary(_ref) {
     }));
   };
 
+  var renderTimeRange = function renderTimeRange() {
+    if (timeRange === 'custom') {
+      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM'));
+    } else {
+      return _react.default.createElement(TimeRange, null, "Last ", data.length, " ", titleCase(granularity), data.length === 1 ? '' : 's');
+    }
+  };
+
   if (loading) return renderGhostState();
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, formatter(currentData())), _react.default.createElement(Space, null), _react.default.createElement(Last12Months, null, "Last ", data.length, " ", titleCase(granularity), "s"), _react.default.createElement(SummaryLabel, null, formatter(entireData())));
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, "".concat(formatter(currentData()), " ").concat(unit)), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, "".concat(formatter(entireData()), " ").concat(unit)));
 }
 
 Summary.propTypes = {
@@ -152,10 +164,13 @@ Summary.propTypes = {
   data: _propTypes.default.array.isRequired,
   dataKeys: _propTypes.default.array.isRequired,
   formatter: _propTypes.default.func,
-  loading: _propTypes.default.bool
+  loading: _propTypes.default.bool,
+  unit: _propTypes.default.string,
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'lastTwelveMonths', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Summary.defaultProps = {
   summaryType: 'total',
+  unit: '',
   formatter: function formatter(value) {
     return value;
   }
