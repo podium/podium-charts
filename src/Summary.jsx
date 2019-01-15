@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
+import { renderRangeLabel } from './chartHelpers';
 
 const SummaryWrapper = styled.div``;
 
@@ -11,7 +12,7 @@ const ToDate = styled.div`
   font-size: 12px;
 `;
 
-const Last12Months = styled.div`
+const TimeRange = styled.div`
   color: ${colors.steel};
   font-size: 12px;
 `;
@@ -32,7 +33,9 @@ export default function Summary({
   summaryType,
   formatter,
   granularity,
-  loading
+  loading,
+  unit,
+  timeRange
 }) {
   const typeHandler = {
     total: monthData =>
@@ -82,17 +85,28 @@ export default function Summary({
     </SummaryWrapper>
   );
 
+  const renderTimeRange = () => {
+    if (timeRange === 'custom') {
+      return <TimeRange>{renderRangeLabel(data, 'MMM')}</TimeRange>;
+    } else {
+      return (
+        <TimeRange>
+          Last {data.length} {titleCase(granularity)}
+          {data.length === 1 ? '' : 's'}
+        </TimeRange>
+      );
+    }
+  };
+
   if (loading) return renderGhostState();
 
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{formatter(currentData())}</SummaryLabel>
+      <SummaryLabel>{`${formatter(currentData())} ${unit}`}</SummaryLabel>
       <Space />
-      <Last12Months>
-        Last {data.length} {titleCase(granularity)}s
-      </Last12Months>
-      <SummaryLabel>{formatter(entireData())}</SummaryLabel>
+      {renderTimeRange}
+      <SummaryLabel>{`${formatter(entireData())} ${unit}`}</SummaryLabel>
     </SummaryWrapper>
   );
 }
@@ -102,10 +116,12 @@ Summary.propTypes = {
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  unit: PropTypes.string
 };
 
 Summary.defaultProps = {
   summaryType: 'total',
+  unit: '',
   formatter: value => value
 };

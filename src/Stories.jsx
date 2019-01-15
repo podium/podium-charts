@@ -356,7 +356,7 @@ storiesOf('Report Card', module)
         summaryType="total"
         dataKeys={['text', 'organic']}
         granularity="month"
-        timeRange="lastYear"
+        timeRange="custom"
       />
       <Legend
         data={data}
