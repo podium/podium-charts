@@ -24,7 +24,7 @@ const calculateLines = height => {
 const GhostChart = ({ height }) => {
   const numberOfLines = calculateLines(height);
   const renderLines = () => {
-    return [...new Array(numberOfLines)].map(() => <Line />);
+    return [...new Array(numberOfLines)].map((_, i) => <Line key={i} />);
   };
 
   return <Container height={height}>{renderLines()}</Container>;

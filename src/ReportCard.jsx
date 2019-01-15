@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 
+import ReportTitle from './ReportTitle';
+import ReportSummaryTitle from './ReportSummaryTitle';
+import Chart from './Chart';
+import Summary from './Summary';
+import Granularity from './Granularity';
+import Legend from './Legend';
+import GhostChart from './Ghost/GhostChart';
+
 const ReportCardWrapper = styled.div`
   display: flex;
   border: 1px solid ${colors.mystic};
@@ -37,15 +45,15 @@ const Padding = styled.div`
   padding: 16px 24px 16px 24px;
 `;
 
-const componentKeyMap = {
-  ReportTitle: 'title',
-  ReportSummaryTitle: 'title',
-  Chart: 'chart',
-  Summary: 'summary',
-  Granularity: 'granularity',
-  Legend: 'legend',
-  GhostChart: 'ghost'
-};
+const componentKeyMap = new Map([
+  [ReportTitle, 'title'],
+  [ReportSummaryTitle, 'title'],
+  [Chart, 'chart'],
+  [Summary, 'summary'],
+  [Granularity, 'granularity'],
+  [Legend, 'legend'],
+  [GhostChart, 'ghost']
+]);
 
 const defaultComponents = {
   title: null,
@@ -61,16 +69,16 @@ export default function ReportCard({ width, children, loading }) {
     if (!children) return { ...defaultComponents };
     const newComponents = { ...defaultComponents };
     React.Children.forEach(children, child => {
-      if (componentKeyMap[child.type.name]) {
-        newComponents[componentKeyMap[child.type.name]] = React.cloneElement(
+      if (componentKeyMap.has(child.type)) {
+        newComponents[componentKeyMap.get(child.type)] = React.cloneElement(
           child,
           { loading: loading }
         );
       } else if (child.props.children) {
         React.Children.forEach(child.props.children, subChild => {
-          if (componentKeyMap[subChild.type.name]) {
+          if (componentKeyMap.has(subChild.type)) {
             newComponents[
-              componentKeyMap[subChild.type.name]
+              componentKeyMap.get(subChild.type)
             ] = React.cloneElement(child, { loading: loading });
           }
         });

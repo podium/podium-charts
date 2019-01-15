@@ -10,6 +10,15 @@ import {
   filterChildren
 } from './chartHelpers';
 import {
+  XAxis,
+  YAxis,
+  Bar,
+  Line,
+  SummaryLine,
+  Tooltip
+} from './skeletonComponents';
+
+import {
   ResponsiveContainer,
   Bar as RechartsBar,
   CartesianGrid as RechartsCartesianGrid,
@@ -36,7 +45,7 @@ export default class Chart extends React.Component {
     const { children } = this.props;
     const filteredChildren = filterChildren(children);
     return React.Children.map(filteredChildren, child => {
-      const renderComponent = mapping[child.type.name];
+      const renderComponent = mapping.get(child.type);
       if (renderComponent) return renderComponent(child.props);
     });
   };
@@ -138,14 +147,14 @@ export default class Chart extends React.Component {
   render() {
     const { data, width, height, loading } = this.props;
     const RechartsChartType = this.graph;
-    const mapping = {
-      XAxis: this.renderXAxis,
-      YAxis: this.renderYAxis,
-      Bar: this.renderBar,
-      Line: this.renderLine,
-      SummaryLine: this.renderSummaryLine,
-      Tooltip: this.renderTooltip
-    };
+    const mapping = new Map([
+      [XAxis, this.renderXAxis],
+      [YAxis, this.renderYAxis],
+      [Bar, this.renderBar],
+      [Line, this.renderLine],
+      [SummaryLine, this.renderSummaryLine],
+      [Tooltip, this.renderTooltip]
+    ]);
     if (loading) return <GhostChart height={height} />;
 
     return (

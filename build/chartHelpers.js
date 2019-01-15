@@ -15,6 +15,7 @@ var _react = _interopRequireDefault(require("react"));
 var _recharts = require("recharts");
 
 var _moment = _interopRequireDefault(require("moment"));
+var _skeletonComponents = require("./skeletonComponents");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,18 +29,18 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function detectChartType(children) {
   var filteredChildren = filterChildren(children);
-  var allowedTypes = ['Line', 'Bar'];
+  var allowedTypes = new Set([_skeletonComponents.Line, _skeletonComponents.Bar]);
   var childrenTypes = [];
 
   _react.default.Children.forEach(filteredChildren, function (child) {
-    if (!childrenTypes.includes(child.type.name) && allowedTypes.includes(child.type.name)) {
-      childrenTypes = _toConsumableArray(childrenTypes).concat([child.type.name]);
+    if (!childrenTypes.includes(child.type) && allowedTypes.has(child.type)) {
+      childrenTypes = _toConsumableArray(childrenTypes).concat([child.type]);
     }
   });
 
   if (childrenTypes.length > 1) return _recharts.ComposedChart;
-  if (childrenTypes[0] === 'Bar') return _recharts.BarChart;
-  if (childrenTypes[0] === 'Line') return _recharts.LineChart;
+  if (childrenTypes[0] === _skeletonComponents.Bar) return _recharts.BarChart;
+  if (childrenTypes[0] === _skeletonComponents.Line) return _recharts.LineChart;
   return _recharts.ComposedChart;
 }
 
@@ -48,7 +49,7 @@ function getStackPositions(children) {
   var stackPosition = [];
 
   _react.default.Children.forEach(filteredChildren, function (child) {
-    if (child.type.name === 'Bar' && child.props.stackId) {
+    if (child.type === _skeletonComponents.Bar && child.props.stackId) {
       stackPosition = stackPosition.concat([{
         stackId: child.props.stackId,
         dataKey: child.props.dataKey
@@ -61,13 +62,13 @@ function getStackPositions(children) {
 
 function singleLineChart(children) {
   var filteredChildren = filterChildren(children);
-  var graphElements = ['Line', 'Bar'];
+  var graphElements = new Set([_skeletonComponents.Line, _skeletonComponents.Bar]);
   var numberOfLines = 0;
   var lineProps = {};
 
   _react.default.Children.forEach(filteredChildren, function (child) {
-    if (child.type.name === 'Line') lineProps = child.props;
-    if (graphElements.includes(child.type.name)) numberOfLines += 1;
+    if (child.type === _skeletonComponents.Line) lineProps = child.props;
+    if (graphElements.has(child.type)) numberOfLines += 1;
   });
 
   return numberOfLines === 1 ? lineProps : false;
