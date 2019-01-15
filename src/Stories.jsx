@@ -267,7 +267,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
     </ReportCard>
   ))
@@ -285,7 +286,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
       <Legend
         data={data}
@@ -301,7 +303,7 @@ storiesOf('Report Card', module)
     <ReportCard loading>
       <ReportTitle title="Total Reviews" data={data} />
       <Granularity
-        timeRange="monthToDate"
+        timeRange="lastYear"
         onChange={res => {
           console.log(`You picked ${res}`);
         }}
@@ -318,7 +320,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
 
       <Legend
@@ -336,7 +339,7 @@ storiesOf('Report Card', module)
     <ReportCard>
       <ReportTitle title="Total Reviews" data={data} />
       <Granularity
-        timeRange="monthToDate"
+        timeRange="lastYear"
         onChange={res => {
           console.log(`You picked ${res}`);
         }}
@@ -352,7 +355,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         dataKeys={['text', 'organic']}
-        granularity="week"
+        granularity="month"
+        timeRange="lastYear"
       />
       <Legend
         data={data}
