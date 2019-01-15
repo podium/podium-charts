@@ -60,8 +60,10 @@ var GhostChart = function GhostChart(_ref2) {
   var numberOfLines = calculateLines(height);
 
   var renderLines = function renderLines() {
-    return _toConsumableArray(new Array(numberOfLines)).map(function () {
-      return _react.default.createElement(Line, null);
+    return _toConsumableArray(new Array(numberOfLines)).map(function (_, i) {
+      return _react.default.createElement(Line, {
+        key: i
+      });
     });
   };
 
