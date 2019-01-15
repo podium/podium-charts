@@ -46,10 +46,10 @@ export default class Granularity extends Component {
   };
 
   getCustomRangeOptions = () => {
-    const { startDate, endDate } = this.props;
-    const startDateMoment = moment(startDate);
-    const endDateMoment = moment(endDate);
-    const days = endDateMoment.diff(startDateMoment, 'days');
+    const { dateStart, dateEnd } = this.props;
+    const dateStartMoment = moment(dateStart);
+    const dateEndMoment = moment(dateEnd);
+    const days = dateEndMoment.diff(dateStartMoment, 'days');
 
     if (days <= 31) {
       return optionsMap['ltThirtyOneDays'];
@@ -61,11 +61,11 @@ export default class Granularity extends Component {
   };
 
   timeRangeChanged = prevProps => {
-    const { timeRange, startDate, endDate } = this.props;
+    const { timeRange, dateStart, dateEnd } = this.props;
     return (
       prevProps.timeRange !== timeRange ||
-      prevProps.startDate !== startDate ||
-      prevProps.endDate !== endDate
+      prevProps.dateStart !== dateStart ||
+      prevProps.dateEnd !== dateEnd
     );
   };
 
@@ -99,9 +99,9 @@ export default class Granularity extends Component {
 
 Granularity.propTypes = {
   value: PropTypes.string,
-  endDate: PropTypes.string,
+  dateEnd: PropTypes.string,
   onChange: PropTypes.func,
-  startDate: PropTypes.string,
+  dateStart: PropTypes.string,
   timeRange: PropTypes.oneOf([
     'custom',
     'lastMonth',
