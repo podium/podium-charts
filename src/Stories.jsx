@@ -130,7 +130,7 @@ storiesOf('Line Chart', module)
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
-      <XAxis dataKey="date" tickForwmatter={formatters.date()} />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
