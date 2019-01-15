@@ -11,9 +11,9 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _moment = _interopRequireDefault(require("moment"));
-
 var _podiumUi = require("@podiumhq/podium-ui");
+
+var _chartHelpers = require("./chartHelpers");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -67,23 +67,11 @@ var RangeLabel = _styledComponents.default.p(_templateObject3(), _podiumUi.color
 
 var DateRangePlaceholder = _styledComponents.default.span(_templateObject4());
 
-var fullDate = function fullDate(date) {
-  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format('MMMM D, YYYY');
-  return date;
-};
-
 function ReportTitle(_ref) {
   var data = _ref.data,
       title = _ref.title,
       loading = _ref.loading;
-
-  var renderRangeLabel = function renderRangeLabel() {
-    var start = data[0]['date'];
-    var end = data[data.length - 1]['date'];
-    return "".concat(fullDate(start), " - ").concat(fullDate(end));
-  };
-
-  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : renderRangeLabel()));
+  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : (0, _chartHelpers.renderRangeLabel)(data)));
 }
 
 ReportTitle.propTypes = {

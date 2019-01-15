@@ -110,11 +110,11 @@ function (_Component) {
       return optionsMap[timeRange] || optionsMap.monthToDate;
     }, _this.getCustomRangeOptions = function () {
       var _this$props = _this.props,
-          startDate = _this$props.startDate,
-          endDate = _this$props.endDate;
-      var startDateMoment = (0, _moment.default)(startDate);
-      var endDateMoment = (0, _moment.default)(endDate);
-      var days = endDateMoment.diff(startDateMoment, 'days');
+          dateStart = _this$props.dateStart,
+          dateEnd = _this$props.dateEnd;
+      var dateStartMoment = (0, _moment.default)(dateStart);
+      var dateEndMoment = (0, _moment.default)(dateEnd);
+      var days = dateEndMoment.diff(dateStartMoment, 'days');
 
       if (days <= 31) {
         return optionsMap['ltThirtyOneDays'];
@@ -126,9 +126,9 @@ function (_Component) {
     }, _this.timeRangeChanged = function (prevProps) {
       var _this$props2 = _this.props,
           timeRange = _this$props2.timeRange,
-          startDate = _this$props2.startDate,
-          endDate = _this$props2.endDate;
-      return prevProps.timeRange !== timeRange || prevProps.startDate !== startDate || prevProps.endDate !== endDate;
+          dateStart = _this$props2.dateStart,
+          dateEnd = _this$props2.dateEnd;
+      return prevProps.timeRange !== timeRange || prevProps.dateStart !== dateStart || prevProps.dateEnd !== dateEnd;
     }, _this.componentDidUpdate = function (prevProps) {
       var _this$props3 = _this.props,
           value = _this$props3.value,
@@ -169,9 +169,9 @@ function (_Component) {
 exports.default = Granularity;
 Granularity.propTypes = {
   value: _propTypes.default.string,
-  endDate: _propTypes.default.string,
+  dateEnd: _propTypes.default.string,
   onChange: _propTypes.default.func,
-  startDate: _propTypes.default.string,
+  dateStart: _propTypes.default.string,
   timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'lastTwelveMonths', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Granularity.defaultProps = {

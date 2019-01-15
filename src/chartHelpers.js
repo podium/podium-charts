@@ -5,6 +5,7 @@ import {
   ComposedChart as RechartsComposedChart,
   LineChart as RechartsLineChart
 } from 'recharts';
+import moment from 'moment';
 import { Line, Bar } from './skeletonComponents';
 
 export function detectChartType(children) {
@@ -52,4 +53,16 @@ export function singleLineChart(children) {
 
 export const filterChildren = children => {
   return React.Children.toArray(children).filter(child => child);
+};
+
+const fullDate = (date, monthFormat) => {
+  if (moment(date).isValid)
+    return moment(date).format(`${monthFormat} D, YYYY`);
+  return date;
+};
+
+export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
+  const start = data[0]['date'];
+  const end = data[data.length - 1]['date'];
+  return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
 };
