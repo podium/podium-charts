@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-import _ from 'lodash';
 
 const GranularityWrapper = styled.div`
   width: 200px;
@@ -74,7 +73,7 @@ export default class Granularity extends Component {
     if (this.timeRangeChanged(prevProps)) {
       const options = this.getOptions();
       const validRangeValues = options.map(option => option.value);
-      if (!_.includes(validRangeValues, value)) onChange(validRangeValues[0]);
+      if (!validRangeValues.includes(value)) onChange(validRangeValues[0]);
     }
   };
 

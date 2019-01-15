@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import groupBy from 'lodash.groupby';
 import {
   BarChart as RechartsBarChart,
   ComposedChart as RechartsComposedChart,
@@ -37,7 +37,7 @@ export function getStackPositions(children) {
       ]);
     }
   });
-  return _.groupBy(stackPosition, 'stackId');
+  return groupBy(stackPosition, 'stackId');
 }
 
 export function singleLineChart(children) {

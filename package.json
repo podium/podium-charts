@@ -8,7 +8,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties,lodash"
+    "build": "babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties"
   },
   "husky": {
     "hooks": {
@@ -34,7 +34,6 @@
     "@storybook/react": "^4.0.10",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
-    "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^5.9.0",
     "eslint-config-react-app": "^3.0.5",
@@ -44,7 +43,6 @@
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.0",
     "lint-staged": "^4.2.3",
-    "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
@@ -54,10 +52,11 @@
   },
   "dependencies": {
     "humanize-duration": "^3.16.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.groupby": "^4.6.0",
     "recharts": "^1.4.1"
   },
   "peerDependencies": {
-    "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "@podiumhq/podium-ui": "^12.1.2",
     "prop-types": "^15.6.2",
