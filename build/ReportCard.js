@@ -13,6 +13,20 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
+
+var _ReportSummaryTitle = _interopRequireDefault(require("./ReportSummaryTitle"));
+
+var _Chart = _interopRequireDefault(require("./Chart"));
+
+var _Summary = _interopRequireDefault(require("./Summary"));
+
+var _Granularity = _interopRequireDefault(require("./Granularity"));
+
+var _Legend = _interopRequireDefault(require("./Legend"));
+
+var _GhostChart = _interopRequireDefault(require("./Ghost/GhostChart"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -96,15 +110,7 @@ var ReportCardSummary = _styledComponents.default.div(_templateObject5(), _podiu
 
 var Padding = _styledComponents.default.div(_templateObject6());
 
-var componentKeyMap = {
-  ReportTitle: 'title',
-  ReportSummaryTitle: 'title',
-  Chart: 'chart',
-  Summary: 'summary',
-  Granularity: 'granularity',
-  Legend: 'legend',
-  GhostChart: 'ghost'
-};
+var componentKeyMap = new Map([[_ReportTitle.default, 'title'], [_ReportSummaryTitle.default, 'title'], [_Chart.default, 'chart'], [_Summary.default, 'summary'], [_Granularity.default, 'granularity'], [_Legend.default, 'legend'], [_GhostChart.default, 'ghost']]);
 var defaultComponents = {
   title: null,
   chart: null,
@@ -125,14 +131,14 @@ function ReportCard(_ref2) {
     var newComponents = _objectSpread({}, defaultComponents);
 
     _react.default.Children.forEach(children, function (child) {
-      if (componentKeyMap[child.type.name]) {
-        newComponents[componentKeyMap[child.type.name]] = _react.default.cloneElement(child, {
+      if (componentKeyMap.has(child.type)) {
+        newComponents[componentKeyMap.get(child.type)] = _react.default.cloneElement(child, {
           loading: loading
         });
       } else if (child.props.children) {
         _react.default.Children.forEach(child.props.children, function (subChild) {
-          if (componentKeyMap[subChild.type.name]) {
-            newComponents[componentKeyMap[subChild.type.name]] = _react.default.cloneElement(child, {
+          if (componentKeyMap.has(subChild.type)) {
+            newComponents[componentKeyMap.get(subChild.type)] = _react.default.cloneElement(child, {
               loading: loading
             });
           }

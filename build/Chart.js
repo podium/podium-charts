@@ -17,6 +17,8 @@ var _ChartStyledComponents = require("./ChartStyledComponents");
 
 var _chartHelpers = require("./chartHelpers");
 
+var _skeletonComponents = require("./skeletonComponents");
+
 var _recharts = require("recharts");
 
 var _GhostChart = _interopRequireDefault(require("./Ghost/GhostChart"));
@@ -79,14 +81,7 @@ function (_React$Component) {
           height = _this$props.height,
           loading = _this$props.loading;
       var RechartsChartType = this.graph;
-      var mapping = {
-        XAxis: this.renderXAxis,
-        YAxis: this.renderYAxis,
-        Bar: this.renderBar,
-        Line: this.renderLine,
-        SummaryLine: this.renderSummaryLine,
-        Tooltip: this.renderTooltip
-      };
+      var mapping = new Map([[_skeletonComponents.XAxis, this.renderXAxis], [_skeletonComponents.YAxis, this.renderYAxis], [_skeletonComponents.Bar, this.renderBar], [_skeletonComponents.Line, this.renderLine], [_skeletonComponents.SummaryLine, this.renderSummaryLine], [_skeletonComponents.Tooltip, this.renderTooltip]]);
       if (loading) return _react.default.createElement(_GhostChart.default, {
         height: height
       });
@@ -121,7 +116,7 @@ var _initialiseProps = function _initialiseProps() {
     var children = _this2.props.children;
     var filteredChildren = (0, _chartHelpers.filterChildren)(children);
     return _react.default.Children.map(filteredChildren, function (child) {
-      var renderComponent = mapping[child.type.name];
+      var renderComponent = mapping.get(child.type);
       if (renderComponent) return renderComponent(child.props);
     });
   };
