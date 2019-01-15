@@ -8,9 +8,9 @@ exports.getStackPositions = getStackPositions;
 exports.singleLineChart = singleLineChart;
 exports.filterChildren = void 0;
 
-var _groupBy2 = _interopRequireDefault(require("lodash/groupBy"));
-
 var _react = _interopRequireDefault(require("react"));
+
+var _lodash = _interopRequireDefault(require("lodash.groupby"));
 
 var _recharts = require("recharts");
 
@@ -54,7 +54,7 @@ function getStackPositions(children) {
     }
   });
 
-  return (0, _groupBy2.default)(stackPosition, 'stackId');
+  return (0, _lodash.default)(stackPosition, 'stackId');
 }
 
 function singleLineChart(children) {

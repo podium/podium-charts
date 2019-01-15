@@ -5,14 +5,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = transformer;
 
-var _cloneDeep2 = _interopRequireDefault(require("lodash/cloneDeep"));
+var _lodash = _interopRequireDefault(require("lodash.groupby"));
 
-var _groupBy2 = _interopRequireDefault(require("lodash/groupBy"));
+var _lodash2 = _interopRequireDefault(require("lodash.clonedeep"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function transformer(data) {
-  var groupedData = (0, _groupBy2.default)((0, _cloneDeep2.default)(data), 'granularity');
+  var groupedData = (0, _lodash.default)((0, _lodash2.default)(data), 'granularity');
   return Object.keys(groupedData).map(function (gran) {
     return groupedData[gran].reduce(function (newRow, currData) {
       var dataKey = currData.groupBy || 'value';
