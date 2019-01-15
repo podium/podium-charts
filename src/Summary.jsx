@@ -87,12 +87,17 @@ export default function Summary({
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{formatter(currentData())}</SummaryLabel>
+      <SummaryLabel>{`${formatter(currentData())} ${
+        this.props.unit
+      }`}</SummaryLabel>
       <Space />
       <Last12Months>
-        Last {data.length} {titleCase(granularity)}s
+        Last {data.length} {titleCase(granularity)}
+        {data.length === 1 ? '' : 's'}
       </Last12Months>
-      <SummaryLabel>{formatter(entireData())}</SummaryLabel>
+      <SummaryLabel>{`${formatter(entireData())} ${
+        this.props.unit
+      }`}</SummaryLabel>
     </SummaryWrapper>
   );
 }
@@ -102,10 +107,12 @@ Summary.propTypes = {
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  unit: PropTypes.string
 };
 
 Summary.defaultProps = {
   summaryType: 'total',
+  unit: '',
   formatter: value => value
 };
