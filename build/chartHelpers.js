@@ -15,6 +15,7 @@ var _react = _interopRequireDefault(require("react"));
 var _recharts = require("recharts");
 
 var _moment = _interopRequireDefault(require("moment"));
+
 var _skeletonComponents = require("./skeletonComponents");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

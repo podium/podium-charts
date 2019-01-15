@@ -222,7 +222,7 @@ var data = [{
     data: data
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
-    tickForwmatter: _formatters.default.date()
+    tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
