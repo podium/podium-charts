@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Rectangle;
 
-var _filter2 = _interopRequireDefault(require("lodash/filter"));
-
 var _react = _interopRequireDefault(require("react"));
 
 var _recharts = require("recharts");
@@ -30,7 +28,7 @@ function Rectangle(props) {
   if (!stackOrder) return _react.default.createElement(_recharts.Rectangle, _extends({}, props, {
     radius: calculateRadius(width)
   }));
-  var renderedBars = (0, _filter2.default)(stackOrder, function (bar) {
+  var renderedBars = stackOrder.filter(function (bar) {
     return !!payload[bar.dataKey];
   });
   if (!renderedBars.length) return _react.default.createElement(_recharts.Rectangle, props);

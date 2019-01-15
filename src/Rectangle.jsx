@@ -1,6 +1,5 @@
 import React from 'react';
 import { Rectangle as RechartsRectangle } from 'recharts';
-import _ from 'lodash';
 
 const calculateRadius = width => {
   const radius = Math.floor(width / 8);
@@ -14,7 +13,7 @@ export default function Rectangle(props) {
   if (!stackOrder)
     return <RechartsRectangle {...props} radius={calculateRadius(width)} />;
 
-  const renderedBars = _.filter(stackOrder, bar => {
+  const renderedBars = stackOrder.filter(bar => {
     return !!payload[bar.dataKey];
   });
 
