@@ -75,7 +75,7 @@ const summaryHandler = {
 
 const fullDate = (date, granularity) => {
   const format = granMap[granularity] || 'MMMM YYYY';
-  if (moment(date).isValid) return moment(date).format(format);
+  if (moment(date).isValid) return moment.utc(date).format(format);
   return date;
 };
 

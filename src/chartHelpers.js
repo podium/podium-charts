@@ -57,7 +57,7 @@ export const filterChildren = children => {
 
 const fullDate = (date, monthFormat) => {
   if (moment(date).isValid)
-    return moment(date).format(`${monthFormat} D, YYYY`);
+    return moment.utc(date).format(`${monthFormat} D, YYYY`);
   return date;
 };
 
