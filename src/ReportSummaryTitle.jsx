@@ -45,10 +45,14 @@ export default function ReportSummaryTitle({
 }) {
   const summaryHandler = {
     total: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
+      dataKeys.reduce((acc, key) => {
+        return !acc ? periodData[key] : (acc += periodData[key]);
+      }, 0),
+
     avg: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
-      dataKeys.length
+      dataKeys.reduce((acc, key) => {
+        return !acc ? periodData[key] : (acc += periodData[key]);
+      }, 0) / dataKeys.length
   };
 
   const currentValue = () => {
