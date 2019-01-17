@@ -11,3 +11,4 @@ export { default as Granularity } from './Granularity';
 export * from './skeletonComponents';
 export { default as formatters } from './formatters';
 export { default as transformer } from './transformer';
+export { default as colors } from './colors';

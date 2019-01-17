@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from './formatters';
-import { colors } from '@podiumhq/podium-ui';
+import colors from './colors';
 import {
   Chart,
   XAxis,
@@ -19,6 +19,36 @@ import {
   ReportTitle,
   ReportSummaryTitle
 } from './';
+
+function Pallete({ color, name }) {
+  const palleteWrapper = {
+    width: 150,
+    height: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 12,
+    flexDirection: 'column'
+  };
+
+  const palleteLabel = {
+    padding: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white'
+  };
+  return (
+    <div style={{ ...palleteWrapper, backgroundColor: color }}>
+      <div style={palleteLabel}>
+        <div>{name}</div>
+        <div>{color}</div>
+      </div>
+    </div>
+  );
+}
 
 const data = [
   { sms: 200, text: 1, organic: 2, date: '2018-01-15T23:43:32' },
@@ -367,6 +397,23 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ));
+
+storiesOf('colors', module).add('default', () => {
+  const colorsMap = Object.keys(colors).map(color => ({
+    value: colors[color],
+    name: color
+  }));
+  const podiumColors = colorsMap.filter(
+    color => typeof color.value === 'string'
+  );
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {podiumColors.map(color => {
+        return <Pallete color={color.value} name={color.name} />;
+      })}
+    </div>
+  );
+});
 
 storiesOf('formatters', module)
   .add('date', () => (
