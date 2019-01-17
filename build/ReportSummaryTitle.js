@@ -95,12 +95,12 @@ function ReportSummaryTitle(_ref) {
   var summaryHandler = {
     total: function total(periodData) {
       return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
+        return !acc ? periodData[key] : acc += periodData[key];
       }, 0);
     },
     avg: function avg(periodData) {
       return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
+        return !acc ? periodData[key] : acc += periodData[key];
       }, 0) / dataKeys.length;
     }
   };
