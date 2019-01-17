@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
 import Rectangle from './Rectangle';
 import { ChartWrapper } from './ChartStyledComponents';
@@ -72,13 +73,23 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = props => (
-    <RechartsBar
-      shape={<Rectangle {...props} stackPosition={this.stackPosition} />}
-      fill={props.color}
-      {...props}
-    />
-  );
+  renderBar = ({ dataKey, ...props }) => {
+    const path = dataKey.split('.');
+    return (
+      <RechartsBar
+        shape={
+          <Rectangle
+            {...props}
+            dataKey={dataKey}
+            stackPosition={this.stackPosition}
+          />
+        }
+        fill={props.color}
+        dataKey={data => get(data, path)}
+        {...props}
+      />
+    );
+  };
 
   renderLine = props => (
     <RechartsLine
