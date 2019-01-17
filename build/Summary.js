@@ -11,6 +11,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _lodash = _interopRequireDefault(require("lodash.get"));
+
 var _podiumUi = require("@podiumhq/podium-ui");
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
@@ -93,12 +95,12 @@ function Summary(_ref) {
   var typeHandler = {
     total: function total(monthData) {
       return dataKeys.reduce(function (acc, key) {
-        return (monthData[key] || 0) + acc;
+        return (0, _lodash.default)(monthData, key, 0) + acc;
       }, 0);
     },
     avg: function avg(monthData) {
       return dataKeys.reduce(function (acc, key) {
-        return (monthData[key] || 0) + acc;
+        return (0, _lodash.default)(monthData, key, 0) + acc;
       }, 0) / dataKeys.length;
     }
   };

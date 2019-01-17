@@ -173,7 +173,7 @@ function TooltipBody(props) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : dataKey)), _react.default.createElement(LabelValue, null, value));
+      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, value));
     });
   };
 

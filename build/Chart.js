@@ -31,11 +31,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -127,12 +127,18 @@ var _initialiseProps = function _initialiseProps() {
     });
   };
 
-  this.renderXAxis = function (props) {
+  this.renderXAxis = function (_ref) {
+    var _dataKey = _ref.dataKey,
+        props = _objectWithoutProperties(_ref, ["dataKey"]);
+
     return _react.default.createElement(_recharts.XAxis, _extends({
       axisLine: false,
       tickLine: false,
       stroke: _podiumUi.colors.lightSteel,
-      fontFamily: GRAPHIK
+      fontFamily: GRAPHIK,
+      dataKey: function dataKey(data) {
+        return (0, _lodash.default)(data, _dataKey.split('.'));
+      }
     }, props));
   };
 
@@ -147,30 +153,35 @@ var _initialiseProps = function _initialiseProps() {
     }, props));
   };
 
-  this.renderBar = function (_ref) {
-    var dataKey = _ref.dataKey,
-        props = _objectWithoutProperties(_ref, ["dataKey"]);
+  this.renderBar = function (_ref2) {
+    var _dataKey2 = _ref2.dataKey,
+        props = _objectWithoutProperties(_ref2, ["dataKey"]);
 
-    var path = dataKey.split('.');
     return _react.default.createElement(_recharts.Bar, _extends({
       shape: _react.default.createElement(_Rectangle.default, _extends({}, props, {
-        dataKey: dataKey,
+        dataKey: _dataKey2,
         stackPosition: _this2.stackPosition
       })),
       fill: props.color,
       dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, path);
+        return (0, _lodash.default)(data, _dataKey2.split('.'));
       }
     }, props));
   };
 
-  this.renderLine = function (props) {
+  this.renderLine = function (_ref3) {
+    var _dataKey3 = _ref3.dataKey,
+        props = _objectWithoutProperties(_ref3, ["dataKey"]);
+
     return _react.default.createElement(_recharts.Line, _extends({
       type: "linear",
       stroke: props.color,
       isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
+      dataKey: function dataKey(data) {
+        return (0, _lodash.default)(data, _dataKey3.split('.'));
+      },
       dot: {
         r: 2.5,
         strokeWidth: 0,
@@ -179,13 +190,19 @@ var _initialiseProps = function _initialiseProps() {
     }, props));
   };
 
-  this.renderSummaryLine = function (props) {
+  this.renderSummaryLine = function (_ref4) {
+    var _dataKey4 = _ref4.dataKey,
+        props = _objectWithoutProperties(_ref4, ["dataKey"]);
+
     return _react.default.createElement(_recharts.Line, _extends({
       type: "linear",
       stroke: props.color,
       isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
+      dataKey: function dataKey(data) {
+        return (0, _lodash.default)(data, _dataKey4.split('.'));
+      },
       dot: function dot(data) {
         if (data.index === _this2.props.data.length - 1) {
           return _react.default.createElement(_recharts.Dot, {

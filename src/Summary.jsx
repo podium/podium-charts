@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { renderRangeLabel } from './chartHelpers';
@@ -39,9 +40,9 @@ export default function Summary({
 }) {
   const typeHandler = {
     total: monthData =>
-      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0),
+      dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0),
     avg: monthData =>
-      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0) /
+      dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0) /
       dataKeys.length
   };
 

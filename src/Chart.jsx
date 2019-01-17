@@ -51,12 +51,13 @@ export default class Chart extends React.Component {
     });
   };
 
-  renderXAxis = props => (
+  renderXAxis = ({ dataKey, ...props }) => (
     <RechartsXAxis
       axisLine={false}
       tickLine={false}
       stroke={colors.lightSteel}
       fontFamily={GRAPHIK}
+      dataKey={data => get(data, dataKey.split('.'))}
       {...props}
     />
   );
@@ -73,43 +74,42 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = ({ dataKey, ...props }) => {
-    const path = dataKey.split('.');
-    return (
-      <RechartsBar
-        shape={
-          <Rectangle
-            {...props}
-            dataKey={dataKey}
-            stackPosition={this.stackPosition}
-          />
-        }
-        fill={props.color}
-        dataKey={data => get(data, path)}
-        {...props}
-      />
-    );
-  };
+  renderBar = ({ dataKey, ...props }) => (
+    <RechartsBar
+      shape={
+        <Rectangle
+          {...props}
+          dataKey={dataKey}
+          stackPosition={this.stackPosition}
+        />
+      }
+      fill={props.color}
+      dataKey={data => get(data, dataKey.split('.'))}
+      {...props}
+    />
+  );
 
-  renderLine = props => (
+  renderLine = ({ dataKey, ...props }) => (
     <RechartsLine
       type="linear"
       stroke={props.color}
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
+      dataKey={data => get(data, dataKey.split('.'))}
       dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
   );
 
-  renderSummaryLine = props => (
+  renderSummaryLine = ({ dataKey, ...props }) => (
     <RechartsLine
       type="linear"
       stroke={props.color}
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
+      dataKey={data => get(data, dataKey.split('.'))}
       dot={data => {
         if (data.index === this.props.data.length - 1) {
           return (
