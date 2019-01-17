@@ -150,7 +150,7 @@ var summaryHandler = {
 
 var fullDate = function fullDate(date, granularity) {
   var format = granMap[granularity] || 'MMMM YYYY';
-  if ((0, _moment.default)(date).isValid) return (0, _moment.default)(date).format(format);
+  if ((0, _moment.default)(date).isValid) return _moment.default.utc(date).format(format);
   return date;
 };
 
