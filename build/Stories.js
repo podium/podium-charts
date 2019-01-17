@@ -16,10 +16,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function Pallete(_ref) {
+function Palette(_ref) {
   var color = _ref.color,
       name = _ref.name;
-  var palleteWrapper = {
+  var paletteWrapper = {
     width: 150,
     height: 150,
     display: 'flex',
@@ -28,7 +28,7 @@ function Pallete(_ref) {
     margin: 12,
     flexDirection: 'column'
   };
-  var palleteLabel = {
+  var paletteLabel = {
     padding: 8,
     display: 'flex',
     flexDirection: 'column',
@@ -38,11 +38,11 @@ function Pallete(_ref) {
     color: 'white'
   };
   return _react.default.createElement("div", {
-    style: _objectSpread({}, palleteWrapper, {
+    style: _objectSpread({}, paletteWrapper, {
       backgroundColor: color
     })
   }, _react.default.createElement("div", {
-    style: palleteLabel
+    style: paletteLabel
   }, _react.default.createElement("div", null, name), _react.default.createElement("div", null, color)));
 }
 
@@ -573,7 +573,7 @@ var data = [{
       flexWrap: 'wrap'
     }
   }, podiumColors.map(function (color) {
-    return _react.default.createElement(Pallete, {
+    return _react.default.createElement(Palette, {
       color: color.value,
       name: color.name
     });

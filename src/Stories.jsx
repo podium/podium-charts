@@ -20,8 +20,8 @@ import {
   ReportSummaryTitle
 } from './';
 
-function Pallete({ color, name }) {
-  const palleteWrapper = {
+function Palette({ color, name }) {
+  const paletteWrapper = {
     width: 150,
     height: 150,
     display: 'flex',
@@ -31,7 +31,7 @@ function Pallete({ color, name }) {
     flexDirection: 'column'
   };
 
-  const palleteLabel = {
+  const paletteLabel = {
     padding: 8,
     display: 'flex',
     flexDirection: 'column',
@@ -41,8 +41,8 @@ function Pallete({ color, name }) {
     color: 'white'
   };
   return (
-    <div style={{ ...palleteWrapper, backgroundColor: color }}>
-      <div style={palleteLabel}>
+    <div style={{ ...paletteWrapper, backgroundColor: color }}>
+      <div style={paletteLabel}>
         <div>{name}</div>
         <div>{color}</div>
       </div>
@@ -409,7 +409,7 @@ storiesOf('colors', module).add('default', () => {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {podiumColors.map(color => {
-        return <Pallete color={color.value} name={color.name} />;
+        return <Palette color={color.value} name={color.name} />;
       })}
     </div>
   );
