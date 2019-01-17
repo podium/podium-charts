@@ -12,8 +12,10 @@ export function date(granularity = 'month') {
   const granularityFormat = granularityMap[granularity];
 
   if (!granularityFormat) return () => '';
-  return date =>
-    moment.utc(date).isValid ? moment.utc(date).format(granularityFormat) : '';
+  return date => {
+    const momentDate = moment.utc(date);
+    return momentDate.isValid() ? momentDate.format(granularityFormat) : '';
+  };
 }
 
 export const roundToPlaces = places => input => {

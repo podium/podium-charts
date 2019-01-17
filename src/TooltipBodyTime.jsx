@@ -79,7 +79,8 @@ const summaryAverage = payload =>
 
 const fullDate = (date, granularity) => {
   const format = granMap[granularity] || 'MMMM YYYY';
-  if (moment(date).isValid) return moment.utc(date).format(format);
+  const momentDate = moment.utc(date);
+  if (momentDate.isValid()) return momentDate.format(format);
   return date;
 };
 

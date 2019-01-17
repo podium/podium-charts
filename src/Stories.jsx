@@ -21,18 +21,18 @@ import {
 } from './';
 
 const data = [
-  { sms: 200, text: 1, organic: 2, date: '2018-01-15T23:43:32' },
-  { sms: 30000, text: 5, organic: 0, date: '2018-02-15T23:43:32' },
-  { sms: 500, text: 3, date: '2018-03-15T23:43:32' },
-  { sms: 200, text: 0, organic: 3, date: '2018-04-15T23:43:32' },
-  { sms: 300, text: 1, organic: 4, date: '2018-05-15T23:43:32' },
-  { sms: 4000, text: 2.33, organic: 8, date: '2018-06-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 9, date: '2018-07-15T23:43:32' },
-  { sms: 200, text: 2.33, organic: 15, date: '2018-08-15T23:43:32' },
-  { sms: 100, text: 5, organic: 13, date: '2018-09-15T23:43:32' },
-  { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
-  { sms: 100, text: 2.33, organic: 0, date: '2018-11-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' }
+  { sms: 200, text: 1, organic: 2, date: '2018-01-01T00:00:00.000Z' },
+  { sms: 30000, text: 5, organic: 0, date: '2018-02-01T00:00:00.000Z' },
+  { sms: 500, text: 3, date: '2018-03-01T00:00:00.000Z' },
+  { sms: 200, text: 0, organic: 3, date: '2018-04-01T00:00:00.000Z' },
+  { sms: 300, text: 1, organic: 4, date: '2018-05-01T00:00:00.000Z' },
+  { sms: 4000, text: 2.33, organic: 8, date: '2018-06-01T00:00:00.000Z' },
+  { sms: 400, text: 2.33, organic: 9, date: '2018-07-01T00:00:00.000Z' },
+  { sms: 200, text: 2.33, organic: 15, date: '2018-08-01T00:00:00.000Z' },
+  { sms: 100, text: 5, organic: 13, date: '2018-09-01T00:00:00.000Z' },
+  { sms: null, text: null, organic: null, date: '2018-10-01T00:00:00.000Z' },
+  { sms: 100, text: 2.33, organic: 0, date: '2018-11-01T00:00:00.000Z' },
+  { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
 storiesOf('Bar Chart', module)
