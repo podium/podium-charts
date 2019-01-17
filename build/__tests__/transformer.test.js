@@ -5,7 +5,7 @@ var _transformer = _interopRequireDefault(require("../transformer"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var data = {
-  'dataSet1': [{
+  dataSet1: [{
     value: 1,
     groupBy: 'google',
     granularity: '2018-01-15T23:43:32'
@@ -14,7 +14,7 @@ var data = {
     groupBy: 'google',
     granularity: '2018-02-15T23:43:32'
   }],
-  'dataSet2': [{
+  dataSet2: [{
     value: 10,
     groupBy: 'google',
     granularity: '2018-01-15T23:43:32'
@@ -29,21 +29,21 @@ describe('multiDataset', function () {
     var result = _transformer.default.multiDataset(data);
 
     expect(result).toEqual([{
-      "google": {
-        "dataSet1": 1,
-        "dataSet2": 10
+      google: {
+        dataSet1: 1,
+        dataSet2: 10
       },
-      "date": "2018-01-15T23:43:32"
+      date: '2018-01-15T23:43:32'
     }, {
-      "google": {
-        "dataSet1": 2
+      google: {
+        dataSet1: 2
       },
-      "date": "2018-02-15T23:43:32"
+      date: '2018-02-15T23:43:32'
     }, {
-      "google": {
-        "dataSet2": 20
+      google: {
+        dataSet2: 20
       },
-      "date": "2018-19-15T23:43:32"
+      date: '2018-19-15T23:43:32'
     }]);
   });
 });
@@ -52,11 +52,11 @@ describe('singleDataset', function () {
     var result = _transformer.default.singleDataset(data['dataSet1']);
 
     expect(result).toEqual([{
-      "date": "2018-01-15T23:43:32",
-      "google": 1
+      date: '2018-01-15T23:43:32',
+      google: 1
     }, {
-      "date": "2018-02-15T23:43:32",
-      "google": 2
+      date: '2018-02-15T23:43:32',
+      google: 2
     }]);
   });
 });
