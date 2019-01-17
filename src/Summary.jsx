@@ -38,33 +38,9 @@ export default function Summary({
   loading,
   timeRange
 }) {
-  const typeHandler = {
-    total: monthData =>
-      dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0),
-    avg: monthData =>
-      dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0) /
-      dataKeys.length
-  };
+  const currentData = () => getCurrentData(data, dataKeys, summaryType);
 
-  const currentData = () => {
-    const currentDataObj = data[data.length - 1];
-    return typeHandler[summaryType](currentDataObj);
-  };
-
-  const entireDataTypeHandler = {
-    total: data =>
-      data.reduce((acc, monthData) => {
-        return typeHandler[summaryType](monthData) + acc;
-      }, 0),
-    avg: data =>
-      data.reduce((acc, monthData) => {
-        return typeHandler[summaryType](monthData) + acc;
-      }, 0) / data.length
-  };
-
-  const entireData = () => {
-    return entireDataTypeHandler[summaryType](data);
-  };
+  const entireData = () => getEntireData(data, dataKeys, summaryType);
 
   const titleCase = str => {
     return str
@@ -113,7 +89,7 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  summaryType: PropTypes.oneOf(['avg', 'total']),
+  summaryType: PropTypes.oneOf(['avg', 'total', 'weightedAvg']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
@@ -138,3 +114,31 @@ Summary.defaultProps = {
   unit: '',
   formatter: value => value
 };
+
+const typeHandler = {
+  total: (monthData, dataKeys) =>
+    dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0),
+  avg: (monthData, dataKeys) =>
+    dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0) /
+    dataKeys.length
+};
+
+const entireDataTypeHandler = {
+  total: (data, dataKeys, summaryType) =>
+    data.reduce((acc, monthData) => {
+      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    }, 0),
+  avg: (data, dataKeys, summaryType) =>
+    data.reduce((acc, monthData) => {
+      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    }, 0) / data.length
+};
+
+export function getCurrentData(data, dataKeys, summaryType) {
+  const currentDataObj = data[data.length - 1];
+  return typeHandler[summaryType](currentDataObj, dataKeys);
+}
+
+export function getEntireData(data, dataKeys, summaryType) {
+  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+}
