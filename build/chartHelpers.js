@@ -84,7 +84,9 @@ var filterChildren = function filterChildren(children) {
 exports.filterChildren = filterChildren;
 
 var fullDate = function fullDate(date, monthFormat) {
-  if ((0, _moment.default)(date).isValid) return _moment.default.utc(date).format("".concat(monthFormat, " D, YYYY"));
+  var momentDate = _moment.default.utc(date);
+
+  if (momentDate.isValid()) return momentDate.format("".concat(monthFormat, " D, YYYY"));
   return date;
 };
 

@@ -31,7 +31,9 @@ function date() {
     return '';
   };
   return function (date) {
-    return _moment.default.utc(date).isValid ? _moment.default.utc(date).format(granularityFormat) : '';
+    var momentDate = _moment.default.utc(date);
+
+    return momentDate.isValid() ? momentDate.format(granularityFormat) : '';
   };
 }
 
