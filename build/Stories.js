@@ -6,11 +6,45 @@ var _react2 = require("@storybook/react");
 
 var _formatters = _interopRequireDefault(require("./formatters"));
 
-var _podiumUi = require("@podiumhq/podium-ui");
+var _colors = _interopRequireDefault(require("./colors"));
 
 var _ = require("./");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function Palette(_ref) {
+  var color = _ref.color,
+      name = _ref.name;
+  var paletteWrapper = {
+    width: 150,
+    height: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 12,
+    flexDirection: 'column'
+  };
+  var paletteLabel = {
+    padding: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white'
+  };
+  return _react.default.createElement("div", {
+    style: _objectSpread({}, paletteWrapper, {
+      backgroundColor: color
+    })
+  }, _react.default.createElement("div", {
+    style: paletteLabel
+  }, _react.default.createElement("div", null, name), _react.default.createElement("div", null, color)));
+}
 
 var data = [{
   sms: 200,
@@ -91,7 +125,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Bar, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }));
 }).add('Tooltip', function () {
   return _react.default.createElement(_.Chart, {
@@ -106,10 +140,10 @@ var data = [{
     })
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
     dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    color: _colors.default.poppyRed
   }));
 }).add('Custom Named Data', function () {
   return _react.default.createElement(_.Chart, {
@@ -125,7 +159,7 @@ var data = [{
   }), _react.default.createElement(_.Bar, {
     name: "My Custom Name!",
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }));
 }).add('Stacked', function () {
   return _react.default.createElement(_.Chart, {
@@ -141,11 +175,11 @@ var data = [{
   }), _react.default.createElement(_.Bar, {
     stackId: "1",
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
     stackId: "1",
     dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    color: _colors.default.poppyRed
   }));
 }).add('Multiple', function () {
   return _react.default.createElement(_.Chart, {
@@ -160,10 +194,10 @@ var data = [{
     })
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
     dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    color: _colors.default.poppyRed
   }));
 });
 (0, _react2.storiesOf)('Line Chart', module).add('Small', function () {
@@ -185,7 +219,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }));
 }).add('TooltipBodyTime', function () {
   return _react.default.createElement(_.Chart, {
@@ -199,7 +233,7 @@ var data = [{
     content: _react.default.createElement(_.TooltipBodyTime, null)
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.armyGreen
+    color: _colors.default.armyGreen
   }));
 }).add('Custom Named Data', function () {
   return _react.default.createElement(_.Chart, {
@@ -215,7 +249,7 @@ var data = [{
   }), _react.default.createElement(_.Line, {
     name: "My Custom Name That Is Super Long!",
     dataKey: "text",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }));
 }).add('Multiple Lines', function () {
   return _react.default.createElement(_.Chart, {
@@ -230,10 +264,10 @@ var data = [{
     })
   }), _react.default.createElement(_.Line, {
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Line, {
     dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    color: _colors.default.poppyRed
   }));
 });
 (0, _react2.storiesOf)('Mixed Chart', module).add('Mixed', function () {
@@ -244,7 +278,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Bar, {
     dataKey: "organic",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryType: "total",
@@ -252,7 +286,7 @@ var data = [{
     })
   }), _react.default.createElement(_.Line, {
     dataKey: "text",
-    color: _podiumUi.colors.poppyRed
+    color: _colors.default.poppyRed
   }));
 });
 (0, _react2.storiesOf)('Tooltip', module).add('TooltipBody', function () {
@@ -265,11 +299,11 @@ var data = [{
     summaryTitle: "Reviews",
     payload: [{
       value: 1,
-      color: _podiumUi.colors.cobaltBlue,
+      color: _colors.default.cobaltBlue,
       dataKey: 'google'
     }, {
       value: 2,
-      color: _podiumUi.colors.poppyRed,
+      color: _colors.default.poppyRed,
       dataKey: 'jooble'
     }]
   }));
@@ -285,11 +319,11 @@ var data = [{
   }, _react.default.createElement(_.TooltipBodyTime, {
     payload: [{
       value: 6000,
-      color: _podiumUi.colors.cobaltBlue,
+      color: _colors.default.cobaltBlue,
       dataKey: 'google'
     }, {
       value: 80000,
-      color: _podiumUi.colors.poppyRed,
+      color: _colors.default.poppyRed,
       dataKey: 'jooble'
     }]
   }));
@@ -319,7 +353,7 @@ var data = [{
   }, _react.default.createElement(_.SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }))));
 }).add('Prefer Downward Trend', function () {
   return _react.default.createElement("div", {
@@ -341,7 +375,7 @@ var data = [{
   }, _react.default.createElement(_.SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }))));
 }).add('Loading', function () {
   return _react.default.createElement("div", {
@@ -364,7 +398,7 @@ var data = [{
   }, _react.default.createElement(_.SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }))));
 });
 (0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
@@ -380,7 +414,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })));
@@ -397,7 +431,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
@@ -421,7 +455,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
@@ -436,10 +470,10 @@ var data = [{
     summaryType: "total",
     config: [{
       dataKey: 'organic',
-      color: _podiumUi.colors.cobaltBlue
+      color: _colors.default.cobaltBlue
     }, {
       dataKey: 'text',
-      color: _podiumUi.colors.poppyRed
+      color: _colors.default.poppyRed
     }]
   }));
 }).add('Loading', function () {
@@ -462,7 +496,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
@@ -477,10 +511,10 @@ var data = [{
     summaryType: "total",
     config: [{
       dataKey: 'organic',
-      color: _podiumUi.colors.cobaltBlue
+      color: _colors.default.cobaltBlue
     }, {
       dataKey: 'text',
-      color: _podiumUi.colors.poppyRed
+      color: _colors.default.poppyRed
     }]
   }));
 }).add('w/Granularity', function () {
@@ -501,7 +535,7 @@ var data = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
-    color: _podiumUi.colors.cobaltBlue
+    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
@@ -516,11 +550,33 @@ var data = [{
     summaryType: "total",
     config: [{
       dataKey: 'organic',
-      color: _podiumUi.colors.cobaltBlue
+      color: _colors.default.cobaltBlue
     }, {
       dataKey: 'text',
-      color: _podiumUi.colors.poppyRed
+      color: _colors.default.poppyRed
     }]
+  }));
+});
+(0, _react2.storiesOf)('colors', module).add('default', function () {
+  var colorsMap = Object.keys(_colors.default).map(function (color) {
+    return {
+      value: _colors.default[color],
+      name: color
+    };
+  });
+  var podiumColors = colorsMap.filter(function (color) {
+    return typeof color.value === 'string';
+  });
+  return _react.default.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    }
+  }, podiumColors.map(function (color) {
+    return _react.default.createElement(Palette, {
+      color: color.value,
+      name: color.name
+    });
   }));
 });
 (0, _react2.storiesOf)('formatters', module).add('date', function () {
