@@ -150,7 +150,7 @@ function Summary(_ref) {
   var renderTimeRange = function renderTimeRange() {
     var selectedOption = _podiumUi.ReportingDatePicker.options.find(function (option) {
       return option.value === timeRange;
-    });
+    }) || {};
 
     if (timeRange === 'custom') {
       return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM'));
