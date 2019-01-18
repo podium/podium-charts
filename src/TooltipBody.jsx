@@ -94,7 +94,7 @@ export default function TooltipBody(props) {
         <TooltipData key={dataKey}>
           <Label>
             <ColorLabel fill={color} />
-            <div>{name ? name : dataKey}</div>
+            <div>{name ? name : ''}</div>
           </Label>
           <LabelValue>{value}</LabelValue>
         </TooltipData>

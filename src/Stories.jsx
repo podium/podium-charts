@@ -85,18 +85,8 @@ storiesOf('Bar Chart', module)
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
-      <Bar dataKey="organic" color={colors.cobaltBlue} />
-      <Bar dataKey="text" color={colors.poppyRed} />
-    </Chart>
-  ))
-  .add('Custom Named Data', () => (
-    <Chart data={data}>
-      <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date()} />
-      <Tooltip
-        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
-      />
-      <Bar name="My Custom Name!" dataKey="organic" color={colors.cobaltBlue} />
+      <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
+      <Bar name="Text" dataKey="text" color={colors.poppyRed} />
     </Chart>
   ))
   .add('Stacked', () => (
@@ -106,8 +96,13 @@ storiesOf('Bar Chart', module)
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
-      <Bar stackId="1" dataKey="organic" color={colors.cobaltBlue} />
-      <Bar stackId="1" dataKey="text" color={colors.poppyRed} />
+      <Bar
+        name="Organic"
+        stackId="1"
+        dataKey="organic"
+        color={colors.cobaltBlue}
+      />
+      <Bar name="Text" stackId="1" dataKey="text" color={colors.poppyRed} />
     </Chart>
   ))
   .add('Multiple', () => (
@@ -117,8 +112,8 @@ storiesOf('Bar Chart', module)
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
-      <Bar dataKey="organic" color={colors.cobaltBlue} />
-      <Bar dataKey="text" color={colors.poppyRed} />
+      <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
+      <Bar name="Text" dataKey="text" color={colors.poppyRed} />
     </Chart>
   ));
 
@@ -143,20 +138,6 @@ storiesOf('Line Chart', module)
       <Line dataKey="sms" color={colors.armyGreen} />
     </Chart>
   ))
-  .add('Custom Named Data', () => (
-    <Chart data={data}>
-      <YAxis />
-      <XAxis dataKey="date" tickFormatter={formatters.date()} />
-      <Tooltip
-        content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
-      />
-      <Line
-        name="My Custom Name That Is Super Long!"
-        dataKey="text"
-        color={colors.cobaltBlue}
-      />
-    </Chart>
-  ))
   .add('Multiple Lines', () => (
     <Chart data={data}>
       <YAxis />
@@ -164,8 +145,12 @@ storiesOf('Line Chart', module)
       <Tooltip
         content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
       />
-      <Line dataKey="organic" color={colors.cobaltBlue} />
-      <Line dataKey="text" color={colors.poppyRed} />
+      <Line
+        name="THIS CAN BE ANTYHING"
+        dataKey="organic"
+        color={colors.cobaltBlue}
+      />
+      <Line name="SO CAN THIS" dataKey="text" color={colors.poppyRed} />
     </Chart>
   ));
 
@@ -173,11 +158,11 @@ storiesOf('Mixed Chart', module).add('Mixed', () => (
   <Chart data={data}>
     <YAxis />
     <XAxis dataKey="date" tickFormatter={formatters.date()} />
-    <Bar dataKey="organic" color={colors.cobaltBlue} />
+    <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
     <Tooltip
       content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
     />
-    <Line dataKey="text" color={colors.poppyRed} />
+    <Line name="Text" dataKey="text" color={colors.poppyRed} />
   </Chart>
 ));
 
@@ -190,8 +175,18 @@ storiesOf('Tooltip', module)
           summaryType="total"
           summaryTitle="Reviews"
           payload={[
-            { value: 1, color: colors.cobaltBlue, dataKey: 'google' },
-            { value: 2, color: colors.poppyRed, dataKey: 'jooble' }
+            {
+              name: 'Google',
+              value: 1,
+              color: colors.cobaltBlue,
+              dataKey: 'google'
+            },
+            {
+              name: 'Jooble',
+              value: 2,
+              color: colors.poppyRed,
+              dataKey: 'jooble'
+            }
           ]}
         />
       </div>
@@ -204,8 +199,18 @@ storiesOf('Tooltip', module)
       <div style={{ width: 100 }}>
         <TooltipBodyTime
           payload={[
-            { value: 6000, color: colors.cobaltBlue, dataKey: 'google' },
-            { value: 80000, color: colors.poppyRed, dataKey: 'jooble' }
+            {
+              name: 'Google',
+              value: 6000,
+              color: colors.cobaltBlue,
+              dataKey: 'google'
+            },
+            {
+              name: 'Jooble',
+              value: 80000,
+              color: colors.poppyRed,
+              dataKey: 'jooble'
+            }
           ]}
         />
       </div>
@@ -322,8 +327,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         config={[
-          { dataKey: 'organic', color: colors.cobaltBlue },
-          { dataKey: 'text', color: colors.poppyRed }
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}
       />
     </ReportCard>
@@ -337,7 +342,6 @@ storiesOf('Report Card', module)
           console.log(`You picked ${res}`);
         }}
       />
-
       <Chart data={data}>
         <YAxis tickFormatter={formatters.abbreviateTime} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -352,13 +356,12 @@ storiesOf('Report Card', module)
         granularity="month"
         timeRange="lastYear"
       />
-
       <Legend
         data={data}
         summaryType="total"
         config={[
-          { dataKey: 'organic', color: colors.cobaltBlue },
-          { dataKey: 'text', color: colors.poppyRed }
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}
       />
     </ReportCard>
@@ -391,8 +394,8 @@ storiesOf('Report Card', module)
         data={data}
         summaryType="total"
         config={[
-          { dataKey: 'organic', color: colors.cobaltBlue },
-          { dataKey: 'text', color: colors.poppyRed }
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}
       />
     </ReportCard>

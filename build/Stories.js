@@ -139,27 +139,13 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Bar, {
+    name: "Organic",
     dataKey: "organic",
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
+    name: "Text",
     dataKey: "text",
     color: _colors.default.poppyRed
-  }));
-}).add('Custom Named Data', function () {
-  return _react.default.createElement(_.Chart, {
-    data: data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
-    dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
-    })
-  }), _react.default.createElement(_.Bar, {
-    name: "My Custom Name!",
-    dataKey: "organic",
-    color: _colors.default.cobaltBlue
   }));
 }).add('Stacked', function () {
   return _react.default.createElement(_.Chart, {
@@ -173,10 +159,12 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Bar, {
+    name: "Organic",
     stackId: "1",
     dataKey: "organic",
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
+    name: "Text",
     stackId: "1",
     dataKey: "text",
     color: _colors.default.poppyRed
@@ -193,9 +181,11 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Bar, {
+    name: "Organic",
     dataKey: "organic",
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Bar, {
+    name: "Text",
     dataKey: "text",
     color: _colors.default.poppyRed
   }));
@@ -235,22 +225,6 @@ var data = [{
     dataKey: "sms",
     color: _colors.default.armyGreen
   }));
-}).add('Custom Named Data', function () {
-  return _react.default.createElement(_.Chart, {
-    data: data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
-    dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
-    })
-  }), _react.default.createElement(_.Line, {
-    name: "My Custom Name That Is Super Long!",
-    dataKey: "text",
-    color: _colors.default.cobaltBlue
-  }));
 }).add('Multiple Lines', function () {
   return _react.default.createElement(_.Chart, {
     data: data
@@ -263,9 +237,11 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Line, {
+    name: "THIS CAN BE ANTYHING",
     dataKey: "organic",
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Line, {
+    name: "SO CAN THIS",
     dataKey: "text",
     color: _colors.default.poppyRed
   }));
@@ -277,6 +253,7 @@ var data = [{
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Bar, {
+    name: "Organic",
     dataKey: "organic",
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
@@ -285,6 +262,7 @@ var data = [{
       summaryTitle: "Reviews"
     })
   }), _react.default.createElement(_.Line, {
+    name: "Text",
     dataKey: "text",
     color: _colors.default.poppyRed
   }));
@@ -298,10 +276,12 @@ var data = [{
     summaryType: "total",
     summaryTitle: "Reviews",
     payload: [{
+      name: 'Google',
       value: 1,
       color: _colors.default.cobaltBlue,
       dataKey: 'google'
     }, {
+      name: 'Jooble',
       value: 2,
       color: _colors.default.poppyRed,
       dataKey: 'jooble'
@@ -318,10 +298,12 @@ var data = [{
     }
   }, _react.default.createElement(_.TooltipBodyTime, {
     payload: [{
+      name: 'Google',
       value: 6000,
       color: _colors.default.cobaltBlue,
       dataKey: 'google'
     }, {
+      name: 'Jooble',
       value: 80000,
       color: _colors.default.poppyRed,
       dataKey: 'jooble'
@@ -469,9 +451,11 @@ var data = [{
     data: data,
     summaryType: "total",
     config: [{
+      name: 'Organic',
       dataKey: 'organic',
       color: _colors.default.cobaltBlue
     }, {
+      name: 'Text',
       dataKey: 'text',
       color: _colors.default.poppyRed
     }]
@@ -510,9 +494,11 @@ var data = [{
     data: data,
     summaryType: "total",
     config: [{
+      name: 'Organic',
       dataKey: 'organic',
       color: _colors.default.cobaltBlue
     }, {
+      name: 'Text',
       dataKey: 'text',
       color: _colors.default.poppyRed
     }]
@@ -549,9 +535,11 @@ var data = [{
     data: data,
     summaryType: "total",
     config: [{
+      name: 'Organic',
       dataKey: 'organic',
       color: _colors.default.cobaltBlue
     }, {
+      name: 'Text',
       dataKey: 'text',
       color: _colors.default.poppyRed
     }]
