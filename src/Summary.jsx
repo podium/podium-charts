@@ -124,7 +124,7 @@ export function getLatestSummaryMetric(
   options = {}
 ) {
   const currentDataObj = data[data.length - 1];
-  return typeHandler[summaryType](currentDataObj, dataKeys, options);
+  return rowSummaryFunctions[summaryType](currentDataObj, dataKeys, options);
 }
 
 export function getOverallSummaryMetric(
@@ -133,25 +133,64 @@ export function getOverallSummaryMetric(
   summaryType,
   options = {}
 ) {
-  return entireDataTypeHandler[summaryType](data, dataKeys, options);
+  return datasetSummaryFunctions[summaryType](data, dataKeys, options);
 }
 
 // Helpers
 
-const typeHandler = {
-  total: (row, dataKeys) => {
-    let sum = 0;
-    for (let key of dataKeys) {
-      const value = get(row, key, 0);
-      if (isNumeric(value)) {
-        sum += value;
-      }
+const rowTotal = (row, dataKeys) => {
+  let sum = 0;
+  for (let key of dataKeys) {
+    const value = get(row, key, 0);
+    if (isNumeric(value)) {
+      sum += value;
     }
-    return sum;
-  },
-  avg: (row, dataKeys) => {
-    let sum = 0;
-    let usedKeys = 0;
+  }
+  return sum;
+};
+
+const rowAvg = (row, dataKeys) => {
+  let sum = 0;
+  let usedKeys = 0;
+  for (let key of dataKeys) {
+    const value = get(row, key, 0);
+    if (isNumeric(value)) {
+      sum += value;
+      usedKeys++;
+    }
+  }
+  return usedKeys === 0 ? null : sum / usedKeys;
+};
+
+const rowWeightedAvg = (row, dataKeys, { valueKey, countKey }) => {
+  let sum = 0;
+  let totalCount = 0;
+  for (let key of dataKeys) {
+    const value = get(row, [key, valueKey], null);
+    const count = get(row, [key, countKey], null);
+    if (isNumeric(value) && isNumeric(count)) {
+      sum += value * count;
+      totalCount += count;
+    }
+  }
+  return totalCount === 0 ? null : sum / totalCount;
+};
+
+const rowSummaryFunctions = {
+  total: rowTotal,
+  avg: rowAvg,
+  weightedAvg: rowWeightedAvg
+};
+
+const dataSetTotal = (data, dataKeys) =>
+  data.reduce((acc, row) => {
+    return rowSummaryFunctions.total(row, dataKeys) + acc;
+  }, 0);
+
+const datasetAvg = (data, dataKeys) => {
+  let sum = 0;
+  let usedKeys = 0;
+  for (let row of data) {
     for (let key of dataKeys) {
       const value = get(row, key, 0);
       if (isNumeric(value)) {
@@ -159,57 +198,30 @@ const typeHandler = {
         usedKeys++;
       }
     }
-    return usedKeys === 0 ? null : sum / usedKeys;
-  },
-  weightedAvg: (row, dataKeys, { valueKey = 'value', countKey = 'count' }) => {
-    let sum = 0;
-    let usedKeys = 0;
+  }
+  return usedKeys === 0 ? null : sum / usedKeys;
+};
+
+const datasetWeightedAvg = (data, dataKeys, { valueKey, countKey }) => {
+  let sum = 0;
+  let totalCount = 0;
+  for (let row of data) {
     for (let key of dataKeys) {
       const value = get(row, [key, valueKey], null);
       const count = get(row, [key, countKey], null);
       if (isNumeric(value) && isNumeric(count)) {
         sum += value * count;
-        usedKeys += count;
+        totalCount += count;
       }
     }
-    return usedKeys === 0 ? null : sum / usedKeys;
   }
+  return totalCount === 0 ? null : sum / totalCount;
 };
 
-const entireDataTypeHandler = {
-  total: (data, dataKeys) =>
-    data.reduce((acc, row) => {
-      return typeHandler.total(row, dataKeys) + acc;
-    }, 0),
-  avg: (data, dataKeys) => {
-    let sum = 0;
-    let usedKeys = 0;
-    for (let row of data) {
-      for (let key of dataKeys) {
-        const value = get(row, key, 0);
-        if (isNumeric(value)) {
-          sum += value;
-          usedKeys++;
-        }
-      }
-    }
-    return usedKeys === 0 ? null : sum / usedKeys;
-  },
-  weightedAvg: (data, dataKeys, { valueKey = 'value', countKey = 'count' }) => {
-    let sum = 0;
-    let usedKeys = 0;
-    for (let row of data) {
-      for (let key of dataKeys) {
-        const value = get(row, [key, valueKey], null);
-        const count = get(row, [key, countKey], null);
-        if (isNumeric(value) && isNumeric(count)) {
-          sum += value * count;
-          usedKeys += count;
-        }
-      }
-    }
-    return usedKeys === 0 ? null : sum / usedKeys;
-  }
+const datasetSummaryFunctions = {
+  total: dataSetTotal,
+  avg: datasetAvg,
+  weightedAvg: datasetWeightedAvg
 };
 
 function isNumeric(value) {
