@@ -117,13 +117,23 @@ Summary.defaultProps = {
   formatter: value => value
 };
 
-export function getLatestSummaryMetric(data, dataKeys, summaryType) {
+export function getLatestSummaryMetric(
+  data,
+  dataKeys,
+  summaryType,
+  options = {}
+) {
   const currentDataObj = data[data.length - 1];
-  return typeHandler[summaryType](currentDataObj, dataKeys);
+  return typeHandler[summaryType](currentDataObj, dataKeys, options);
 }
 
-export function getOverallSummaryMetric(data, dataKeys, summaryType) {
-  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+export function getOverallSummaryMetric(
+  data,
+  dataKeys,
+  summaryType,
+  options = {}
+) {
+  return entireDataTypeHandler[summaryType](data, dataKeys, options);
 }
 
 // Helpers
@@ -150,15 +160,28 @@ const typeHandler = {
       }
     }
     return usedKeys === 0 ? null : sum / usedKeys;
+  },
+  weightedAvg: (row, dataKeys, { valueKey = 'value', countKey = 'count' }) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let key of dataKeys) {
+      const value = get(row, [key, valueKey], null);
+      const count = get(row, [key, countKey], null);
+      if (isNumeric(value) && isNumeric(count)) {
+        sum += value * count;
+        usedKeys += count;
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
   }
 };
 
 const entireDataTypeHandler = {
-  total: (data, dataKeys, summaryType) =>
+  total: (data, dataKeys) =>
     data.reduce((acc, row) => {
-      return typeHandler[summaryType](row, dataKeys) + acc;
+      return typeHandler.total(row, dataKeys) + acc;
     }, 0),
-  avg: (data, dataKeys, summaryType) => {
+  avg: (data, dataKeys) => {
     let sum = 0;
     let usedKeys = 0;
     for (let row of data) {
@@ -167,6 +190,21 @@ const entireDataTypeHandler = {
         if (isNumeric(value)) {
           sum += value;
           usedKeys++;
+        }
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
+  },
+  weightedAvg: (data, dataKeys, { valueKey = 'value', countKey = 'count' }) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let row of data) {
+      for (let key of dataKeys) {
+        const value = get(row, [key, valueKey], null);
+        const count = get(row, [key, countKey], null);
+        if (isNumeric(value) && isNumeric(count)) {
+          sum += value * count;
+          usedKeys += count;
         }
       }
     }

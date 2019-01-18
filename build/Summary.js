@@ -155,12 +155,14 @@ Summary.defaultProps = {
 };
 
 function getLatestSummaryMetric(data, dataKeys, summaryType) {
+  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   var currentDataObj = data[data.length - 1];
-  return typeHandler[summaryType](currentDataObj, dataKeys);
+  return typeHandler[summaryType](currentDataObj, dataKeys, options);
 }
 
 function getOverallSummaryMetric(data, dataKeys, summaryType) {
-  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  return entireDataTypeHandler[summaryType](data, dataKeys, options);
 } // Helpers
 
 
@@ -230,15 +232,12 @@ var typeHandler = {
     }
 
     return usedKeys === 0 ? null : sum / usedKeys;
-  }
-};
-var entireDataTypeHandler = {
-  total: function total(data, dataKeys, summaryType) {
-    return data.reduce(function (acc, row) {
-      return typeHandler[summaryType](row, dataKeys) + acc;
-    }, 0);
   },
-  avg: function avg(data, dataKeys, summaryType) {
+  weightedAvg: function weightedAvg(row, dataKeys, _ref2) {
+    var _ref2$valueKey = _ref2.valueKey,
+        valueKey = _ref2$valueKey === void 0 ? 'value' : _ref2$valueKey,
+        _ref2$countKey = _ref2.countKey,
+        countKey = _ref2$countKey === void 0 ? 'count' : _ref2$countKey;
     var sum = 0;
     var usedKeys = 0;
     var _iteratorNormalCompletion3 = true;
@@ -246,35 +245,14 @@ var entireDataTypeHandler = {
     var _iteratorError3 = undefined;
 
     try {
-      for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var row = _step3.value;
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
+      for (var _iterator3 = dataKeys[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var key = _step3.value;
+        var value = (0, _lodash.default)(row, [key, valueKey], null);
+        var count = (0, _lodash.default)(row, [key, countKey], null);
 
-        try {
-          for (var _iterator4 = dataKeys[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var key = _step4.value;
-            var value = (0, _lodash.default)(row, key, 0);
-
-            if (isNumeric(value)) {
-              sum += value;
-              usedKeys++;
-            }
-          }
-        } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-              _iterator4.return();
-            }
-          } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
-            }
-          }
+        if (isNumeric(value) && isNumeric(count)) {
+          sum += value * count;
+          usedKeys += count;
         }
       }
     } catch (err) {
@@ -288,6 +266,130 @@ var entireDataTypeHandler = {
       } finally {
         if (_didIteratorError3) {
           throw _iteratorError3;
+        }
+      }
+    }
+
+    return usedKeys === 0 ? null : sum / usedKeys;
+  }
+};
+var entireDataTypeHandler = {
+  total: function total(data, dataKeys) {
+    return data.reduce(function (acc, row) {
+      return typeHandler.total(row, dataKeys) + acc;
+    }, 0);
+  },
+  avg: function avg(data, dataKeys) {
+    var sum = 0;
+    var usedKeys = 0;
+    var _iteratorNormalCompletion4 = true;
+    var _didIteratorError4 = false;
+    var _iteratorError4 = undefined;
+
+    try {
+      for (var _iterator4 = data[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        var row = _step4.value;
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+          for (var _iterator5 = dataKeys[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var key = _step5.value;
+            var value = (0, _lodash.default)(row, key, 0);
+
+            if (isNumeric(value)) {
+              sum += value;
+              usedKeys++;
+            }
+          }
+        } catch (err) {
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
+              _iterator5.return();
+            }
+          } finally {
+            if (_didIteratorError5) {
+              throw _iteratorError5;
+            }
+          }
+        }
+      }
+    } catch (err) {
+      _didIteratorError4 = true;
+      _iteratorError4 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+          _iterator4.return();
+        }
+      } finally {
+        if (_didIteratorError4) {
+          throw _iteratorError4;
+        }
+      }
+    }
+
+    return usedKeys === 0 ? null : sum / usedKeys;
+  },
+  weightedAvg: function weightedAvg(data, dataKeys, _ref3) {
+    var _ref3$valueKey = _ref3.valueKey,
+        valueKey = _ref3$valueKey === void 0 ? 'value' : _ref3$valueKey,
+        _ref3$countKey = _ref3.countKey,
+        countKey = _ref3$countKey === void 0 ? 'count' : _ref3$countKey;
+    var sum = 0;
+    var usedKeys = 0;
+    var _iteratorNormalCompletion6 = true;
+    var _didIteratorError6 = false;
+    var _iteratorError6 = undefined;
+
+    try {
+      for (var _iterator6 = data[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+        var row = _step6.value;
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+          for (var _iterator7 = dataKeys[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var key = _step7.value;
+            var value = (0, _lodash.default)(row, [key, valueKey], null);
+            var count = (0, _lodash.default)(row, [key, countKey], null);
+
+            if (isNumeric(value) && isNumeric(count)) {
+              sum += value * count;
+              usedKeys += count;
+            }
+          }
+        } catch (err) {
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion7 && _iterator7.return != null) {
+              _iterator7.return();
+            }
+          } finally {
+            if (_didIteratorError7) {
+              throw _iteratorError7;
+            }
+          }
+        }
+      }
+    } catch (err) {
+      _didIteratorError6 = true;
+      _iteratorError6 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+          _iterator6.return();
+        }
+      } finally {
+        if (_didIteratorError6) {
+          throw _iteratorError6;
         }
       }
     }
