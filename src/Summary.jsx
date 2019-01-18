@@ -119,7 +119,7 @@ Summary.propTypes = {
   timeRange: PropTypes.oneOf([
     'custom',
     'lastMonth',
-    'lastTwelveMonths',
+    'last12Months',
     'lastWeek',
     'lastYear',
     'monthToDate',
