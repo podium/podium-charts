@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { colors } from '@podiumhq/podium-ui';
+import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { renderRangeLabel } from './chartHelpers';
 
@@ -86,15 +86,13 @@ export default function Summary({
   );
 
   const renderTimeRange = () => {
+    const selectedOption = ReportingDatePicker.options.find(
+      option => option.value === timeRange
+    );
     if (timeRange === 'custom') {
       return <TimeRange>{renderRangeLabel(data, 'MMM')}</TimeRange>;
     } else {
-      return (
-        <TimeRange>
-          Last {data.length} {titleCase(granularity)}
-          {data.length === 1 ? '' : 's'}
-        </TimeRange>
-      );
+      return <TimeRange>{selectedOption.label}</TimeRange>;
     }
   };
 

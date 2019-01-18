@@ -80,6 +80,7 @@ export default {
   abbreviateNumber,
   abbreviateTime,
   capitalize,
+  commaFormatNumber,
   date,
   humanizeDuration,
   secondsToMinutes,
