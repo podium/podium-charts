@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
-import formatters from './formatters';
 import Ghost from './Ghost/Ghost';
 
 const LegendWrapper = styled.div`
@@ -46,9 +46,9 @@ export default function Legend({
 }) {
   const typeHandler = {
     total: dataKey =>
-      data.reduce((acc, dataField) => (dataField[dataKey] || 0) + acc, 0),
+      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0),
     avg: dataKey =>
-      data.reduce((acc, dataField) => (dataField[dataKey] || 0) + acc, 0) /
+      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0) /
       data.length
   };
 
@@ -71,7 +71,7 @@ export default function Legend({
         <ItemWrapper key={dataKey}>
           <Label>
             <ColorLabel color={color} />
-            <div>{name ? name : formatters.capitalize(dataKey)}</div>
+            <div>{name ? name : ''}</div>
           </Label>
           <div>{formatter(calculateValue(dataKey))}</div>
         </ItemWrapper>

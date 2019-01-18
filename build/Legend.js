@@ -11,9 +11,9 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _podiumUi = require("@podiumhq/podium-ui");
+var _lodash = _interopRequireDefault(require("lodash.get"));
 
-var _formatters = _interopRequireDefault(require("./formatters"));
+var _podiumUi = require("@podiumhq/podium-ui");
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
@@ -80,12 +80,12 @@ function Legend(_ref) {
   var typeHandler = {
     total: function total(dataKey) {
       return data.reduce(function (acc, dataField) {
-        return (dataField[dataKey] || 0) + acc;
+        return (0, _lodash.default)(dataField, dataKey, 0) + acc;
       }, 0);
     },
     avg: function avg(dataKey) {
       return data.reduce(function (acc, dataField) {
-        return (dataField[dataKey] || 0) + acc;
+        return (0, _lodash.default)(dataField, dataKey, 0) + acc;
       }, 0) / data.length;
     }
   };
@@ -113,7 +113,7 @@ function Legend(_ref) {
         key: dataKey
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : _formatters.default.capitalize(dataKey))), _react.default.createElement("div", null, formatter(calculateValue(dataKey))));
+      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement("div", null, formatter(calculateValue(dataKey))));
     });
   };
 
