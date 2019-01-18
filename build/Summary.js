@@ -95,14 +95,6 @@ function Summary(_ref) {
       loading = _ref.loading,
       timeRange = _ref.timeRange;
 
-  var currentData = function currentData() {
-    return getLatestSummaryMetric(data, dataKeys, summaryType);
-  };
-
-  var entireData = function entireData() {
-    return getOverallSummaryMetric(data, dataKeys, summaryType);
-  };
-
   var titleCase = function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
       return word.replace(word[0], word[0].toUpperCase());
@@ -138,7 +130,11 @@ function Summary(_ref) {
   };
 
   if (loading) return renderGhostState();
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, "".concat(formatter(currentData()), " ").concat(unit)), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, "".concat(formatter(entireData()), " ").concat(unit)));
+  var currentData = getLatestSummaryMetric(data, dataKeys, summaryType);
+  var entireData = getOverallSummaryMetric(data, dataKeys, summaryType);
+  var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
+  var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
+  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, currentDataFormatted), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, entireDataFormatted));
 }
 
 Summary.propTypes = {

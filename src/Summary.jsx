@@ -38,10 +38,6 @@ export default function Summary({
   loading,
   timeRange
 }) {
-  const currentData = () => getLatestSummaryMetric(data, dataKeys, summaryType);
-
-  const entireData = () => getOverallSummaryMetric(data, dataKeys, summaryType);
-
   const titleCase = str => {
     return str
       .toLowerCase()
@@ -75,13 +71,21 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
+  const currentData = getLatestSummaryMetric(data, dataKeys, summaryType);
+  const entireData = getOverallSummaryMetric(data, dataKeys, summaryType);
+
+  const currentDataFormatted =
+    currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
+  const entireDataFormatted =
+    entireData === null ? 'N/A' : `${formatter(entireData)} ${unit}`;
+
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{`${formatter(currentData())} ${unit}`}</SummaryLabel>
+      <SummaryLabel>{currentDataFormatted}</SummaryLabel>
       <Space />
       {renderTimeRange()}
-      <SummaryLabel>{`${formatter(entireData())} ${unit}`}</SummaryLabel>
+      <SummaryLabel>{entireDataFormatted}</SummaryLabel>
     </SummaryWrapper>
   );
 }
