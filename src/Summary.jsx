@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import get from 'lodash.get';
 import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { renderRangeLabel } from './chartHelpers';
@@ -37,33 +38,9 @@ export default function Summary({
   loading,
   timeRange
 }) {
-  const typeHandler = {
-    total: monthData =>
-      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0),
-    avg: monthData =>
-      dataKeys.reduce((acc, key) => (monthData[key] || 0) + acc, 0) /
-      dataKeys.length
-  };
+  const currentData = () => getLatestSummaryMetric(data, dataKeys, summaryType);
 
-  const currentData = () => {
-    const currentDataObj = data[data.length - 1];
-    return typeHandler[summaryType](currentDataObj);
-  };
-
-  const entireDataTypeHandler = {
-    total: data =>
-      data.reduce((acc, monthData) => {
-        return typeHandler[summaryType](monthData) + acc;
-      }, 0),
-    avg: data =>
-      data.reduce((acc, monthData) => {
-        return typeHandler[summaryType](monthData) + acc;
-      }, 0) / data.length
-  };
-
-  const entireData = () => {
-    return entireDataTypeHandler[summaryType](data);
-  };
+  const entireData = () => getOverallSummaryMetric(data, dataKeys, summaryType);
 
   const titleCase = str => {
     return str
@@ -110,7 +87,7 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  summaryType: PropTypes.oneOf(['avg', 'total']),
+  summaryType: PropTypes.oneOf(['avg', 'total', 'weightedAvg']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
@@ -135,3 +112,64 @@ Summary.defaultProps = {
   unit: '',
   formatter: value => value
 };
+
+export function getLatestSummaryMetric(data, dataKeys, summaryType) {
+  const currentDataObj = data[data.length - 1];
+  return typeHandler[summaryType](currentDataObj, dataKeys);
+}
+
+export function getOverallSummaryMetric(data, dataKeys, summaryType) {
+  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+}
+
+// Helpers
+
+const typeHandler = {
+  total: (monthData, dataKeys) => {
+    let sum = 0;
+    for (let key of dataKeys) {
+      const value = get(monthData, key, 0);
+      if (isNumeric(value)) {
+        sum += value;
+      }
+    }
+    return sum;
+  },
+  avg: (monthData, dataKeys) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let key of dataKeys) {
+      const value = get(monthData, key, 0);
+      if (isNumeric(value)) {
+        sum += value;
+        usedKeys++;
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
+  }
+};
+
+const entireDataTypeHandler = {
+  total: (data, dataKeys, summaryType) =>
+    data.reduce((acc, monthData) => {
+      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    }, 0),
+  avg: (data, dataKeys, summaryType) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let monthData of data) {
+      for (let key of dataKeys) {
+        const value = get(monthData, key, 0);
+        if (isNumeric(value)) {
+          sum += value;
+          usedKeys++;
+        }
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
+  }
+};
+
+function isNumeric(value) {
+  return value !== undefined && value !== null;
+}
