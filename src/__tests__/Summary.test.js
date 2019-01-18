@@ -80,6 +80,24 @@ const DATA_WITH_COUNTS_AND_NULLS = [
   }
 ];
 
+const DATA_WITH_COUNTS_ONLY_NULLS = [
+  {
+    dogs: { value: null, count: null },
+    cats: { value: null, count: null },
+    date: '2018-09-15T23:43:32'
+  },
+  {
+    dogs: { value: null, count: null },
+    cats: { value: null, count: null },
+    date: '2018-10-15T23:43:32'
+  },
+  {
+    dogs: { value: null, count: null },
+    cats: { value: null, count: null },
+    date: '2018-11-15T23:43:32'
+  }
+];
+
 describe('getLatestSummaryMetric', () => {
   describe('total', () => {
     test('should sum the current month data', () => {
@@ -152,6 +170,15 @@ describe('getLatestSummaryMetric', () => {
         'weightedAvg'
       );
       expect(result).toEqual(0.5);
+    });
+
+    test('should return null when all values and counts are null', () => {
+      const result = getLatestSummaryMetric(
+        DATA_WITH_COUNTS_ONLY_NULLS,
+        ['dogs', 'cats'],
+        'weightedAvg'
+      );
+      expect(result).toBe(null);
     });
   });
 });
@@ -238,6 +265,15 @@ describe('getOverallSummaryMetric', () => {
         'weightedAvg'
       );
       expect(result).toEqual(1.8953488372093024);
+    });
+
+    test('should return null when all counts and values are null', () => {
+      const result = getOverallSummaryMetric(
+        DATA_WITH_COUNTS_ONLY_NULLS,
+        ['dogs', 'cats'],
+        'weightedAvg'
+      );
+      expect(result).toBe(null);
     });
   });
 });
