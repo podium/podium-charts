@@ -13,13 +13,7 @@ var _lodash3 = _interopRequireDefault(require("lodash.set"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -39,23 +33,21 @@ var singleDataset = function singleDataset(data) {
 exports.singleDataset = singleDataset;
 
 var multiDataset = function multiDataset(data) {
-  var _ref2;
-
   var combinedData = Object.keys(data).reduce(function (outsideAcc, alias) {
     return data[alias].reduce(function (insideAcc, row) {
-      return (0, _lodash3.default)(insideAcc, [row.granularity, row.groupBy, alias], row.value);
+      if (row.groupBy) {
+        return (0, _lodash3.default)(insideAcc, [row.granularity, row.groupBy, alias], row.value);
+      }
+
+      return (0, _lodash3.default)(insideAcc, [row.granularity, alias], row.value);
     }, outsideAcc);
   }, {});
-  var transformedData = Object.keys(combinedData).map(function (granularity) {
-    var sites = combinedData[granularity];
-    return Object.keys(sites).map(function (site) {
-      var siteObject = sites[site];
-      return _defineProperty({
-        date: granularity
-      }, site, siteObject);
+  return Object.keys(combinedData).map(function (granularity) {
+    var dateData = combinedData[granularity];
+    return _objectSpread({}, dateData, {
+      date: granularity
     });
   });
-  return (_ref2 = []).concat.apply(_ref2, _toConsumableArray(transformedData));
 };
 
 exports.multiDataset = multiDataset;

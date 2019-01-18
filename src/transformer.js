@@ -19,17 +19,16 @@ export const singleDataset = data => {
 export const multiDataset = data => {
   const combinedData = Object.keys(data).reduce((outsideAcc, alias) => {
     return data[alias].reduce((insideAcc, row) => {
-      return set(insideAcc, [row.granularity, row.groupBy, alias], row.value);
+      if (row.groupBy) {
+        return set(insideAcc, [row.granularity, row.groupBy, alias], row.value);
+      }
+      return set(insideAcc, [row.granularity, alias], row.value);
     }, outsideAcc);
   }, {});
-  const transformedData = Object.keys(combinedData).map(granularity => {
-    const sites = combinedData[granularity];
-    return Object.keys(sites).map(site => {
-      const siteObject = sites[site];
-      return { date: granularity, [site]: siteObject };
-    });
+  return Object.keys(combinedData).map(granularity => {
+    const dateData = combinedData[granularity];
+    return { ...dateData, date: granularity };
   });
-  return [].concat(...transformedData);
 };
 
 export default {

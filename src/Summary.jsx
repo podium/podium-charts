@@ -91,7 +91,7 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  summaryType: PropTypes.oneOf(['avg', 'total', 'weightedAvg']),
+  summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   formatter: PropTypes.func,
