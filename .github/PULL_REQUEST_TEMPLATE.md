@@ -9,4 +9,3 @@
 - [ ] I have merged the base branch into this branch
 - [ ] I have ensured that CI is passing
 - [ ] I have filled out the "Brief context on code" and "Test plan" sections above
-- [ ] I have linked to the Jira ticket in the description above
