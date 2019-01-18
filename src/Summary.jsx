@@ -125,21 +125,21 @@ export function getOverallSummaryMetric(data, dataKeys, summaryType) {
 // Helpers
 
 const typeHandler = {
-  total: (monthData, dataKeys) => {
+  total: (row, dataKeys) => {
     let sum = 0;
     for (let key of dataKeys) {
-      const value = get(monthData, key, 0);
+      const value = get(row, key, 0);
       if (isNumeric(value)) {
         sum += value;
       }
     }
     return sum;
   },
-  avg: (monthData, dataKeys) => {
+  avg: (row, dataKeys) => {
     let sum = 0;
     let usedKeys = 0;
     for (let key of dataKeys) {
-      const value = get(monthData, key, 0);
+      const value = get(row, key, 0);
       if (isNumeric(value)) {
         sum += value;
         usedKeys++;
@@ -151,15 +151,15 @@ const typeHandler = {
 
 const entireDataTypeHandler = {
   total: (data, dataKeys, summaryType) =>
-    data.reduce((acc, monthData) => {
-      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    data.reduce((acc, row) => {
+      return typeHandler[summaryType](row, dataKeys) + acc;
     }, 0),
   avg: (data, dataKeys, summaryType) => {
     let sum = 0;
     let usedKeys = 0;
-    for (let monthData of data) {
+    for (let row of data) {
       for (let key of dataKeys) {
-        const value = get(monthData, key, 0);
+        const value = get(row, key, 0);
         if (isNumeric(value)) {
           sum += value;
           usedKeys++;

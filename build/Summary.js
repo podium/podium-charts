@@ -169,7 +169,7 @@ function getOverallSummaryMetric(data, dataKeys, summaryType) {
 
 
 var typeHandler = {
-  total: function total(monthData, dataKeys) {
+  total: function total(row, dataKeys) {
     var sum = 0;
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -178,7 +178,7 @@ var typeHandler = {
     try {
       for (var _iterator = dataKeys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var key = _step.value;
-        var value = (0, _lodash.default)(monthData, key, 0);
+        var value = (0, _lodash.default)(row, key, 0);
 
         if (isNumeric(value)) {
           sum += value;
@@ -201,7 +201,7 @@ var typeHandler = {
 
     return sum;
   },
-  avg: function avg(monthData, dataKeys) {
+  avg: function avg(row, dataKeys) {
     var sum = 0;
     var usedKeys = 0;
     var _iteratorNormalCompletion2 = true;
@@ -211,7 +211,7 @@ var typeHandler = {
     try {
       for (var _iterator2 = dataKeys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
         var key = _step2.value;
-        var value = (0, _lodash.default)(monthData, key, 0);
+        var value = (0, _lodash.default)(row, key, 0);
 
         if (isNumeric(value)) {
           sum += value;
@@ -238,8 +238,8 @@ var typeHandler = {
 };
 var entireDataTypeHandler = {
   total: function total(data, dataKeys, summaryType) {
-    return data.reduce(function (acc, monthData) {
-      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    return data.reduce(function (acc, row) {
+      return typeHandler[summaryType](row, dataKeys) + acc;
     }, 0);
   },
   avg: function avg(data, dataKeys, summaryType) {
@@ -251,7 +251,7 @@ var entireDataTypeHandler = {
 
     try {
       for (var _iterator3 = data[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var monthData = _step3.value;
+        var row = _step3.value;
         var _iteratorNormalCompletion4 = true;
         var _didIteratorError4 = false;
         var _iteratorError4 = undefined;
@@ -259,7 +259,7 @@ var entireDataTypeHandler = {
         try {
           for (var _iterator4 = dataKeys[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
             var key = _step4.value;
-            var value = (0, _lodash.default)(monthData, key, 0);
+            var value = (0, _lodash.default)(row, key, 0);
 
             if (isNumeric(value)) {
               sum += value;
