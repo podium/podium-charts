@@ -9,7 +9,7 @@ exports.capitalize = capitalize;
 exports.abbreviateNumber = abbreviateNumber;
 exports.abbreviateTime = abbreviateTime;
 exports.humanizeDuration = humanizeDuration;
-exports.default = exports.roundToPlaces = void 0;
+exports.default = exports.commatize = exports.roundToPlaces = void 0;
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -107,6 +107,7 @@ var commatize = function commatize(number) {
   return number;
 };
 
+exports.commatize = commatize;
 var _default = {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
