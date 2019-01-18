@@ -142,7 +142,7 @@ function Summary(_ref) {
 }
 
 Summary.propTypes = {
-  summaryType: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']),
+  summaryType: _propTypes.default.oneOf(['avg', 'total']),
   data: _propTypes.default.array.isRequired,
   dataKeys: _propTypes.default.array.isRequired,
   formatter: _propTypes.default.func,
