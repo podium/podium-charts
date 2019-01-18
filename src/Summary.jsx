@@ -115,12 +115,42 @@ Summary.defaultProps = {
   formatter: value => value
 };
 
+export function getCurrentData(data, dataKeys, summaryType) {
+  const currentDataObj = data[data.length - 1];
+  return typeHandler[summaryType](currentDataObj, dataKeys);
+}
+
+export function getEntireData(data, dataKeys, summaryType) {
+  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+}
+
+// Helpers
+
 const typeHandler = {
-  total: (monthData, dataKeys) =>
-    dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0),
-  avg: (monthData, dataKeys) =>
-    dataKeys.reduce((acc, key) => get(monthData, key, 0) + acc, 0) /
-    dataKeys.length
+  total: (monthData, dataKeys) => {
+    let sum = 0;
+    let emptyDataPoint = true;
+    for (let key of dataKeys) {
+      const value = get(monthData, key, 0);
+      if (isNumeric(value)) {
+        sum += value;
+        emptyDataPoint = false;
+      }
+    }
+    return emptyDataPoint ? null : sum;
+  },
+  avg: (monthData, dataKeys) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let key of dataKeys) {
+      const value = get(monthData, key, 0);
+      if (isNumeric(value)) {
+        sum += value;
+        usedKeys++;
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
+  }
 };
 
 const entireDataTypeHandler = {
@@ -134,11 +164,6 @@ const entireDataTypeHandler = {
     }, 0) / data.length
 };
 
-export function getCurrentData(data, dataKeys, summaryType) {
-  const currentDataObj = data[data.length - 1];
-  return typeHandler[summaryType](currentDataObj, dataKeys);
-}
-
-export function getEntireData(data, dataKeys, summaryType) {
-  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+function isNumeric(value) {
+  return value !== undefined && value !== null;
 }

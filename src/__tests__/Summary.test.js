@@ -1,36 +1,73 @@
 import { getCurrentData, getEntireData } from '../Summary';
 
-const TEST_DATA = [
-  { sms: 200, text: 1, organic: 2, date: '2018-01-15T23:43:32' },
-  { sms: 30000, text: 5, organic: 0, date: '2018-02-15T23:43:32' },
-  { sms: 500, text: 3, date: '2018-03-15T23:43:32' }, // NOTE: organic is undefined here
-  { sms: 200, text: 0, organic: 3, date: '2018-04-15T23:43:32' },
-  { sms: 300, text: 1, organic: 4, date: '2018-05-15T23:43:32' },
-  { sms: 4000, text: 2.5, organic: 8, date: '2018-06-15T23:43:32' },
-  { sms: 400, text: 2, organic: 9, date: '2018-07-15T23:43:32' },
-  { sms: 200, text: 2.8, organic: 15, date: '2018-08-15T23:43:32' },
-  { sms: 100, text: 5, organic: 13, date: '2018-09-15T23:43:32' },
-  { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
-  { sms: 100, text: 2, organic: 0, date: '2018-11-15T23:43:32' },
-  { sms: 400, text: 2.7, organic: 0, date: '2018-12-15T23:43:32' }
+const STANDARD = [
+  { dogs: 5, cats: 8, date: '2018-09-15T23:43:32' },
+  { dogs: 10, cats: 4, date: '2018-10-15T23:43:32' },
+  { dogs: 0, cats: 7, date: '2018-11-15T23:43:32' },
+  { dogs: 6, cats: 4, date: '2018-12-15T23:43:32' }
+];
+
+const MISSING_VALUES = [
+  { dogs: null, cats: 8, date: '2018-09-15T23:43:32' },
+  { dogs: 10, cats: 4, date: '2018-10-15T23:43:32' },
+  { dogs: 0, cats: 7, date: '2018-11-15T23:43:32' },
+  { dogs: 6, cats: null, date: '2018-12-15T23:43:32' }
+];
+
+const DATA_POINT_WITH_ALL_NULLS = [
+  { dogs: null, cats: 8, date: '2018-09-15T23:43:32' },
+  { dogs: 10, cats: 4, date: '2018-10-15T23:43:32' },
+  { dogs: 0, cats: 7, date: '2018-11-15T23:43:32' },
+  { dogs: null, cats: null, date: '2018-12-15T23:43:32' }
 ];
 
 describe('getCurrentData', () => {
-  test('should sum the current month data', () => {
-    expect(getCurrentData(TEST_DATA, ['text', 'organic'], 'total')).toEqual(
-      2.7
-    );
+  describe('sum', () => {
+    test('should sum the current month data', () => {
+      expect(getCurrentData(STANDARD, ['dogs', 'cats'], 'total')).toEqual(10);
+      expect(getCurrentData(MISSING_VALUES, ['dogs', 'cats'], 'total')).toEqual(
+        6
+      );
+    });
+    test('should return null when the final data point has no values', () => {
+      expect(
+        getCurrentData(DATA_POINT_WITH_ALL_NULLS, ['dogs', 'cats'], 'total')
+      ).toEqual(null);
+    });
   });
-  test('should average the current month data', () => {
-    expect(getCurrentData(TEST_DATA, ['text', 'organic'], 'avg')).toEqual(1.35);
+
+  describe('avg', () => {
+    test('should average the current month data', () => {
+      expect(getCurrentData(STANDARD, ['dogs', 'cats'], 'avg')).toEqual(5);
+    });
+    test('should leave null values out of average', () => {
+      expect(getCurrentData(MISSING_VALUES, ['dogs', 'cats'], 'avg')).toEqual(
+        6
+      );
+    });
+    test('should return null when the final data point has no values', () => {
+      expect(
+        getCurrentData(DATA_POINT_WITH_ALL_NULLS, ['dogs', 'cats'], 'avg')
+      ).toEqual(null);
+    });
   });
 });
 
 describe('getEntireData', () => {
-  test('should sum data from every month', () => {
-    expect(getEntireData(TEST_DATA, ['text', 'organic'], 'total')).toEqual(81);
+  describe('sum', () => {
+    test('should sum data from every month', () => {
+      expect(getEntireData(STANDARD, ['dogs', 'cats'], 'total')).toEqual(44);
+    });
   });
-  test('should average data from every month', () => {
-    expect(getEntireData(TEST_DATA, ['text', 'organic'], 'avg')).toEqual(3.375);
+
+  describe('avg', () => {
+    test('should average data from every month', () => {
+      expect(getEntireData(STANDARD, ['dogs', 'cats'], 'avg')).toEqual(5.5);
+    });
+    test('should leave null values out of average from every month', () => {
+      expect(getEntireData(MISSING_VALUES, ['dogs', 'cats'], 'avg')).toEqual(
+        6.125
+      );
+    });
   });
 });
