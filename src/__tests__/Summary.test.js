@@ -144,10 +144,12 @@ describe('getLatestSummaryMetric', () => {
   describe('weightedAvg', () => {
     test('should get weighted average for data', () => {
       // equals 9 / 13
+      const options = { valueKey: 'value', countKey: 'count' };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       expect(result).toEqual(0.6923076923076923);
     });
@@ -164,10 +166,12 @@ describe('getLatestSummaryMetric', () => {
     });
 
     test('should get weighted average when data contains nulls', () => {
+      const options = { valueKey: 'value', countKey: 'count' };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       expect(result).toEqual(0.5);
     });
@@ -238,10 +242,12 @@ describe('getOverallSummaryMetric', () => {
 
   describe('weightedAvg', () => {
     test('should get weighted average', () => {
+      const options = { valueKey: 'value', countKey: 'count' };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       // 262.5 / 76
       expect(result).toEqual(3.4539473684210527);
@@ -259,19 +265,23 @@ describe('getOverallSummaryMetric', () => {
     });
 
     test('should get weighted average when data contains nulls', () => {
+      const options = { valueKey: 'value', countKey: 'count' };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       expect(result).toEqual(1.8953488372093024);
     });
 
     test('should return null when all counts and values are null', () => {
+      const options = { valueKey: 'value', countKey: 'count' };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_ONLY_NULLS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       expect(result).toBe(null);
     });
