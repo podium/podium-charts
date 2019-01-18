@@ -4,7 +4,7 @@
   "description": "A collection of Podium chart components",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
@@ -32,7 +32,9 @@
     "@podiumhq/podium-ui": "^12.2.0",
     "@storybook/addon-info": "^4.0.11",
     "@storybook/react": "^4.0.10",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^5.9.0",
@@ -42,27 +44,36 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.0",
+    "jest": "^23.6.0",
     "lint-staged": "^4.2.3",
     "moment": "^2.22.2",
     "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "regenerator-runtime": "^0.13.1",
     "styled-components": "^4.1.2"
   },
   "dependencies": {
     "humanize-duration": "^3.16.0",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.get": "^4.4.2",
     "lodash.groupby": "^4.6.0",
+    "lodash.set": "^4.3.2",
     "recharts": "^1.4.1"
   },
   "peerDependencies": {
-    "moment": "^2.22.2",
     "@podiumhq/podium-ui": "^12.1.2",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "styled-components": "^4.1.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
