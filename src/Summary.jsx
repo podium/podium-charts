@@ -38,10 +38,6 @@ export default function Summary({
   loading,
   timeRange
 }) {
-  const currentData = () => getLatestSummaryMetric(data, dataKeys, summaryType);
-
-  const entireData = () => getOverallSummaryMetric(data, dataKeys, summaryType);
-
   const titleCase = str => {
     return str
       .toLowerCase()
@@ -75,13 +71,21 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
+  const currentData = getLatestSummaryMetric(data, dataKeys, summaryType);
+  const entireData = getOverallSummaryMetric(data, dataKeys, summaryType);
+
+  const currentDataFormatted =
+    currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
+  const entireDataFormatted =
+    entireData === null ? 'N/A' : `${formatter(entireData)} ${unit}`;
+
   return (
     <SummaryWrapper>
       <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{`${formatter(currentData())} ${unit}`}</SummaryLabel>
+      <SummaryLabel>{currentDataFormatted}</SummaryLabel>
       <Space />
       {renderTimeRange()}
-      <SummaryLabel>{`${formatter(entireData())} ${unit}`}</SummaryLabel>
+      <SummaryLabel>{entireDataFormatted}</SummaryLabel>
     </SummaryWrapper>
   );
 }
@@ -125,21 +129,21 @@ export function getOverallSummaryMetric(data, dataKeys, summaryType) {
 // Helpers
 
 const typeHandler = {
-  total: (monthData, dataKeys) => {
+  total: (row, dataKeys) => {
     let sum = 0;
     for (let key of dataKeys) {
-      const value = get(monthData, key, 0);
+      const value = get(row, key, 0);
       if (isNumeric(value)) {
         sum += value;
       }
     }
     return sum;
   },
-  avg: (monthData, dataKeys) => {
+  avg: (row, dataKeys) => {
     let sum = 0;
     let usedKeys = 0;
     for (let key of dataKeys) {
-      const value = get(monthData, key, 0);
+      const value = get(row, key, 0);
       if (isNumeric(value)) {
         sum += value;
         usedKeys++;
@@ -151,15 +155,15 @@ const typeHandler = {
 
 const entireDataTypeHandler = {
   total: (data, dataKeys, summaryType) =>
-    data.reduce((acc, monthData) => {
-      return typeHandler[summaryType](monthData, dataKeys) + acc;
+    data.reduce((acc, row) => {
+      return typeHandler[summaryType](row, dataKeys) + acc;
     }, 0),
   avg: (data, dataKeys, summaryType) => {
     let sum = 0;
     let usedKeys = 0;
-    for (let monthData of data) {
+    for (let row of data) {
       for (let key of dataKeys) {
-        const value = get(monthData, key, 0);
+        const value = get(row, key, 0);
         if (isNumeric(value)) {
           sum += value;
           usedKeys++;
