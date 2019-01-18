@@ -34,6 +34,8 @@ exports.singleDataset = singleDataset;
 
 var multiDataset = function multiDataset(data) {
   var combinedData = Object.keys(data).reduce(function (outsideAcc, alias) {
+    // The reduce below represents each row in a single query result.
+    // The result of the reduce would be { "2018-1-01": { "google" : { alias1: 1, alias2: 2 }}}
     return data[alias].reduce(function (insideAcc, row) {
       if (row.groupBy) {
         return (0, _lodash3.default)(insideAcc, [row.granularity, row.groupBy, alias], row.value);
@@ -41,7 +43,9 @@ var multiDataset = function multiDataset(data) {
 
       return (0, _lodash3.default)(insideAcc, [row.granularity, alias], row.value);
     }, outsideAcc);
-  }, {});
+  }, {}); // We now map through each date and flatten the object into a single layer
+  // example: { date: "2018-1-01", google: { alias1: 1, alias2: 2 } }
+
   return Object.keys(combinedData).map(function (granularity) {
     var dateData = combinedData[granularity];
     return _objectSpread({}, dateData, {

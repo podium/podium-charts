@@ -69,18 +69,18 @@ describe('multiDataset', function () {
 
     expect(result).toEqual([{
       dataSet2: 10,
-      date: "2018-01-15T23:43:32",
+      date: '2018-01-15T23:43:32',
       google: {
         dataSet1: 1
       }
     }, {
-      date: "2018-02-15T23:43:32",
+      date: '2018-02-15T23:43:32',
       google: {
         dataSet1: 2
       }
     }, {
       dataSet2: 20,
-      date: "2018-19-15T23:43:32"
+      date: '2018-19-15T23:43:32'
     }]);
   });
   test('should return a blank array if no data', function () {
@@ -105,10 +105,10 @@ describe('singleDataset', function () {
     var result = _transformer.default.singleDataset(NO_GROUP_BY['dataSet2']);
 
     expect(result).toEqual([{
-      date: "2018-01-15T23:43:32",
+      date: '2018-01-15T23:43:32',
       value: 10
     }, {
-      date: "2018-19-15T23:43:32",
+      date: '2018-19-15T23:43:32',
       value: 20
     }]);
   });
