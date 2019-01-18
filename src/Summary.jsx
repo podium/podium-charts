@@ -38,9 +38,9 @@ export default function Summary({
   loading,
   timeRange
 }) {
-  const currentData = () => getCurrentData(data, dataKeys, summaryType);
+  const currentData = () => getLatestSummaryMetric(data, dataKeys, summaryType);
 
-  const entireData = () => getEntireData(data, dataKeys, summaryType);
+  const entireData = () => getOverallSummaryMetric(data, dataKeys, summaryType);
 
   const titleCase = str => {
     return str
@@ -115,12 +115,12 @@ Summary.defaultProps = {
   formatter: value => value
 };
 
-export function getCurrentData(data, dataKeys, summaryType) {
+export function getLatestSummaryMetric(data, dataKeys, summaryType) {
   const currentDataObj = data[data.length - 1];
   return typeHandler[summaryType](currentDataObj, dataKeys);
 }
 
-export function getEntireData(data, dataKeys, summaryType) {
+export function getOverallSummaryMetric(data, dataKeys, summaryType) {
   return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
 }
 
@@ -129,15 +129,13 @@ export function getEntireData(data, dataKeys, summaryType) {
 const typeHandler = {
   total: (monthData, dataKeys) => {
     let sum = 0;
-    let emptyDataPoint = true;
     for (let key of dataKeys) {
       const value = get(monthData, key, 0);
       if (isNumeric(value)) {
         sum += value;
-        emptyDataPoint = false;
       }
     }
-    return emptyDataPoint ? null : sum;
+    return sum;
   },
   avg: (monthData, dataKeys) => {
     let sum = 0;
@@ -158,10 +156,20 @@ const entireDataTypeHandler = {
     data.reduce((acc, monthData) => {
       return typeHandler[summaryType](monthData, dataKeys) + acc;
     }, 0),
-  avg: (data, dataKeys, summaryType) =>
-    data.reduce((acc, monthData) => {
-      return typeHandler[summaryType](monthData, dataKeys) + acc;
-    }, 0) / data.length
+  avg: (data, dataKeys, summaryType) => {
+    let sum = 0;
+    let usedKeys = 0;
+    for (let monthData of data) {
+      for (let key of dataKeys) {
+        const value = get(monthData, key, 0);
+        if (isNumeric(value)) {
+          sum += value;
+          usedKeys++;
+        }
+      }
+    }
+    return usedKeys === 0 ? null : sum / usedKeys;
+  }
 };
 
 function isNumeric(value) {
