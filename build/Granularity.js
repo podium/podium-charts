@@ -72,7 +72,7 @@ var optionsMap = {
   gtThirtyOneDays: [byMonth, byWeek, byDay],
   ltThirtyOneDays: [byWeek, byDay],
   lastMonth: [byWeek, byDay],
-  lastTwelveMonths: [byMonth, byWeek],
+  last12Months: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
   lastYear: [byMonth, byWeek],
   monthToDate: [byWeek, byDay],
@@ -170,7 +170,7 @@ Granularity.propTypes = {
   dateEnd: _propTypes.default.string,
   onChange: _propTypes.default.func,
   dateStart: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'lastTwelveMonths', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate'

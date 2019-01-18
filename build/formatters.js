@@ -9,7 +9,7 @@ exports.capitalize = capitalize;
 exports.abbreviateNumber = abbreviateNumber;
 exports.abbreviateTime = abbreviateTime;
 exports.humanizeDuration = humanizeDuration;
-exports.default = exports.roundToPlaces = void 0;
+exports.default = exports.commatize = exports.roundToPlaces = void 0;
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -31,7 +31,9 @@ function date() {
     return '';
   };
   return function (date) {
-    return _moment.default.utc(date).isValid ? _moment.default.utc(date).format(granularityFormat) : '';
+    var momentDate = _moment.default.utc(date);
+
+    return momentDate.isValid() ? momentDate.format(granularityFormat) : '';
   };
 }
 
@@ -55,7 +57,7 @@ function capitalize(string) {
 }
 
 function abbreviateNumber(value) {
-  if (value < 10000) return commaFormatNumber(value);
+  if (value < 10000) return commatize(value);
   var newValue = value;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
   var suffixNum = 0;
@@ -100,15 +102,17 @@ function humanizeDuration(seconds) {
   return displayTime;
 }
 
-var commaFormatNumber = function commaFormatNumber(number) {
+var commatize = function commatize(number) {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
 
+exports.commatize = commatize;
 var _default = {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
   capitalize: capitalize,
+  commatize: commatize,
   date: date,
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,

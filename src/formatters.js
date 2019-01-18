@@ -12,8 +12,10 @@ export function date(granularity = 'month') {
   const granularityFormat = granularityMap[granularity];
 
   if (!granularityFormat) return () => '';
-  return date =>
-    moment.utc(date).isValid ? moment.utc(date).format(granularityFormat) : '';
+  return date => {
+    const momentDate = moment.utc(date);
+    return momentDate.isValid() ? momentDate.format(granularityFormat) : '';
+  };
 }
 
 export const roundToPlaces = places => input => {
@@ -32,7 +34,7 @@ export function capitalize(string) {
 }
 
 export function abbreviateNumber(value) {
-  if (value < 10000) return commaFormatNumber(value);
+  if (value < 10000) return commatize(value);
   let newValue = value;
   const suffixes = ['', 'K', 'M', 'B', 'T'];
   let suffixNum = 0;
@@ -69,7 +71,7 @@ export function humanizeDuration(seconds) {
   return displayTime;
 }
 
-const commaFormatNumber = number => {
+export const commatize = number => {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
@@ -78,6 +80,7 @@ export default {
   abbreviateNumber,
   abbreviateTime,
   capitalize,
+  commatize,
   date,
   humanizeDuration,
   secondsToMinutes,

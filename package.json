@@ -1,6 +1,6 @@
 {
   "name": "podium-charts",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "A collection of Podium chart components",
   "main": "build/index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
-    "@podiumhq/podium-ui": "^12.1.2",
+    "@podiumhq/podium-ui": "^12.2.0",
     "@storybook/addon-info": "^4.0.11",
     "@storybook/react": "^4.0.10",
     "babel-core": "^7.0.0-bridge.0",

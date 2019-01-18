@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from './formatters';
-import { colors } from '@podiumhq/podium-ui';
+import colors from './colors';
 import {
   Chart,
   XAxis,
@@ -20,19 +20,49 @@ import {
   ReportSummaryTitle
 } from './';
 
+function Palette({ color, name }) {
+  const paletteWrapper = {
+    width: 150,
+    height: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 12,
+    flexDirection: 'column'
+  };
+
+  const paletteLabel = {
+    padding: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white'
+  };
+  return (
+    <div style={{ ...paletteWrapper, backgroundColor: color }}>
+      <div style={paletteLabel}>
+        <div>{name}</div>
+        <div>{color}</div>
+      </div>
+    </div>
+  );
+}
+
 const data = [
-  { sms: 200, text: 1, organic: 2, date: '2018-01-15T23:43:32' },
-  { sms: 30000, text: 5, organic: 0, date: '2018-02-15T23:43:32' },
-  { sms: 500, text: 3, date: '2018-03-15T23:43:32' },
-  { sms: 200, text: 0, organic: 3, date: '2018-04-15T23:43:32' },
-  { sms: 300, text: 1, organic: 4, date: '2018-05-15T23:43:32' },
-  { sms: 4000, text: 2.33, organic: 8, date: '2018-06-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 9, date: '2018-07-15T23:43:32' },
-  { sms: 200, text: 2.33, organic: 15, date: '2018-08-15T23:43:32' },
-  { sms: 100, text: 5, organic: 13, date: '2018-09-15T23:43:32' },
-  { sms: null, text: null, organic: null, date: '2018-10-15T23:43:32' },
-  { sms: 100, text: 2.33, organic: 0, date: '2018-11-15T23:43:32' },
-  { sms: 400, text: 2.33, organic: 0, date: '2018-12-15T23:43:32' }
+  { sms: 200, text: 1, organic: 2, date: '2018-01-01T00:00:00.000Z' },
+  { sms: 30000, text: 5, organic: 0, date: '2018-02-01T00:00:00.000Z' },
+  { sms: 500, text: 3, date: '2018-03-01T00:00:00.000Z' },
+  { sms: 200, text: 0, organic: 3, date: '2018-04-01T00:00:00.000Z' },
+  { sms: 300, text: 1, organic: 4, date: '2018-05-01T00:00:00.000Z' },
+  { sms: 4000, text: 2.33, organic: 8, date: '2018-06-01T00:00:00.000Z' },
+  { sms: 400, text: 2.33, organic: 9, date: '2018-07-01T00:00:00.000Z' },
+  { sms: 200, text: 2.33, organic: 15, date: '2018-08-01T00:00:00.000Z' },
+  { sms: 100, text: 5, organic: 13, date: '2018-09-01T00:00:00.000Z' },
+  { sms: null, text: null, organic: null, date: '2018-10-01T00:00:00.000Z' },
+  { sms: 100, text: 2.33, organic: 0, date: '2018-11-01T00:00:00.000Z' },
+  { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
 storiesOf('Bar Chart', module)
@@ -371,6 +401,23 @@ storiesOf('Report Card', module)
     </ReportCard>
   ));
 
+storiesOf('colors', module).add('default', () => {
+  const colorsMap = Object.keys(colors).map(color => ({
+    value: colors[color],
+    name: color
+  }));
+  const podiumColors = colorsMap.filter(
+    color => typeof color.value === 'string'
+  );
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {podiumColors.map(color => {
+        return <Palette color={color.value} name={color.name} />;
+      })}
+    </div>
+  );
+});
+
 storiesOf('formatters', module)
   .add('date', () => (
     <div>
@@ -424,5 +471,12 @@ storiesOf('formatters', module)
       formatters.humanizeDuration(86400)
       <div>-></div>
       {formatters.humanizeDuration(86400)}
+    </div>
+  ))
+  .add('commatize', () => (
+    <div>
+      formatters.commatize("")
+      <div>-></div>
+      {formatters.commatize(1000000000)}
     </div>
   ));
