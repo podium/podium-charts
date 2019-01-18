@@ -57,7 +57,7 @@ function capitalize(string) {
 }
 
 function abbreviateNumber(value) {
-  if (value < 10000) return commaFormatNumber(value);
+  if (value < 10000) return commatize(value);
   var newValue = value;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
   var suffixNum = 0;
@@ -102,7 +102,7 @@ function humanizeDuration(seconds) {
   return displayTime;
 }
 
-var commaFormatNumber = function commaFormatNumber(number) {
+var commatize = function commatize(number) {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
@@ -111,6 +111,7 @@ var _default = {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
   capitalize: capitalize,
+  commatize: commatize,
   date: date,
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,

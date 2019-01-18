@@ -587,4 +587,6 @@ var data = [{
   return _react.default.createElement("div", null, "formatters.abbreviateNumber(100000000)", _react.default.createElement("div", null, "->"), _formatters.default.abbreviateNumber(100000000));
 }).add('humanizeDuration', function () {
   return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
+}).add('commatize', function () {
+  return _react.default.createElement("div", null, "formatters.commatize(\"\")", _react.default.createElement("div", null, "->"), _formatters.default.commatize(1000000000));
 });

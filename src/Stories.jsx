@@ -469,4 +469,11 @@ storiesOf('formatters', module)
       <div>-></div>
       {formatters.humanizeDuration(86400)}
     </div>
+  ))
+  .add('commatize', () => (
+    <div>
+      formatters.commatize("")
+      <div>-></div>
+      {formatters.commatize(1000000000)}
+    </div>
   ));
