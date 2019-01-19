@@ -36,7 +36,8 @@ export default function Summary({
   granularity,
   unit,
   loading,
-  timeRange
+  timeRange,
+  aggregationOptions
 }) {
   const titleCase = str => {
     return str
@@ -71,8 +72,18 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
-  const currentData = getLatestSummaryMetric(data, dataKeys, summaryType);
-  const entireData = getOverallSummaryMetric(data, dataKeys, summaryType);
+  const currentData = getLatestSummaryMetric(
+    data,
+    dataKeys,
+    summaryType,
+    aggregationOptions
+  );
+  const entireData = getOverallSummaryMetric(
+    data,
+    dataKeys,
+    summaryType,
+    aggregationOptions
+  );
 
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
@@ -108,7 +119,13 @@ Summary.propTypes = {
     'weekToDate',
     'yearToDate',
     'yesterday'
-  ])
+  ]),
+  aggregationOptions: PropTypes.shape({
+    weightedAvg: PropTypes.shape({
+      valueKey: PropTypes.string.isRequired,
+      countKey: PropTypes.string.isRequired
+    })
+  })
 };
 
 Summary.defaultProps = {
@@ -162,7 +179,24 @@ const rowAvg = (row, dataKeys) => {
   return usedKeys === 0 ? null : sum / usedKeys;
 };
 
-const rowWeightedAvg = (row, dataKeys, { valueKey, countKey }) => {
+const isWeightedAvgOptions = options => {
+  return (
+    options &&
+    options.weightedAvg &&
+    options.weightedAvg.valueKey &&
+    options.weightedAvg.countKey
+  );
+};
+
+const rowWeightedAvg = (row, dataKeys, options) => {
+  if (!isWeightedAvgOptions(options)) {
+    throw new TypeError(
+      'Missing required key: "weightedAvg" in aggregationOptions'
+    );
+  }
+  const {
+    weightedAvg: { valueKey, countKey }
+  } = options;
   let sum = 0;
   let totalCount = 0;
   for (let key of dataKeys) {
@@ -202,7 +236,15 @@ const datasetAvg = (data, dataKeys) => {
   return usedKeys === 0 ? null : sum / usedKeys;
 };
 
-const datasetWeightedAvg = (data, dataKeys, { valueKey, countKey }) => {
+const datasetWeightedAvg = (data, dataKeys, options) => {
+  if (!isWeightedAvgOptions(options)) {
+    throw new TypeError(
+      'Missing required key: "weightedAvg" in aggregationOptions'
+    );
+  }
+  const {
+    weightedAvg: { valueKey, countKey }
+  } = options;
   let sum = 0;
   let totalCount = 0;
   for (let row of data) {

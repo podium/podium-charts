@@ -144,7 +144,7 @@ describe('getLatestSummaryMetric', () => {
   describe('weightedAvg', () => {
     test('should get weighted average for data', () => {
       // equals 9 / 13
-      const options = { valueKey: 'value', countKey: 'count' };
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS,
         ['dogs', 'cats'],
@@ -155,7 +155,9 @@ describe('getLatestSummaryMetric', () => {
     });
 
     test('should get weighted average with custom names for value and count', () => {
-      const options = { valueKey: 'cuteness', countKey: 'amount' };
+      const options = {
+        weightedAvg: { valueKey: 'cuteness', countKey: 'amount' }
+      };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_CUSTOM_NAMES,
         ['dogs', 'cats'],
@@ -166,7 +168,7 @@ describe('getLatestSummaryMetric', () => {
     });
 
     test('should get weighted average when data contains nulls', () => {
-      const options = { valueKey: 'value', countKey: 'count' };
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
         ['dogs', 'cats'],
@@ -177,10 +179,12 @@ describe('getLatestSummaryMetric', () => {
     });
 
     test('should return null when all values and counts are null', () => {
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_ONLY_NULLS,
         ['dogs', 'cats'],
-        'weightedAvg'
+        'weightedAvg',
+        options
       );
       expect(result).toBe(null);
     });
@@ -242,7 +246,7 @@ describe('getOverallSummaryMetric', () => {
 
   describe('weightedAvg', () => {
     test('should get weighted average', () => {
-      const options = { valueKey: 'value', countKey: 'count' };
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS,
         ['dogs', 'cats'],
@@ -254,7 +258,9 @@ describe('getOverallSummaryMetric', () => {
     });
 
     test('should get weighted average with custom value and count keys', () => {
-      const options = { valueKey: 'cuteness', countKey: 'amount' };
+      const options = {
+        weightedAvg: { valueKey: 'cuteness', countKey: 'amount' }
+      };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_CUSTOM_NAMES,
         ['dogs', 'cats'],
@@ -265,7 +271,7 @@ describe('getOverallSummaryMetric', () => {
     });
 
     test('should get weighted average when data contains nulls', () => {
-      const options = { valueKey: 'value', countKey: 'count' };
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
         ['dogs', 'cats'],
@@ -276,7 +282,7 @@ describe('getOverallSummaryMetric', () => {
     });
 
     test('should return null when all counts and values are null', () => {
-      const options = { valueKey: 'value', countKey: 'count' };
+      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_ONLY_NULLS,
         ['dogs', 'cats'],
