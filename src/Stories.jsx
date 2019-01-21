@@ -297,13 +297,13 @@ storiesOf('Summary', module).add('WeightedAvg', () => (
   <Summary
     formatter={formatters.roundToPlaces(1)}
     data={weightedAvgData}
-    summaryType="weightedAvg"
-    dataKeys={['dogs', 'cats']}
+    aggregationOptions={{
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: { valueKey: 'cuteness', countKey: 'amount' }
+    }}
     granularity="month"
     timeRange="lastYear"
-    aggregationOptions={{
-      weightedAvg: { valueKey: 'cuteness', countKey: 'amount' }
-    }}
   />
 ));
 

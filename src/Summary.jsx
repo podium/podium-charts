@@ -30,8 +30,6 @@ const Space = styled.div`
 
 export default function Summary({
   data,
-  dataKeys,
-  summaryType,
   formatter,
   granularity,
   unit,
@@ -72,18 +70,8 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
-  const currentData = getLatestSummaryMetric(
-    data,
-    dataKeys,
-    summaryType,
-    aggregationOptions
-  );
-  const entireData = getOverallSummaryMetric(
-    data,
-    dataKeys,
-    summaryType,
-    aggregationOptions
-  );
+  const currentData = getLatestSummaryMetric(data, aggregationOptions);
+  const entireData = getOverallSummaryMetric(data, aggregationOptions);
 
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
@@ -102,9 +90,15 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
-  dataKeys: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }).isRequired,
   formatter: PropTypes.func,
   loading: PropTypes.bool,
   unit: PropTypes.string,
@@ -119,38 +113,24 @@ Summary.propTypes = {
     'weekToDate',
     'yearToDate',
     'yesterday'
-  ]),
-  aggregationOptions: PropTypes.shape({
-    weightedAvg: PropTypes.shape({
-      valueKey: PropTypes.string.isRequired,
-      countKey: PropTypes.string.isRequired
-    })
-  })
+  ])
 };
 
 Summary.defaultProps = {
-  summaryType: 'total',
   unit: '',
   formatter: value => value
 };
 
-export function getLatestSummaryMetric(
-  data,
-  dataKeys,
-  summaryType,
-  options = {}
-) {
+export function getLatestSummaryMetric(data, aggregationOptions) {
+  const { type, dataKeys, options } = aggregationOptions;
+
   const currentDataObj = data[data.length - 1];
-  return rowSummaryFunctions[summaryType](currentDataObj, dataKeys, options);
+  return rowSummaryFunctions[type](currentDataObj, dataKeys, options);
 }
 
-export function getOverallSummaryMetric(
-  data,
-  dataKeys,
-  summaryType,
-  options = {}
-) {
-  return datasetSummaryFunctions[summaryType](data, dataKeys, options);
+export function getOverallSummaryMetric(data, aggregationOptions) {
+  const { type, dataKeys, options } = aggregationOptions;
+  return datasetSummaryFunctions[type](data, dataKeys, options);
 }
 
 // Helpers
@@ -180,23 +160,14 @@ const rowAvg = (row, dataKeys) => {
 };
 
 const isWeightedAvgOptions = options => {
-  return (
-    options &&
-    options.weightedAvg &&
-    options.weightedAvg.valueKey &&
-    options.weightedAvg.countKey
-  );
+  return options && options.valueKey && options.countKey;
 };
 
 const rowWeightedAvg = (row, dataKeys, options) => {
   if (!isWeightedAvgOptions(options)) {
-    throw new TypeError(
-      'Missing required key: "weightedAvg" in aggregationOptions'
-    );
+    throw new TypeError('Malformed weighted average options');
   }
-  const {
-    weightedAvg: { valueKey, countKey }
-  } = options;
+  const { valueKey, countKey } = options;
   let sum = 0;
   let totalCount = 0;
   for (let key of dataKeys) {
@@ -238,13 +209,9 @@ const datasetAvg = (data, dataKeys) => {
 
 const datasetWeightedAvg = (data, dataKeys, options) => {
   if (!isWeightedAvgOptions(options)) {
-    throw new TypeError(
-      'Missing required key: "weightedAvg" in aggregationOptions'
-    );
+    throw new TypeError('Malformed weighted average options');
   }
-  const {
-    weightedAvg: { valueKey, countKey }
-  } = options;
+  const { valueKey, countKey } = options;
   let sum = 0;
   let totalCount = 0;
   for (let row of data) {

@@ -101,91 +101,136 @@ const DATA_WITH_COUNTS_ONLY_NULLS = [
 describe('getLatestSummaryMetric', () => {
   describe('total', () => {
     test('should sum the current month data', () => {
-      expect(
-        getLatestSummaryMetric(STANDARD, ['dogs', 'cats'], 'total')
-      ).toEqual(10);
-      expect(
-        getLatestSummaryMetric(MISSING_VALUES, ['dogs', 'cats'], 'total')
-      ).toEqual(6);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const standardResult = getLatestSummaryMetric(
+        STANDARD,
+        aggregationOptions
+      );
+      const missingResult = getLatestSummaryMetric(
+        MISSING_VALUES,
+        aggregationOptions
+      );
+
+      expect(standardResult).toEqual(10);
+      expect(missingResult).toEqual(6);
     });
+
     test('should return 0 when the final data point has no values', () => {
-      expect(
-        getLatestSummaryMetric(
-          DATA_POINT_WITH_ALL_NULLS,
-          ['dogs', 'cats'],
-          'total'
-        )
-      ).toEqual(0);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getLatestSummaryMetric(
+        DATA_POINT_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(0);
     });
   });
 
   describe('avg', () => {
     test('should average the current month data', () => {
-      expect(getLatestSummaryMetric(STANDARD, ['dogs', 'cats'], 'avg')).toEqual(
-        5
-      );
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getLatestSummaryMetric(STANDARD, aggregationOptions);
+
+      expect(result).toEqual(5);
     });
+
     test('should leave null values out of average', () => {
-      expect(
-        getLatestSummaryMetric(MISSING_VALUES, ['dogs', 'cats'], 'avg')
-      ).toEqual(6);
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getLatestSummaryMetric(MISSING_VALUES, aggregationOptions);
+
+      expect(result).toEqual(6);
     });
+
     test('should return null when the final data point has no values', () => {
-      expect(
-        getLatestSummaryMetric(
-          DATA_POINT_WITH_ALL_NULLS,
-          ['dogs', 'cats'],
-          'avg'
-        )
-      ).toEqual(null);
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getLatestSummaryMetric(
+        DATA_POINT_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(null);
     });
   });
 
   describe('weightedAvg', () => {
     test('should get weighted average for data', () => {
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
       // equals 9 / 13
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toEqual(0.6923076923076923);
     });
 
     test('should get weighted average with custom names for value and count', () => {
-      const options = {
-        weightedAvg: { valueKey: 'cuteness', countKey: 'amount' }
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'cuteness', countKey: 'amount' }
       };
+
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_CUSTOM_NAMES,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toEqual(0.6923076923076923);
     });
 
     test('should get weighted average when data contains nulls', () => {
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toEqual(0.5);
     });
 
     test('should return null when all values and counts are null', () => {
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
       const result = getLatestSummaryMetric(
         DATA_WITH_COUNTS_ONLY_NULLS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toBe(null);
     });
   });
@@ -194,101 +239,164 @@ describe('getLatestSummaryMetric', () => {
 describe('getOverallSummaryMetric', () => {
   describe('total', () => {
     test('should sum data from every month', () => {
-      expect(
-        getOverallSummaryMetric(STANDARD, ['dogs', 'cats'], 'total')
-      ).toEqual(44);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(STANDARD, aggregationOptions);
+
+      expect(result).toEqual(44);
     });
+
     test('should sum data from every month when some values are missing', () => {
-      expect(
-        getOverallSummaryMetric(MISSING_VALUES, ['dogs', 'cats'], 'total')
-      ).toEqual(35);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(
+        MISSING_VALUES,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(35);
     });
+
     test('should sum data with rows containing all nulls', () => {
-      expect(
-        getOverallSummaryMetric(
-          DATA_POINT_WITH_ALL_NULLS,
-          ['dogs', 'cats'],
-          'total'
-        )
-      ).toEqual(29);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(
+        DATA_POINT_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(29);
     });
+
     test('should return 0 if all data is null', () => {
-      expect(
-        getOverallSummaryMetric(DATA_WITH_ALL_NULLS, ['dogs', 'cats'], 'total')
-      ).toEqual(0);
+      const aggregationOptions = {
+        type: 'total',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(
+        DATA_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(0);
     });
   });
 
   describe('avg', () => {
     test('should average data from every month', () => {
-      expect(
-        getOverallSummaryMetric(STANDARD, ['dogs', 'cats'], 'avg')
-      ).toEqual(5.5);
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(STANDARD, aggregationOptions);
+
+      expect(result).toEqual(5.5);
     });
+
     test('should leave null values out of average from every month', () => {
-      expect(
-        getOverallSummaryMetric(MISSING_VALUES, ['dogs', 'cats'], 'avg')
-      ).toEqual(5.833333333333333);
-      expect(
-        getOverallSummaryMetric(
-          DATA_POINT_WITH_ALL_NULLS,
-          ['dogs', 'cats'],
-          'avg'
-        )
-      ).toEqual(5.8);
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const missingResult = getOverallSummaryMetric(
+        MISSING_VALUES,
+        aggregationOptions
+      );
+      const allNullsResult = getOverallSummaryMetric(
+        DATA_POINT_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(missingResult).toEqual(5.833333333333333);
+      expect(allNullsResult).toEqual(5.8);
     });
+
     test('should return null if all data is null', () => {
-      expect(
-        getOverallSummaryMetric(DATA_WITH_ALL_NULLS, ['dogs', 'cats'], 'avg')
-      ).toEqual(null);
+      const aggregationOptions = {
+        type: 'avg',
+        dataKeys: ['dogs', 'cats']
+      };
+
+      const result = getOverallSummaryMetric(
+        DATA_WITH_ALL_NULLS,
+        aggregationOptions
+      );
+
+      expect(result).toEqual(null);
     });
   });
 
   describe('weightedAvg', () => {
     test('should get weighted average', () => {
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
+      // 262.5 / 76
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
-      // 262.5 / 76
+
       expect(result).toEqual(3.4539473684210527);
     });
 
     test('should get weighted average with custom value and count keys', () => {
-      const options = {
-        weightedAvg: { valueKey: 'cuteness', countKey: 'amount' }
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'cuteness', countKey: 'amount' }
       };
+
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_CUSTOM_NAMES,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toEqual(3.4539473684210527);
     });
 
     test('should get weighted average when data contains nulls', () => {
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_AND_NULLS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toEqual(1.8953488372093024);
     });
 
     test('should return null when all counts and values are null', () => {
-      const options = { weightedAvg: { valueKey: 'value', countKey: 'count' } };
+      const aggregationOptions = {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: { valueKey: 'value', countKey: 'count' }
+      };
+
       const result = getOverallSummaryMetric(
         DATA_WITH_COUNTS_ONLY_NULLS,
-        ['dogs', 'cats'],
-        'weightedAvg',
-        options
+        aggregationOptions
       );
+
       expect(result).toBe(null);
     });
   });
