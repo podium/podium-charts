@@ -155,6 +155,37 @@ var DATA_WITH_COUNTS_AND_NULLS = [{
   },
   date: '2018-11-15T23:43:32'
 }];
+var DATA_WITH_COUNTS_ONLY_NULLS = [{
+  dogs: {
+    value: null,
+    count: null
+  },
+  cats: {
+    value: null,
+    count: null
+  },
+  date: '2018-09-15T23:43:32'
+}, {
+  dogs: {
+    value: null,
+    count: null
+  },
+  cats: {
+    value: null,
+    count: null
+  },
+  date: '2018-10-15T23:43:32'
+}, {
+  dogs: {
+    value: null,
+    count: null
+  },
+  cats: {
+    value: null,
+    count: null
+  },
+  date: '2018-11-15T23:43:32'
+}];
 describe('getLatestSummaryMetric', function () {
   describe('total', function () {
     test('should sum the current month data', function () {
@@ -179,20 +210,44 @@ describe('getLatestSummaryMetric', function () {
   describe('weightedAvg', function () {
     test('should get weighted average for data', function () {
       // equals 9 / 13
-      var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS, ['dogs', 'cats'], 'weightedAvg');
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS, ['dogs', 'cats'], 'weightedAvg', options);
       expect(result).toEqual(0.6923076923076923);
     });
     test('should get weighted average with custom names for value and count', function () {
       var options = {
-        valueKey: 'cuteness',
-        countKey: 'amount'
+        weightedAvg: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
       };
       var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS_CUSTOM_NAMES, ['dogs', 'cats'], 'weightedAvg', options);
       expect(result).toEqual(0.6923076923076923);
     });
     test('should get weighted average when data contains nulls', function () {
-      var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS_AND_NULLS, ['dogs', 'cats'], 'weightedAvg');
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS_AND_NULLS, ['dogs', 'cats'], 'weightedAvg', options);
       expect(result).toEqual(0.5);
+    });
+    test('should return null when all values and counts are null', function () {
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getLatestSummaryMetric)(DATA_WITH_COUNTS_ONLY_NULLS, ['dogs', 'cats'], 'weightedAvg', options);
+      expect(result).toBe(null);
     });
   });
 });
@@ -225,21 +280,45 @@ describe('getOverallSummaryMetric', function () {
   });
   describe('weightedAvg', function () {
     test('should get weighted average', function () {
-      var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS, ['dogs', 'cats'], 'weightedAvg'); // 262.5 / 76
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS, ['dogs', 'cats'], 'weightedAvg', options); // 262.5 / 76
 
       expect(result).toEqual(3.4539473684210527);
     });
     test('should get weighted average with custom value and count keys', function () {
       var options = {
-        valueKey: 'cuteness',
-        countKey: 'amount'
+        weightedAvg: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
       };
       var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS_CUSTOM_NAMES, ['dogs', 'cats'], 'weightedAvg', options);
       expect(result).toEqual(3.4539473684210527);
     });
     test('should get weighted average when data contains nulls', function () {
-      var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS_AND_NULLS, ['dogs', 'cats'], 'weightedAvg');
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS_AND_NULLS, ['dogs', 'cats'], 'weightedAvg', options);
       expect(result).toEqual(1.8953488372093024);
+    });
+    test('should return null when all counts and values are null', function () {
+      var options = {
+        weightedAvg: {
+          valueKey: 'value',
+          countKey: 'count'
+        }
+      };
+      var result = (0, _Summary.getOverallSummaryMetric)(DATA_WITH_COUNTS_ONLY_NULLS, ['dogs', 'cats'], 'weightedAvg', options);
+      expect(result).toBe(null);
     });
   });
 });
