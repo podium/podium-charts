@@ -511,6 +511,63 @@ var weightedAvgData = [{
       color: _colors.default.poppyRed
     }]
   }));
+}).add('w/Tooltip', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Cats vs Dogs",
+    data: weightedAvgData
+  }), _react.default.createElement(_.Chart, {
+    data: weightedAvgData
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "dogs.cuteness",
+    name: "Dogs",
+    color: _colors.default.poppyRed
+  }), _react.default.createElement(_.Line, {
+    dataKey: "cats.cuteness",
+    name: "Cats",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryType: "weightedAvg",
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['cats', 'dogs'],
+        options: {
+          countKey: 'amount',
+          valueKey: 'cuteness'
+        }
+      },
+      summaryTitle: "Animals",
+      formatter: _formatters.default.roundToPlaces(1)
+    })
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      },
+      dataKeys: ['dogs', 'cats']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }), _react.default.createElement(_.Legend, {
+    data: weightedAvgData,
+    summaryType: "total",
+    config: [{
+      name: 'Cats',
+      dataKey: 'cats.cuteness',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Dogs',
+      dataKey: 'dogs.cuteness',
+      color: _colors.default.poppyRed
+    }]
+  }));
 }).add('Loading', function () {
   return _react.default.createElement(_.ReportCard, {
     loading: true
