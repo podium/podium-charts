@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from '@podiumhq/podium-ui';
+import { getRowSummaryMetric } from './aggregators';
+import get from 'lodash.get';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -65,14 +67,6 @@ const granMap = {
   week: 'MMMM D, YYYY'
 };
 
-const summaryHandler = {
-  total: payload =>
-    payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0),
-  avg: payload =>
-    payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0) /
-    payload.length
-};
-
 const fullDate = (date, granularity) => {
   const format = granMap[granularity] || 'MMMM YYYY';
   const momentDate = moment.utc(date);
@@ -82,16 +76,19 @@ const fullDate = (date, granularity) => {
 
 export default function TooltipBody(props) {
   const renderSummary = () => {
-    const { payload, summaryTitle, summaryType } = props;
-    const result = summaryHandler[summaryType](payload);
-    return `${result} ${summaryTitle}`;
+    const { payload, summaryTitle, aggregationOptions, formatter } = props;
+    const rowData = get(payload[0], 'payload');
+    const result = getRowSummaryMetric(rowData, aggregationOptions);
+    const formattedResult = formatter ? formatter(result) : result;
+
+    return `${formattedResult} ${summaryTitle}`;
   };
 
   const renderToolTipLegend = () => {
     return props.payload.map(dataField => {
-      const { dataKey, value, color, name } = dataField;
+      const { value, color, name } = dataField;
       return (
-        <TooltipData key={dataKey}>
+        <TooltipData key={name}>
           <Label>
             <ColorLabel fill={color} />
             <div>{name ? name : ''}</div>

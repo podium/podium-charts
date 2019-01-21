@@ -369,6 +369,50 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
+  .add('w/Tooltip', () => (
+    <ReportCard>
+      <ReportTitle title="Cats vs Dogs" data={weightedAvgData} />
+      <Chart data={weightedAvgData}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.poppyRed} />
+        <Line dataKey="cats.cuteness" name="Cats" color={colors.cobaltBlue} />
+        <Tooltip
+          content={
+            <TooltipBody
+              summaryType="weightedAvg"
+              aggregationOptions={{
+                type: 'weightedAvg',
+                dataKeys: ['cats', 'dogs'],
+                options: { countKey: 'amount', valueKey: 'cuteness' }
+              }}
+              summaryTitle="Animals"
+              formatter={formatters.roundToPlaces(1)}
+            />
+          }
+        />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={weightedAvgData}
+        aggregationOptions={{
+          type: 'weightedAvg',
+          options: { valueKey: 'cuteness', countKey: 'amount' },
+          dataKeys: ['dogs', 'cats']
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+      <Legend
+        data={weightedAvgData}
+        summaryType="total"
+        config={[
+          { name: 'Cats', dataKey: 'cats.cuteness', color: colors.cobaltBlue },
+          { name: 'Dogs', dataKey: 'dogs.cuteness', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
   .add('Loading', () => (
     <ReportCard loading>
       <ReportTitle title="Total Reviews" data={data} />

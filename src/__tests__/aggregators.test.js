@@ -1,4 +1,4 @@
-import { getLatestSummaryMetric, getOverallSummaryMetric } from '../Summary';
+import { getRowSummaryMetric, getOverallSummaryMetric } from '../aggregators';
 
 const STANDARD = [
   { dogs: 5, cats: 8, date: '2018-09-15T23:43:32' },
@@ -98,7 +98,11 @@ const DATA_WITH_COUNTS_ONLY_NULLS = [
   }
 ];
 
-describe('getLatestSummaryMetric', () => {
+const getLast = data => {
+  return data[data.length - 1];
+};
+
+describe('getRowSummaryMetric', () => {
   describe('total', () => {
     test('should sum the current month data', () => {
       const aggregationOptions = {
@@ -106,12 +110,12 @@ describe('getLatestSummaryMetric', () => {
         dataKeys: ['dogs', 'cats']
       };
 
-      const standardResult = getLatestSummaryMetric(
-        STANDARD,
+      const standardResult = getRowSummaryMetric(
+        getLast(STANDARD),
         aggregationOptions
       );
-      const missingResult = getLatestSummaryMetric(
-        MISSING_VALUES,
+      const missingResult = getRowSummaryMetric(
+        getLast(MISSING_VALUES),
         aggregationOptions
       );
 
@@ -125,8 +129,8 @@ describe('getLatestSummaryMetric', () => {
         dataKeys: ['dogs', 'cats']
       };
 
-      const result = getLatestSummaryMetric(
-        DATA_POINT_WITH_ALL_NULLS,
+      const result = getRowSummaryMetric(
+        getLast(DATA_POINT_WITH_ALL_NULLS),
         aggregationOptions
       );
 
@@ -141,7 +145,7 @@ describe('getLatestSummaryMetric', () => {
         dataKeys: ['dogs', 'cats']
       };
 
-      const result = getLatestSummaryMetric(STANDARD, aggregationOptions);
+      const result = getRowSummaryMetric(getLast(STANDARD), aggregationOptions);
 
       expect(result).toEqual(5);
     });
@@ -152,7 +156,10 @@ describe('getLatestSummaryMetric', () => {
         dataKeys: ['dogs', 'cats']
       };
 
-      const result = getLatestSummaryMetric(MISSING_VALUES, aggregationOptions);
+      const result = getRowSummaryMetric(
+        getLast(MISSING_VALUES),
+        aggregationOptions
+      );
 
       expect(result).toEqual(6);
     });
@@ -163,8 +170,8 @@ describe('getLatestSummaryMetric', () => {
         dataKeys: ['dogs', 'cats']
       };
 
-      const result = getLatestSummaryMetric(
-        DATA_POINT_WITH_ALL_NULLS,
+      const result = getRowSummaryMetric(
+        getLast(DATA_POINT_WITH_ALL_NULLS),
         aggregationOptions
       );
 
@@ -181,8 +188,8 @@ describe('getLatestSummaryMetric', () => {
       };
 
       // equals 9 / 13
-      const result = getLatestSummaryMetric(
-        DATA_WITH_COUNTS,
+      const result = getRowSummaryMetric(
+        getLast(DATA_WITH_COUNTS),
         aggregationOptions
       );
 
@@ -196,8 +203,8 @@ describe('getLatestSummaryMetric', () => {
         options: { valueKey: 'cuteness', countKey: 'amount' }
       };
 
-      const result = getLatestSummaryMetric(
-        DATA_WITH_COUNTS_CUSTOM_NAMES,
+      const result = getRowSummaryMetric(
+        getLast(DATA_WITH_COUNTS_CUSTOM_NAMES),
         aggregationOptions
       );
 
@@ -211,8 +218,8 @@ describe('getLatestSummaryMetric', () => {
         options: { valueKey: 'value', countKey: 'count' }
       };
 
-      const result = getLatestSummaryMetric(
-        DATA_WITH_COUNTS_AND_NULLS,
+      const result = getRowSummaryMetric(
+        getLast(DATA_WITH_COUNTS_AND_NULLS),
         aggregationOptions
       );
 
@@ -226,8 +233,8 @@ describe('getLatestSummaryMetric', () => {
         options: { valueKey: 'value', countKey: 'count' }
       };
 
-      const result = getLatestSummaryMetric(
-        DATA_WITH_COUNTS_ONLY_NULLS,
+      const result = getRowSummaryMetric(
+        getLast(DATA_WITH_COUNTS_ONLY_NULLS),
         aggregationOptions
       );
 
