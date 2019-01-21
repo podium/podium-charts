@@ -78,6 +78,7 @@ export default function TooltipBody(props) {
   const renderSummary = () => {
     const { payload, summaryTitle, aggregationOptions, formatter } = props;
     const rowData = get(payload[0], 'payload');
+    console.log('rowData:', rowData);
     const result = getRowSummaryMetric(rowData, aggregationOptions);
     const formattedResult = formatter ? formatter(result) : result;
 
@@ -103,7 +104,7 @@ export default function TooltipBody(props) {
     <TooltipBodyWrapper>
       <Header>
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
-        {props.summaryType && <Summary>{renderSummary()}</Summary>}
+        {props.aggregationOptions && <Summary>{renderSummary()}</Summary>}
       </Header>
       {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>

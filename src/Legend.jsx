@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
+import { getOverallSummaryMetric } from './aggregators';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -40,20 +40,17 @@ const Label = styled.div`
 export default function Legend({
   loading,
   data,
-  summaryType,
+  aggregationOptions,
   config,
   formatter
 }) {
-  const typeHandler = {
-    total: dataKey =>
-      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0),
-    avg: dataKey =>
-      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0) /
-      data.length
-  };
-
   const calculateValue = dataKey => {
-    return typeHandler[summaryType](dataKey);
+    const itemAggregationOptions = {
+      type: aggregationOptions.type,
+      dataKeys: [dataKey],
+      options: aggregationOptions.options
+    };
+    return getOverallSummaryMetric(data, itemAggregationOptions);
   };
 
   const renderGhostState = () => (
@@ -64,16 +61,17 @@ export default function Legend({
     </LegendWrapper>
   );
 
-  const renderLegendItem = () => {
+  const renderLegendItems = () => {
     return config.map(legendItem => {
       const { dataKey, color, name } = legendItem;
+      const formattedValue = formatter(calculateValue(dataKey));
       return (
-        <ItemWrapper key={dataKey}>
+        <ItemWrapper key={name}>
           <Label>
             <ColorLabel color={color} />
             <div>{name ? name : ''}</div>
           </Label>
-          <div>{formatter(calculateValue(dataKey))}</div>
+          <div>{formattedValue}</div>
         </ItemWrapper>
       );
     });
@@ -81,7 +79,7 @@ export default function Legend({
 
   if (loading) return renderGhostState();
 
-  return <LegendWrapper>{renderLegendItem()}</LegendWrapper>;
+  return <LegendWrapper>{renderLegendItems()}</LegendWrapper>;
 }
 
 Legend.propTypes = {

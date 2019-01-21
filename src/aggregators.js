@@ -1,12 +1,16 @@
 import get from 'lodash.get';
 
 export function getRowSummaryMetric(dataRow, aggregationOptions) {
+  // TODO: validate aggregationOptions
+
   const { type, dataKeys, options } = aggregationOptions;
 
   return rowSummaryFunctions[type](dataRow, dataKeys, options);
 }
 
 export function getOverallSummaryMetric(data, aggregationOptions) {
+  // TODO: validate aggregationOptions
+
   const { type, dataKeys, options } = aggregationOptions;
   return datasetSummaryFunctions[type](data, dataKeys, options);
 }
