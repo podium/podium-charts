@@ -65,6 +65,24 @@ const data = [
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
+const weightedAvgData = [
+  {
+    dogs: { cuteness: 5, amount: 10 },
+    cats: { cuteness: 2.5, amount: 15 },
+    date: '2018-09-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 2, amount: 20 },
+    cats: { cuteness: 7, amount: 18 },
+    date: '2018-10-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 1, amount: 5 },
+    cats: { cuteness: 0.5, amount: 8 },
+    date: '2018-11-15T23:43:32'
+  }
+];
+
 storiesOf('Bar Chart', module)
   .add('Small', () => (
     <Chart data={data} width={200} height={100}>
@@ -275,6 +293,20 @@ storiesOf('Report Card Summary', module)
     </div>
   ));
 
+storiesOf('Summary', module).add('WeightedAvg', () => (
+  <Summary
+    formatter={formatters.roundToPlaces(1)}
+    data={weightedAvgData}
+    aggregationOptions={{
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: { valueKey: 'cuteness', countKey: 'amount' }
+    }}
+    granularity="month"
+    timeRange="lastYear"
+  />
+));
+
 storiesOf('Report Card', module)
   .add('w/Chart,Title', () => (
     <ReportCard>
@@ -299,8 +331,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -318,8 +352,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -351,8 +387,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -385,8 +423,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="custom"
       />

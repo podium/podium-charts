@@ -106,6 +106,37 @@ var data = [{
   organic: 0,
   date: '2018-12-01T00:00:00.000Z'
 }];
+var weightedAvgData = [{
+  dogs: {
+    cuteness: 5,
+    amount: 10
+  },
+  cats: {
+    cuteness: 2.5,
+    amount: 15
+  },
+  date: '2018-09-15T23:43:32'
+}, {
+  dogs: {
+    cuteness: 2,
+    amount: 20
+  },
+  cats: {
+    cuteness: 7,
+    amount: 18
+  },
+  date: '2018-10-15T23:43:32'
+}, {
+  dogs: {
+    cuteness: 1,
+    amount: 5
+  },
+  cats: {
+    cuteness: 0.5,
+    amount: 8
+  },
+  date: '2018-11-15T23:43:32'
+}];
 (0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
   return _react.default.createElement(_.Chart, {
     data: data,
@@ -383,6 +414,22 @@ var data = [{
     color: _colors.default.cobaltBlue
   }))));
 });
+(0, _react2.storiesOf)('Summary', module).add('WeightedAvg', function () {
+  return _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  });
+});
 (0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
     title: "Total Reviews",
@@ -419,8 +466,10 @@ var data = [{
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "total",
-    dataKeys: ['text', 'organic'],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['text', 'organic']
+    },
     granularity: "month",
     timeRange: "lastYear"
   }));
@@ -443,8 +492,10 @@ var data = [{
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "total",
-    dataKeys: ['text', 'organic'],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['text', 'organic']
+    },
     granularity: "month",
     timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
@@ -486,8 +537,10 @@ var data = [{
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "total",
-    dataKeys: ['text', 'organic'],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['text', 'organic']
+    },
     granularity: "month",
     timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
@@ -527,8 +580,10 @@ var data = [{
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "total",
-    dataKeys: ['text', 'organic'],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['text', 'organic']
+    },
     granularity: "month",
     timeRange: "custom"
   }), _react.default.createElement(_.Legend, {

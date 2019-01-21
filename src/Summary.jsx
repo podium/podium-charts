@@ -30,13 +30,12 @@ const Space = styled.div`
 
 export default function Summary({
   data,
-  dataKeys,
-  summaryType,
   formatter,
   granularity,
   unit,
   loading,
-  timeRange
+  timeRange,
+  aggregationOptions
 }) {
   const titleCase = str => {
     return str
@@ -71,8 +70,8 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
-  const currentData = getLatestSummaryMetric(data, dataKeys, summaryType);
-  const entireData = getOverallSummaryMetric(data, dataKeys, summaryType);
+  const currentData = getLatestSummaryMetric(data, aggregationOptions);
+  const entireData = getOverallSummaryMetric(data, aggregationOptions);
 
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
@@ -91,9 +90,15 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  summaryType: PropTypes.oneOf(['avg', 'total']),
   data: PropTypes.array.isRequired,
-  dataKeys: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }).isRequired,
   formatter: PropTypes.func,
   loading: PropTypes.bool,
   unit: PropTypes.string,
@@ -112,36 +117,85 @@ Summary.propTypes = {
 };
 
 Summary.defaultProps = {
-  summaryType: 'total',
   unit: '',
   formatter: value => value
 };
 
-export function getLatestSummaryMetric(data, dataKeys, summaryType) {
+export function getLatestSummaryMetric(data, aggregationOptions) {
+  const { type, dataKeys, options } = aggregationOptions;
+
   const currentDataObj = data[data.length - 1];
-  return typeHandler[summaryType](currentDataObj, dataKeys);
+  return rowSummaryFunctions[type](currentDataObj, dataKeys, options);
 }
 
-export function getOverallSummaryMetric(data, dataKeys, summaryType) {
-  return entireDataTypeHandler[summaryType](data, dataKeys, summaryType);
+export function getOverallSummaryMetric(data, aggregationOptions) {
+  const { type, dataKeys, options } = aggregationOptions;
+  return datasetSummaryFunctions[type](data, dataKeys, options);
 }
 
 // Helpers
 
-const typeHandler = {
-  total: (row, dataKeys) => {
-    let sum = 0;
-    for (let key of dataKeys) {
-      const value = get(row, key, 0);
-      if (isNumeric(value)) {
-        sum += value;
-      }
+const rowTotal = (row, dataKeys) => {
+  let sum = 0;
+  for (let key of dataKeys) {
+    const value = get(row, key, 0);
+    if (isNumeric(value)) {
+      sum += value;
     }
-    return sum;
-  },
-  avg: (row, dataKeys) => {
-    let sum = 0;
-    let usedKeys = 0;
+  }
+  return sum;
+};
+
+const rowAvg = (row, dataKeys) => {
+  let sum = 0;
+  let usedKeys = 0;
+  for (let key of dataKeys) {
+    const value = get(row, key, 0);
+    if (isNumeric(value)) {
+      sum += value;
+      usedKeys++;
+    }
+  }
+  return usedKeys === 0 ? null : sum / usedKeys;
+};
+
+const isWeightedAvgOptions = options => {
+  return options && options.valueKey && options.countKey;
+};
+
+const rowWeightedAvg = (row, dataKeys, options) => {
+  if (!isWeightedAvgOptions(options)) {
+    throw new TypeError('Malformed weighted average options');
+  }
+  const { valueKey, countKey } = options;
+  let sum = 0;
+  let totalCount = 0;
+  for (let key of dataKeys) {
+    const value = get(row, [key, valueKey], null);
+    const count = get(row, [key, countKey], null);
+    if (isNumeric(value) && isNumeric(count)) {
+      sum += value * count;
+      totalCount += count;
+    }
+  }
+  return totalCount === 0 ? null : sum / totalCount;
+};
+
+const rowSummaryFunctions = {
+  total: rowTotal,
+  avg: rowAvg,
+  weightedAvg: rowWeightedAvg
+};
+
+const dataSetTotal = (data, dataKeys) =>
+  data.reduce((acc, row) => {
+    return rowSummaryFunctions.total(row, dataKeys) + acc;
+  }, 0);
+
+const datasetAvg = (data, dataKeys) => {
+  let sum = 0;
+  let usedKeys = 0;
+  for (let row of data) {
     for (let key of dataKeys) {
       const value = get(row, key, 0);
       if (isNumeric(value)) {
@@ -149,29 +203,34 @@ const typeHandler = {
         usedKeys++;
       }
     }
-    return usedKeys === 0 ? null : sum / usedKeys;
   }
+  return usedKeys === 0 ? null : sum / usedKeys;
 };
 
-const entireDataTypeHandler = {
-  total: (data, dataKeys, summaryType) =>
-    data.reduce((acc, row) => {
-      return typeHandler[summaryType](row, dataKeys) + acc;
-    }, 0),
-  avg: (data, dataKeys, summaryType) => {
-    let sum = 0;
-    let usedKeys = 0;
-    for (let row of data) {
-      for (let key of dataKeys) {
-        const value = get(row, key, 0);
-        if (isNumeric(value)) {
-          sum += value;
-          usedKeys++;
-        }
+const datasetWeightedAvg = (data, dataKeys, options) => {
+  if (!isWeightedAvgOptions(options)) {
+    throw new TypeError('Malformed weighted average options');
+  }
+  const { valueKey, countKey } = options;
+  let sum = 0;
+  let totalCount = 0;
+  for (let row of data) {
+    for (let key of dataKeys) {
+      const value = get(row, [key, valueKey], null);
+      const count = get(row, [key, countKey], null);
+      if (isNumeric(value) && isNumeric(count)) {
+        sum += value * count;
+        totalCount += count;
       }
     }
-    return usedKeys === 0 ? null : sum / usedKeys;
   }
+  return totalCount === 0 ? null : sum / totalCount;
+};
+
+const datasetSummaryFunctions = {
+  total: dataSetTotal,
+  avg: datasetAvg,
+  weightedAvg: datasetWeightedAvg
 };
 
 function isNumeric(value) {
