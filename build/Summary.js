@@ -87,8 +87,6 @@ var Space = _styledComponents.default.div(_templateObject5());
 
 function Summary(_ref) {
   var data = _ref.data,
-      dataKeys = _ref.dataKeys,
-      summaryType = _ref.summaryType,
       formatter = _ref.formatter,
       granularity = _ref.granularity,
       unit = _ref.unit,
@@ -131,45 +129,48 @@ function Summary(_ref) {
   };
 
   if (loading) return renderGhostState();
-  var currentData = getLatestSummaryMetric(data, dataKeys, summaryType, aggregationOptions);
-  var entireData = getOverallSummaryMetric(data, dataKeys, summaryType, aggregationOptions);
+  var currentData = getLatestSummaryMetric(data, aggregationOptions);
+  var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
   return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, currentDataFormatted), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, entireDataFormatted));
 }
 
 Summary.propTypes = {
-  summaryType: _propTypes.default.oneOf(['avg', 'total']),
   data: _propTypes.default.array.isRequired,
-  dataKeys: _propTypes.default.array.isRequired,
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }).isRequired,
   formatter: _propTypes.default.func,
   loading: _propTypes.default.bool,
   unit: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
-  aggregationOptions: _propTypes.default.shape({
-    weightedAvg: _propTypes.default.shape({
-      valueKey: _propTypes.default.string.isRequired,
-      countKey: _propTypes.default.string.isRequired
-    })
-  })
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
 };
 Summary.defaultProps = {
-  summaryType: 'total',
   unit: '',
   formatter: function formatter(value) {
     return value;
   }
 };
 
-function getLatestSummaryMetric(data, dataKeys, summaryType) {
-  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+function getLatestSummaryMetric(data, aggregationOptions) {
+  var type = aggregationOptions.type,
+      dataKeys = aggregationOptions.dataKeys,
+      options = aggregationOptions.options;
   var currentDataObj = data[data.length - 1];
-  return rowSummaryFunctions[summaryType](currentDataObj, dataKeys, options);
+  return rowSummaryFunctions[type](currentDataObj, dataKeys, options);
 }
 
-function getOverallSummaryMetric(data, dataKeys, summaryType) {
-  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-  return datasetSummaryFunctions[summaryType](data, dataKeys, options);
+function getOverallSummaryMetric(data, aggregationOptions) {
+  var type = aggregationOptions.type,
+      dataKeys = aggregationOptions.dataKeys,
+      options = aggregationOptions.options;
+  return datasetSummaryFunctions[type](data, dataKeys, options);
 } // Helpers
 
 
@@ -242,17 +243,16 @@ var rowAvg = function rowAvg(row, dataKeys) {
 };
 
 var isWeightedAvgOptions = function isWeightedAvgOptions(options) {
-  return options && options.weightedAvg && options.weightedAvg.valueKey && options.weightedAvg.countKey;
+  return options && options.valueKey && options.countKey;
 };
 
 var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
   if (!isWeightedAvgOptions(options)) {
-    throw new TypeError('Missing required key: "weightedAvg" in aggregationOptions');
+    throw new TypeError('Malformed weighted average options');
   }
 
-  var _options$weightedAvg = options.weightedAvg,
-      valueKey = _options$weightedAvg.valueKey,
-      countKey = _options$weightedAvg.countKey;
+  var valueKey = options.valueKey,
+      countKey = options.countKey;
   var sum = 0;
   var totalCount = 0;
   var _iteratorNormalCompletion3 = true;
@@ -359,12 +359,11 @@ var datasetAvg = function datasetAvg(data, dataKeys) {
 
 var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
   if (!isWeightedAvgOptions(options)) {
-    throw new TypeError('Missing required key: "weightedAvg" in aggregationOptions');
+    throw new TypeError('Malformed weighted average options');
   }
 
-  var _options$weightedAvg2 = options.weightedAvg,
-      valueKey = _options$weightedAvg2.valueKey,
-      countKey = _options$weightedAvg2.countKey;
+  var valueKey = options.valueKey,
+      countKey = options.countKey;
   var sum = 0;
   var totalCount = 0;
   var _iteratorNormalCompletion6 = true;

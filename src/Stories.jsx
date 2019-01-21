@@ -331,8 +331,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -350,8 +352,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -383,8 +387,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="lastYear"
       />
@@ -417,8 +423,10 @@ storiesOf('Report Card', module)
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        dataKeys={['text', 'organic']}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
         granularity="month"
         timeRange="custom"
       />
