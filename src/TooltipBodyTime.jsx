@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from '@podiumhq/podium-ui';
+import get from 'lodash.get';
 import { formatters } from './';
+import { getRowSummaryMetric } from './aggregators';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;
@@ -73,10 +75,6 @@ const granMap = {
   week: 'MMMM D, YYYY'
 };
 
-const summaryAverage = payload =>
-  payload.reduce((acc, dataField) => (dataField.value || 0) + acc, 0) /
-  payload.length;
-
 const fullDate = (date, granularity) => {
   const format = granMap[granularity] || 'MMMM YYYY';
   const momentDate = moment.utc(date);
@@ -86,8 +84,21 @@ const fullDate = (date, granularity) => {
 
 export default function TooltipBody(props) {
   const renderSummary = () => {
-    const { payload } = props;
-    const seconds = summaryAverage(payload).toFixed(1);
+    const { payload, aggregationOptions } = props;
+    let seconds = null;
+
+    // If there is only one data key then display that and don't do any aggs
+    if (payload.length === 1) {
+      seconds = get(payload, '[0].value');
+    } else if (aggregationOptions) {
+      const rowData = get(payload[0], 'payload');
+      seconds = getRowSummaryMetric(rowData, aggregationOptions);
+    }
+
+    return formatSummary(seconds);
+  };
+
+  const formatSummary = seconds => {
     const minutes = seconds / 60;
     return (
       <div>
@@ -101,9 +112,9 @@ export default function TooltipBody(props) {
 
   const renderToolTipLegend = () => {
     return props.payload.map(dataField => {
-      const { dataKey, value, color, name } = dataField;
+      const { value, color, name } = dataField;
       return (
-        <TooltipData key={dataKey}>
+        <TooltipData key={name}>
           <Label>
             <ColorLabel fill={color} />
             <div>{name ? name : ''}</div>
@@ -114,11 +125,13 @@ export default function TooltipBody(props) {
     });
   };
 
+  const summary = renderSummary();
+
   return (
     <TooltipBodyWrapper>
       <Header>
         <XAxisLabel>{fullDate(props.label, props.granularity)}</XAxisLabel>
-        <Summary>{renderSummary()}</Summary>
+        {summary && <Summary>{summary}</Summary>}
       </Header>
       {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>

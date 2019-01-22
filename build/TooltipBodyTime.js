@@ -15,7 +15,11 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _lodash = _interopRequireDefault(require("lodash.get"));
+
 var _ = require("./");
+
+var _aggregators = require("./aggregators");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -150,12 +154,6 @@ var granMap = {
   week: 'MMMM D, YYYY'
 };
 
-var summaryAverage = function summaryAverage(payload) {
-  return payload.reduce(function (acc, dataField) {
-    return (dataField.value || 0) + acc;
-  }, 0) / payload.length;
-};
-
 var fullDate = function fullDate(date, granularity) {
   var format = granMap[granularity] || 'MMMM YYYY';
 
@@ -167,27 +165,28 @@ var fullDate = function fullDate(date, granularity) {
 
 function TooltipBody(props) {
   var renderSummary = function renderSummary() {
-    var payload = props.payload;
-    var seconds = summaryAverage(payload).toFixed(1);
+    var payload = props.payload,
+        aggregationOptions = props.aggregationOptions;
+    var rowData = (0, _lodash.default)(payload[0], 'payload');
+    var seconds = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions).toFixed(1);
     var minutes = seconds / 60;
     return _react.default.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(Math.round(minutes), " Minutes"), minutes > 60 && _react.default.createElement(Humanized, null, "".concat(_.formatters.humanizeDuration(seconds))));
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
     return props.payload.map(function (dataField) {
-      var dataKey = dataField.dataKey,
-          value = dataField.value,
+      var value = dataField.value,
           color = dataField.color,
           name = dataField.name;
       return _react.default.createElement(TooltipData, {
-        key: dataKey
+        key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
       }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, _.formatters.secondsToMinutes(value)));
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), props.aggregationOptions && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {

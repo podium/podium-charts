@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
+import { getOverallSummaryMetric } from './aggregators';
+import get from 'lodash.get';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -40,20 +41,23 @@ const Label = styled.div`
 export default function Legend({
   loading,
   data,
-  summaryType,
-  config,
+  aggregationOptions,
+  displayOptions,
   formatter
 }) {
-  const typeHandler = {
-    total: dataKey =>
-      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0),
-    avg: dataKey =>
-      data.reduce((acc, dataField) => get(dataField, dataKey, 0) + acc, 0) /
-      data.length
+  const calculateValue = dataKey => {
+    const itemAggregationOptions = {
+      type: aggregationOptions.type,
+      dataKeys: [dataKey],
+      options: aggregationOptions.options
+    };
+    return getOverallSummaryMetric(data, itemAggregationOptions);
   };
 
-  const calculateValue = dataKey => {
-    return typeHandler[summaryType](dataKey);
+  const createAggMap = (dataKeys = []) => {
+    return dataKeys.reduce((acc, dataKey) => {
+      return { ...acc, [dataKey]: calculateValue(dataKey) };
+    }, {});
   };
 
   const renderGhostState = () => (
@@ -64,16 +68,17 @@ export default function Legend({
     </LegendWrapper>
   );
 
-  const renderLegendItem = () => {
-    return config.map(legendItem => {
+  const renderLegendItems = (aggMap = {}) => {
+    return displayOptions.map(legendItem => {
       const { dataKey, color, name } = legendItem;
+      const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
       return (
-        <ItemWrapper key={dataKey}>
+        <ItemWrapper key={name}>
           <Label>
             <ColorLabel color={color} />
             <div>{name ? name : ''}</div>
           </Label>
-          <div>{formatter(calculateValue(dataKey))}</div>
+          {formattedValue && <div>{formattedValue}</div>}
         </ItemWrapper>
       );
     });
@@ -81,13 +86,23 @@ export default function Legend({
 
   if (loading) return renderGhostState();
 
-  return <LegendWrapper>{renderLegendItem()}</LegendWrapper>;
+  const dataKeys = get(aggregationOptions, 'dataKeys');
+  const aggMap = createAggMap(dataKeys);
+
+  return <LegendWrapper>{renderLegendItems(aggMap)}</LegendWrapper>;
 }
 
 Legend.propTypes = {
   data: PropTypes.array.isRequired,
-  summaryType: PropTypes.oneOf(['avg', 'total']),
-  config: PropTypes.arrayOf(
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }),
+  displayOptions: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       color: PropTypes.string,

@@ -15,6 +15,10 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _aggregators = require("./aggregators");
+
+var _lodash = _interopRequireDefault(require("lodash.get"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject9() {
@@ -135,18 +139,6 @@ var granMap = {
   day: 'MMMM D, YYYY',
   week: 'MMMM D, YYYY'
 };
-var summaryHandler = {
-  total: function total(payload) {
-    return payload.reduce(function (acc, dataField) {
-      return (dataField.value || 0) + acc;
-    }, 0);
-  },
-  avg: function avg(payload) {
-    return payload.reduce(function (acc, dataField) {
-      return (dataField.value || 0) + acc;
-    }, 0) / payload.length;
-  }
-};
 
 var fullDate = function fullDate(date, granularity) {
   var format = granMap[granularity] || 'MMMM YYYY';
@@ -161,30 +153,39 @@ function TooltipBody(props) {
   var renderSummary = function renderSummary() {
     var payload = props.payload,
         summaryTitle = props.summaryTitle,
-        summaryType = props.summaryType;
-    var result = summaryHandler[summaryType](payload);
-    return "".concat(result, " ").concat(summaryTitle);
+        aggregationOptions = props.aggregationOptions,
+        formatter = props.formatter;
+    var rowData = (0, _lodash.default)(payload[0], 'payload');
+    var result = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions);
+    var formattedResult = formatter ? formatter(result) : result;
+    return "".concat(formattedResult, " ").concat(summaryTitle);
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
     return props.payload.map(function (dataField) {
-      var dataKey = dataField.dataKey,
-          value = dataField.value,
+      var value = dataField.value,
           color = dataField.color,
           name = dataField.name;
       return _react.default.createElement(TooltipData, {
-        key: dataKey
+        key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
       }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, value));
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.aggregationOptions && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {
-  summaryType: _propTypes.default.oneOf(['total', 'avg']),
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }),
   summaryTitle: _propTypes.default.string,
   granularity: _propTypes.default.string
 };

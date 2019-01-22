@@ -137,7 +137,7 @@ var _initialiseProps = function _initialiseProps() {
       stroke: _podiumUi.colors.lightSteel,
       fontFamily: GRAPHIK,
       dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey.split('.'));
+        return (0, _lodash.default)(data, _dataKey.split('.'), null);
       }
     }, props));
   };
@@ -164,7 +164,7 @@ var _initialiseProps = function _initialiseProps() {
       })),
       fill: props.color,
       dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey2.split('.'));
+        return (0, _lodash.default)(data, _dataKey2.split('.'), null);
       }
     }, props));
   };
@@ -180,7 +180,7 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey3.split('.'));
+        return (0, _lodash.default)(data, _dataKey3.split('.'), null);
       },
       dot: {
         r: 2.5,
@@ -201,7 +201,7 @@ var _initialiseProps = function _initialiseProps() {
       strokeWidth: 2,
       activeDot: false,
       dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey4.split('.'));
+        return (0, _lodash.default)(data, _dataKey4.split('.'), null);
       },
       dot: function dot(data) {
         if (data.index === _this2.props.data.length - 1) {

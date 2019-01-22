@@ -57,7 +57,7 @@ export default class Chart extends React.Component {
       tickLine={false}
       stroke={colors.lightSteel}
       fontFamily={GRAPHIK}
-      dataKey={data => get(data, dataKey.split('.'))}
+      dataKey={data => get(data, dataKey.split('.'), null)}
       {...props}
     />
   );
@@ -84,7 +84,7 @@ export default class Chart extends React.Component {
         />
       }
       fill={props.color}
-      dataKey={data => get(data, dataKey.split('.'))}
+      dataKey={data => get(data, dataKey.split('.'), null)}
       {...props}
     />
   );
@@ -96,7 +96,7 @@ export default class Chart extends React.Component {
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
-      dataKey={data => get(data, dataKey.split('.'))}
+      dataKey={data => get(data, dataKey.split('.'), null)}
       dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
@@ -109,7 +109,7 @@ export default class Chart extends React.Component {
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
-      dataKey={data => get(data, dataKey.split('.'))}
+      dataKey={data => get(data, dataKey.split('.'), null)}
       dot={data => {
         if (data.index === this.props.data.length - 1) {
           return (
