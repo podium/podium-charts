@@ -453,7 +453,7 @@ storiesOf('Report Card', module)
         />
       </Chart>
       <Summary
-        formatter={formatters.roundToPlaces(1)}
+        formatter={formatters.commatize}
         data={timeData}
         aggregationOptions={{
           type: 'total',
