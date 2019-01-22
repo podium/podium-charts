@@ -441,16 +441,7 @@ storiesOf('Report Card', module)
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
         <Line dataKey="waitTime" name="Wait Time" color={colors.poppyRed} />
-        <Tooltip
-          content={
-            <TooltipBodyTime
-              aggregationOptions={{
-                type: 'total',
-                dataKeys: ['waitTime']
-              }}
-            />
-          }
-        />
+        <Tooltip content={<TooltipBodyTime />} />
       </Chart>
       <Summary
         formatter={formatters.commatize}

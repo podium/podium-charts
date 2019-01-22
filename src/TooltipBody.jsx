@@ -77,8 +77,16 @@ const fullDate = (date, granularity) => {
 export default function TooltipBody(props) {
   const renderSummary = () => {
     const { payload, summaryTitle, aggregationOptions, formatter } = props;
-    const rowData = get(payload[0], 'payload');
-    const result = getRowSummaryMetric(rowData, aggregationOptions);
+    let result = null;
+
+    // If there is only one data key then display that and don't do any aggs
+    if (payload.length === 1) {
+      result = get(payload, '[0].value');
+    } else if (aggregationOptions) {
+      const rowData = get(payload[0], 'payload');
+      result = getRowSummaryMetric(rowData, aggregationOptions);
+    }
+
     const formattedResult = formatter ? formatter(result) : result;
 
     return `${formattedResult} ${summaryTitle}`;
@@ -99,11 +107,13 @@ export default function TooltipBody(props) {
     });
   };
 
+  const summary = renderSummary();
+
   return (
     <TooltipBodyWrapper>
       <Header>
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
-        {props.aggregationOptions && <Summary>{renderSummary()}</Summary>}
+        {summary && <Summary>{summary}</Summary>}
       </Header>
       {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>
