@@ -83,6 +83,13 @@ const weightedAvgData = [
   }
 ];
 
+const timeData = [
+  { waitTime: 150, date: '2018-08-15T23:43:32' },
+  { waitTime: 1500, date: '2018-09-15T23:43:32' },
+  { waitTime: 500, date: '2018-10-15T23:43:32' },
+  { waitTime: 980, date: '2018-11-15T23:43:32' }
+];
+
 storiesOf('Bar Chart', module)
   .add('Small', () => (
     <Chart data={data} width={200} height={100}>
@@ -421,6 +428,36 @@ storiesOf('Report Card', module)
           type: 'weightedAvg',
           options: { valueKey: 'cuteness', countKey: 'amount' },
           dataKeys: ['dogs', 'cats']
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+    </ReportCard>
+  ))
+  .add('w/TooltipBodyTime', () => (
+    <ReportCard>
+      <ReportTitle title="Wait Time" data={timeData} />
+      <Chart data={timeData}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="waitTime" name="Wait Time" color={colors.poppyRed} />
+        <Tooltip
+          content={
+            <TooltipBodyTime
+              aggregationOptions={{
+                type: 'total',
+                dataKeys: ['waitTime']
+              }}
+            />
+          }
+        />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={timeData}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['waitTime']
         }}
         granularity="month"
         timeRange="lastYear"
