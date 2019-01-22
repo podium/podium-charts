@@ -137,6 +137,19 @@ var weightedAvgData = [{
   },
   date: '2018-11-15T23:43:32'
 }];
+var timeData = [{
+  waitTime: 150,
+  date: '2018-08-15T23:43:32'
+}, {
+  waitTime: 1500,
+  date: '2018-09-15T23:43:32'
+}, {
+  waitTime: 500,
+  date: '2018-10-15T23:43:32'
+}, {
+  waitTime: 980,
+  date: '2018-11-15T23:43:32'
+}];
 (0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
   return _react.default.createElement(_.Chart, {
     data: data,
@@ -585,6 +598,58 @@ var weightedAvgData = [{
         countKey: 'amount'
       },
       dataKeys: ['dogs', 'cats']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }));
+}).add('w/TooltipBody (single key)', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Single Value Tooltip",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    name: "SMS",
+    color: _colors.default.poppyRed
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryTitle: "Minutes"
+    })
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.commatize,
+    data: data,
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['sms']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }));
+}).add('w/TooltipBodyTime', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Wait Time",
+    data: timeData
+  }), _react.default.createElement(_.Chart, {
+    data: timeData
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "waitTime",
+    name: "Wait Time",
+    color: _colors.default.poppyRed
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBodyTime, null)
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.commatize,
+    data: timeData,
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['waitTime']
     },
     granularity: "month",
     timeRange: "lastYear"
