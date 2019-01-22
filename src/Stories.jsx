@@ -65,15 +65,6 @@ const data = [
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
-const inboundLeadsDataset = [
-  { organic: 100, webchat: 633, date: '2018-01-01T00:00:00.000Z' },
-  { organic: 163, webchat: 520, date: '2018-02-01T00:00:00.000Z' },
-  { organic: 168, webchat: 390, date: '2018-03-01T00:00:00.000Z' },
-  { organic: 552, webchat: 479, date: '2018-04-01T00:00:00.000Z' },
-  { organic: 65, webchat: 375, date: '2018-05-01T00:00:00.000Z' },
-  { organic: 144, webchat: 600, date: '2018-06-01T00:00:00.000Z' }
-];
-
 const weightedAvgData = [
   {
     dogs: { cuteness: 5, amount: 10 },
@@ -311,41 +302,92 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
-  .add('w/Legend', () => (
+  .add('w/Legend (weightedAvg)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" data={inboundLeadsDataset} />
-      <Chart data={inboundLeadsDataset}>
+      <ReportTitle title="Inbound Leads by Source" data={weightedAvgData} />
+      <Chart data={weightedAvgData}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Line dataKey="organic" name="Organic" color={colors.cobaltBlue} />
-        <Line dataKey="webchat" name="Webchat" color={colors.poppyRed} />
+        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.cobaltBlue} />
+        <Line dataKey="cats.cuteness" name="Cats" color={colors.poppyRed} />
         <Tooltip
           content={
             <TooltipBody
+              formatter={formatters.roundToPlaces(1)}
               aggregationOptions={{
-                type: 'avg',
-                dataKeys: ['organic', 'webchat']
+                type: 'weightedAvg',
+                dataKeys: ['dogs', 'cats'],
+                options: { valueKey: 'cuteness', countKey: 'amount' }
               }}
+              summaryTitle="Animals"
             />
           }
         />
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={inboundLeadsDataset}
+        data={weightedAvgData}
         aggregationOptions={{
-          type: 'total',
-          dataKeys: ['organic', 'webchat']
+          type: 'weightedAvg',
+          dataKeys: ['cats', 'dogs'],
+          options: { valueKey: 'cuteness', countKey: 'amount' }
         }}
         granularity="month"
         timeRange="lastYear"
       />
       <Legend
-        data={inboundLeadsDataset}
-        summaryType="total"
-        config={[
-          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
-          { name: 'Webchat', dataKey: 'webchat', color: colors.poppyRed }
+        formatter={formatters.roundToPlaces(1)}
+        data={weightedAvgData}
+        aggregationOptions={{
+          type: 'weightedAvg',
+          dataKeys: ['cats', 'dogs'],
+          options: { valueKey: 'cuteness', countKey: 'amount' }
+        }}
+        displayOptions={[
+          { name: 'Cats', dataKey: 'cats', color: colors.cobaltBlue },
+          { name: 'Dogs', dataKey: 'dogs', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
+  .add('w/Legend (no agg)', () => (
+    <ReportCard>
+      <ReportTitle title="Inbound Leads by Source" data={weightedAvgData} />
+      <Chart data={weightedAvgData}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.cobaltBlue} />
+        <Line dataKey="cats.cuteness" name="Cats" color={colors.poppyRed} />
+        <Tooltip
+          content={
+            <TooltipBody
+              formatter={formatters.roundToPlaces(1)}
+              aggregationOptions={{
+                type: 'weightedAvg',
+                dataKeys: ['dogs', 'cats'],
+                options: { valueKey: 'cuteness', countKey: 'amount' }
+              }}
+              summaryTitle="Animals"
+            />
+          }
+        />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={weightedAvgData}
+        aggregationOptions={{
+          type: 'weightedAvg',
+          dataKeys: ['cats', 'dogs'],
+          options: { valueKey: 'cuteness', countKey: 'amount' }
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+      <Legend
+        data={weightedAvgData}
+        displayOptions={[
+          { name: 'Cats', dataKey: 'cats', color: colors.cobaltBlue },
+          { name: 'Dogs', dataKey: 'dogs', color: colors.poppyRed }
         ]}
       />
     </ReportCard>
@@ -412,8 +454,7 @@ storiesOf('Report Card', module)
       />
       <Legend
         data={data}
-        summaryType="total"
-        config={[
+        displayOptions={[
           { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
           { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}
@@ -431,10 +472,9 @@ storiesOf('Report Card', module)
         }}
       />
       <Chart data={data}>
-        <YAxis tickFormatter={formatters.abbreviateTime} />
+        <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
         <Line dataKey="sms" color={colors.cobaltBlue} />
-        <Tooltip content={<TooltipBodyTime />} />
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
@@ -447,9 +487,13 @@ storiesOf('Report Card', module)
         timeRange="custom"
       />
       <Legend
+        formatter={formatters.roundToPlaces(1)}
         data={data}
-        summaryType="total"
-        config={[
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['organic', 'text']
+        }}
+        displayOptions={[
           { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
           { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}

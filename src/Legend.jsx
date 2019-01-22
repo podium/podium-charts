@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
+import get from 'lodash.get';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -41,7 +42,7 @@ export default function Legend({
   loading,
   data,
   aggregationOptions,
-  config,
+  displayOptions,
   formatter
 }) {
   const calculateValue = dataKey => {
@@ -53,6 +54,12 @@ export default function Legend({
     return getOverallSummaryMetric(data, itemAggregationOptions);
   };
 
+  const createAggMap = (dataKeys = []) => {
+    return dataKeys.reduce((acc, dataKey) => {
+      return { ...acc, [dataKey]: calculateValue(dataKey) };
+    }, {});
+  };
+
   const renderGhostState = () => (
     <LegendWrapper>
       <Ghost row />
@@ -61,10 +68,10 @@ export default function Legend({
     </LegendWrapper>
   );
 
-  const renderLegendItems = () => {
-    return config.map(legendItem => {
+  const renderLegendItems = (aggMap = {}) => {
+    return displayOptions.map(legendItem => {
       const { dataKey, color, name } = legendItem;
-      const formattedValue = formatter(calculateValue(dataKey));
+      const formattedValue = formatter(aggMap[dataKey]);
       return (
         <ItemWrapper key={name}>
           <Label>
@@ -79,13 +86,23 @@ export default function Legend({
 
   if (loading) return renderGhostState();
 
-  return <LegendWrapper>{renderLegendItems()}</LegendWrapper>;
+  const dataKeys = get(aggregationOptions, 'dataKeys');
+  const aggMap = createAggMap(dataKeys);
+
+  return <LegendWrapper>{renderLegendItems(aggMap)}</LegendWrapper>;
 }
 
 Legend.propTypes = {
   data: PropTypes.array.isRequired,
-  summaryType: PropTypes.oneOf(['avg', 'total']),
-  config: PropTypes.arrayOf(
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }),
+  displayOptions: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       color: PropTypes.string,

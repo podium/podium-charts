@@ -78,7 +78,6 @@ export default function TooltipBody(props) {
   const renderSummary = () => {
     const { payload, summaryTitle, aggregationOptions, formatter } = props;
     const rowData = get(payload[0], 'payload');
-    console.log('rowData:', rowData);
     const result = getRowSummaryMetric(rowData, aggregationOptions);
     const formattedResult = formatter ? formatter(result) : result;
 
@@ -112,7 +111,14 @@ export default function TooltipBody(props) {
 }
 
 TooltipBody.propTypes = {
-  summaryType: PropTypes.oneOf(['total', 'avg']),
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }),
   summaryTitle: PropTypes.string,
   granularity: PropTypes.string
 };
