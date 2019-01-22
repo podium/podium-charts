@@ -71,14 +71,14 @@ export default function Legend({
   const renderLegendItems = (aggMap = {}) => {
     return displayOptions.map(legendItem => {
       const { dataKey, color, name } = legendItem;
-      const formattedValue = formatter(aggMap[dataKey]);
+      const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
       return (
         <ItemWrapper key={name}>
           <Label>
             <ColorLabel color={color} />
             <div>{name ? name : ''}</div>
           </Label>
-          <div>{formattedValue}</div>
+          {formattedValue && <div>{formattedValue}</div>}
         </ItemWrapper>
       );
     });
