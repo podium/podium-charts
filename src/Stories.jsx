@@ -434,6 +434,27 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
+  .add('w/TooltipBody (single key)', () => (
+    <ReportCard>
+      <ReportTitle title="Single Value Tooltip" data={data} />
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" name="SMS" color={colors.poppyRed} />
+        <Tooltip content={<TooltipBody summaryTitle="Minutes" />} />
+      </Chart>
+      <Summary
+        formatter={formatters.commatize}
+        data={data}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['sms']
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+    </ReportCard>
+  ))
   .add('w/TooltipBodyTime', () => (
     <ReportCard>
       <ReportTitle title="Wait Time" data={timeData} />
