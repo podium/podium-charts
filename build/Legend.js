@@ -116,12 +116,12 @@ function Legend(_ref) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name;
-      var formattedValue = formatter(aggMap[dataKey]);
+      var formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
       return _react.default.createElement(ItemWrapper, {
         key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement("div", null, formattedValue));
+      }), _react.default.createElement("div", null, name ? name : '')), formattedValue && _react.default.createElement("div", null, formattedValue));
     });
   };
 

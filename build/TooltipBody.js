@@ -155,8 +155,15 @@ function TooltipBody(props) {
         summaryTitle = props.summaryTitle,
         aggregationOptions = props.aggregationOptions,
         formatter = props.formatter;
-    var rowData = (0, _lodash.default)(payload[0], 'payload');
-    var result = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions);
+    var result = null; // If there is only one data key then display that and don't do any aggs
+
+    if (payload.length === 1) {
+      result = (0, _lodash.default)(payload, '[0].value');
+    } else if (aggregationOptions) {
+      var rowData = (0, _lodash.default)(payload[0], 'payload');
+      result = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions);
+    }
+
     var formattedResult = formatter ? formatter(result) : result;
     return "".concat(formattedResult, " ").concat(summaryTitle);
   };
@@ -174,7 +181,8 @@ function TooltipBody(props) {
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.aggregationOptions && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  var summary = renderSummary();
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), summary && _react.default.createElement(Summary, null, summary)), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {
