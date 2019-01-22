@@ -174,11 +174,18 @@ function TooltipBody(props) {
     });
   };
 
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.summaryType && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), props.aggregationOptions && _react.default.createElement(Summary, null, renderSummary())), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {
-  summaryType: _propTypes.default.oneOf(['total', 'avg']),
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }),
   summaryTitle: _propTypes.default.string,
   granularity: _propTypes.default.string
 };

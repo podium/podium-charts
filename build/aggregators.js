@@ -10,7 +10,18 @@ var _lodash = _interopRequireDefault(require("lodash.get"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var isAggregationOptions = function isAggregationOptions(options) {
+  return options && options.type && options.dataKeys;
+};
+
+var validateAggregationOptions = function validateAggregationOptions(options) {
+  if (!isAggregationOptions(options)) {
+    throw new TypeError('Malformed aggregation options');
+  }
+};
+
 function getRowSummaryMetric(dataRow, aggregationOptions) {
+  validateAggregationOptions(aggregationOptions);
   var type = aggregationOptions.type,
       dataKeys = aggregationOptions.dataKeys,
       options = aggregationOptions.options;
@@ -18,6 +29,7 @@ function getRowSummaryMetric(dataRow, aggregationOptions) {
 }
 
 function getOverallSummaryMetric(data, aggregationOptions) {
+  validateAggregationOptions(aggregationOptions);
   var type = aggregationOptions.type,
       dataKeys = aggregationOptions.dataKeys,
       options = aggregationOptions.options;

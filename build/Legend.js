@@ -11,13 +11,19 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _lodash = _interopRequireDefault(require("lodash.get"));
-
 var _podiumUi = require("@podiumhq/podium-ui");
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
+var _aggregators = require("./aggregators");
+
+var _lodash = _interopRequireDefault(require("lodash.get"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
@@ -74,24 +80,24 @@ var Label = _styledComponents.default.div(_templateObject4());
 function Legend(_ref) {
   var loading = _ref.loading,
       data = _ref.data,
-      summaryType = _ref.summaryType,
-      config = _ref.config,
+      aggregationOptions = _ref.aggregationOptions,
+      displayOptions = _ref.displayOptions,
       formatter = _ref.formatter;
-  var typeHandler = {
-    total: function total(dataKey) {
-      return data.reduce(function (acc, dataField) {
-        return (0, _lodash.default)(dataField, dataKey, 0) + acc;
-      }, 0);
-    },
-    avg: function avg(dataKey) {
-      return data.reduce(function (acc, dataField) {
-        return (0, _lodash.default)(dataField, dataKey, 0) + acc;
-      }, 0) / data.length;
-    }
-  };
 
   var calculateValue = function calculateValue(dataKey) {
-    return typeHandler[summaryType](dataKey);
+    var itemAggregationOptions = {
+      type: aggregationOptions.type,
+      dataKeys: [dataKey],
+      options: aggregationOptions.options
+    };
+    return (0, _aggregators.getOverallSummaryMetric)(data, itemAggregationOptions);
+  };
+
+  var createAggMap = function createAggMap() {
+    var dataKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    return dataKeys.reduce(function (acc, dataKey) {
+      return _objectSpread({}, acc, _defineProperty({}, dataKey, calculateValue(dataKey)));
+    }, {});
   };
 
   var renderGhostState = function renderGhostState() {
@@ -104,27 +110,38 @@ function Legend(_ref) {
     }));
   };
 
-  var renderLegendItem = function renderLegendItem() {
-    return config.map(function (legendItem) {
+  var renderLegendItems = function renderLegendItems() {
+    var aggMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return displayOptions.map(function (legendItem) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name;
+      var formattedValue = formatter(aggMap[dataKey]);
       return _react.default.createElement(ItemWrapper, {
-        key: dataKey
+        key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement("div", null, formatter(calculateValue(dataKey))));
+      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement("div", null, formattedValue));
     });
   };
 
   if (loading) return renderGhostState();
-  return _react.default.createElement(LegendWrapper, null, renderLegendItem());
+  var dataKeys = (0, _lodash.default)(aggregationOptions, 'dataKeys');
+  var aggMap = createAggMap(dataKeys);
+  return _react.default.createElement(LegendWrapper, null, renderLegendItems(aggMap));
 }
 
 Legend.propTypes = {
   data: _propTypes.default.array.isRequired,
-  summaryType: _propTypes.default.oneOf(['avg', 'total']),
-  config: _propTypes.default.arrayOf(_propTypes.default.shape({
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }),
+  displayOptions: _propTypes.default.arrayOf(_propTypes.default.shape({
     name: _propTypes.default.string,
     color: _propTypes.default.string,
     dataKey: _propTypes.default.string

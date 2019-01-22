@@ -52,7 +52,7 @@ var data = [{
   organic: 2,
   date: '2018-01-01T00:00:00.000Z'
 }, {
-  sms: 30000,
+  sms: 3000,
   text: 5,
   organic: 0,
   date: '2018-02-01T00:00:00.000Z'
@@ -166,8 +166,11 @@ var weightedAvgData = [{
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
+      summaryTitle: "Reviews",
+      aggregationOptions: {
+        type: 'total',
+        dataKeys: ['organic', 'text']
+      }
     })
   }), _react.default.createElement(_.Bar, {
     name: "Organic",
@@ -289,61 +292,17 @@ var weightedAvgData = [{
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "total",
-      summaryTitle: "Reviews"
+      summaryTitle: "Reviews",
+      aggregationOptions: {
+        type: 'total',
+        dataKeys: ['organic', 'text']
+      }
     })
   }), _react.default.createElement(_.Line, {
     name: "Text",
     dataKey: "text",
     color: _colors.default.poppyRed
   }));
-});
-(0, _react2.storiesOf)('Tooltip', module).add('TooltipBody', function () {
-  return _react.default.createElement("div", {
-    style: {
-      width: 100
-    }
-  }, _react.default.createElement(_.TooltipBody, {
-    summaryType: "total",
-    summaryTitle: "Reviews",
-    payload: [{
-      name: 'Google',
-      value: 1,
-      color: _colors.default.cobaltBlue,
-      dataKey: 'google'
-    }, {
-      name: 'Jooble',
-      value: 2,
-      color: _colors.default.poppyRed,
-      dataKey: 'jooble'
-    }]
-  }));
-}, {
-  info: {
-    excludedPropTypes: ['payload']
-  }
-}).add('TooltipBodyTime', function () {
-  return _react.default.createElement("div", {
-    style: {
-      width: 100
-    }
-  }, _react.default.createElement(_.TooltipBodyTime, {
-    payload: [{
-      name: 'Google',
-      value: 6000,
-      color: _colors.default.cobaltBlue,
-      dataKey: 'google'
-    }, {
-      name: 'Jooble',
-      value: 80000,
-      color: _colors.default.poppyRed,
-      dataKey: 'jooble'
-    }]
-  }));
-}, {
-  info: {
-    excludedPropTypes: ['payload']
-  }
 });
 (0, _react2.storiesOf)('Report Card Summary', module).add('Default', function () {
   return _react.default.createElement("div", {
@@ -444,8 +403,6 @@ var weightedAvgData = [{
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
     color: _colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
   })));
 }).add('w/Summary', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
@@ -453,61 +410,138 @@ var weightedAvgData = [{
     data: data
   }), _react.default.createElement(_.Chart, {
     data: data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
     color: _colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
     aggregationOptions: {
       type: 'total',
-      dataKeys: ['text', 'organic']
+      dataKeys: ['sms']
     },
     granularity: "month",
     timeRange: "lastYear"
   }));
-}).add('w/Legend', function () {
+}).add('w/Legend (weightedAvg)', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
-    title: "Total Reviews",
-    data: data
+    title: "Inbound Leads by Source",
+    data: weightedAvgData
   }), _react.default.createElement(_.Chart, {
-    data: data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+    data: weightedAvgData
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
-    dataKey: "sms",
+    dataKey: "dogs.cuteness",
+    name: "Dogs",
     color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Line, {
+    dataKey: "cats.cuteness",
+    name: "Cats",
+    color: _colors.default.poppyRed
   }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
+    content: _react.default.createElement(_.TooltipBody, {
+      formatter: _formatters.default.roundToPlaces(1),
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
+      },
+      summaryTitle: "Animals"
+    })
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
-    data: data,
+    data: weightedAvgData,
     aggregationOptions: {
-      type: 'total',
-      dataKeys: ['text', 'organic']
+      type: 'weightedAvg',
+      dataKeys: ['cats', 'dogs'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
     },
     granularity: "month",
     timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
-    data: data,
-    summaryType: "total",
-    config: [{
-      name: 'Organic',
-      dataKey: 'organic',
+    formatter: _formatters.default.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['cats', 'dogs'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    },
+    displayOptions: [{
+      name: 'Cats',
+      dataKey: 'cats',
       color: _colors.default.cobaltBlue
     }, {
-      name: 'Text',
-      dataKey: 'text',
+      name: 'Dogs',
+      dataKey: 'dogs',
+      color: _colors.default.poppyRed
+    }]
+  }));
+}).add('w/Legend (no agg)', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Inbound Leads by Source",
+    data: weightedAvgData
+  }), _react.default.createElement(_.Chart, {
+    data: weightedAvgData
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "dogs.cuteness",
+    name: "Dogs",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Line, {
+    dataKey: "cats.cuteness",
+    name: "Cats",
+    color: _colors.default.poppyRed
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      formatter: _formatters.default.roundToPlaces(1),
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['dogs', 'cats'],
+        options: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
+      },
+      summaryTitle: "Animals"
+    })
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['cats', 'dogs'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }), _react.default.createElement(_.Legend, {
+    data: weightedAvgData,
+    displayOptions: [{
+      name: 'Cats',
+      dataKey: 'cats',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Dogs',
+      dataKey: 'dogs',
       color: _colors.default.poppyRed
     }]
   }));
@@ -530,7 +564,6 @@ var weightedAvgData = [{
     color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
-      summaryType: "weightedAvg",
       aggregationOptions: {
         type: 'weightedAvg',
         dataKeys: ['cats', 'dogs'],
@@ -555,18 +588,6 @@ var weightedAvgData = [{
     },
     granularity: "month",
     timeRange: "lastYear"
-  }), _react.default.createElement(_.Legend, {
-    data: weightedAvgData,
-    summaryType: "total",
-    config: [{
-      name: 'Cats',
-      dataKey: 'cats.cuteness',
-      color: _colors.default.cobaltBlue
-    }, {
-      name: 'Dogs',
-      dataKey: 'dogs.cuteness',
-      color: _colors.default.poppyRed
-    }]
   }));
 }).add('Loading', function () {
   return _react.default.createElement(_.ReportCard, {
@@ -602,8 +623,7 @@ var weightedAvgData = [{
     timeRange: "lastYear"
   }), _react.default.createElement(_.Legend, {
     data: data,
-    summaryType: "total",
-    config: [{
+    displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
       color: _colors.default.cobaltBlue
@@ -624,16 +644,12 @@ var weightedAvgData = [{
     }
   }), _react.default.createElement(_.Chart, {
     data: data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
     dataKey: "sms",
     color: _colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: data,
@@ -644,9 +660,13 @@ var weightedAvgData = [{
     granularity: "month",
     timeRange: "custom"
   }), _react.default.createElement(_.Legend, {
+    formatter: _formatters.default.roundToPlaces(1),
     data: data,
-    summaryType: "total",
-    config: [{
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['organic', 'text']
+    },
+    displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
       color: _colors.default.cobaltBlue
