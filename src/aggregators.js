@@ -1,17 +1,26 @@
 import get from 'lodash.get';
 
-export function getRowSummaryMetric(dataRow, aggregationOptions) {
-  // TODO: validate aggregationOptions
+const isAggregationOptions = options => {
+  return options && options.type && options.dataKeys;
+};
 
+const validateAggregationOptions = options => {
+  if (!isAggregationOptions(options)) {
+    throw new TypeError('Malformed aggregation options');
+  }
+};
+
+export function getRowSummaryMetric(dataRow, aggregationOptions) {
+  validateAggregationOptions(aggregationOptions);
   const { type, dataKeys, options } = aggregationOptions;
 
   return rowSummaryFunctions[type](dataRow, dataKeys, options);
 }
 
 export function getOverallSummaryMetric(data, aggregationOptions) {
-  // TODO: validate aggregationOptions
-
+  validateAggregationOptions(aggregationOptions);
   const { type, dataKeys, options } = aggregationOptions;
+
   return datasetSummaryFunctions[type](data, dataKeys, options);
 }
 
