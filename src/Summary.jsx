@@ -29,6 +29,7 @@ const Space = styled.div`
 `;
 
 const getLatestSummaryMetric = (data, aggregationOptions) => {
+  if (!data) return null;
   const currentDataObj = data[data.length - 1];
   return getRowSummaryMetric(currentDataObj, aggregationOptions);
 };

@@ -18,6 +18,8 @@ export function getRowSummaryMetric(dataRow, aggregationOptions) {
 }
 
 export function getOverallSummaryMetric(data, aggregationOptions) {
+  if (!data) return null;
+
   validateAggregationOptions(aggregationOptions);
   const { type, dataKeys, options } = aggregationOptions;
 
