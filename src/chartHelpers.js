@@ -62,6 +62,7 @@ const fullDate = (date, monthFormat) => {
 };
 
 export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
+  if (!data || data.length === 0) return '';
   const start = data[0]['date'];
   const end = data[data.length - 1]['date'];
   return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
