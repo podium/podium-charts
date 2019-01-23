@@ -92,6 +92,7 @@ var fullDate = function fullDate(date, monthFormat) {
 
 var renderRangeLabel = function renderRangeLabel(data) {
   var monthFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MMMM';
+  if (!data || data.length === 0) return '';
   var start = data[0]['date'];
   var end = data[data.length - 1]['date'];
   return "".concat(fullDate(start, monthFormat), " - ").concat(fullDate(end, monthFormat));
