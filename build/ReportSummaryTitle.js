@@ -71,7 +71,6 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-//import formatters from './formatters';
 var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);

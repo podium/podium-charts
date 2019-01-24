@@ -391,7 +391,8 @@ var timeData = [{
     summaryType: "total",
     dataKeys: ['sms'],
     title: "Inbound Leads",
-    data: data
+    data: data,
+    trendData: [prevData, currData]
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100

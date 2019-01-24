@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
-//import formatters from './formatters';
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
