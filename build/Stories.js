@@ -106,6 +106,68 @@ var data = [{
   organic: 0,
   date: '2018-12-01T00:00:00.000Z'
 }];
+var currData = [{
+  value: 605,
+  granularity: '2018-12-01T00:00:00.000Z'
+}, {
+  value: 1000,
+  granularity: '2018-12-02T00:00:00.000Z'
+}, {
+  value: 1283,
+  granularity: '2018-12-03T00:00:00.000Z'
+}, {
+  value: 4838,
+  granularity: '2018-12-04T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-12-05T00:00:00.000Z'
+}, {
+  value: 492,
+  granularity: '2018-12-06T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-12-07T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-12-08T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-12-09T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-12-10T00:00:00.000Z'
+}];
+var prevData = [{
+  value: 600,
+  granularity: '2018-11-01T00:00:00.000Z'
+}, {
+  value: 223,
+  granularity: '2018-11-02T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-03T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-04T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-05T00:00:00.000Z'
+}, {
+  value: 454,
+  granularity: '2018-11-06T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-07T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-08T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-09T00:00:00.000Z'
+}, {
+  value: 0,
+  granularity: '2018-11-10T00:00:00.000Z'
+}];
 var weightedAvgData = [{
   dogs: {
     cuteness: 5,
@@ -325,13 +387,34 @@ var timeData = [{
   }, _react.default.createElement(_.ReportCard, {
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.humanizeDuration,
+    formatter: _formatters.default.abbreviateNumber,
     summaryType: "total",
+    dataKeys: ['sms'],
+    title: "Inbound Leads",
+    data: data,
+    trendData: [prevData, currData]
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  }))));
+}).add('Average Trend', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    summaryType: "avg",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendDirection: "up",
-    tooltip: "This is some data!"
+    trendData: [currData, prevData]
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -347,13 +430,12 @@ var timeData = [{
     }
   }, _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
-    summaryType: "total",
+    summaryType: "avg",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendDirection: "down",
     preferDown: true,
-    tooltip: "This is some data!"
+    trendData: [prevData, currData]
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -375,8 +457,7 @@ var timeData = [{
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendDirection: "up",
-    tooltip: "This is some data!"
+    trendData: [prevData, currData]
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100

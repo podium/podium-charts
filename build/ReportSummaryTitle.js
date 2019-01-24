@@ -71,6 +71,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+//import formatters from './formatters';
 var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);
@@ -91,46 +92,77 @@ function ReportSummaryTitle(_ref) {
       trendDirection = _ref.trendDirection,
       preferDown = _ref.preferDown,
       loading = _ref.loading,
-      tooltip = _ref.tooltip;
-  var summaryHandler = {
-    total: function total(periodData) {
-      return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
-      }, 0);
-    },
-    avg: function avg(periodData) {
-      return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
-      }, 0) / dataKeys.length;
-    }
-  };
+      tooltip = _ref.tooltip,
+      trendData = _ref.trendData;
 
-  var currentValue = function currentValue() {
-    var currentData = data[data.length - 1];
-    return summaryHandler[summaryType](currentData);
-  };
-
+  //const summaryHandler = {
+  //total: periodData =>
+  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
+  //avg: periodData =>
+  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
+  //dataKeys.length
+  //};
+  //const currentValue = () => {
+  //const currentData = trendData[1];
+  //return summaryHandler[summaryType](currentData);
+  //};
   var renderGhostState = function renderGhostState() {
     return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, {
       height: "24px"
     }), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
   };
 
-  var renderToolTip = function renderToolTip() {
-    return _react.default.createElement(ToolTipWrapper, null, tooltip);
+  var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
+    if (currDataValue < prevDataValue) {
+      return 'down';
+    } else if (currDataValue > prevDataValue) {
+      return 'up';
+    }
+
+    return 'neutral';
+  };
+
+  var getAverageValue = function getAverageValue(data) {
+    var filteredData = data && data.filter(function (obj) {
+      return obj.value !== null;
+    });
+    return filteredData && filteredData.reduce(function (acc, currentItem) {
+      return !acc ? currentItem.value : acc += currentItem.value;
+    }, 0) / filteredData.length;
+  };
+
+  var getTotalValue = function getTotalValue(data) {
+    return data && data.reduce(function (acc, currentItem) {
+      return !acc ? currentItem.value : acc += currentItem.value;
+    }, 0);
+  };
+
+  var getValue = function getValue(data) {
+    return summaryType === 'avg' ? getAverageValue(data) : getTotalValue(data);
+  };
+
+  var renderToolTip = function renderToolTip(prevDataValue) {
+    return _react.default.createElement(ToolTipWrapper, null, _react.default.createElement("div", null, "This time last month:"), _react.default.createElement("div", {
+      style: {
+        textAlign: 'left'
+      }
+    }, formatter(prevDataValue)));
   };
 
   if (loading) return renderGhostState();
+  var prevDataValue = getValue(trendData[0]);
+  var currDataValue = getValue(trendData[1]); //TODO: Build out different tooltip options
+
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
       marginRight: '8px'
     }
-  }, formatter(currentValue())), _react.default.createElement(_podiumUi.ToolTip, {
+  }, formatter(currDataValue)), _react.default.createElement(_podiumUi.ToolTip, {
     type: "arrow",
-    tip: renderToolTip(),
+    tip: renderToolTip(prevDataValue),
     position: "top"
   }, _react.default.createElement(_Trend.default, {
-    direction: trendDirection,
+    direction: calculateTrend(prevDataValue, currDataValue),
     preferDown: preferDown
   }))), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
@@ -140,16 +172,14 @@ ReportSummaryTitle.propTypes = {
   title: _propTypes.default.string.isRequired,
   summaryType: _propTypes.default.oneOf(['avg', 'total']),
   dataKeys: _propTypes.default.array.isRequired,
-  trendDirection: _propTypes.default.oneOf(['up', 'down', 'neutral']),
   loading: _propTypes.default.bool,
   preferDown: _propTypes.default.bool,
-  tooltip: _propTypes.default.string.isRequired
+  trendData: _propTypes.default.array.isRequired
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
   formatter: function formatter(value) {
     return value;
   },
-  preferDown: false,
-  trendDirection: 'neutral'
+  preferDown: false
 };

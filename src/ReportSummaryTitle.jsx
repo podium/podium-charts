@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
+//import formatters from './formatters';
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -41,20 +42,21 @@ export default function ReportSummaryTitle({
   trendDirection,
   preferDown,
   loading,
-  tooltip
+  tooltip,
+  trendData
 }) {
-  const summaryHandler = {
-    total: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
-    avg: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
-      dataKeys.length
-  };
+  //const summaryHandler = {
+  //total: periodData =>
+  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
+  //avg: periodData =>
+  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
+  //dataKeys.length
+  //};
 
-  const currentValue = () => {
-    const currentData = data[data.length - 1];
-    return summaryHandler[summaryType](currentData);
-  };
+  //const currentValue = () => {
+  //const currentData = trendData[1];
+  //return summaryHandler[summaryType](currentData);
+  //};
 
   const renderGhostState = () => (
     <SummaryTitleWrapper>
@@ -64,19 +66,63 @@ export default function ReportSummaryTitle({
     </SummaryTitleWrapper>
   );
 
-  const renderToolTip = () => {
-    return <ToolTipWrapper>{tooltip}</ToolTipWrapper>;
+  const calculateTrend = (prevDataValue, currDataValue) => {
+    if (currDataValue < prevDataValue) {
+      return 'down';
+    } else if (currDataValue > prevDataValue) {
+      return 'up';
+    }
+    return 'neutral';
+  };
+
+  const getAverageValue = data => {
+    const filteredData = data && data.filter(obj => obj.value !== null);
+    return (
+      filteredData &&
+      filteredData.reduce((acc, currentItem) => {
+        return !acc ? currentItem.value : (acc += currentItem.value);
+      }, 0) / filteredData.length
+    );
+  };
+
+  const getTotalValue = data => {
+    return (
+      data &&
+      data.reduce((acc, currentItem) => {
+        return !acc ? currentItem.value : (acc += currentItem.value);
+      }, 0)
+    );
+  };
+
+  const getValue = data => {
+    return summaryType === 'avg' ? getAverageValue(data) : getTotalValue(data);
+  };
+
+  const renderToolTip = prevDataValue => {
+    return (
+      <ToolTipWrapper>
+        <div>This time last month:</div>
+        <div style={{ textAlign: 'left' }}>{formatter(prevDataValue)}</div>
+      </ToolTipWrapper>
+    );
   };
 
   if (loading) return renderGhostState();
 
+  const prevDataValue = getValue(trendData[0]);
+  const currDataValue = getValue(trendData[1]);
+
+  //TODO: Build out different tooltip options
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
       <MonthToDate>
-        <span style={{ marginRight: '8px' }}>{formatter(currentValue())}</span>
-        <ToolTip type="arrow" tip={renderToolTip()} position="top">
-          <Trend direction={trendDirection} preferDown={preferDown} />
+        <span style={{ marginRight: '8px' }}>{formatter(currDataValue)}</span>
+        <ToolTip type="arrow" tip={renderToolTip(prevDataValue)} position="top">
+          <Trend
+            direction={calculateTrend(prevDataValue, currDataValue)}
+            preferDown={preferDown}
+          />
         </ToolTip>
       </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
@@ -89,15 +135,13 @@ ReportSummaryTitle.propTypes = {
   title: PropTypes.string.isRequired,
   summaryType: PropTypes.oneOf(['avg', 'total']),
   dataKeys: PropTypes.array.isRequired,
-  trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
-  tooltip: PropTypes.string.isRequired
+  trendData: PropTypes.array.isRequired
 };
 
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
   formatter: value => value,
-  preferDown: false,
-  trendDirection: 'neutral'
+  preferDown: false
 };

@@ -65,6 +65,32 @@ const data = [
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
+const currData = [
+  { value: 605, granularity: '2018-12-01T00:00:00.000Z' },
+  { value: 1000, granularity: '2018-12-02T00:00:00.000Z' },
+  { value: 1283, granularity: '2018-12-03T00:00:00.000Z' },
+  { value: 4838, granularity: '2018-12-04T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-05T00:00:00.000Z' },
+  { value: 492, granularity: '2018-12-06T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-07T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-08T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-09T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-10T00:00:00.000Z' }
+];
+
+const prevData = [
+  { value: 600, granularity: '2018-11-01T00:00:00.000Z' },
+  { value: 223, granularity: '2018-11-02T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-03T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-04T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-05T00:00:00.000Z' },
+  { value: 454, granularity: '2018-11-06T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-07T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-08T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-09T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-10T00:00:00.000Z' }
+];
+
 const weightedAvgData = [
   {
     dogs: { cuteness: 5, amount: 10 },
@@ -212,13 +238,12 @@ storiesOf('Report Card Summary', module)
     <div style={{ width: '270px' }}>
       <ReportCard width="270px">
         <ReportSummaryTitle
-          formatter={formatters.humanizeDuration}
+          formatter={formatters.abbreviateNumber}
           summaryType="total"
           dataKeys={['sms']}
-          title="Median Response Time"
+          title="Inbound Leads"
           data={data}
-          trendDirection="up"
-          tooltip="This is some data!"
+          trendData={[prevData, currData]}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -226,18 +251,35 @@ storiesOf('Report Card Summary', module)
       </ReportCard>
     </div>
   ))
+  .add('Average Trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          summaryType="avg"
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          trendData={[currData, prevData]}
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+
   .add('Prefer Downward Trend', () => (
     <div style={{ width: '270px' }}>
       <ReportCard>
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="total"
+          summaryType="avg"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          trendDirection="down"
           preferDown
-          tooltip="This is some data!"
+          trendData={[prevData, currData]}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -254,8 +296,7 @@ storiesOf('Report Card Summary', module)
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          trendDirection="up"
-          tooltip="This is some data!"
+          trendData={[prevData, currData]}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
