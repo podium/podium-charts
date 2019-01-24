@@ -55,7 +55,7 @@ export const filterChildren = children => {
   return React.Children.toArray(children).filter(child => child);
 };
 
-export const fullDate = (date, monthFormat) => {
+export const fullDate = (date, monthFormat = 'MMMM') => {
   const momentDate = moment.utc(date);
   if (momentDate.isValid()) return momentDate.format(`${monthFormat} D, YYYY`);
   return date;
