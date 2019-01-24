@@ -126,7 +126,7 @@ function Summary(_ref) {
     }) || {};
 
     if (timeRange === 'custom') {
-      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM'));
+      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM', granularity));
     } else {
       return _react.default.createElement(TimeRange, null, selectedOption.label);
     }
