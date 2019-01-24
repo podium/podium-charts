@@ -127,7 +127,9 @@ Summary.propTypes = {
     'weekToDate',
     'yearToDate',
     'yesterday'
-  ])
+  ]),
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string
 };
 
 Summary.defaultProps = {

@@ -89,5 +89,8 @@ function ReportTitle(_ref) {
 ReportTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
+  timeRange: _propTypes.default.string,
+  dateStart: _propTypes.default.string,
+  dateEnd: _propTypes.default.string,
   loading: _propTypes.default.bool
 };

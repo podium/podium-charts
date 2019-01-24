@@ -155,7 +155,9 @@ Summary.propTypes = {
   formatter: _propTypes.default.func,
   loading: _propTypes.default.bool,
   unit: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
+  dateStart: _propTypes.default.string,
+  dateEnd: _propTypes.default.string
 };
 Summary.defaultProps = {
   unit: '',

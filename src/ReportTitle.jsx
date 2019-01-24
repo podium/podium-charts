@@ -58,5 +58,8 @@ export default function ReportTitle({
 ReportTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
+  timeRange: PropTypes.string,
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string,
   loading: PropTypes.bool
 };
