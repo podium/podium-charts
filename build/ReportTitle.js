@@ -77,7 +77,7 @@ function ReportTitle(_ref) {
 
   var renderTimeRange = function renderTimeRange() {
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return "".concat((0, _chartHelpers.fullDate)(dateStart) - (0, _chartHelpers.fullDate)(dateEnd));
+      return "".concat((0, _chartHelpers.fullDate)(dateStart), " - ").concat((0, _chartHelpers.fullDate)(dateEnd));
     } else {
       return (0, _chartHelpers.renderRangeLabel)(data);
     }

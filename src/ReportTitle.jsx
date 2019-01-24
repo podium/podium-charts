@@ -35,7 +35,7 @@ export default function ReportTitle({
 }) {
   const renderTimeRange = () => {
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return `${fullDate(dateStart) - fullDate(dateEnd)}`;
+      return `${fullDate(dateStart)} - ${fullDate(dateEnd)}`;
     } else {
       return renderRangeLabel(data);
     }
