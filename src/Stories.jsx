@@ -257,7 +257,6 @@ storiesOf('Report Card Summary', module)
       <ReportCard width="270px">
         <ReportSummaryTitle
           formatter={formatters.abbreviateNumber}
-          summaryType="total"
           dataKeys={['sms']}
           title="Inbound Leads"
           data={data}
@@ -278,7 +277,6 @@ storiesOf('Report Card Summary', module)
       <ReportCard width="270px">
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="avg"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
@@ -299,7 +297,6 @@ storiesOf('Report Card Summary', module)
       <ReportCard width="270px">
         <ReportSummaryTitle
           formatter={formatters.roundToPlaces(1)}
-          summaryType="weightedAvg"
           dataKeys={['sms']}
           title="Site Rating"
           data={weightedAvgData}
@@ -321,7 +318,6 @@ storiesOf('Report Card Summary', module)
       <ReportCard>
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="avg"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
@@ -343,7 +339,6 @@ storiesOf('Report Card Summary', module)
       <ReportCard loading>
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="total"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}

@@ -35,7 +35,6 @@ const ToolTipWrapper = styled.div`
 export default function ReportSummaryTitle({
   data,
   title,
-  summaryType,
   dataKeys,
   formatter,
   granularity,
@@ -81,7 +80,6 @@ export default function ReportSummaryTitle({
     ? getOverallSummaryMetric(trendData[1], aggregationOptions)
     : 0;
 
-  //TODO: Build out different tooltip options
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
@@ -102,7 +100,6 @@ export default function ReportSummaryTitle({
 ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  summaryType: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
   dataKeys: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
@@ -118,7 +115,6 @@ ReportSummaryTitle.propTypes = {
 };
 
 ReportSummaryTitle.defaultProps = {
-  summaryType: 'total',
   formatter: value => value,
   preferDown: false
 };
