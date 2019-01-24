@@ -392,7 +392,11 @@ var timeData = [{
     dataKeys: ['sms'],
     title: "Inbound Leads",
     data: data,
-    trendData: [prevData, currData]
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    }
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -414,7 +418,11 @@ var timeData = [{
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendData: [currData, prevData]
+    trendData: [currData, prevData],
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['value']
+    }
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -435,7 +443,11 @@ var timeData = [{
     title: "Median Response Time",
     data: data,
     preferDown: true,
-    trendData: [prevData, currData]
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['value']
+    }
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100
@@ -457,7 +469,11 @@ var timeData = [{
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
-    trendData: [prevData, currData]
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    }
   }), _react.default.createElement(_.Chart, {
     data: data,
     height: 100

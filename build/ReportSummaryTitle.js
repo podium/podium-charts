@@ -17,6 +17,8 @@ var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 var _Trend = _interopRequireDefault(require("./Trend"));
 
+var _aggregators = require("./aggregators");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -92,7 +94,8 @@ function ReportSummaryTitle(_ref) {
       preferDown = _ref.preferDown,
       loading = _ref.loading,
       tooltip = _ref.tooltip,
-      trendData = _ref.trendData;
+      trendData = _ref.trendData,
+      aggregationOptions = _ref.aggregationOptions;
 
   var renderGhostState = function renderGhostState() {
     return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, {
@@ -110,25 +113,6 @@ function ReportSummaryTitle(_ref) {
     return 'neutral';
   };
 
-  var getAverageValue = function getAverageValue(data) {
-    var filteredData = data && data.filter(function (obj) {
-      return obj.value !== null;
-    });
-    return filteredData && filteredData.reduce(function (acc, currentItem) {
-      return !acc ? currentItem.value : acc += currentItem.value;
-    }, 0) / filteredData.length;
-  };
-
-  var getTotalValue = function getTotalValue(data) {
-    return data && data.reduce(function (acc, currentItem) {
-      return !acc ? currentItem.value : acc += currentItem.value;
-    }, 0);
-  };
-
-  var getValue = function getValue(data) {
-    return summaryType === 'avg' ? getAverageValue(data) : getTotalValue(data);
-  };
-
   var renderToolTip = function renderToolTip(prevDataValue) {
     return _react.default.createElement(ToolTipWrapper, null, _react.default.createElement("div", null, "This time last month:"), _react.default.createElement("div", {
       style: {
@@ -138,8 +122,8 @@ function ReportSummaryTitle(_ref) {
   };
 
   if (loading) return renderGhostState();
-  var prevDataValue = trendData ? getValue(trendData[0]) : 0;
-  var currDataValue = trendData ? getValue(trendData[1]) : 0; //TODO: Build out different tooltip options
+  var prevDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[0], aggregationOptions) : 0;
+  var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0; //TODO: Build out different tooltip options
 
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
@@ -162,7 +146,8 @@ ReportSummaryTitle.propTypes = {
   dataKeys: _propTypes.default.array.isRequired,
   loading: _propTypes.default.bool,
   preferDown: _propTypes.default.bool,
-  trendData: _propTypes.default.array.isRequired
+  trendData: _propTypes.default.array.isRequired,
+  aggregationOptions: _propTypes.default.object.isRequired
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
