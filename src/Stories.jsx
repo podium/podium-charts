@@ -244,6 +244,10 @@ storiesOf('Report Card Summary', module)
           title="Inbound Leads"
           data={data}
           trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -261,6 +265,10 @@ storiesOf('Report Card Summary', module)
           title="Median Response Time"
           data={data}
           trendData={[currData, prevData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -280,6 +288,10 @@ storiesOf('Report Card Summary', module)
           data={data}
           preferDown
           trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -297,6 +309,10 @@ storiesOf('Report Card Summary', module)
           title="Median Response Time"
           data={data}
           trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />

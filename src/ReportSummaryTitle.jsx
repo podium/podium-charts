@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
+import { getOverallSummaryMetric } from './aggregators';
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -42,7 +43,8 @@ export default function ReportSummaryTitle({
   preferDown,
   loading,
   tooltip,
-  trendData
+  trendData,
+  aggregationOptions
 }) {
   const renderGhostState = () => (
     <SummaryTitleWrapper>
@@ -61,29 +63,6 @@ export default function ReportSummaryTitle({
     return 'neutral';
   };
 
-  const getAverageValue = data => {
-    const filteredData = data && data.filter(obj => obj.value !== null);
-    return (
-      filteredData &&
-      filteredData.reduce((acc, currentItem) => {
-        return !acc ? currentItem.value : (acc += currentItem.value);
-      }, 0) / filteredData.length
-    );
-  };
-
-  const getTotalValue = data => {
-    return (
-      data &&
-      data.reduce((acc, currentItem) => {
-        return !acc ? currentItem.value : (acc += currentItem.value);
-      }, 0)
-    );
-  };
-
-  const getValue = data => {
-    return summaryType === 'avg' ? getAverageValue(data) : getTotalValue(data);
-  };
-
   const renderToolTip = prevDataValue => {
     return (
       <ToolTipWrapper>
@@ -95,8 +74,12 @@ export default function ReportSummaryTitle({
 
   if (loading) return renderGhostState();
 
-  const prevDataValue = trendData ? getValue(trendData[0]) : 0;
-  const currDataValue = trendData ? getValue(trendData[1]) : 0;
+  const prevDataValue = trendData
+    ? getOverallSummaryMetric(trendData[0], aggregationOptions)
+    : 0;
+  const currDataValue = trendData
+    ? getOverallSummaryMetric(trendData[1], aggregationOptions)
+    : 0;
 
   //TODO: Build out different tooltip options
   return (
@@ -123,7 +106,8 @@ ReportSummaryTitle.propTypes = {
   dataKeys: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
-  trendData: PropTypes.array.isRequired
+  trendData: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.object.isRequired
 };
 
 ReportSummaryTitle.defaultProps = {
