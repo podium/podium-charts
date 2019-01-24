@@ -81,6 +81,7 @@ export default function ReportSummaryTitle({
     ? getOverallSummaryMetric(trendData[1], aggregationOptions)
     : 0;
 
+  debugger;
   //TODO: Build out different tooltip options
   return (
     <SummaryTitleWrapper>
@@ -102,12 +103,19 @@ export default function ReportSummaryTitle({
 ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  summaryType: PropTypes.oneOf(['avg', 'total']),
+  summaryType: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
   dataKeys: PropTypes.array.isRequired,
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
   trendData: PropTypes.array.isRequired,
-  aggregationOptions: PropTypes.object.isRequired
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }).isRequired
 };
 
 ReportSummaryTitle.defaultProps = {

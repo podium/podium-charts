@@ -109,6 +109,24 @@ const weightedAvgData = [
   }
 ];
 
+const weightedAvgDataPrev = [
+  {
+    dogs: { cuteness: 4, amount: 9 },
+    cats: { cuteness: 1.5, amount: 14 },
+    date: '2018-06-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 1, amount: 19 },
+    cats: { cuteness: 5, amount: 17 },
+    date: '2018-07-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 2, amount: 6 },
+    cats: { cuteness: 2.5, amount: 7 },
+    date: '2018-08-15T23:43:32'
+  }
+];
+
 const timeData = [
   { waitTime: 150, date: '2018-08-15T23:43:32' },
   { waitTime: 1500, date: '2018-09-15T23:43:32' },
@@ -276,7 +294,28 @@ storiesOf('Report Card Summary', module)
       </ReportCard>
     </div>
   ))
-
+  .add('Weighted Average Trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.roundToPlaces(1)}
+          summaryType="weightedAvg"
+          dataKeys={['sms']}
+          title="Site Rating"
+          data={weightedAvgData}
+          trendData={[weightedAvgData, weightedAvgDataPrev]}
+          aggregationOptions={{
+            type: 'weightedAvg',
+            dataKeys: ['dogs', 'cats'],
+            options: { valueKey: 'cuteness', countKey: 'amount' }
+          }}
+        />
+        <Chart data={weightedAvgData} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
   .add('Prefer Downward Trend', () => (
     <div style={{ width: '270px' }}>
       <ReportCard>

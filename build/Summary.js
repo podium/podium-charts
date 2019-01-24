@@ -134,6 +134,7 @@ function Summary(_ref) {
   if (loading) return renderGhostState();
   var currentData = getLatestSummaryMetric(data, aggregationOptions);
   var entireData = (0, _aggregators.getOverallSummaryMetric)(data, aggregationOptions);
+  debugger;
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
   return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, currentDataFormatted), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, entireDataFormatted));

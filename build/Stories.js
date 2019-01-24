@@ -199,6 +199,37 @@ var weightedAvgData = [{
   },
   date: '2018-11-15T23:43:32'
 }];
+var weightedAvgDataPrev = [{
+  dogs: {
+    cuteness: 4,
+    amount: 9
+  },
+  cats: {
+    cuteness: 1.5,
+    amount: 14
+  },
+  date: '2018-06-15T23:43:32'
+}, {
+  dogs: {
+    cuteness: 1,
+    amount: 19
+  },
+  cats: {
+    cuteness: 5,
+    amount: 17
+  },
+  date: '2018-07-15T23:43:32'
+}, {
+  dogs: {
+    cuteness: 2,
+    amount: 6
+  },
+  cats: {
+    cuteness: 2.5,
+    amount: 7
+  },
+  date: '2018-08-15T23:43:32'
+}];
 var timeData = [{
   waitTime: 150,
   date: '2018-08-15T23:43:32'
@@ -425,6 +456,36 @@ var timeData = [{
     }
   }), _react.default.createElement(_.Chart, {
     data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  }))));
+}).add('Weighted Average Trend', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.roundToPlaces(1),
+    summaryType: "weightedAvg",
+    dataKeys: ['sms'],
+    title: "Site Rating",
+    data: weightedAvgData,
+    trendData: [weightedAvgData, weightedAvgDataPrev],
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: weightedAvgData,
     height: 100
   }, _react.default.createElement(_.SummaryLine, {
     connectNulls: true,

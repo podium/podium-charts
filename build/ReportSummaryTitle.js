@@ -123,7 +123,8 @@ function ReportSummaryTitle(_ref) {
 
   if (loading) return renderGhostState();
   var prevDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[0], aggregationOptions) : 0;
-  var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0; //TODO: Build out different tooltip options
+  var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0;
+  debugger; //TODO: Build out different tooltip options
 
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
@@ -142,12 +143,19 @@ function ReportSummaryTitle(_ref) {
 ReportSummaryTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
-  summaryType: _propTypes.default.oneOf(['avg', 'total']),
+  summaryType: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
   dataKeys: _propTypes.default.array.isRequired,
   loading: _propTypes.default.bool,
   preferDown: _propTypes.default.bool,
   trendData: _propTypes.default.array.isRequired,
-  aggregationOptions: _propTypes.default.object.isRequired
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }).isRequired
 };
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
