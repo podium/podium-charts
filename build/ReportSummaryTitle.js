@@ -17,6 +17,8 @@ var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 var _Trend = _interopRequireDefault(require("./Trend"));
 
+var _aggregators = require("./aggregators");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -84,31 +86,15 @@ var ToolTipWrapper = _styledComponents.default.div(_templateObject5());
 function ReportSummaryTitle(_ref) {
   var data = _ref.data,
       title = _ref.title,
-      summaryType = _ref.summaryType,
       dataKeys = _ref.dataKeys,
       formatter = _ref.formatter,
       granularity = _ref.granularity,
       trendDirection = _ref.trendDirection,
       preferDown = _ref.preferDown,
       loading = _ref.loading,
-      tooltip = _ref.tooltip;
-  var summaryHandler = {
-    total: function total(periodData) {
-      return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
-      }, 0);
-    },
-    avg: function avg(periodData) {
-      return dataKeys.reduce(function (acc, key) {
-        return (periodData[key] || 0) + acc;
-      }, 0) / dataKeys.length;
-    }
-  };
-
-  var currentValue = function currentValue() {
-    var currentData = data[data.length - 1];
-    return summaryHandler[summaryType](currentData);
-  };
+      tooltip = _ref.tooltip,
+      trendData = _ref.trendData,
+      aggregationOptions = _ref.aggregationOptions;
 
   var renderGhostState = function renderGhostState() {
     return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, {
@@ -116,21 +102,37 @@ function ReportSummaryTitle(_ref) {
     }), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
   };
 
-  var renderToolTip = function renderToolTip() {
-    return _react.default.createElement(ToolTipWrapper, null, tooltip);
+  var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
+    if (currDataValue < prevDataValue) {
+      return 'down';
+    } else if (currDataValue > prevDataValue) {
+      return 'up';
+    }
+
+    return 'neutral';
+  };
+
+  var renderToolTip = function renderToolTip(prevDataValue) {
+    return _react.default.createElement(ToolTipWrapper, null, _react.default.createElement("div", null, "This time last month:"), _react.default.createElement("div", {
+      style: {
+        textAlign: 'left'
+      }
+    }, formatter(prevDataValue)));
   };
 
   if (loading) return renderGhostState();
+  var prevDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[0], aggregationOptions) : 0;
+  var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0;
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
       marginRight: '8px'
     }
-  }, formatter(currentValue())), _react.default.createElement(_podiumUi.ToolTip, {
+  }, formatter(currDataValue)), _react.default.createElement(_podiumUi.ToolTip, {
     type: "arrow",
-    tip: renderToolTip(),
+    tip: renderToolTip(prevDataValue),
     position: "top"
   }, _react.default.createElement(_Trend.default, {
-    direction: trendDirection,
+    direction: calculateTrend(prevDataValue, currDataValue),
     preferDown: preferDown
   }))), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
@@ -138,18 +140,22 @@ function ReportSummaryTitle(_ref) {
 ReportSummaryTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
-  summaryType: _propTypes.default.oneOf(['avg', 'total']),
   dataKeys: _propTypes.default.array.isRequired,
-  trendDirection: _propTypes.default.oneOf(['up', 'down', 'neutral']),
   loading: _propTypes.default.bool,
   preferDown: _propTypes.default.bool,
-  tooltip: _propTypes.default.string.isRequired
+  trendData: _propTypes.default.array.isRequired,
+  aggregationOptions: _propTypes.default.shape({
+    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: _propTypes.default.array.isRequired,
+    options: _propTypes.default.shape({
+      valueKey: _propTypes.default.string,
+      countKey: _propTypes.default.string
+    })
+  }).isRequired
 };
 ReportSummaryTitle.defaultProps = {
-  summaryType: 'total',
   formatter: function formatter(value) {
     return value;
   },
-  preferDown: false,
-  trendDirection: 'neutral'
+  preferDown: false
 };

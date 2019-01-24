@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
+import { getOverallSummaryMetric } from './aggregators';
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -34,28 +35,16 @@ const ToolTipWrapper = styled.div`
 export default function ReportSummaryTitle({
   data,
   title,
-  summaryType,
   dataKeys,
   formatter,
   granularity,
   trendDirection,
   preferDown,
   loading,
-  tooltip
+  tooltip,
+  trendData,
+  aggregationOptions
 }) {
-  const summaryHandler = {
-    total: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
-    avg: periodData =>
-      dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
-      dataKeys.length
-  };
-
-  const currentValue = () => {
-    const currentData = data[data.length - 1];
-    return summaryHandler[summaryType](currentData);
-  };
-
   const renderGhostState = () => (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
@@ -64,19 +53,43 @@ export default function ReportSummaryTitle({
     </SummaryTitleWrapper>
   );
 
-  const renderToolTip = () => {
-    return <ToolTipWrapper>{tooltip}</ToolTipWrapper>;
+  const calculateTrend = (prevDataValue, currDataValue) => {
+    if (currDataValue < prevDataValue) {
+      return 'down';
+    } else if (currDataValue > prevDataValue) {
+      return 'up';
+    }
+    return 'neutral';
+  };
+
+  const renderToolTip = prevDataValue => {
+    return (
+      <ToolTipWrapper>
+        <div>This time last month:</div>
+        <div style={{ textAlign: 'left' }}>{formatter(prevDataValue)}</div>
+      </ToolTipWrapper>
+    );
   };
 
   if (loading) return renderGhostState();
+
+  const prevDataValue = trendData
+    ? getOverallSummaryMetric(trendData[0], aggregationOptions)
+    : 0;
+  const currDataValue = trendData
+    ? getOverallSummaryMetric(trendData[1], aggregationOptions)
+    : 0;
 
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
       <MonthToDate>
-        <span style={{ marginRight: '8px' }}>{formatter(currentValue())}</span>
-        <ToolTip type="arrow" tip={renderToolTip()} position="top">
-          <Trend direction={trendDirection} preferDown={preferDown} />
+        <span style={{ marginRight: '8px' }}>{formatter(currDataValue)}</span>
+        <ToolTip type="arrow" tip={renderToolTip(prevDataValue)} position="top">
+          <Trend
+            direction={calculateTrend(prevDataValue, currDataValue)}
+            preferDown={preferDown}
+          />
         </ToolTip>
       </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
@@ -87,17 +100,21 @@ export default function ReportSummaryTitle({
 ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  summaryType: PropTypes.oneOf(['avg', 'total']),
   dataKeys: PropTypes.array.isRequired,
-  trendDirection: PropTypes.oneOf(['up', 'down', 'neutral']),
   loading: PropTypes.bool,
   preferDown: PropTypes.bool,
-  tooltip: PropTypes.string.isRequired
+  trendData: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
+    })
+  }).isRequired
 };
 
 ReportSummaryTitle.defaultProps = {
-  summaryType: 'total',
   formatter: value => value,
-  preferDown: false,
-  trendDirection: 'neutral'
+  preferDown: false
 };
