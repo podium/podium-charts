@@ -95,17 +95,6 @@ function ReportSummaryTitle(_ref) {
       tooltip = _ref.tooltip,
       trendData = _ref.trendData;
 
-  //const summaryHandler = {
-  //total: periodData =>
-  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0),
-  //avg: periodData =>
-  //dataKeys.reduce((acc, key) => (periodData[key] || 0) + acc, 0) /
-  //dataKeys.length
-  //};
-  //const currentValue = () => {
-  //const currentData = trendData[1];
-  //return summaryHandler[summaryType](currentData);
-  //};
   var renderGhostState = function renderGhostState() {
     return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(_Ghost.default, {
       height: "24px"
