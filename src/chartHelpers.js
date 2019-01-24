@@ -61,8 +61,13 @@ const fullDate = (date, monthFormat) => {
   return date;
 };
 
+const capitalize = str => {
+  if (str) return str[0].toUpperCase + str.slice(1);
+  return str;
+};
+
 export const renderRangeLabel = (data, monthFormat = 'MMMM', granularity) => {
-  if (!data || data.length === 0) return `Last ${granularity}`;
+  if (!data || data.length === 0) return `Last ${capitalize(granularity)}`;
   const start = data[0]['date'];
   const end = data[data.length - 1]['date'];
   return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
