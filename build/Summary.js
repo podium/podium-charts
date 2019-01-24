@@ -84,6 +84,7 @@ var SummaryLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.c
 var Space = _styledComponents.default.div(_templateObject5());
 
 var getLatestSummaryMetric = function getLatestSummaryMetric(data, aggregationOptions) {
+  if (!data) return null;
   var currentDataObj = data[data.length - 1];
   return (0, _aggregators.getRowSummaryMetric)(currentDataObj, aggregationOptions);
 };

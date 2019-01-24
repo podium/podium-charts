@@ -741,6 +741,52 @@ var timeData = [{
       color: _colors.default.poppyRed
     }]
   }));
+}).add('null data', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Cats vs Dogs",
+    data: []
+  }), _react.default.createElement(_.Chart, {
+    data: []
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateNumber
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "dogs.cuteness",
+    name: "Dogs",
+    color: _colors.default.poppyRed
+  }), _react.default.createElement(_.Line, {
+    dataKey: "cats.cuteness",
+    name: "Cats",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['cats', 'dogs'],
+        options: {
+          countKey: 'amount',
+          valueKey: 'cuteness'
+        }
+      },
+      summaryTitle: "Animals",
+      formatter: _formatters.default.roundToPlaces(1)
+    })
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: [],
+    aggregationOptions: {
+      type: 'weightedAvg',
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      },
+      dataKeys: ['dogs', 'cats']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }));
 });
 (0, _react2.storiesOf)('colors', module).add('default', function () {
   var colorsMap = Object.keys(_colors.default).map(function (color) {

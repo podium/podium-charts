@@ -29,6 +29,7 @@ function getRowSummaryMetric(dataRow, aggregationOptions) {
 }
 
 function getOverallSummaryMetric(data, aggregationOptions) {
+  if (!data) return null;
   validateAggregationOptions(aggregationOptions);
   var type = aggregationOptions.type,
       dataKeys = aggregationOptions.dataKeys,
