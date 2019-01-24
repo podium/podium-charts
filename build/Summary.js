@@ -124,9 +124,10 @@ function Summary(_ref) {
     var selectedOption = _podiumUi.ReportingDatePicker.options.find(function (option) {
       return option.value === timeRange;
     }) || {};
+    var customRange = (0, _chartHelpers.renderRangeLabel)(data, 'MMM');
 
-    if (timeRange === 'custom') {
-      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM', granularity));
+    if (timeRange === 'custom' && customRange) {
+      return _react.default.createElement(TimeRange, null, customRange);
     } else {
       return _react.default.createElement(TimeRange, null, selectedOption.label);
     }
