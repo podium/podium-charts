@@ -552,7 +552,13 @@ storiesOf('Report Card', module)
 
   .add('null data', () => (
     <ReportCard>
-      <ReportTitle title="Cats vs Dogs" data={[]} />
+      <ReportTitle
+        title="Cats vs Dogs"
+        data={[]}
+        timeRange="custom"
+        dateStart="2018-12-05"
+        dateEnd="2019-01-10"
+      />
       <Chart data={[]}>
         <YAxis tickFormatter={formatters.abbreviateNumber} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -581,7 +587,9 @@ storiesOf('Report Card', module)
           dataKeys: ['dogs', 'cats']
         }}
         granularity="month"
-        timeRange="lastYear"
+        timeRange="custom"
+        dateStart="2018-12-05"
+        dateEnd="2019-01-10"
       />
     </ReportCard>
   ));
