@@ -128,7 +128,7 @@ function Summary(_ref) {
     }) || {};
 
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return _react.default.createElement(TimeRange, null, "".concat((0, _chartHelpers.fullDate)(dateStart), " - ").concat((0, _chartHelpers.fullDate)(dateEnd)));
+      return _react.default.createElement(TimeRange, null, "".concat((0, _chartHelpers.fullDate)(dateStart, 'MMM'), " - ").concat((0, _chartHelpers.fullDate)(dateEnd, 'MMM')));
     } else {
       return _react.default.createElement(TimeRange, null, selectedOption.label);
     }
