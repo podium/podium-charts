@@ -96,6 +96,8 @@ function Summary(_ref) {
       unit = _ref.unit,
       loading = _ref.loading,
       timeRange = _ref.timeRange,
+      dateStart = _ref.dateStart,
+      dateEnd = _ref.dateEnd,
       aggregationOptions = _ref.aggregationOptions;
 
   var titleCase = function titleCase(str) {
@@ -124,10 +126,9 @@ function Summary(_ref) {
     var selectedOption = _podiumUi.ReportingDatePicker.options.find(function (option) {
       return option.value === timeRange;
     }) || {};
-    var customRange = (0, _chartHelpers.renderRangeLabel)(data, 'MMM');
 
-    if (timeRange === 'custom' && customRange) {
-      return _react.default.createElement(TimeRange, null, customRange);
+    if (timeRange === 'custom' && dateStart && dateEnd) {
+      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.fullDate)(dateStart) - (0, _chartHelpers.fullDate)(dateEnd));
     } else {
       return _react.default.createElement(TimeRange, null, selectedOption.label);
     }
