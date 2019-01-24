@@ -65,6 +65,32 @@ const data = [
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
+const currData = [
+  { value: 605, granularity: '2018-12-01T00:00:00.000Z' },
+  { value: 1000, granularity: '2018-12-02T00:00:00.000Z' },
+  { value: 1283, granularity: '2018-12-03T00:00:00.000Z' },
+  { value: 4838, granularity: '2018-12-04T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-05T00:00:00.000Z' },
+  { value: 492, granularity: '2018-12-06T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-07T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-08T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-09T00:00:00.000Z' },
+  { value: 0, granularity: '2018-12-10T00:00:00.000Z' }
+];
+
+const prevData = [
+  { value: 600, granularity: '2018-11-01T00:00:00.000Z' },
+  { value: 223, granularity: '2018-11-02T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-03T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-04T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-05T00:00:00.000Z' },
+  { value: 454, granularity: '2018-11-06T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-07T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-08T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-09T00:00:00.000Z' },
+  { value: 0, granularity: '2018-11-10T00:00:00.000Z' }
+];
+
 const weightedAvgData = [
   {
     dogs: { cuteness: 5, amount: 10 },
@@ -80,6 +106,24 @@ const weightedAvgData = [
     dogs: { cuteness: 1, amount: 5 },
     cats: { cuteness: 0.5, amount: 8 },
     date: '2018-11-15T23:43:32'
+  }
+];
+
+const weightedAvgDataPrev = [
+  {
+    dogs: { cuteness: 4, amount: 9 },
+    cats: { cuteness: 1.5, amount: 14 },
+    date: '2018-06-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 1, amount: 19 },
+    cats: { cuteness: 5, amount: 17 },
+    date: '2018-07-15T23:43:32'
+  },
+  {
+    dogs: { cuteness: 2, amount: 6 },
+    cats: { cuteness: 2.5, amount: 7 },
+    date: '2018-08-15T23:43:32'
   }
 ];
 
@@ -212,15 +256,58 @@ storiesOf('Report Card Summary', module)
     <div style={{ width: '270px' }}>
       <ReportCard width="270px">
         <ReportSummaryTitle
+          formatter={formatters.abbreviateNumber}
+          dataKeys={['sms']}
+          title="Inbound Leads"
+          data={data}
+          trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+  .add('Average Trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="total"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          trendDirection="up"
-          tooltip="This is some data!"
+          trendData={[currData, prevData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+  .add('Weighted Average Trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.roundToPlaces(1)}
+          dataKeys={['sms']}
+          title="Site Rating"
+          data={weightedAvgData}
+          trendData={[weightedAvgData, weightedAvgDataPrev]}
+          aggregationOptions={{
+            type: 'weightedAvg',
+            dataKeys: ['dogs', 'cats'],
+            options: { valueKey: 'cuteness', countKey: 'amount' }
+          }}
+        />
+        <Chart data={weightedAvgData} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -231,13 +318,15 @@ storiesOf('Report Card Summary', module)
       <ReportCard>
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="total"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          trendDirection="down"
           preferDown
-          tooltip="This is some data!"
+          trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
@@ -250,12 +339,14 @@ storiesOf('Report Card Summary', module)
       <ReportCard loading>
         <ReportSummaryTitle
           formatter={formatters.humanizeDuration}
-          summaryType="total"
           dataKeys={['sms']}
           title="Median Response Time"
           data={data}
-          trendDirection="up"
-          tooltip="This is some data!"
+          trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
