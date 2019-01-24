@@ -150,8 +150,8 @@ function ReportSummaryTitle(_ref) {
   };
 
   if (loading) return renderGhostState();
-  var prevDataValue = trendData.length ? getValue(trendData[0]) : 0;
-  var currDataValue = trendData.length ? getValue(trendData[1]) : 0; //TODO: Build out different tooltip options
+  var prevDataValue = trendData ? getValue(trendData[0]) : 0;
+  var currDataValue = trendData ? getValue(trendData[1]) : 0; //TODO: Build out different tooltip options
 
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
@@ -181,6 +181,5 @@ ReportSummaryTitle.defaultProps = {
   formatter: function formatter(value) {
     return value;
   },
-  preferDown: false,
-  trendData: []
+  preferDown: false
 };

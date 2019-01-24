@@ -109,8 +109,8 @@ export default function ReportSummaryTitle({
 
   if (loading) return renderGhostState();
 
-  const prevDataValue = trendData.length ? getValue(trendData[0]) : 0;
-  const currDataValue = trendData.length ? getValue(trendData[1]) : 0;
+  const prevDataValue = trendData ? getValue(trendData[0]) : 0;
+  const currDataValue = trendData ? getValue(trendData[1]) : 0;
 
   //TODO: Build out different tooltip options
   return (
@@ -143,6 +143,5 @@ ReportSummaryTitle.propTypes = {
 ReportSummaryTitle.defaultProps = {
   summaryType: 'total',
   formatter: value => value,
-  preferDown: false,
-  trendData: []
+  preferDown: false
 };
