@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
-import { renderRangeLabel, fullDate } from './chartHelpers';
+import { fullDate } from './chartHelpers';
 import { getRowSummaryMetric, getOverallSummaryMetric } from './aggregators';
 
 const SummaryWrapper = styled.div``;
@@ -71,7 +71,9 @@ export default function Summary({
       {};
 
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return <TimeRange>{`${fullDate(dateStart)} - ${fullDate(dateEnd)}`}</TimeRange>;
+      return (
+        <TimeRange>{`${fullDate(dateStart)} - ${fullDate(dateEnd)}`}</TimeRange>
+      );
     } else {
       return <TimeRange>{selectedOption.label}</TimeRange>;
     }
