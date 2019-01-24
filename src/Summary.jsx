@@ -78,7 +78,6 @@ export default function Summary({
   const currentData = getLatestSummaryMetric(data, aggregationOptions);
   const entireData = getOverallSummaryMetric(data, aggregationOptions);
 
-  debugger;
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
   const entireDataFormatted =

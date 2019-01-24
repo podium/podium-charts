@@ -81,7 +81,6 @@ export default function ReportSummaryTitle({
     ? getOverallSummaryMetric(trendData[1], aggregationOptions)
     : 0;
 
-  debugger;
   //TODO: Build out different tooltip options
   return (
     <SummaryTitleWrapper>
