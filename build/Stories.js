@@ -419,7 +419,6 @@ var timeData = [{
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.abbreviateNumber,
-    summaryType: "total",
     dataKeys: ['sms'],
     title: "Inbound Leads",
     data: data,
@@ -445,7 +444,6 @@ var timeData = [{
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
-    summaryType: "avg",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
@@ -471,7 +469,6 @@ var timeData = [{
     width: "270px"
   }, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.roundToPlaces(1),
-    summaryType: "weightedAvg",
     dataKeys: ['sms'],
     title: "Site Rating",
     data: weightedAvgData,
@@ -499,7 +496,6 @@ var timeData = [{
     }
   }, _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
-    summaryType: "avg",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
@@ -526,7 +522,6 @@ var timeData = [{
     loading: true
   }, _react.default.createElement(_.ReportSummaryTitle, {
     formatter: _formatters.default.humanizeDuration,
-    summaryType: "total",
     dataKeys: ['sms'],
     title: "Median Response Time",
     data: data,
