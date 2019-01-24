@@ -243,7 +243,6 @@ storiesOf('Report Card Summary', module)
           dataKeys={['sms']}
           title="Inbound Leads"
           data={data}
-          trendData={[prevData, currData]}
         />
         <Chart data={data} height={100}>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
