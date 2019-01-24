@@ -71,7 +71,7 @@ export default function Summary({
       {};
 
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return <TimeRange>{fullDate(dateStart) - fullDate(dateEnd)}</TimeRange>;
+      return <TimeRange>{`${fullDate(dateStart)} - ${fullDate(dateEnd)}`}</TimeRange>;
     } else {
       return <TimeRange>{selectedOption.label}</TimeRange>;
     }
