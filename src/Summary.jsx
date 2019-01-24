@@ -67,10 +67,10 @@ export default function Summary({
     const selectedOption =
       ReportingDatePicker.options.find(option => option.value === timeRange) ||
       {};
-    if (timeRange === 'custom') {
-      return (
-        <TimeRange>{renderRangeLabel(data, 'MMM', granularity)}</TimeRange>
-      );
+
+    const customRange = renderRangeLabel(data, 'MMM');
+    if (timeRange === 'custom' && customRange) {
+      return <TimeRange>{customRange}</TimeRange>;
     } else {
       return <TimeRange>{selectedOption.label}</TimeRange>;
     }
