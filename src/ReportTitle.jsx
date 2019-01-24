@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
-import { renderRangeLabel } from './chartHelpers';
+import { renderRangeLabel, fullDate } from './chartHelpers';
 
 const TitleWrapper = styled.div`
   margin-bottom: 16px;
@@ -25,7 +25,22 @@ const DateRangePlaceholder = styled.span`
   color: white;
 `;
 
-export default function ReportTitle({ data, title, loading }) {
+export default function ReportTitle({
+  data,
+  title,
+  loading,
+  timeRange,
+  dateStart,
+  dateEnd
+}) {
+  const renderTimeRange = () => {
+    if (timeRange === 'custom' && dateStart && dateEnd) {
+      return `${fullDate(dateStart) - fullDate(dateEnd)}`;
+    } else {
+      return renderRangeLabel(data);
+    }
+  };
+
   return (
     <TitleWrapper>
       <Title>{title}</Title>
@@ -33,7 +48,7 @@ export default function ReportTitle({ data, title, loading }) {
         {loading ? (
           <DateRangePlaceholder>Date Range</DateRangePlaceholder>
         ) : (
-          renderRangeLabel(data)
+          renderTimeRange()
         )}
       </RangeLabel>
     </TitleWrapper>
