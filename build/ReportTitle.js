@@ -70,12 +70,27 @@ var DateRangePlaceholder = _styledComponents.default.span(_templateObject4());
 function ReportTitle(_ref) {
   var data = _ref.data,
       title = _ref.title,
-      loading = _ref.loading;
-  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : (0, _chartHelpers.renderRangeLabel)(data)));
+      loading = _ref.loading,
+      timeRange = _ref.timeRange,
+      dateStart = _ref.dateStart,
+      dateEnd = _ref.dateEnd;
+
+  var renderTimeRange = function renderTimeRange() {
+    if (timeRange === 'custom' && dateStart && dateEnd) {
+      return "".concat((0, _chartHelpers.fullDate)(dateStart), " - ").concat((0, _chartHelpers.fullDate)(dateEnd));
+    } else {
+      return (0, _chartHelpers.renderRangeLabel)(data);
+    }
+  };
+
+  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : renderTimeRange()));
 }
 
 ReportTitle.propTypes = {
   data: _propTypes.default.array.isRequired,
   title: _propTypes.default.string.isRequired,
+  timeRange: _propTypes.default.string,
+  dateStart: _propTypes.default.string,
+  dateEnd: _propTypes.default.string,
   loading: _propTypes.default.bool
 };

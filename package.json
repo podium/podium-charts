@@ -1,6 +1,6 @@
 {
   "name": "podium-charts",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A collection of Podium chart components",
   "main": "build/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties"
+    "build": "rm -rf build/ && babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties"
   },
   "husky": {
     "hooks": {

@@ -119,7 +119,10 @@ var _initialiseProps = function _initialiseProps() {
   var _this2 = this;
 
   this.renderChildren = function (mapping) {
-    var children = _this2.props.children;
+    var _this2$props = _this2.props,
+        children = _this2$props.children,
+        data = _this2$props.data;
+    if (!data || data.length === 0) return null;
     var filteredChildren = (0, _chartHelpers.filterChildren)(children);
     return _react.default.Children.map(filteredChildren, function (child) {
       var renderComponent = mapping.get(child.type);

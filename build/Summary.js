@@ -84,6 +84,7 @@ var SummaryLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.c
 var Space = _styledComponents.default.div(_templateObject5());
 
 var getLatestSummaryMetric = function getLatestSummaryMetric(data, aggregationOptions) {
+  if (!data) return null;
   var currentDataObj = data[data.length - 1];
   return (0, _aggregators.getRowSummaryMetric)(currentDataObj, aggregationOptions);
 };
@@ -95,6 +96,8 @@ function Summary(_ref) {
       unit = _ref.unit,
       loading = _ref.loading,
       timeRange = _ref.timeRange,
+      dateStart = _ref.dateStart,
+      dateEnd = _ref.dateEnd,
       aggregationOptions = _ref.aggregationOptions;
 
   var titleCase = function titleCase(str) {
@@ -124,8 +127,8 @@ function Summary(_ref) {
       return option.value === timeRange;
     }) || {};
 
-    if (timeRange === 'custom') {
-      return _react.default.createElement(TimeRange, null, (0, _chartHelpers.renderRangeLabel)(data, 'MMM'));
+    if (timeRange === 'custom' && dateStart && dateEnd) {
+      return _react.default.createElement(TimeRange, null, "".concat((0, _chartHelpers.fullDate)(dateStart, 'MMM'), " - ").concat((0, _chartHelpers.fullDate)(dateEnd, 'MMM')));
     } else {
       return _react.default.createElement(TimeRange, null, selectedOption.label);
     }
@@ -152,7 +155,9 @@ Summary.propTypes = {
   formatter: _propTypes.default.func,
   loading: _propTypes.default.bool,
   unit: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday'])
+  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
+  dateStart: _propTypes.default.string,
+  dateEnd: _propTypes.default.string
 };
 Summary.defaultProps = {
   unit: '',

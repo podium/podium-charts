@@ -639,6 +639,50 @@ storiesOf('Report Card', module)
         ]}
       />
     </ReportCard>
+  ))
+
+  .add('null data', () => (
+    <ReportCard>
+      <ReportTitle
+        title="Cats vs Dogs"
+        data={[]}
+        timeRange="custom"
+        dateStart="2018-12-05"
+        dateEnd="2019-01-10"
+      />
+      <Chart data={[]}>
+        <YAxis tickFormatter={formatters.abbreviateNumber} />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Bar dataKey="dogs.cuteness" name="Dogs" color={colors.poppyRed} />
+        <Bar dataKey="cats.cuteness" name="Cats" color={colors.cobaltBlue} />
+        <Tooltip
+          content={
+            <TooltipBody
+              aggregationOptions={{
+                type: 'weightedAvg',
+                dataKeys: ['cats', 'dogs'],
+                options: { countKey: 'amount', valueKey: 'cuteness' }
+              }}
+              summaryTitle="Animals"
+              formatter={formatters.roundToPlaces(1)}
+            />
+          }
+        />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={[]}
+        aggregationOptions={{
+          type: 'weightedAvg',
+          options: { valueKey: 'cuteness', countKey: 'amount' },
+          dataKeys: ['dogs', 'cats']
+        }}
+        granularity="month"
+        timeRange="custom"
+        dateStart="2018-12-05"
+        dateEnd="2019-01-10"
+      />
+    </ReportCard>
   ));
 
 storiesOf('colors', module).add('default', () => {

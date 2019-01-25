@@ -43,7 +43,9 @@ export default class Chart extends React.Component {
   }
 
   renderChildren = mapping => {
-    const { children } = this.props;
+    const { children, data } = this.props;
+    if (!data || data.length === 0) return null;
+
     const filteredChildren = filterChildren(children);
     return React.Children.map(filteredChildren, child => {
       const renderComponent = mapping.get(child.type);

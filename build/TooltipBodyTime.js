@@ -169,10 +169,10 @@ function TooltipBody(props) {
         aggregationOptions = props.aggregationOptions;
     var seconds = null; // If there is only one data key then display that and don't do any aggs
 
-    if (payload.length === 1) {
+    if (payload && payload.length === 1) {
       seconds = (0, _lodash.default)(payload, '[0].value');
     } else if (aggregationOptions) {
-      var rowData = (0, _lodash.default)(payload[0], 'payload');
+      var rowData = (0, _lodash.default)(payload, '[0].payload');
       seconds = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions);
     }
 
@@ -198,7 +198,7 @@ function TooltipBody(props) {
   };
 
   var summary = renderSummary();
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), summary && _react.default.createElement(Summary, null, summary)), props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), summary && _react.default.createElement(Summary, null, summary)), props.payload && props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {

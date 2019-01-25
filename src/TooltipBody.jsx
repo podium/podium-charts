@@ -80,10 +80,10 @@ export default function TooltipBody(props) {
     let result = null;
 
     // If there is only one data key then display that and don't do any aggs
-    if (payload.length === 1) {
+    if (payload && payload.length === 1) {
       result = get(payload, '[0].value');
     } else if (aggregationOptions) {
-      const rowData = get(payload[0], 'payload');
+      const rowData = get(payload, '[0].payload');
       result = getRowSummaryMetric(rowData, aggregationOptions);
     }
 
@@ -115,7 +115,9 @@ export default function TooltipBody(props) {
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
         {summary && <Summary>{summary}</Summary>}
       </Header>
-      {props.payload.length > 1 && <Body>{renderToolTipLegend()}</Body>}
+      {props.payload && props.payload.length > 1 && (
+        <Body>{renderToolTipLegend()}</Body>
+      )}
     </TooltipBodyWrapper>
   );
 }

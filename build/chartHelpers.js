@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.detectChartType = detectChartType;
 exports.getStackPositions = getStackPositions;
 exports.singleLineChart = singleLineChart;
-exports.renderRangeLabel = exports.filterChildren = void 0;
+exports.renderRangeLabel = exports.fullDate = exports.filterChildren = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -83,15 +83,20 @@ var filterChildren = function filterChildren(children) {
 
 exports.filterChildren = filterChildren;
 
-var fullDate = function fullDate(date, monthFormat) {
+var fullDate = function fullDate(date) {
+  var monthFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MMMM';
+
   var momentDate = _moment.default.utc(date);
 
   if (momentDate.isValid()) return momentDate.format("".concat(monthFormat, " D, YYYY"));
   return date;
 };
 
+exports.fullDate = fullDate;
+
 var renderRangeLabel = function renderRangeLabel(data) {
   var monthFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MMMM';
+  if (!data || data.length === 0) return null;
   var start = data[0]['date'];
   var end = data[data.length - 1]['date'];
   return "".concat(fullDate(start, monthFormat), " - ").concat(fullDate(end, monthFormat));

@@ -245,6 +245,11 @@ describe('getRowSummaryMetric', () => {
 
 describe('getOverallSummaryMetric', () => {
   describe('total', () => {
+    test('should return null when given null data', () => {
+      const result = getOverallSummaryMetric(null);
+      expect(result).toEqual(null);
+    });
+
     test('should sum data from every month', () => {
       const aggregationOptions = {
         type: 'total',

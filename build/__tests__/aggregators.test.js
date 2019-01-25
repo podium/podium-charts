@@ -292,6 +292,10 @@ describe('getRowSummaryMetric', function () {
 });
 describe('getOverallSummaryMetric', function () {
   describe('total', function () {
+    test('should return null when given null data', function () {
+      var result = (0, _aggregators.getOverallSummaryMetric)(null);
+      expect(result).toEqual(null);
+    });
     test('should sum data from every month', function () {
       var aggregationOptions = {
         type: 'total',

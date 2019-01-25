@@ -55,13 +55,14 @@ export const filterChildren = children => {
   return React.Children.toArray(children).filter(child => child);
 };
 
-const fullDate = (date, monthFormat) => {
+export const fullDate = (date, monthFormat = 'MMMM') => {
   const momentDate = moment.utc(date);
   if (momentDate.isValid()) return momentDate.format(`${monthFormat} D, YYYY`);
   return date;
 };
 
 export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
+  if (!data || data.length === 0) return null;
   const start = data[0]['date'];
   const end = data[data.length - 1]['date'];
   return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
