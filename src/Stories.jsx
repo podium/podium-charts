@@ -308,7 +308,11 @@ storiesOf('Report Card Summary', module)
           }}
         />
         <Chart data={weightedAvgData} height={100}>
-          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          <SummaryLine
+            connectNulls
+            dataKey="dogs.cuteness"
+            color={colors.cobaltBlue}
+          />
         </Chart>
       </ReportCard>
     </div>

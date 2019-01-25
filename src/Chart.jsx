@@ -33,6 +33,13 @@ import GhostChart from './Ghost/GhostChart';
 
 const GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
+const determineDataKey = dataKey => {
+  if (typeof dataKey !== 'function') {
+    return data => get(data, dataKey.split('.'), null);
+  }
+  return dataKey;
+};
+
 export default class Chart extends React.Component {
   constructor(props) {
     super(props);
@@ -53,16 +60,18 @@ export default class Chart extends React.Component {
     });
   };
 
-  renderXAxis = ({ dataKey, ...props }) => (
-    <RechartsXAxis
-      axisLine={false}
-      tickLine={false}
-      stroke={colors.lightSteel}
-      fontFamily={GRAPHIK}
-      dataKey={data => get(data, dataKey.split('.'), null)}
-      {...props}
-    />
-  );
+  renderXAxis = ({ dataKey, ...props }) => {
+    return (
+      <RechartsXAxis
+        axisLine={false}
+        tickLine={false}
+        stroke={colors.lightSteel}
+        fontFamily={GRAPHIK}
+        dataKey={determineDataKey(dataKey)}
+        {...props}
+      />
+    );
+  };
 
   renderYAxis = props => (
     <RechartsYAxis
@@ -86,7 +95,7 @@ export default class Chart extends React.Component {
         />
       }
       fill={props.color}
-      dataKey={data => get(data, dataKey.split('.'), null)}
+      dataKey={determineDataKey(dataKey)}
       {...props}
     />
   );
@@ -98,7 +107,7 @@ export default class Chart extends React.Component {
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
-      dataKey={data => get(data, dataKey.split('.'), null)}
+      dataKey={determineDataKey(dataKey)}
       dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
       {...props}
     />
@@ -111,7 +120,7 @@ export default class Chart extends React.Component {
       isAnimationActive={true}
       strokeWidth={2}
       activeDot={false}
-      dataKey={data => get(data, dataKey.split('.'), null)}
+      dataKey={determineDataKey(dataKey)}
       dot={data => {
         if (data.index === this.props.data.length - 1) {
           return (
