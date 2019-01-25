@@ -486,7 +486,7 @@ var timeData = [{
     height: 100
   }, _react.default.createElement(_.SummaryLine, {
     connectNulls: true,
-    dataKey: "sms",
+    dataKey: "dogs.cuteness",
     color: _colors.default.cobaltBlue
   }))));
 }).add('Prefer Downward Trend', function () {
