@@ -653,8 +653,8 @@ storiesOf('Report Card', module)
       <Chart data={[]}>
         <YAxis tickFormatter={formatters.abbreviateNumber} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.poppyRed} />
-        <Line dataKey="cats.cuteness" name="Cats" color={colors.cobaltBlue} />
+        <Bar dataKey="dogs.cuteness" name="Dogs" color={colors.poppyRed} />
+        <Bar dataKey="cats.cuteness" name="Cats" color={colors.cobaltBlue} />
         <Tooltip
           content={
             <TooltipBody

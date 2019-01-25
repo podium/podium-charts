@@ -908,11 +908,11 @@ var timeData = [{
   }), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+  }), _react.default.createElement(_.Bar, {
     dataKey: "dogs.cuteness",
     name: "Dogs",
     color: _colors.default.poppyRed
-  }), _react.default.createElement(_.Line, {
+  }), _react.default.createElement(_.Bar, {
     dataKey: "cats.cuteness",
     name: "Cats",
     color: _colors.default.cobaltBlue
