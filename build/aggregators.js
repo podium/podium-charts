@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getRowSummaryMetric = getRowSummaryMetric;
 exports.getOverallSummaryMetric = getOverallSummaryMetric;
+exports.default = exports.datasetWeightedAvg = exports.datasetAvg = exports.dataSetTotal = exports.rowWeightedAvg = exports.rowAvg = exports.rowTotal = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash.get"));
 
@@ -71,6 +72,8 @@ var rowTotal = function rowTotal(row, dataKeys) {
   return sum;
 };
 
+exports.rowTotal = rowTotal;
+
 var rowAvg = function rowAvg(row, dataKeys) {
   var sum = 0;
   var usedKeys = 0;
@@ -105,6 +108,8 @@ var rowAvg = function rowAvg(row, dataKeys) {
 
   return usedKeys === 0 ? null : sum / usedKeys;
 };
+
+exports.rowAvg = rowAvg;
 
 var isWeightedAvgOptions = function isWeightedAvgOptions(options) {
   return options && options.valueKey && options.countKey;
@@ -152,6 +157,7 @@ var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
   return totalCount === 0 ? null : sum / totalCount;
 };
 
+exports.rowWeightedAvg = rowWeightedAvg;
 var rowSummaryFunctions = {
   total: rowTotal,
   avg: rowAvg,
@@ -163,6 +169,8 @@ var dataSetTotal = function dataSetTotal(data, dataKeys) {
     return rowSummaryFunctions.total(row, dataKeys) + acc;
   }, 0);
 };
+
+exports.dataSetTotal = dataSetTotal;
 
 var datasetAvg = function datasetAvg(data, dataKeys) {
   var sum = 0;
@@ -220,6 +228,8 @@ var datasetAvg = function datasetAvg(data, dataKeys) {
 
   return usedKeys === 0 ? null : sum / usedKeys;
 };
+
+exports.datasetAvg = datasetAvg;
 
 var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
   if (!isWeightedAvgOptions(options)) {
@@ -285,6 +295,7 @@ var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
   return totalCount === 0 ? null : sum / totalCount;
 };
 
+exports.datasetWeightedAvg = datasetWeightedAvg;
 var datasetSummaryFunctions = {
   total: dataSetTotal,
   avg: datasetAvg,
@@ -294,3 +305,16 @@ var datasetSummaryFunctions = {
 function isNumeric(value) {
   return value !== undefined && value !== null;
 }
+
+var _default = {
+  getRowSummaryMetric: getRowSummaryMetric,
+  getOverallSummaryMetric: getOverallSummaryMetric,
+  validateAggregationOptions: validateAggregationOptions,
+  dataSetTotal: dataSetTotal,
+  datasetAvg: datasetAvg,
+  datasetWeightedAvg: datasetWeightedAvg,
+  rowTotal: rowTotal,
+  rowAvg: rowAvg,
+  rowWeightedAvg: rowWeightedAvg
+};
+exports.default = _default;
