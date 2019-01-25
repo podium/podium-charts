@@ -28,7 +28,7 @@ export function getOverallSummaryMetric(data, aggregationOptions) {
 
 // Helpers
 
-const rowTotal = (row, dataKeys) => {
+export const rowTotal = (row, dataKeys) => {
   let sum = 0;
   for (let key of dataKeys) {
     const value = get(row, key, 0);
@@ -39,7 +39,7 @@ const rowTotal = (row, dataKeys) => {
   return sum;
 };
 
-const rowAvg = (row, dataKeys) => {
+export const rowAvg = (row, dataKeys) => {
   let sum = 0;
   let usedKeys = 0;
   for (let key of dataKeys) {
@@ -56,7 +56,7 @@ const isWeightedAvgOptions = options => {
   return options && options.valueKey && options.countKey;
 };
 
-const rowWeightedAvg = (row, dataKeys, options) => {
+export const rowWeightedAvg = (row, dataKeys, options) => {
   if (!isWeightedAvgOptions(options)) {
     throw new TypeError('Malformed weighted average options');
   }
@@ -80,12 +80,12 @@ const rowSummaryFunctions = {
   weightedAvg: rowWeightedAvg
 };
 
-const dataSetTotal = (data, dataKeys) =>
+export const dataSetTotal = (data, dataKeys) =>
   data.reduce((acc, row) => {
     return rowSummaryFunctions.total(row, dataKeys) + acc;
   }, 0);
 
-const datasetAvg = (data, dataKeys) => {
+export const datasetAvg = (data, dataKeys) => {
   let sum = 0;
   let usedKeys = 0;
   for (let row of data) {
@@ -100,7 +100,7 @@ const datasetAvg = (data, dataKeys) => {
   return usedKeys === 0 ? null : sum / usedKeys;
 };
 
-const datasetWeightedAvg = (data, dataKeys, options) => {
+export const datasetWeightedAvg = (data, dataKeys, options) => {
   if (!isWeightedAvgOptions(options)) {
     throw new TypeError('Malformed weighted average options');
   }
@@ -129,3 +129,15 @@ const datasetSummaryFunctions = {
 function isNumeric(value) {
   return value !== undefined && value !== null;
 }
+
+export default {
+  getRowSummaryMetric,
+  getOverallSummaryMetric,
+  validateAggregationOptions,
+  dataSetTotal,
+  datasetAvg,
+  datasetWeightedAvg,
+  rowTotal,
+  rowAvg,
+  rowWeightedAvg
+};

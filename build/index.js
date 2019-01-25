@@ -15,6 +15,7 @@ var _exportNames = {
   Granularity: true,
   formatters: true,
   transformer: true,
+  aggregators: true,
   colors: true
 };
 Object.defineProperty(exports, "Chart", {
@@ -83,6 +84,12 @@ Object.defineProperty(exports, "transformer", {
     return _transformer.default;
   }
 });
+Object.defineProperty(exports, "aggregators", {
+  enumerable: true,
+  get: function get() {
+    return _aggregators.default;
+  }
+});
 Object.defineProperty(exports, "colors", {
   enumerable: true,
   get: function get() {
@@ -124,6 +131,8 @@ Object.keys(_skeletonComponents).forEach(function (key) {
 var _formatters = _interopRequireDefault(require("./formatters"));
 
 var _transformer = _interopRequireDefault(require("./transformer"));
+
+var _aggregators = _interopRequireDefault(require("./aggregators"));
 
 var _colors = _interopRequireDefault(require("./colors"));
 
