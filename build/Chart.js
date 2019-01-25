@@ -57,6 +57,16 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 var GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
+var determineDataKey = function determineDataKey(dataKey) {
+  if (typeof dataKey !== 'function') {
+    return function (data) {
+      return (0, _lodash.default)(data, dataKey.split('.'), null);
+    };
+  }
+
+  return dataKey;
+};
+
 var Chart =
 /*#__PURE__*/
 function (_React$Component) {
@@ -131,7 +141,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderXAxis = function (_ref) {
-    var _dataKey = _ref.dataKey,
+    var dataKey = _ref.dataKey,
         props = _objectWithoutProperties(_ref, ["dataKey"]);
 
     return _react.default.createElement(_recharts.XAxis, _extends({
@@ -139,9 +149,7 @@ var _initialiseProps = function _initialiseProps() {
       tickLine: false,
       stroke: _podiumUi.colors.lightSteel,
       fontFamily: GRAPHIK,
-      dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey.split('.'), null);
-      }
+      dataKey: determineDataKey(dataKey)
     }, props));
   };
 
@@ -157,23 +165,21 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderBar = function (_ref2) {
-    var _dataKey2 = _ref2.dataKey,
+    var dataKey = _ref2.dataKey,
         props = _objectWithoutProperties(_ref2, ["dataKey"]);
 
     return _react.default.createElement(_recharts.Bar, _extends({
       shape: _react.default.createElement(_Rectangle.default, _extends({}, props, {
-        dataKey: _dataKey2,
+        dataKey: dataKey,
         stackPosition: _this2.stackPosition
       })),
       fill: props.color,
-      dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey2.split('.'), null);
-      }
+      dataKey: determineDataKey(dataKey)
     }, props));
   };
 
   this.renderLine = function (_ref3) {
-    var _dataKey3 = _ref3.dataKey,
+    var dataKey = _ref3.dataKey,
         props = _objectWithoutProperties(_ref3, ["dataKey"]);
 
     return _react.default.createElement(_recharts.Line, _extends({
@@ -182,9 +188,7 @@ var _initialiseProps = function _initialiseProps() {
       isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
-      dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey3.split('.'), null);
-      },
+      dataKey: determineDataKey(dataKey),
       dot: {
         r: 2.5,
         strokeWidth: 0,
@@ -194,7 +198,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderSummaryLine = function (_ref4) {
-    var _dataKey4 = _ref4.dataKey,
+    var dataKey = _ref4.dataKey,
         props = _objectWithoutProperties(_ref4, ["dataKey"]);
 
     return _react.default.createElement(_recharts.Line, _extends({
@@ -203,9 +207,7 @@ var _initialiseProps = function _initialiseProps() {
       isAnimationActive: true,
       strokeWidth: 2,
       activeDot: false,
-      dataKey: function dataKey(data) {
-        return (0, _lodash.default)(data, _dataKey4.split('.'), null);
-      },
+      dataKey: determineDataKey(dataKey),
       dot: function dot(data) {
         if (data.index === _this2.props.data.length - 1) {
           return _react.default.createElement(_recharts.Dot, {
