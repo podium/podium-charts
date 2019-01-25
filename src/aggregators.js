@@ -138,5 +138,6 @@ export default {
   datasetAvg,
   datasetWeightedAvg,
   rowTotal,
-  rowAvg
+  rowAvg,
+  rowWeightedAvg
 };
