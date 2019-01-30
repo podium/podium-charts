@@ -73,7 +73,7 @@ function abbreviateNumber(value) {
 }
 
 function abbreviateTime(seconds) {
-  var minutes = seconds / 60;
+  var minutes = Math.round(seconds / 60);
   return abbreviateNumber(minutes);
 }
 
