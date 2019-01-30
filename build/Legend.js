@@ -112,7 +112,7 @@ function Legend(_ref) {
 
   var renderLegendItems = function renderLegendItems() {
     var aggMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return displayOptions.map(function (legendItem) {
+    return displayOptions.reverse().map(function (legendItem) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name;

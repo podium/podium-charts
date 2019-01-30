@@ -110,7 +110,7 @@ function (_React$Component) {
           top: 20,
           right: 20,
           bottom: 20,
-          left: 20
+          left: 25
         },
         barCategoryGap: "30%"
       }, _react.default.createElement(_recharts.CartesianGrid, {
@@ -169,6 +169,7 @@ var _initialiseProps = function _initialiseProps() {
         props = _objectWithoutProperties(_ref2, ["dataKey"]);
 
     return _react.default.createElement(_recharts.Bar, _extends({
+      maxBarSize: 100,
       shape: _react.default.createElement(_Rectangle.default, _extends({}, props, {
         dataKey: dataKey,
         stackPosition: _this2.stackPosition

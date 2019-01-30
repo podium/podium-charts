@@ -93,7 +93,8 @@ export default function TooltipBody(props) {
   };
 
   const renderToolTipLegend = () => {
-    return props.payload.map(dataField => {
+    const { payload, formatter } = props;
+    return payload.reverse().map(dataField => {
       const { value, color, name } = dataField;
       return (
         <TooltipData key={name}>
@@ -101,7 +102,7 @@ export default function TooltipBody(props) {
             <ColorLabel fill={color} />
             <div>{name ? name : ''}</div>
           </Label>
-          <LabelValue>{value}</LabelValue>
+          <LabelValue>{formatter(value)}</LabelValue>
         </TooltipData>
       );
     });
@@ -136,5 +137,6 @@ TooltipBody.propTypes = {
 };
 
 TooltipBody.defaultProps = {
-  granularity: 'month'
+  granularity: 'month',
+  formatter: value => value
 };

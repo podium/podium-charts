@@ -169,7 +169,9 @@ function TooltipBody(props) {
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
-    return props.payload.map(function (dataField) {
+    var payload = props.payload,
+        formatter = props.formatter;
+    return payload.reverse().map(function (dataField) {
       var value = dataField.value,
           color = dataField.color,
           name = dataField.name;
@@ -177,7 +179,7 @@ function TooltipBody(props) {
         key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, value));
+      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, formatter(value)));
     });
   };
 
@@ -198,5 +200,8 @@ TooltipBody.propTypes = {
   granularity: _propTypes.default.string
 };
 TooltipBody.defaultProps = {
-  granularity: 'month'
+  granularity: 'month',
+  formatter: function formatter(value) {
+    return value;
+  }
 };

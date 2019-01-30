@@ -26,7 +26,7 @@ export const roundToPlaces = places => input => {
 };
 
 export function secondsToMinutes(int) {
-  return Math.round(int / 60);
+  return commatize(Math.round(int / 60));
 }
 
 export function capitalize(string) {

@@ -102,7 +102,9 @@ export default function TooltipBody(props) {
     const minutes = seconds / 60;
     return (
       <div>
-        {minutes < 1 ? `${seconds} Seconds` : `${Math.round(minutes)} Minutes`}
+        {minutes < 1
+          ? `${seconds} Seconds`
+          : `${formatters.commatize(Math.round(minutes))} Minutes`}
         {minutes > 60 && (
           <Humanized>{`${formatters.humanizeDuration(seconds)}`}</Humanized>
         )}

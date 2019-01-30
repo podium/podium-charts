@@ -87,6 +87,7 @@ export default class Chart extends React.Component {
 
   renderBar = ({ dataKey, ...props }) => (
     <RechartsBar
+      maxBarSize={100}
       shape={
         <Rectangle
           {...props}
@@ -184,7 +185,7 @@ export default class Chart extends React.Component {
         <ResponsiveContainer width={width} height={height}>
           <RechartsChartType
             data={data}
-            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
             barCategoryGap="30%"
           >
             <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
