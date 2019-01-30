@@ -9,6 +9,7 @@ const GranularityWrapper = styled.div`
   div span div {
     width: inherit;
     padding-right: 0px;
+    border: 1px solid #e4e9f0;
   }
   div ul {
     width: 90%;

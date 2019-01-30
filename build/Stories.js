@@ -52,7 +52,7 @@ var data = [{
   organic: 2,
   date: '2018-01-01T00:00:00.000Z'
 }, {
-  sms: 3000,
+  sms: 30000,
   text: 5,
   organic: 0,
   date: '2018-02-01T00:00:00.000Z'
@@ -720,14 +720,6 @@ var timeData = [{
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
-    dataKey: "dogs.cuteness",
-    name: "Dogs",
-    color: _colors.default.poppyRed
-  }), _react.default.createElement(_.Line, {
-    dataKey: "cats.cuteness",
-    name: "Cats",
-    color: _colors.default.cobaltBlue
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       aggregationOptions: {
@@ -741,7 +733,28 @@ var timeData = [{
       summaryTitle: "Animals",
       formatter: _formatters.default.roundToPlaces(1)
     })
-  })), _react.default.createElement(_.Summary, {
+  }), _react.default.createElement(_.Bar, {
+    stackId: "1",
+    dataKey: "cats.cuteness",
+    name: "Cats",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    stackId: "1",
+    dataKey: "dogs.cuteness",
+    name: "Dogs",
+    color: _colors.default.poppyRed
+  })), _react.default.createElement(_.Legend, {
+    data: weightedAvgData,
+    displayOptions: [{
+      name: 'Cats',
+      dataKey: 'cats',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Dogs',
+      dataKey: 'dogs',
+      color: _colors.default.poppyRed
+    }]
+  }), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
     data: weightedAvgData,
     aggregationOptions: {

@@ -69,7 +69,7 @@ export default function Legend({
   );
 
   const renderLegendItems = (aggMap = {}) => {
-    return displayOptions.map(legendItem => {
+    return displayOptions.reverse().map(legendItem => {
       const { dataKey, color, name } = legendItem;
       const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
       return (

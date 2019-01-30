@@ -49,7 +49,7 @@ var roundToPlaces = function roundToPlaces(places) {
 exports.roundToPlaces = roundToPlaces;
 
 function secondsToMinutes(int) {
-  return Math.round(int / 60);
+  return commatize(Math.round(int / 60));
 }
 
 function capitalize(string) {
