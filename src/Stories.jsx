@@ -52,7 +52,7 @@ function Palette({ color, name }) {
 
 const data = [
   { sms: 200, text: 1, organic: 2, date: '2018-01-01T00:00:00.000Z' },
-  { sms: 30000, text: 5, organic: 0, date: '2018-02-01T00:00:00.000Z' },
+  { sms: 3000, text: 5, organic: 0, date: '2018-02-01T00:00:00.000Z' },
   { sms: 500, text: 3, date: '2018-03-01T00:00:00.000Z' },
   { sms: 200, text: 0, organic: 3, date: '2018-04-01T00:00:00.000Z' },
   { sms: 300, text: 1, organic: 4, date: '2018-05-01T00:00:00.000Z' },
@@ -500,6 +500,8 @@ storiesOf('Report Card', module)
       <Chart data={weightedAvgData}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.poppyRed} />
+        <Line dataKey="cats.cuteness" name="Cats" color={colors.cobaltBlue} />
         <Tooltip
           content={
             <TooltipBody
@@ -513,26 +515,7 @@ storiesOf('Report Card', module)
             />
           }
         />
-        <Bar
-          stackId="1"
-          dataKey="cats.cuteness"
-          name="Cats"
-          color={colors.cobaltBlue}
-        />
-        <Bar
-          stackId="1"
-          dataKey="dogs.cuteness"
-          name="Dogs"
-          color={colors.poppyRed}
-        />
       </Chart>
-      <Legend
-        data={weightedAvgData}
-        displayOptions={[
-          { name: 'Cats', dataKey: 'cats', color: colors.cobaltBlue },
-          { name: 'Dogs', dataKey: 'dogs', color: colors.poppyRed }
-        ]}
-      />
       <Summary
         formatter={formatters.roundToPlaces(1)}
         data={weightedAvgData}

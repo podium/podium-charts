@@ -38,7 +38,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div span div {\n    width: inherit;\n    padding-right: 0px;\n    border: 1px solid #e4e9f0;\n  }\n  div ul {\n    width: 90%;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div span div {\n    width: inherit;\n    padding-right: 0px;\n    border: 1px solid ", ";\n  }\n  div ul {\n    width: 90%;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -49,7 +49,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var GranularityWrapper = _styledComponents.default.div(_templateObject());
+var GranularityWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic);
 
 var byMonth = {
   value: 'month',
