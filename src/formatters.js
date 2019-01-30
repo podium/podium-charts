@@ -48,7 +48,7 @@ export function abbreviateNumber(value) {
 }
 
 export function abbreviateTime(seconds) {
-  const minutes = seconds / 60;
+  const minutes = Math.round(seconds / 60);
   return abbreviateNumber(minutes);
 }
 
