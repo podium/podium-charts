@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
+import formatters from './formatters';
 import get from 'lodash.get';
 
 const LegendWrapper = styled.div`
@@ -115,5 +116,5 @@ Legend.propTypes = {
 
 Legend.defaultProps = {
   summaryType: 'total',
-  formatter: value => value
+  formatter: formatters.commatize
 };

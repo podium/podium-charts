@@ -42,7 +42,7 @@ var roundToPlaces = function roundToPlaces(places) {
     var number = Number(input);
     var modifier = Math.pow(10, places);
     var roundedNumber = Math.round(number * modifier) / modifier;
-    return roundedNumber.toString();
+    return commatize(roundedNumber.toString());
   };
 };
 
