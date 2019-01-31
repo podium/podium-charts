@@ -19,6 +19,8 @@ var _chartHelpers = require("./chartHelpers");
 
 var _aggregators = require("./aggregators");
 
+var _formatters = _interopRequireDefault(require("./formatters"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject5() {
@@ -161,7 +163,5 @@ Summary.propTypes = {
 };
 Summary.defaultProps = {
   unit: '',
-  formatter: function formatter(value) {
-    return value;
-  }
+  formatter: _formatters.default.commatize
 };

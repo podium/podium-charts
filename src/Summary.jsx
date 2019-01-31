@@ -5,6 +5,7 @@ import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { fullDate } from './chartHelpers';
 import { getRowSummaryMetric, getOverallSummaryMetric } from './aggregators';
+import formatters from './formatters';
 
 const SummaryWrapper = styled.div``;
 
@@ -134,5 +135,5 @@ Summary.propTypes = {
 
 Summary.defaultProps = {
   unit: '',
-  formatter: value => value
+  formatter: formatters.commatize
 };

@@ -17,6 +17,8 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _aggregators = require("./aggregators");
 
+var _formatters = _interopRequireDefault(require("./formatters"));
+
 var _lodash = _interopRequireDefault(require("lodash.get"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -201,7 +203,5 @@ TooltipBody.propTypes = {
 };
 TooltipBody.defaultProps = {
   granularity: 'month',
-  formatter: function formatter(value) {
-    return value;
-  }
+  formatter: _formatters.default.commatize
 };

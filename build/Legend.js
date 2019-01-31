@@ -17,6 +17,8 @@ var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 var _aggregators = require("./aggregators");
 
+var _formatters = _interopRequireDefault(require("./formatters"));
+
 var _lodash = _interopRequireDefault(require("lodash.get"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -151,7 +153,5 @@ Legend.propTypes = {
 };
 Legend.defaultProps = {
   summaryType: 'total',
-  formatter: function formatter(value) {
-    return value;
-  }
+  formatter: _formatters.default.commatize
 };

@@ -22,7 +22,7 @@ export const roundToPlaces = places => input => {
   const number = Number(input);
   const modifier = Math.pow(10, places);
   const roundedNumber = Math.round(number * modifier) / modifier;
-  return roundedNumber.toString();
+  return commatize(roundedNumber.toString());
 };
 
 export function secondsToMinutes(int) {
