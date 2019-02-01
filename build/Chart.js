@@ -174,15 +174,15 @@ function (_React$Component) {
       }, props));
     }, _this.renderTooltip = function (props) {
       var filteredChildren = (0, _chartHelpers.filterChildren)(_this.props.children);
-      var singleLineChart = (0, _chartHelpers.singleLineChart)(filteredChildren);
+      var singleLine = (0, _chartHelpers.singleLineChart)(filteredChildren);
       var cursorSettings = {
         fill: '#F1F2F4',
         strokeWidth: 1
       };
 
-      if (singleLineChart) {
+      if (singleLine) {
         cursorSettings = _objectSpread({}, cursorSettings, {
-          stroke: singleLineChart.color
+          stroke: singleLine.color
         });
       }
 
