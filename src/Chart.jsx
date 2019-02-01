@@ -7,7 +7,7 @@ import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart as prepSingleLineChart,
+  singleLineChart,
   filterChildren
 } from './chartHelpers';
 import {
@@ -140,12 +140,12 @@ export default class Chart extends React.Component {
 
   renderTooltip = props => {
     const filteredChildren = filterChildren(this.props.children);
-    const singleLineChart = prepSingleLineChart(filteredChildren);
+    const singleLine = singleLineChart(filteredChildren);
     let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
-    if (singleLineChart) {
+    if (singleLine) {
       cursorSettings = {
         ...cursorSettings,
-        stroke: singleLineChart.color
+        stroke: singleLine.color
       };
     }
     return (
