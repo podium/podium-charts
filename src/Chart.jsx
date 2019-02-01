@@ -78,7 +78,7 @@ export default class Chart extends React.Component {
   );
 
   renderBar = ({ dataKey, ...props }) => {
-    const filteredChildren = filterChildren(props.children);
+    const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
 
     return (
@@ -139,7 +139,7 @@ export default class Chart extends React.Component {
   );
 
   renderTooltip = props => {
-    const filteredChildren = filterChildren(props.children);
+    const filteredChildren = filterChildren(this.props.children);
     const singleLineChart = prepSingleLineChart(filteredChildren);
     let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
     if (singleLineChart) {

@@ -117,7 +117,7 @@ function (_React$Component) {
       var dataKey = _ref2.dataKey,
           props = _objectWithoutProperties(_ref2, ["dataKey"]);
 
-      var filteredChildren = (0, _chartHelpers.filterChildren)(props.children);
+      var filteredChildren = (0, _chartHelpers.filterChildren)(_this.props.children);
       var stackPosition = (0, _chartHelpers.getStackPositions)(filteredChildren);
       return _react.default.createElement(_recharts.Bar, _extends({
         maxBarSize: 100,
@@ -173,7 +173,7 @@ function (_React$Component) {
         }
       }, props));
     }, _this.renderTooltip = function (props) {
-      var filteredChildren = (0, _chartHelpers.filterChildren)(props.children);
+      var filteredChildren = (0, _chartHelpers.filterChildren)(_this.props.children);
       var singleLineChart = (0, _chartHelpers.singleLineChart)(filteredChildren);
       var cursorSettings = {
         fill: '#F1F2F4',
