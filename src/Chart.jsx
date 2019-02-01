@@ -40,25 +40,7 @@ const determineDataKey = dataKey => {
   return dataKey;
 };
 
-const prepChartConfig = children => {
-  const filteredChildren = filterChildren(children);
-  const graph = detectChartType(filteredChildren);
-  const stackPosition = getStackPositions(filteredChildren);
-  const singleLineChart = prepSingleLineChart(filteredChildren);
-
-  return { graph, stackPosition, singleLineChart };
-};
-
 export default class Chart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { ...prepChartConfig(props.children) };
-  }
-
-  componentDidUpdate(prevProps) {
-    this.setState({ ...prepChartConfig(this.props.children) });
-  }
-
   renderChildren = mapping => {
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
@@ -95,22 +77,26 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = ({ dataKey, ...props }) => (
-    <RechartsBar
-      maxBarSize={100}
-      shape={
-        <Rectangle
-          {...props}
-          dataKey={dataKey}
-          stackPosition={this.state.stackPosition}
-        />
-      }
-      fill={props.color}
-      dataKey={determineDataKey(dataKey)}
-      {...props}
-    />
-  );
+  renderBar = ({ dataKey, ...props }) => {
+    const filteredChildren = filterChildren(props.children);
+    const stackPosition = getStackPositions(filteredChildren);
 
+    return (
+      <RechartsBar
+        maxBarSize={100}
+        shape={
+          <Rectangle
+            {...props}
+            dataKey={dataKey}
+            stackPosition={stackPosition}
+          />
+        }
+        fill={props.color}
+        dataKey={determineDataKey(dataKey)}
+        {...props}
+      />
+    );
+  };
   renderLine = ({ dataKey, ...props }) => (
     <RechartsLine
       type="linear"
@@ -153,11 +139,13 @@ export default class Chart extends React.Component {
   );
 
   renderTooltip = props => {
+    const filteredChildren = filterChildren(props.children);
+    const singleLineChart = prepSingleLineChart(filteredChildren);
     let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
-    if (this.state.singleLineChart) {
+    if (singleLineChart) {
       cursorSettings = {
         ...cursorSettings,
-        stroke: this.state.singleLineChart.color
+        stroke: singleLineChart.color
       };
     }
     return (
@@ -178,8 +166,10 @@ export default class Chart extends React.Component {
   };
 
   render() {
-    const { data, width, height, loading } = this.props;
-    const RechartsChartType = this.state.graph;
+    const { data, width, height, loading, children } = this.props;
+    const filteredChildren = filterChildren(children);
+    const graph = detectChartType(filteredChildren);
+    const RechartsChartType = graph;
     const mapping = new Map([
       [XAxis, this.renderXAxis],
       [YAxis, this.renderYAxis],
