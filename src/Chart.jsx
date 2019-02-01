@@ -56,7 +56,7 @@ export default class Chart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    this.setState({ ...this.state, ...prepChartConfig(this.props.children) });
+    this.setState({ ...prepChartConfig(this.props.children) });
   }
 
   renderChildren = mapping => {
