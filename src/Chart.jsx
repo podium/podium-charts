@@ -7,7 +7,7 @@ import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart,
+  singleLineChart as prepSingleLineChart,
   filterChildren
 } from './chartHelpers';
 import {
@@ -40,13 +40,23 @@ const determineDataKey = dataKey => {
   return dataKey;
 };
 
+const prepChartConfig = children => {
+  const filteredChildren = filterChildren(children);
+  const graph = detectChartType(filteredChildren);
+  const stackPosition = getStackPositions(filteredChildren);
+  const singleLineChart = prepSingleLineChart(filteredChildren);
+
+  return { graph, stackPosition, singleLineChart };
+};
+
 export default class Chart extends React.Component {
   constructor(props) {
     super(props);
-    const filteredChildren = filterChildren(props.children);
-    this.graph = detectChartType(filteredChildren);
-    this.stackPosition = getStackPositions(filteredChildren);
-    this.singleLineChart = singleLineChart(filteredChildren);
+    this.state = { ...prepChartConfig(props.children) };
+  }
+
+  componentDidUpdate(prevProps) {
+    this.setState({ ...this.state, ...prepChartConfig(this.props.children) });
   }
 
   renderChildren = mapping => {
@@ -92,7 +102,7 @@ export default class Chart extends React.Component {
         <Rectangle
           {...props}
           dataKey={dataKey}
-          stackPosition={this.stackPosition}
+          stackPosition={this.state.stackPosition}
         />
       }
       fill={props.color}
@@ -144,10 +154,10 @@ export default class Chart extends React.Component {
 
   renderTooltip = props => {
     let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
-    if (this.singleLineChart) {
+    if (this.state.singleLineChart) {
       cursorSettings = {
         ...cursorSettings,
-        stroke: this.singleLineChart.color
+        stroke: this.state.singleLineChart.color
       };
     }
     return (
@@ -169,7 +179,7 @@ export default class Chart extends React.Component {
 
   render() {
     const { data, width, height, loading } = this.props;
-    const RechartsChartType = this.graph;
+    const RechartsChartType = this.state.graph;
     const mapping = new Map([
       [XAxis, this.renderXAxis],
       [YAxis, this.renderYAxis],
