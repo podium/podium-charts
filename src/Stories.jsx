@@ -357,6 +357,26 @@ storiesOf('Report Card Summary', module)
         </Chart>
       </ReportCard>
     </div>
+  ))
+  .add('Long title', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.abbreviateNumber}
+          dataKeys={['sms']}
+          title="This title is very long, yes indeed"
+          data={data}
+          trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
   ));
 
 storiesOf('Summary', module).add('WeightedAvg', () => (

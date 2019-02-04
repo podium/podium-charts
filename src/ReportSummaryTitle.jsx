@@ -7,12 +7,16 @@ import Trend from './Trend';
 import { getOverallSummaryMetric } from './aggregators';
 
 const SummaryTitleWrapper = styled.div`
+  width: 100%;
   padding-top: 8px;
 `;
 
 const Title = styled.div`
   color: ${colors.mineShaft};
   font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const MonthToDate = styled.div`
