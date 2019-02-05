@@ -7,6 +7,9 @@ import {
 } from 'recharts';
 import moment from 'moment';
 import { Line, Bar } from './skeletonComponents';
+import { colors } from '@podiumhq/podium-ui';
+
+const DEFAULT_DESELECTED_COLOR = colors.mystic;
 
 export function detectChartType(children) {
   const filteredChildren = filterChildren(children);
@@ -66,4 +69,15 @@ export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
   const start = data[0]['date'];
   const end = data[data.length - 1]['date'];
   return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
+};
+
+export const getDeselectedColor = color => {
+  if (color.match(/^#[0-9A-F]{6}$/)) {
+    const r = parseInt(color.substring(1, 3), 16);
+    const g = parseInt(color.substring(3, 5), 16);
+    const b = parseInt(color.substring(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, 0.3)`;
+  } else {
+    return DEFAULT_DESELECTED_COLOR;
+  }
 };

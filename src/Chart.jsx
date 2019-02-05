@@ -8,7 +8,8 @@ import {
   detectChartType,
   getStackPositions,
   singleLineChart,
-  filterChildren
+  filterChildren,
+  getDeselectedColor
 } from './chartHelpers';
 import {
   XAxis,
@@ -111,7 +112,7 @@ export default class Chart extends React.Component {
     const stackPosition = getStackPositions(filteredChildren);
     const seriesKey = getSeriesKey(dataKey);
     const isDeselected = selectedKey && seriesKey !== selectedKey;
-    const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
+    const color = isDeselected ? getDeselectedColor(props.color) : props.color;
 
     return (
       <RechartsBar
@@ -133,7 +134,7 @@ export default class Chart extends React.Component {
   renderLine = ({ dataKey, ...props }, { selectedKey, isFirstRender }) => {
     const seriesKey = getSeriesKey(dataKey);
     const isDeselected = selectedKey && seriesKey !== selectedKey;
-    const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
+    const color = isDeselected ? getDeselectedColor(props.color) : props.color;
 
     return (
       <RechartsLine
