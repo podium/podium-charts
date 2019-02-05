@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
 import formatters from './formatters';
 import get from 'lodash.get';
+import { ReportCardContext } from './ReportCard';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;
@@ -24,6 +25,12 @@ const ItemWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 8px;
+
+  ${props =>
+    !props.enabled &&
+    css`
+      opacity: 0.3;
+    `}
 `;
 
 const ColorLabel = styled.div`
@@ -37,6 +44,7 @@ const ColorLabel = styled.div`
 const Label = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export default function Legend({
@@ -69,13 +77,21 @@ export default function Legend({
     </LegendWrapper>
   );
 
-  const renderLegendItems = (aggMap = {}) => {
-    return displayOptions.reverse().map(legendItem => {
+  const renderLegendItems = (aggMap = {}, selectedKey, onSelectKey) => {
+    // FIXME: this is displaying items in reverse order
+    // Find a way to display them in the correct order without mutating the array
+    return displayOptions.map(legendItem => {
       const { dataKey, color, name } = legendItem;
       const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
       return (
-        <ItemWrapper key={name}>
-          <Label>
+        <ItemWrapper
+          key={name}
+          enabled={!selectedKey || dataKey === selectedKey}
+        >
+          <Label
+            onMouseEnter={() => onSelectKey(dataKey)}
+            onMouseLeave={() => onSelectKey(null)}
+          >
             <ColorLabel color={color} />
             <div>{name ? name : ''}</div>
           </Label>
@@ -90,7 +106,15 @@ export default function Legend({
   const dataKeys = get(aggregationOptions, 'dataKeys');
   const aggMap = createAggMap(dataKeys);
 
-  return <LegendWrapper>{renderLegendItems(aggMap)}</LegendWrapper>;
+  return (
+    <ReportCardContext.Consumer>
+      {({ selectedKey, onSelectKey }) => (
+        <LegendWrapper>
+          {renderLegendItems(aggMap, selectedKey, onSelectKey)}
+        </LegendWrapper>
+      )}
+    </ReportCardContext.Consumer>
+  );
 }
 
 Legend.propTypes = {
