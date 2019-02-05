@@ -41,9 +41,24 @@ const determineDataKey = dataKey => {
   return dataKey;
 };
 
+// e.g. `facebook.reviewRating` => `facebook`
+const getSeriesKey = dataKey => {
+  if (typeof dataKey !== 'function') {
+    if (dataKey.indexOf('.') !== -1) {
+      return dataKey.split('.')[0];
+    } else {
+      return dataKey;
+    }
+  }
+  return dataKey;
+};
+
+// FIXME: REMOVE
+let _selectedKey = null;
+
 export default class Chart extends React.Component {
   renderChildren = (mapping, selectedKey) => {
-    console.log('renderChildren', selectedKey);
+    _selectedKey = selectedKey;
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
 
@@ -82,6 +97,9 @@ export default class Chart extends React.Component {
   renderBar = ({ dataKey, ...props }) => {
     const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
+    const seriesKey = getSeriesKey(dataKey);
+    const isDeselected = _selectedKey && seriesKey !== _selectedKey;
+    const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
 
     return (
       <RechartsBar
@@ -93,24 +111,31 @@ export default class Chart extends React.Component {
             stackPosition={stackPosition}
           />
         }
-        fill={props.color}
+        fill={color}
         dataKey={determineDataKey(dataKey)}
         {...props}
       />
     );
   };
-  renderLine = ({ dataKey, ...props }) => (
-    <RechartsLine
-      type="linear"
-      stroke={props.color}
-      isAnimationActive={true}
-      strokeWidth={2}
-      activeDot={false}
-      dataKey={determineDataKey(dataKey)}
-      dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
-      {...props}
-    />
-  );
+
+  renderLine = ({ dataKey, ...props }) => {
+    const seriesKey = getSeriesKey(dataKey);
+    const isDeselected = _selectedKey && seriesKey !== _selectedKey;
+    const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
+
+    return (
+      <RechartsLine
+        type="linear"
+        stroke={color}
+        isAnimationActive={false}
+        strokeWidth={2}
+        activeDot={false}
+        dataKey={determineDataKey(dataKey)}
+        dot={{ r: 2.5, strokeWidth: 0, fill: color }}
+        {...props}
+      />
+    );
+  };
 
   renderSummaryLine = ({ dataKey, ...props }) => (
     <RechartsLine
