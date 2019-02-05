@@ -79,26 +79,29 @@ export default function Legend({
   );
 
   const renderLegendItems = (aggMap = {}, selectedKey, onSelectKey) => {
-    // FIXME: this is displaying items in reverse order
-    // Find a way to display them in the correct order without mutating the array
-    return displayOptions.map(legendItem => {
-      const { dataKey, color, name } = legendItem;
-      const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
-      return (
-        <ItemWrapper
-          key={name}
-          enabled={!selectedKey || dataKey === selectedKey}
-          onMouseEnter={() => onSelectKey(dataKey)}
-          onMouseLeave={() => onSelectKey(null)}
-        >
-          <Label>
-            <ColorLabel color={color} />
-            <div>{name ? name : ''}</div>
-          </Label>
-          {formattedValue && <div>{formattedValue}</div>}
-        </ItemWrapper>
-      );
-    });
+    // TODO: why do we need to reverse the displayOptions?
+    // Maybe we want to reverse the rendering of stacked bars instead
+    return displayOptions
+      .slice()
+      .reverse()
+      .map(legendItem => {
+        const { dataKey, color, name } = legendItem;
+        const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
+        return (
+          <ItemWrapper
+            key={name}
+            enabled={!selectedKey || dataKey === selectedKey}
+            onMouseEnter={() => onSelectKey(dataKey)}
+            onMouseLeave={() => onSelectKey(null)}
+          >
+            <Label>
+              <ColorLabel color={color} />
+              <div>{name ? name : ''}</div>
+            </Label>
+            {formattedValue && <div>{formattedValue}</div>}
+          </ItemWrapper>
+        );
+      });
   };
 
   if (loading) return renderGhostState();
