@@ -53,19 +53,31 @@ const getSeriesKey = dataKey => {
   return dataKey;
 };
 
-// FIXME: REMOVE
-let _selectedKey = null;
+/**
+ * @typedef RenderContext
+ * @property {string | null} selectedKey The series key that is currently selected on the Legend
+ * @property {boolean} isFirstRender Whether we are rendering the Chart for the first time
+ */
 
 export default class Chart extends React.Component {
-  renderChildren = (mapping, selectedKey) => {
-    _selectedKey = selectedKey;
+  constructor(props) {
+    super(props);
+
+    // Keeping out of component state because we don't want to trigger renders
+    this.isFirstRender = true;
+  }
+
+  /**
+   * @param {RenderContext} renderContext
+   */
+  renderChildren = (mapping, renderContext) => {
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
 
     const filteredChildren = filterChildren(children);
     return React.Children.map(filteredChildren, child => {
       const renderComponent = mapping.get(child.type);
-      if (renderComponent) return renderComponent(child.props);
+      if (renderComponent) return renderComponent(child.props, renderContext);
     });
   };
 
@@ -94,11 +106,11 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = ({ dataKey, ...props }) => {
+  renderBar = ({ dataKey, ...props }, { selectedKey }) => {
     const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
     const seriesKey = getSeriesKey(dataKey);
-    const isDeselected = _selectedKey && seriesKey !== _selectedKey;
+    const isDeselected = selectedKey && seriesKey !== selectedKey;
     const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
 
     return (
@@ -118,16 +130,16 @@ export default class Chart extends React.Component {
     );
   };
 
-  renderLine = ({ dataKey, ...props }) => {
+  renderLine = ({ dataKey, ...props }, { selectedKey, isFirstRender }) => {
     const seriesKey = getSeriesKey(dataKey);
-    const isDeselected = _selectedKey && seriesKey !== _selectedKey;
+    const isDeselected = selectedKey && seriesKey !== selectedKey;
     const color = isDeselected ? `${props.color}4D` : props.color; // 30% opacity when deselected
 
     return (
       <RechartsLine
         type="linear"
         stroke={color}
-        isAnimationActive={false}
+        isAnimationActive={isFirstRender}
         strokeWidth={2}
         activeDot={false}
         dataKey={determineDataKey(dataKey)}
@@ -194,6 +206,8 @@ export default class Chart extends React.Component {
 
   render() {
     const { data, width, height, loading, children } = this.props;
+    const isFirstRender = this.isFirstRender;
+    this.isFirstRender = false;
     const filteredChildren = filterChildren(children);
     const graph = detectChartType(filteredChildren);
     const RechartsChartType = graph;
@@ -221,7 +235,7 @@ export default class Chart extends React.Component {
                   vertical={false}
                   stroke={colors.mystic}
                 />
-                {this.renderChildren(mapping, selectedKey)}
+                {this.renderChildren(mapping, { selectedKey, isFirstRender })}
               </RechartsChartType>
             </ResponsiveContainer>
           </ChartWrapper>
