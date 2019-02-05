@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getRowSummaryMetric = getRowSummaryMetric;
 exports.getOverallSummaryMetric = getOverallSummaryMetric;
-exports.default = exports.datasetWeightedAvg = exports.datasetAvg = exports.dataSetTotal = exports.rowWeightedAvg = exports.rowAvg = exports.rowTotal = void 0;
+exports.default = exports.calculateTrend = exports.datasetWeightedAvg = exports.datasetAvg = exports.dataSetTotal = exports.rowWeightedAvg = exports.rowAvg = exports.rowTotal = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash.get"));
 
@@ -306,6 +306,17 @@ function isNumeric(value) {
   return value !== undefined && value !== null;
 }
 
+var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
+  if (currDataValue === null || prevDataValue === null || currDataValue === prevDataValue) {
+    return 'neutral';
+  } else if (currDataValue < prevDataValue) {
+    return 'down';
+  } else if (currDataValue > prevDataValue) {
+    return 'up';
+  }
+};
+
+exports.calculateTrend = calculateTrend;
 var _default = {
   getRowSummaryMetric: getRowSummaryMetric,
   getOverallSummaryMetric: getOverallSummaryMetric,
@@ -315,6 +326,7 @@ var _default = {
   datasetWeightedAvg: datasetWeightedAvg,
   rowTotal: rowTotal,
   rowAvg: rowAvg,
-  rowWeightedAvg: rowWeightedAvg
+  rowWeightedAvg: rowWeightedAvg,
+  calculateTrend: calculateTrend
 };
 exports.default = _default;
