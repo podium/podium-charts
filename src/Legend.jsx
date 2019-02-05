@@ -9,7 +9,7 @@ import get from 'lodash.get';
 import ReportCardContext from './ReportCardContext';
 
 const LegendWrapper = styled.div`
-  padding-top: 8px;
+  padding-top: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,9 @@ const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  cursor: default;
 
   ${props =>
     !props.enabled &&
@@ -44,7 +46,6 @@ const ColorLabel = styled.div`
 const Label = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
 `;
 
 export default function Legend({
@@ -87,11 +88,10 @@ export default function Legend({
         <ItemWrapper
           key={name}
           enabled={!selectedKey || dataKey === selectedKey}
+          onMouseEnter={() => onSelectKey(dataKey)}
+          onMouseLeave={() => onSelectKey(null)}
         >
-          <Label
-            onMouseEnter={() => onSelectKey(dataKey)}
-            onMouseLeave={() => onSelectKey(null)}
-          >
+          <Label>
             <ColorLabel color={color} />
             <div>{name ? name : ''}</div>
           </Label>
