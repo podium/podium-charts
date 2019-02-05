@@ -42,6 +42,14 @@ const determineDataKey = dataKey => {
   return dataKey;
 };
 
+const isDeselected = (dataKey, selectedKey) => {
+  if (!selectedKey) {
+    return false;
+  }
+  const seriesKey = getSeriesKey(dataKey);
+  return seriesKey !== selectedKey;
+};
+
 // e.g. `facebook.reviewRating` => `facebook`
 const getSeriesKey = dataKey => {
   if (typeof dataKey !== 'function') {
@@ -110,9 +118,9 @@ export default class Chart extends React.Component {
   renderBar = ({ dataKey, ...props }, { selectedKey }) => {
     const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
-    const seriesKey = getSeriesKey(dataKey);
-    const isDeselected = selectedKey && seriesKey !== selectedKey;
-    const color = isDeselected ? getDeselectedColor(props.color) : props.color;
+    const color = isDeselected(dataKey, selectedKey)
+      ? getDeselectedColor(props.color)
+      : props.color;
 
     return (
       <RechartsBar
@@ -132,9 +140,9 @@ export default class Chart extends React.Component {
   };
 
   renderLine = ({ dataKey, ...props }, { selectedKey, isFirstRender }) => {
-    const seriesKey = getSeriesKey(dataKey);
-    const isDeselected = selectedKey && seriesKey !== selectedKey;
-    const color = isDeselected ? getDeselectedColor(props.color) : props.color;
+    const color = isDeselected(dataKey, selectedKey)
+      ? getDeselectedColor(props.color)
+      : props.color;
 
     return (
       <RechartsLine
