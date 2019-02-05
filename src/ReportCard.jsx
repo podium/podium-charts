@@ -10,6 +10,7 @@ import Summary from './Summary';
 import Granularity from './Granularity';
 import Legend from './Legend';
 import GhostChart from './Ghost/GhostChart';
+import ReportCardContext from './ReportCardContext';
 
 const ReportCardWrapper = styled.div`
   display: flex;
@@ -63,11 +64,6 @@ const defaultComponents = {
   legend: null,
   ghost: null
 };
-
-export const ReportCardContext = React.createContext({
-  selectedKey: null,
-  onSelectKey: () => {}
-});
 
 export default class ReportCard extends React.Component {
   constructor(props) {

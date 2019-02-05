@@ -6,7 +6,7 @@ import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
 import formatters from './formatters';
 import get from 'lodash.get';
-import { ReportCardContext } from './ReportCard';
+import ReportCardContext from './ReportCardContext';
 
 const LegendWrapper = styled.div`
   padding-top: 8px;

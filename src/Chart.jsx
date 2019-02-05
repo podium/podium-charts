@@ -30,6 +30,7 @@ import {
   Dot as RechartsDot
 } from 'recharts';
 import GhostChart from './Ghost/GhostChart';
+import ReportCardContext from './ReportCardContext';
 
 const GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
@@ -41,7 +42,8 @@ const determineDataKey = dataKey => {
 };
 
 export default class Chart extends React.Component {
-  renderChildren = mapping => {
+  renderChildren = (mapping, selectedKey) => {
+    console.log('renderChildren', selectedKey);
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
 
@@ -181,18 +183,25 @@ export default class Chart extends React.Component {
     if (loading) return <GhostChart height={height} />;
 
     return (
-      <ChartWrapper>
-        <ResponsiveContainer width={width} height={height}>
-          <RechartsChartType
-            data={data}
-            margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
-            barCategoryGap="30%"
-          >
-            <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
-            {this.renderChildren(mapping)}
-          </RechartsChartType>
-        </ResponsiveContainer>
-      </ChartWrapper>
+      <ReportCardContext.Consumer>
+        {({ selectedKey }) => (
+          <ChartWrapper>
+            <ResponsiveContainer width={width} height={height}>
+              <RechartsChartType
+                data={data}
+                margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
+                barCategoryGap="30%"
+              >
+                <RechartsCartesianGrid
+                  vertical={false}
+                  stroke={colors.mystic}
+                />
+                {this.renderChildren(mapping, selectedKey)}
+              </RechartsChartType>
+            </ResponsiveContainer>
+          </ChartWrapper>
+        )}
+      </ReportCardContext.Consumer>
     );
   }
 }
