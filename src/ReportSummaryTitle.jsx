@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
-import { getOverallSummaryMetric } from './aggregators';
+import { getOverallSummaryMetric, calculateTrend } from './aggregators';
 
 const SummaryTitleWrapper = styled.div`
   padding-top: 8px;
@@ -52,15 +52,6 @@ export default function ReportSummaryTitle({
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
   );
-
-  const calculateTrend = (prevDataValue, currDataValue) => {
-    if (currDataValue < prevDataValue) {
-      return 'down';
-    } else if (currDataValue > prevDataValue) {
-      return 'up';
-    }
-    return 'neutral';
-  };
 
   const renderToolTip = prevDataValue => {
     return (
