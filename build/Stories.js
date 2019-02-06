@@ -538,6 +538,31 @@ var timeData = [{
     dataKey: "sms",
     color: _colors.default.cobaltBlue
   }))));
+}).add('Long title', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.abbreviateNumber,
+    dataKeys: ['sms'],
+    title: "This title is very long, yes indeed",
+    data: data,
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  }))));
 });
 (0, _react2.storiesOf)('Summary', module).add('WeightedAvg', function () {
   return _react.default.createElement(_.Summary, {

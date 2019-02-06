@@ -42,7 +42,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-size: 32px;\n  font-weight: 600;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-weight: 600;\n  font-size: 32px;\n\n  @media (max-width: ", "px) {\n    font-size: 24px;\n  }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -52,7 +52,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -62,7 +62,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding-top: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding-top: 8px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -73,11 +73,13 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var BREAKPOINT_SHRINK_SUMMARY_METRIC = 1170;
+
 var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);
 
-var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft);
+var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft, BREAKPOINT_SHRINK_SUMMARY_METRIC);
 
 var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel);
 
