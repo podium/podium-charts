@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
@@ -28,11 +28,11 @@ const ItemWrapper = styled.div`
   padding-bottom: 4px;
   cursor: default;
 
-  ${props =>
-    !props.enabled &&
-    css`
-      opacity: 0.3;
-    `}
+  ${({ enabled }) =>
+    !enabled &&
+    `
+    opacity: 0.3;
+  `}
 `;
 
 const ColorLabel = styled.div`
