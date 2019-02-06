@@ -130,6 +130,20 @@ function isNumeric(value) {
   return value !== undefined && value !== null;
 }
 
+export const calculateTrend = (prevDataValue, currDataValue) => {
+  if (
+    currDataValue === null ||
+    prevDataValue === null ||
+    currDataValue === prevDataValue
+  ) {
+    return 'neutral';
+  } else if (currDataValue < prevDataValue) {
+    return 'down';
+  } else if (currDataValue > prevDataValue) {
+    return 'up';
+  }
+};
+
 export default {
   getRowSummaryMetric,
   getOverallSummaryMetric,
@@ -139,5 +153,6 @@ export default {
   datasetWeightedAvg,
   rowTotal,
   rowAvg,
-  rowWeightedAvg
+  rowWeightedAvg,
+  calculateTrend
 };

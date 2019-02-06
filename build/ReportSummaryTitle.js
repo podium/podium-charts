@@ -102,37 +102,28 @@ function ReportSummaryTitle(_ref) {
     }), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
   };
 
-  var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
-    if (currDataValue < prevDataValue) {
-      return 'down';
-    } else if (currDataValue > prevDataValue) {
-      return 'up';
-    }
-
-    return 'neutral';
-  };
-
   var renderToolTip = function renderToolTip(prevDataValue) {
     return _react.default.createElement(ToolTipWrapper, null, _react.default.createElement("div", null, "This time last month:"), _react.default.createElement("div", {
       style: {
         textAlign: 'left'
       }
-    }, formatter(prevDataValue)));
+    }, prevDataValue === null ? 'N/A' : formatter(prevDataValue)));
   };
 
   if (loading) return renderGhostState();
   var prevDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[0], aggregationOptions) : 0;
   var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0;
+  var currDataFormatted = currDataValue === null ? 'N/A' : formatter(currDataValue);
   return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, null, _react.default.createElement("span", {
     style: {
       marginRight: '8px'
     }
-  }, formatter(currDataValue)), _react.default.createElement(_podiumUi.ToolTip, {
+  }, currDataFormatted), _react.default.createElement(_podiumUi.ToolTip, {
     type: "arrow",
     tip: renderToolTip(prevDataValue),
     position: "top"
   }, _react.default.createElement(_Trend.default, {
-    direction: calculateTrend(prevDataValue, currDataValue),
+    direction: (0, _aggregators.calculateTrend)(prevDataValue, currDataValue),
     preferDown: preferDown
   }))), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }

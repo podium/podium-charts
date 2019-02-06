@@ -1,4 +1,8 @@
-import { getRowSummaryMetric, getOverallSummaryMetric } from '../aggregators';
+import {
+  getRowSummaryMetric,
+  getOverallSummaryMetric,
+  calculateTrend
+} from '../aggregators';
 
 const STANDARD = [
   { dogs: 5, cats: 8, date: '2018-09-15T23:43:32' },
@@ -410,6 +414,38 @@ describe('getOverallSummaryMetric', () => {
       );
 
       expect(result).toBe(null);
+    });
+  });
+
+  describe('calculateTrend', () => {
+    test('should return upward trend', () => {
+      const result = calculateTrend(1, 2);
+
+      expect(result).toEqual('up');
+    });
+
+    test('should return downward trend', () => {
+      const result = calculateTrend(3, 2);
+
+      expect(result).toEqual('down');
+    });
+
+    test('should return neutral trend with equal data', () => {
+      const result = calculateTrend(3, 3);
+
+      expect(result).toEqual('neutral');
+    });
+
+    test('should return neutral trend when there is no previous data', () => {
+      const result = calculateTrend(null, 3);
+
+      expect(result).toEqual('neutral');
+    });
+
+    test('should return neutral trend when there is no current data', () => {
+      const result = calculateTrend(3, null);
+
+      expect(result).toEqual('neutral');
     });
   });
 });
