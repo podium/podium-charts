@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _styledComponents = _interopRequireWildcard(require("styled-components"));
+var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
@@ -23,26 +23,14 @@ var _lodash = _interopRequireDefault(require("lodash.get"));
 
 var _ReportCardContext = _interopRequireDefault(require("./ReportCardContext"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  width: 16px;\n  height: 16px;\n  border-radius: 2px;\n  background-color: ", ";\n  margin-right: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -52,7 +40,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n      opacity: 0.3;\n    "]);
+  var data = _taggedTemplateLiteral(["\n  width: 16px;\n  height: 16px;\n  border-radius: 2px;\n  background-color: ", ";\n  margin-right: 8px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -85,22 +73,23 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var LegendWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mineShaft);
 
-var ItemWrapper = _styledComponents.default.div(_templateObject2(), function (props) {
-  return !props.enabled && (0, _styledComponents.css)(_templateObject3());
+var ItemWrapper = _styledComponents.default.div(_templateObject2(), function (_ref) {
+  var enabled = _ref.enabled;
+  return !enabled && "\n    opacity: 0.3;\n  ";
 });
 
-var ColorLabel = _styledComponents.default.div(_templateObject4(), function (props) {
+var ColorLabel = _styledComponents.default.div(_templateObject3(), function (props) {
   return props.color;
 });
 
-var Label = _styledComponents.default.div(_templateObject5());
+var Label = _styledComponents.default.div(_templateObject4());
 
-function Legend(_ref) {
-  var loading = _ref.loading,
-      data = _ref.data,
-      aggregationOptions = _ref.aggregationOptions,
-      displayOptions = _ref.displayOptions,
-      formatter = _ref.formatter;
+function Legend(_ref2) {
+  var loading = _ref2.loading,
+      data = _ref2.data,
+      aggregationOptions = _ref2.aggregationOptions,
+      displayOptions = _ref2.displayOptions,
+      formatter = _ref2.formatter;
 
   var calculateValue = function calculateValue(dataKey) {
     var itemAggregationOptions = {
@@ -157,9 +146,9 @@ function Legend(_ref) {
   if (loading) return renderGhostState();
   var dataKeys = (0, _lodash.default)(aggregationOptions, 'dataKeys');
   var aggMap = createAggMap(dataKeys);
-  return _react.default.createElement(_ReportCardContext.default.Consumer, null, function (_ref2) {
-    var selectedKey = _ref2.selectedKey,
-        onSelectKey = _ref2.onSelectKey;
+  return _react.default.createElement(_ReportCardContext.default.Consumer, null, function (_ref3) {
+    var selectedKey = _ref3.selectedKey,
+        onSelectKey = _ref3.onSelectKey;
     return _react.default.createElement(LegendWrapper, null, renderLegendItems(aggMap, selectedKey, onSelectKey));
   });
 }

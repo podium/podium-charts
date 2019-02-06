@@ -109,7 +109,7 @@ var renderRangeLabel = function renderRangeLabel(data) {
 exports.renderRangeLabel = renderRangeLabel;
 
 var getDeselectedColor = function getDeselectedColor(color) {
-  if (color.match(/^#[0-9A-F]{6}$/)) {
+  if (color.match(/^#[0-9a-f]{6}$/i)) {
     var r = parseInt(color.substring(1, 3), 16);
     var g = parseInt(color.substring(3, 5), 16);
     var b = parseInt(color.substring(5, 7), 16);
