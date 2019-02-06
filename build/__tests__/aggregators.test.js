@@ -408,4 +408,26 @@ describe('getOverallSummaryMetric', function () {
       expect(result).toBe(null);
     });
   });
+  describe('calculateTrend', function () {
+    test('should return upward trend', function () {
+      var result = (0, _aggregators.calculateTrend)(1, 2);
+      expect(result).toEqual('up');
+    });
+    test('should return downward trend', function () {
+      var result = (0, _aggregators.calculateTrend)(3, 2);
+      expect(result).toEqual('down');
+    });
+    test('should return neutral trend with equal data', function () {
+      var result = (0, _aggregators.calculateTrend)(3, 3);
+      expect(result).toEqual('neutral');
+    });
+    test('should return neutral trend when there is no previous data', function () {
+      var result = (0, _aggregators.calculateTrend)(null, 3);
+      expect(result).toEqual('neutral');
+    });
+    test('should return neutral trend when there is no current data', function () {
+      var result = (0, _aggregators.calculateTrend)(3, null);
+      expect(result).toEqual('neutral');
+    });
+  });
 });
