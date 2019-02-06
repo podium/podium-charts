@@ -466,8 +466,8 @@ storiesOf('Report Card', module)
           options: { valueKey: 'cuteness', countKey: 'amount' }
         }}
         displayOptions={[
-          { name: 'Cats', dataKey: 'cats', color: colors.cobaltBlue },
-          { name: 'Dogs', dataKey: 'dogs', color: colors.poppyRed }
+          { name: 'Dogs', dataKey: 'dogs', color: colors.cobaltBlue },
+          { name: 'Cats', dataKey: 'cats', color: colors.poppyRed }
         ]}
       />
     </ReportCard>
@@ -508,8 +508,75 @@ storiesOf('Report Card', module)
       <Legend
         data={weightedAvgData}
         displayOptions={[
-          { name: 'Cats', dataKey: 'cats', color: colors.cobaltBlue },
-          { name: 'Dogs', dataKey: 'dogs', color: colors.poppyRed }
+          { name: 'Dogs', dataKey: 'dogs', color: colors.cobaltBlue },
+          { name: 'Cats', dataKey: 'cats', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
+  .add('w/Legend (multiple bars)', () => (
+    <ReportCard>
+      <ReportTitle title="Inbound Leads by Source" data={data} />
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Tooltip
+          content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
+        />
+        <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
+        <Bar name="Text" dataKey="text" color={colors.poppyRed} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        aggregationOptions={{
+          type: 'avg',
+          dataKeys: ['organic', 'text']
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+      <Legend
+        data={weightedAvgData}
+        displayOptions={[
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
+  .add('w/Legend (stacked bars)', () => (
+    <ReportCard>
+      <ReportTitle title="Inbound Leads by Source" data={data} />
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Tooltip
+          content={<TooltipBody summaryType="total" summaryTitle="Reviews" />}
+        />
+        <Bar
+          name="Organic"
+          stackId="1"
+          dataKey="organic"
+          color={colors.cobaltBlue}
+        />
+        <Bar name="Text" stackId="1" dataKey="text" color={colors.poppyRed} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        aggregationOptions={{
+          type: 'avg',
+          dataKeys: ['organic', 'text']
+        }}
+        granularity="month"
+        timeRange="lastYear"
+      />
+      <Legend
+        data={weightedAvgData}
+        displayOptions={[
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
         ]}
       />
     </ReportCard>

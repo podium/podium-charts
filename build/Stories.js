@@ -672,12 +672,12 @@ var timeData = [{
       }
     },
     displayOptions: [{
-      name: 'Cats',
-      dataKey: 'cats',
-      color: _colors.default.cobaltBlue
-    }, {
       name: 'Dogs',
       dataKey: 'dogs',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Cats',
+      dataKey: 'cats',
       color: _colors.default.poppyRed
     }]
   }));
@@ -727,12 +727,100 @@ var timeData = [{
   }), _react.default.createElement(_.Legend, {
     data: weightedAvgData,
     displayOptions: [{
-      name: 'Cats',
-      dataKey: 'cats',
-      color: _colors.default.cobaltBlue
-    }, {
       name: 'Dogs',
       dataKey: 'dogs',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Cats',
+      dataKey: 'cats',
+      color: _colors.default.poppyRed
+    }]
+  }));
+}).add('w/Legend (multiple bars)', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Inbound Leads by Source",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Bar, {
+    name: "Organic",
+    dataKey: "organic",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    name: "Text",
+    dataKey: "text",
+    color: _colors.default.poppyRed
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: data,
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['organic', 'text']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }), _react.default.createElement(_.Legend, {
+    data: weightedAvgData,
+    displayOptions: [{
+      name: 'Organic',
+      dataKey: 'organic',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Text',
+      dataKey: 'text',
+      color: _colors.default.poppyRed
+    }]
+  }));
+}).add('w/Legend (stacked bars)', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Inbound Leads by Source",
+    data: data
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryType: "total",
+      summaryTitle: "Reviews"
+    })
+  }), _react.default.createElement(_.Bar, {
+    name: "Organic",
+    stackId: "1",
+    dataKey: "organic",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    name: "Text",
+    stackId: "1",
+    dataKey: "text",
+    color: _colors.default.poppyRed
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: data,
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['organic', 'text']
+    },
+    granularity: "month",
+    timeRange: "lastYear"
+  }), _react.default.createElement(_.Legend, {
+    data: weightedAvgData,
+    displayOptions: [{
+      name: 'Organic',
+      dataKey: 'organic',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Text',
+      dataKey: 'text',
       color: _colors.default.poppyRed
     }]
   }));
