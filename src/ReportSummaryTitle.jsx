@@ -6,6 +6,8 @@ import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
 import { getOverallSummaryMetric, calculateTrend } from './aggregators';
 
+const BREAKPOINT_SHRINK_SUMMARY_METRIC = 1170;
+
 const SummaryTitleWrapper = styled.div`
   width: 100%;
   padding-top: 8px;
@@ -23,8 +25,12 @@ const MonthToDate = styled.div`
   display: flex;
   align-items: center;
   color: ${colors.mineShaft};
-  font-size: 32px;
   font-weight: 600;
+  font-size: 32px;
+
+  @media (max-width: ${BREAKPOINT_SHRINK_SUMMARY_METRIC}px) {
+    font-size: 24px;
+  }
 `;
 
 const MonthToDateLabel = styled.div`
