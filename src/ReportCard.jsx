@@ -10,6 +10,7 @@ import Summary from './Summary';
 import Granularity from './Granularity';
 import Legend from './Legend';
 import GhostChart from './Ghost/GhostChart';
+import ReportCardContext from './ReportCardContext';
 
 const ReportCardWrapper = styled.div`
   display: flex;
@@ -64,51 +65,70 @@ const defaultComponents = {
   ghost: null
 };
 
-export default function ReportCard({ width, children, loading }) {
-  const collectChildren = () => {
-    if (!children) return { ...defaultComponents };
-    const newComponents = { ...defaultComponents };
-    React.Children.forEach(children, child => {
-      if (componentKeyMap.has(child.type)) {
-        newComponents[componentKeyMap.get(child.type)] = React.cloneElement(
-          child,
-          { loading: loading }
-        );
-      } else if (child.props.children) {
-        React.Children.forEach(child.props.children, subChild => {
-          if (componentKeyMap.has(subChild.type)) {
-            newComponents[
-              componentKeyMap.get(subChild.type)
-            ] = React.cloneElement(child, { loading: loading });
-          }
-        });
-      }
-    });
+export default class ReportCard extends React.Component {
+  constructor(props) {
+    super(props);
 
-    return newComponents;
-  };
+    this.onSelectKey = dataKey => {
+      this.setState({ selectedKey: dataKey });
+    };
 
-  const { title, chart, summary, legend, granularity } = collectChildren();
+    this.state = {
+      selectedKey: null,
+      onSelectKey: this.onSelectKey
+    };
+  }
 
-  return (
-    <ReportCardWrapper>
-      <ReportCardMain fullWidth={!summary && !legend}>
-        <ReportCardHeader>
-          {title} {granularity}
-        </ReportCardHeader>
-        {chart}
-      </ReportCardMain>
-      {(summary || legend) && (
-        <ReportCardRight>
-          <ReportCardSummary>
-            <Padding>
-              {summary} {legend}
-            </Padding>
-          </ReportCardSummary>
-        </ReportCardRight>
-      )}
-    </ReportCardWrapper>
-  );
+  render() {
+    const { children, loading } = this.props;
+
+    const collectChildren = () => {
+      if (!children) return { ...defaultComponents };
+      const newComponents = { ...defaultComponents };
+      React.Children.forEach(children, child => {
+        if (componentKeyMap.has(child.type)) {
+          newComponents[componentKeyMap.get(child.type)] = React.cloneElement(
+            child,
+            { loading: loading }
+          );
+        } else if (child.props.children) {
+          React.Children.forEach(child.props.children, subChild => {
+            if (componentKeyMap.has(subChild.type)) {
+              newComponents[
+                componentKeyMap.get(subChild.type)
+              ] = React.cloneElement(child, { loading: loading });
+            }
+          });
+        }
+      });
+
+      return newComponents;
+    };
+
+    const { title, chart, summary, legend, granularity } = collectChildren();
+
+    return (
+      <ReportCardContext.Provider value={this.state}>
+        <ReportCardWrapper>
+          <ReportCardMain fullWidth={!summary && !legend}>
+            <ReportCardHeader>
+              {title} {granularity}
+            </ReportCardHeader>
+            {chart}
+          </ReportCardMain>
+          {(summary || legend) && (
+            <ReportCardRight>
+              <ReportCardSummary>
+                <Padding>
+                  {summary} {legend}
+                </Padding>
+              </ReportCardSummary>
+            </ReportCardRight>
+          )}
+        </ReportCardWrapper>
+      </ReportCardContext.Provider>
+    );
+  }
 }
 
 ReportCard.propTypes = {

@@ -6,9 +6,10 @@ import Ghost from './Ghost/Ghost';
 import { getOverallSummaryMetric } from './aggregators';
 import formatters from './formatters';
 import get from 'lodash.get';
+import ReportCardContext from './ReportCardContext';
 
 const LegendWrapper = styled.div`
-  padding-top: 8px;
+  padding-top: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +24,15 @@ const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  cursor: default;
+
+  ${({ enabled }) =>
+    !enabled &&
+    `
+    opacity: 0.3;
+  `}
 `;
 
 const ColorLabel = styled.div`
@@ -69,20 +78,30 @@ export default function Legend({
     </LegendWrapper>
   );
 
-  const renderLegendItems = (aggMap = {}) => {
-    return displayOptions.reverse().map(legendItem => {
-      const { dataKey, color, name } = legendItem;
-      const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
-      return (
-        <ItemWrapper key={name}>
-          <Label>
-            <ColorLabel color={color} />
-            <div>{name ? name : ''}</div>
-          </Label>
-          {formattedValue && <div>{formattedValue}</div>}
-        </ItemWrapper>
-      );
-    });
+  const renderLegendItems = (aggMap = {}, selectedKey, onSelectKey) => {
+    // TODO: why do we need to reverse the displayOptions?
+    // Maybe we want to reverse the rendering of stacked bars instead
+    return displayOptions
+      .slice()
+      .reverse()
+      .map(legendItem => {
+        const { dataKey, color, name } = legendItem;
+        const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
+        return (
+          <ItemWrapper
+            key={name}
+            enabled={!selectedKey || dataKey === selectedKey}
+            onMouseEnter={() => onSelectKey(dataKey)}
+            onMouseLeave={() => onSelectKey(null)}
+          >
+            <Label>
+              <ColorLabel color={color} />
+              <div>{name ? name : ''}</div>
+            </Label>
+            {formattedValue && <div>{formattedValue}</div>}
+          </ItemWrapper>
+        );
+      });
   };
 
   if (loading) return renderGhostState();
@@ -90,7 +109,15 @@ export default function Legend({
   const dataKeys = get(aggregationOptions, 'dataKeys');
   const aggMap = createAggMap(dataKeys);
 
-  return <LegendWrapper>{renderLegendItems(aggMap)}</LegendWrapper>;
+  return (
+    <ReportCardContext.Consumer>
+      {({ selectedKey, onSelectKey }) => (
+        <LegendWrapper>
+          {renderLegendItems(aggMap, selectedKey, onSelectKey)}
+        </LegendWrapper>
+      )}
+    </ReportCardContext.Consumer>
+  );
 }
 
 Legend.propTypes = {

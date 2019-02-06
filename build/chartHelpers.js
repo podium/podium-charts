@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.detectChartType = detectChartType;
 exports.getStackPositions = getStackPositions;
 exports.singleLineChart = singleLineChart;
-exports.renderRangeLabel = exports.fullDate = exports.filterChildren = void 0;
+exports.getDeselectedColor = exports.renderRangeLabel = exports.fullDate = exports.filterChildren = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -18,6 +18,8 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _skeletonComponents = require("./skeletonComponents");
 
+var _podiumUi = require("@podiumhq/podium-ui");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -27,6 +29,8 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var DEFAULT_DESELECTED_COLOR = _podiumUi.colors.mystic;
 
 function detectChartType(children) {
   var filteredChildren = filterChildren(children);
@@ -103,3 +107,16 @@ var renderRangeLabel = function renderRangeLabel(data) {
 };
 
 exports.renderRangeLabel = renderRangeLabel;
+
+var getDeselectedColor = function getDeselectedColor(color) {
+  if (color.match(/^#[0-9a-f]{6}$/i)) {
+    var r = parseInt(color.substring(1, 3), 16);
+    var g = parseInt(color.substring(3, 5), 16);
+    var b = parseInt(color.substring(5, 7), 16);
+    return "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", 0.3)");
+  } else {
+    return DEFAULT_DESELECTED_COLOR;
+  }
+};
+
+exports.getDeselectedColor = getDeselectedColor;

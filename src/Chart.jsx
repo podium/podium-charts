@@ -8,7 +8,8 @@ import {
   detectChartType,
   getStackPositions,
   singleLineChart,
-  filterChildren
+  filterChildren,
+  getDeselectedColor
 } from './chartHelpers';
 import {
   XAxis,
@@ -30,6 +31,7 @@ import {
   Dot as RechartsDot
 } from 'recharts';
 import GhostChart from './Ghost/GhostChart';
+import ReportCardContext from './ReportCardContext';
 
 const GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
@@ -40,15 +42,51 @@ const determineDataKey = dataKey => {
   return dataKey;
 };
 
+const isDeselected = (dataKey, selectedKey) => {
+  if (!selectedKey) {
+    return false;
+  }
+  const seriesKey = getSeriesKey(dataKey);
+  return seriesKey !== selectedKey;
+};
+
+// e.g. `facebook.reviewRating` => `facebook`
+const getSeriesKey = dataKey => {
+  if (typeof dataKey !== 'function') {
+    if (dataKey.indexOf('.') !== -1) {
+      return dataKey.split('.')[0];
+    } else {
+      return dataKey;
+    }
+  }
+  return dataKey;
+};
+
+/**
+ * @typedef RenderContext
+ * @property {string | null} selectedKey The series key that is currently selected on the Legend
+ * @property {boolean} isFirstRender Whether we are rendering the Chart for the first time
+ */
+
 export default class Chart extends React.Component {
-  renderChildren = mapping => {
+  constructor(props) {
+    super(props);
+
+    // Keeping out of component state because we don't want to trigger renders
+    this.isFirstRender = true;
+  }
+
+  /**
+   * @param {RenderContext} renderContext
+   */
+  renderChildren = (mapping, renderContext) => {
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
 
     const filteredChildren = filterChildren(children);
     return React.Children.map(filteredChildren, child => {
       const renderComponent = mapping.get(child.type);
-      if (renderComponent) return renderComponent(child.props);
+      if (renderComponent) return renderComponent(child.props, renderContext);
     });
   };
 
@@ -77,9 +115,12 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = ({ dataKey, ...props }) => {
+  renderBar = ({ dataKey, ...props }, { selectedKey }) => {
     const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
+    const color = isDeselected(dataKey, selectedKey)
+      ? getDeselectedColor(props.color)
+      : props.color;
 
     return (
       <RechartsBar
@@ -91,24 +132,31 @@ export default class Chart extends React.Component {
             stackPosition={stackPosition}
           />
         }
-        fill={props.color}
+        fill={color}
         dataKey={determineDataKey(dataKey)}
         {...props}
       />
     );
   };
-  renderLine = ({ dataKey, ...props }) => (
-    <RechartsLine
-      type="linear"
-      stroke={props.color}
-      isAnimationActive={true}
-      strokeWidth={2}
-      activeDot={false}
-      dataKey={determineDataKey(dataKey)}
-      dot={{ r: 2.5, strokeWidth: 0, fill: props.color }}
-      {...props}
-    />
-  );
+
+  renderLine = ({ dataKey, ...props }, { selectedKey, isFirstRender }) => {
+    const color = isDeselected(dataKey, selectedKey)
+      ? getDeselectedColor(props.color)
+      : props.color;
+
+    return (
+      <RechartsLine
+        type="linear"
+        stroke={color}
+        isAnimationActive={isFirstRender}
+        strokeWidth={2}
+        activeDot={false}
+        dataKey={determineDataKey(dataKey)}
+        dot={{ r: 2.5, strokeWidth: 0, fill: color }}
+        {...props}
+      />
+    );
+  };
 
   renderSummaryLine = ({ dataKey, ...props }) => (
     <RechartsLine
@@ -167,6 +215,8 @@ export default class Chart extends React.Component {
 
   render() {
     const { data, width, height, loading, children } = this.props;
+    const isFirstRender = this.isFirstRender;
+    this.isFirstRender = false;
     const filteredChildren = filterChildren(children);
     const graph = detectChartType(filteredChildren);
     const RechartsChartType = graph;
@@ -181,18 +231,25 @@ export default class Chart extends React.Component {
     if (loading) return <GhostChart height={height} />;
 
     return (
-      <ChartWrapper>
-        <ResponsiveContainer width={width} height={height}>
-          <RechartsChartType
-            data={data}
-            margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
-            barCategoryGap="30%"
-          >
-            <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />
-            {this.renderChildren(mapping)}
-          </RechartsChartType>
-        </ResponsiveContainer>
-      </ChartWrapper>
+      <ReportCardContext.Consumer>
+        {({ selectedKey }) => (
+          <ChartWrapper>
+            <ResponsiveContainer width={width} height={height}>
+              <RechartsChartType
+                data={data}
+                margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
+                barCategoryGap="30%"
+              >
+                <RechartsCartesianGrid
+                  vertical={false}
+                  stroke={colors.mystic}
+                />
+                {this.renderChildren(mapping, { selectedKey, isFirstRender })}
+              </RechartsChartType>
+            </ResponsiveContainer>
+          </ChartWrapper>
+        )}
+      </ReportCardContext.Consumer>
     );
   }
 }
