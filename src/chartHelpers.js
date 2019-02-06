@@ -72,7 +72,7 @@ export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
 };
 
 export const getDeselectedColor = color => {
-  if (color.match(/^#[0-9A-F]{6}$/)) {
+  if (color.match(/^#[0-9a-f]{6}$/i)) {
     const r = parseInt(color.substring(1, 3), 16);
     const g = parseInt(color.substring(3, 5), 16);
     const b = parseInt(color.substring(5, 7), 16);
