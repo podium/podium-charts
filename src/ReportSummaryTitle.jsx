@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
-import { getOverallSummaryMetric } from './aggregators';
+import { getOverallSummaryMetric, calculateTrend } from './aggregators';
 
 const SummaryTitleWrapper = styled.div`
   width: 100%;
@@ -57,20 +57,13 @@ export default function ReportSummaryTitle({
     </SummaryTitleWrapper>
   );
 
-  const calculateTrend = (prevDataValue, currDataValue) => {
-    if (currDataValue < prevDataValue) {
-      return 'down';
-    } else if (currDataValue > prevDataValue) {
-      return 'up';
-    }
-    return 'neutral';
-  };
-
   const renderToolTip = prevDataValue => {
     return (
       <ToolTipWrapper>
         <div>This time last month:</div>
-        <div style={{ textAlign: 'left' }}>{formatter(prevDataValue)}</div>
+        <div style={{ textAlign: 'left' }}>
+          {prevDataValue === null ? 'N/A' : formatter(prevDataValue)}
+        </div>
       </ToolTipWrapper>
     );
   };
@@ -84,11 +77,14 @@ export default function ReportSummaryTitle({
     ? getOverallSummaryMetric(trendData[1], aggregationOptions)
     : 0;
 
+  const currDataFormatted =
+    currDataValue === null ? 'N/A' : formatter(currDataValue);
+
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
       <MonthToDate>
-        <span style={{ marginRight: '8px' }}>{formatter(currDataValue)}</span>
+        <span style={{ marginRight: '8px' }}>{currDataFormatted}</span>
         <ToolTip type="arrow" tip={renderToolTip(prevDataValue)} position="top">
           <Trend
             direction={calculateTrend(prevDataValue, currDataValue)}
