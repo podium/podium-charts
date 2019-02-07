@@ -10,41 +10,9 @@ var _colors = _interopRequireDefault(require("./colors"));
 
 var _ = require("./");
 
+var _StoryHelpers = require("./StoryHelpers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function Palette(_ref) {
-  var color = _ref.color,
-      name = _ref.name;
-  var paletteWrapper = {
-    width: 150,
-    height: 150,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 12,
-    flexDirection: 'column'
-  };
-  var paletteLabel = {
-    padding: 8,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    color: 'white'
-  };
-  return _react.default.createElement("div", {
-    style: _objectSpread({}, paletteWrapper, {
-      backgroundColor: color
-    })
-  }, _react.default.createElement("div", {
-    style: paletteLabel
-  }, _react.default.createElement("div", null, name), _react.default.createElement("div", null, color)));
-}
 
 var data = [{
   sms: 200,
@@ -538,6 +506,76 @@ var timeData = [{
     dataKey: "sms",
     color: _colors.default.cobaltBlue
   }))));
+}).add('Long title', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.abbreviateNumber,
+    dataKeys: ['sms'],
+    title: "This title is very long, yes indeed",
+    data: data,
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  }))));
+}).add('Responsive metric size', function () {
+  return _react.default.createElement("div", null, _react.default.createElement(_StoryHelpers.WindowWidthMonitor, null), _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement("h3", null, "This will shrink at 1000px:"), _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.abbreviateNumber,
+    dataKeys: ['sms'],
+    title: "This title is very long, yes indeed",
+    data: data,
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    },
+    smallWidth: 1000
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  }))), _react.default.createElement("h3", null, "This will not shrink:"), _react.default.createElement(_.ReportCard, {
+    width: "270px"
+  }, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.abbreviateNumber,
+    dataKeys: ['sms'],
+    title: "This title is very long, yes indeed",
+    data: data,
+    trendData: [prevData, currData],
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['value']
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  })))));
 });
 (0, _react2.storiesOf)('Summary', module).add('WeightedAvg', function () {
   return _react.default.createElement(_.Summary, {
@@ -1050,7 +1088,7 @@ var timeData = [{
       flexWrap: 'wrap'
     }
   }, podiumColors.map(function (color) {
-    return _react.default.createElement(Palette, {
+    return _react.default.createElement(_StoryHelpers.Palette, {
       color: color.value,
       name: color.name
     });

@@ -19,36 +19,7 @@ import {
   ReportTitle,
   ReportSummaryTitle
 } from './';
-
-function Palette({ color, name }) {
-  const paletteWrapper = {
-    width: 150,
-    height: 150,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 12,
-    flexDirection: 'column'
-  };
-
-  const paletteLabel = {
-    padding: 8,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    color: 'white'
-  };
-  return (
-    <div style={{ ...paletteWrapper, backgroundColor: color }}>
-      <div style={paletteLabel}>
-        <div>{name}</div>
-        <div>{color}</div>
-      </div>
-    </div>
-  );
-}
+import { Palette, WindowWidthMonitor } from './StoryHelpers';
 
 const data = [
   { sms: 200, text: 1, organic: 2, date: '2018-01-01T00:00:00.000Z' },
@@ -356,6 +327,69 @@ storiesOf('Report Card Summary', module)
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
+    </div>
+  ))
+  .add('Long title', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard width="270px">
+        <ReportSummaryTitle
+          formatter={formatters.abbreviateNumber}
+          dataKeys={['sms']}
+          title="This title is very long, yes indeed"
+          data={data}
+          trendData={[prevData, currData]}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['value']
+          }}
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+  .add('Responsive metric size', () => (
+    <div>
+      <WindowWidthMonitor />
+
+      <div style={{ width: '270px' }}>
+        <h3>This will shrink at 1000px:</h3>
+        <ReportCard width="270px">
+          <ReportSummaryTitle
+            formatter={formatters.abbreviateNumber}
+            dataKeys={['sms']}
+            title="This title is very long, yes indeed"
+            data={data}
+            trendData={[prevData, currData]}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['value']
+            }}
+            smallWidth={1000}
+          />
+          <Chart data={data} height={100}>
+            <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          </Chart>
+        </ReportCard>
+        <h3>This will not shrink:</h3>
+        <ReportCard width="270px">
+          <ReportSummaryTitle
+            formatter={formatters.abbreviateNumber}
+            dataKeys={['sms']}
+            title="This title is very long, yes indeed"
+            data={data}
+            trendData={[prevData, currData]}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['value']
+            }}
+          />
+          <Chart data={data} height={100}>
+            <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          </Chart>
+        </ReportCard>
+      </div>
     </div>
   ));
 
