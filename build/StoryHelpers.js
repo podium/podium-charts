@@ -75,8 +75,6 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(WindowWidthMonitor).call(this, props));
 
     _this.updateWidth = function () {
-      console.log('updateWidth');
-
       _this.setState({
         width: window.innerWidth
       });

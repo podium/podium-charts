@@ -40,7 +40,6 @@ export class WindowWidthMonitor extends React.Component {
   }
 
   updateWidth = () => {
-    console.log('updateWidth');
     this.setState({ width: window.innerWidth });
   };
 
