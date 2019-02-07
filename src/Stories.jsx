@@ -98,6 +98,57 @@ const weightedAvgDataPrev = [
   }
 ];
 
+const reviewsData = [
+  {
+    date: '2018-09-15T23:43:32',
+    facebook: {
+      reviewRating: 4.5,
+      reviewCount: 3
+    },
+    google: {
+      reviewRating: 4.2,
+      reviewCount: 7
+    },
+    yelp: {
+      reviewRating: 2.5,
+      reviewCount: 2
+    }
+  },
+  {
+    date: '2018-10-15T23:43:32',
+    facebook: {
+      reviewRating: 3.7,
+      reviewCount: 6
+    },
+    yelp: {
+      reviewRating: 1.0,
+      reviewCount: 1
+    }
+  },
+  {
+    date: '2018-11-15T23:43:32',
+    google: {
+      reviewRating: 4.6,
+      reviewCount: 9
+    }
+  },
+  {
+    date: '2018-12-15T23:43:32',
+    facebook: {
+      reviewRating: 4.5,
+      reviewCount: 7
+    },
+    google: {
+      reviewRating: 4.2,
+      reviewCount: 15
+    },
+    yelp: {
+      reviewRating: 2.5,
+      reviewCount: 2
+    }
+  }
+];
+
 const timeData = [
   { waitTime: 150, date: '2018-08-15T23:43:32' },
   { waitTime: 1500, date: '2018-09-15T23:43:32' },
@@ -199,6 +250,47 @@ storiesOf('Line Chart', module)
         color={colors.cobaltBlue}
       />
       <Line name="SO CAN THIS" dataKey="text" color={colors.poppyRed} />
+    </Chart>
+  ))
+  .add('Customized Axis, Tooltip', () => (
+    <Chart data={reviewsData}>
+      <YAxis
+        tickFormatter={formatters.abbreviateNumber}
+        ticks={['0', '1', '2', '3', '4', '5']}
+        domain={[0, 5]}
+      />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
+      <Tooltip
+        content={
+          <TooltipBody
+            formatter={formatters.roundToPlaces(1)}
+            aggregationOptions={{
+              type: 'weightedAvg',
+              dataKeys: ['facebook', 'google', 'yelp'],
+              options: { valueKey: 'reviewRating', countKey: 'reviewCount' }
+            }}
+            summaryTitle="Avg Star Rating"
+          />
+        }
+      />
+      <Line
+        name="Facebook"
+        dataKey="facebook.reviewRating"
+        color={colors.siteColors.facebook}
+        connectNulls
+      />
+      <Line
+        name="Google"
+        dataKey="google.reviewRating"
+        color={colors.siteColors.google}
+        connectNulls
+      />
+      <Line
+        name="Yelp"
+        dataKey="yelp.reviewRating"
+        color={colors.siteColors.yelp}
+        connectNulls
+      />
     </Chart>
   ));
 
