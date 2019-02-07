@@ -1072,6 +1072,29 @@ var timeData = [{
     dateEnd: "2019-01-10"
   }));
 });
+(0, _react2.storiesOf)('Granularity Dropdown', module).add('Last Year', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "lastYear",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('Last Week', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "lastWeek",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+}).add('Restricted Options', function () {
+  return _react.default.createElement(_.Granularity, {
+    timeRange: "lastWeek",
+    options: ['month', 'week', 'day'],
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  });
+});
 (0, _react2.storiesOf)('colors', module).add('default', function () {
   var colorsMap = Object.keys(_colors.default).map(function (color) {
     return {
