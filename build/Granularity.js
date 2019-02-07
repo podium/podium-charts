@@ -101,14 +101,14 @@ function (_Component) {
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Granularity)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.getOptions = function () {
       var _this$props = _this.props,
           timeRange = _this$props.timeRange,
-          options = _this$props.options;
+          exclude = _this$props.exclude;
 
       if (timeRange === 'custom') {
         return _this.getCustomRangeOptions();
       }
 
       var availableOptions = optionsMap[timeRange].filter(function (granularity) {
-        return !!options.includes(granularity.value);
+        return !exclude.includes(granularity.value);
       });
       return availableOptions || optionsMap.monthToDate;
     }, _this.getCustomRangeOptions = function () {
@@ -176,9 +176,9 @@ Granularity.propTypes = {
   onChange: _propTypes.default.func,
   dateStart: _propTypes.default.string,
   timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
-  options: _propTypes.default.arrayOf(_propTypes.default.oneOf(['month', 'week', 'day', 'hour']))
+  exclude: _propTypes.default.arrayOf(_propTypes.default.oneOf(['month', 'week', 'day', 'hour']))
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate',
-  options: ['month', 'week', 'day', 'hour']
+  exclude: []
 };

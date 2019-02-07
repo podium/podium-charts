@@ -1089,7 +1089,7 @@ var timeData = [{
 }).add('Restricted Options', function () {
   return _react.default.createElement(_.Granularity, {
     timeRange: "lastWeek",
-    options: ['month', 'week', 'day'],
+    exclude: ['hour'],
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }

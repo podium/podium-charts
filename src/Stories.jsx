@@ -810,7 +810,7 @@ storiesOf('Granularity Dropdown', module)
   .add('Restricted Options', () => (
     <Granularity
       timeRange="lastWeek"
-      options={['month', 'week', 'day']}
+      exclude={['hour']}
       onChange={res => {
         console.log(`You picked ${res}`);
       }}
