@@ -63,7 +63,7 @@ var TitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.p(_templateObject2());
 
-var RangeLabel = _styledComponents.default.p(_templateObject3(), _podiumUi.colors.steel);
+var RangeLabel = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
 
 var DateRangePlaceholder = _styledComponents.default.span(_templateObject4());
 
