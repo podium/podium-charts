@@ -354,6 +354,25 @@ storiesOf('Report Card Summary', module)
       <WindowWidthMonitor />
 
       <div style={{ width: '270px' }}>
+        <h3>This will shrink at 1000px:</h3>
+        <ReportCard width="270px">
+          <ReportSummaryTitle
+            formatter={formatters.abbreviateNumber}
+            dataKeys={['sms']}
+            title="This title is very long, yes indeed"
+            data={data}
+            trendData={[prevData, currData]}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['value']
+            }}
+            smallWidth={1000}
+          />
+          <Chart data={data} height={100}>
+            <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          </Chart>
+        </ReportCard>
+        <h3>This will not shrink:</h3>
         <ReportCard width="270px">
           <ReportSummaryTitle
             formatter={formatters.abbreviateNumber}

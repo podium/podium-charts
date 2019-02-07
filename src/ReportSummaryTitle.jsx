@@ -6,8 +6,6 @@ import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
 import { getOverallSummaryMetric, calculateTrend } from './aggregators';
 
-const BREAKPOINT_SHRINK_SUMMARY_METRIC = 1170;
-
 const SummaryTitleWrapper = styled.div`
   width: 100%;
   padding-top: 8px;
@@ -28,9 +26,13 @@ const MonthToDate = styled.div`
   font-weight: 600;
   font-size: 32px;
 
-  @media (max-width: ${BREAKPOINT_SHRINK_SUMMARY_METRIC}px) {
-    font-size: 24px;
-  }
+  ${({ smallWidth }) =>
+    smallWidth !== 0 &&
+    `
+    @media (max-width: ${smallWidth}px) {
+      font-size: 24px;
+    }
+  `}
 `;
 
 const MonthToDateLabel = styled.div`
@@ -53,7 +55,8 @@ export default function ReportSummaryTitle({
   loading,
   tooltip,
   trendData,
-  aggregationOptions
+  aggregationOptions,
+  smallWidth
 }) {
   const renderGhostState = () => (
     <SummaryTitleWrapper>
@@ -89,7 +92,7 @@ export default function ReportSummaryTitle({
   return (
     <SummaryTitleWrapper>
       <Title>{title}</Title>
-      <MonthToDate>
+      <MonthToDate smallWidth={smallWidth}>
         <span style={{ marginRight: '8px' }}>{currDataFormatted}</span>
         <ToolTip type="arrow" tip={renderToolTip(prevDataValue)} position="top">
           <Trend
@@ -117,10 +120,12 @@ ReportSummaryTitle.propTypes = {
       valueKey: PropTypes.string,
       countKey: PropTypes.string
     })
-  }).isRequired
+  }).isRequired,
+  smallWidth: PropTypes.number
 };
 
 ReportSummaryTitle.defaultProps = {
   formatter: value => value,
-  preferDown: false
+  preferDown: false,
+  smallWidth: 0
 };
