@@ -61,7 +61,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var TitleWrapper = _styledComponents.default.div(_templateObject());
 
-var Title = _styledComponents.default.p(_templateObject2());
+var Title = _styledComponents.default.div(_templateObject2());
 
 var RangeLabel = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
 

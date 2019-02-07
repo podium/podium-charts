@@ -8,7 +8,7 @@ const TitleWrapper = styled.div`
   margin-bottom: 16px;
 `;
 
-const Title = styled.p`
+const Title = styled.div`
   margin: 0;
   font-size: 16px;
   font-weight: 500;
