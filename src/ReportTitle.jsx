@@ -14,7 +14,7 @@ const Title = styled.p`
   font-weight: 500;
 `;
 
-const RangeLabel = styled.p`
+const RangeLabel = styled.div`
   margin: 0;
   font-size: 12px;
   color: ${colors.steel};
