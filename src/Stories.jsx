@@ -188,6 +188,26 @@ storiesOf('Bar Chart', module)
       <Bar name="Text" dataKey="text" color={colors.poppyRed} />
     </Chart>
   ))
+  .add('Tooltip, legend disabled', () => (
+    <Chart data={data}>
+      <YAxis />
+      <XAxis dataKey="date" tickFormatter={formatters.date()} />
+      <Tooltip
+        content={
+          <TooltipBody
+            summaryTitle="Reviews"
+            showLegend={false}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['organic', 'text']
+            }}
+          />
+        }
+      />
+      <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
+      <Bar name="Text" dataKey="text" color={colors.poppyRed} />
+    </Chart>
+  ))
   .add('Stacked', () => (
     <Chart data={data}>
       <YAxis />
