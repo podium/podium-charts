@@ -117,9 +117,7 @@ export default function TooltipBody(props) {
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
         {summary && <Summary>{summary}</Summary>}
       </Header>
-      {props.payload && props.payload.length > 1 && (
-        <Body>{renderToolTipLegend()}</Body>
-      )}
+      {props.payload && <Body>{renderToolTipLegend()}</Body>}
     </TooltipBodyWrapper>
   );
 }
