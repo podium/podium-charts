@@ -27,11 +27,14 @@ const ReportCardHeader = styled.div`
 const ReportCardMain = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 75%;
+  flex: 3;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : '75%')};
 `;
 
 const ReportCardRight = styled.div`
-  width: 25%;
+  flex: 1;
+  max-width: 320px;
 `;
 
 const ReportCardSummary = styled.div`
