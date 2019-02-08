@@ -117,7 +117,9 @@ export default function TooltipBody(props) {
         <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
         {summary && <Summary>{summary}</Summary>}
       </Header>
-      {props.payload && <Body>{renderToolTipLegend()}</Body>}
+      {props.showLegend && props.payload && (
+        <Body>{renderToolTipLegend()}</Body>
+      )}
     </TooltipBodyWrapper>
   );
 }
@@ -132,10 +134,12 @@ TooltipBody.propTypes = {
     })
   }),
   summaryTitle: PropTypes.string,
+  showLegend: PropTypes.bool,
   granularity: PropTypes.string
 };
 
 TooltipBody.defaultProps = {
+  showLegend: true,
   granularity: 'month',
   formatter: formatters.commatize
 };
