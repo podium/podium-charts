@@ -186,7 +186,7 @@ function TooltipBody(props) {
   };
 
   var summary = renderSummary();
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), summary && _react.default.createElement(Summary, null, summary)), props.payload && props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label)), summary && _react.default.createElement(Summary, null, summary)), props.showLegend && props.payload && _react.default.createElement(Body, null, renderToolTipLegend()));
 }
 
 TooltipBody.propTypes = {
@@ -199,9 +199,11 @@ TooltipBody.propTypes = {
     })
   }),
   summaryTitle: _propTypes.default.string,
+  showLegend: _propTypes.default.bool,
   granularity: _propTypes.default.string
 };
 TooltipBody.defaultProps = {
+  showLegend: true,
   granularity: 'month',
   formatter: _formatters.default.commatize
 };

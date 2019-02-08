@@ -198,6 +198,51 @@ var weightedAvgDataPrev = [{
   },
   date: '2018-08-15T23:43:32'
 }];
+var reviewsData = [{
+  date: '2018-09-15T23:43:32',
+  facebook: {
+    reviewRating: 4.5,
+    reviewCount: 3
+  },
+  google: {
+    reviewRating: 4.2,
+    reviewCount: 7
+  },
+  yelp: {
+    reviewRating: 2.5,
+    reviewCount: 2
+  }
+}, {
+  date: '2018-10-15T23:43:32',
+  facebook: {
+    reviewRating: 3.7,
+    reviewCount: 6
+  },
+  yelp: {
+    reviewRating: 1.0,
+    reviewCount: 1
+  }
+}, {
+  date: '2018-11-15T23:43:32',
+  google: {
+    reviewRating: 4.6,
+    reviewCount: 9
+  }
+}, {
+  date: '2018-12-15T23:43:32',
+  facebook: {
+    reviewRating: 4.5,
+    reviewCount: 7
+  },
+  google: {
+    reviewRating: 4.2,
+    reviewCount: 15
+  },
+  yelp: {
+    reviewRating: 2.5,
+    reviewCount: 2
+  }
+}];
 var timeData = [{
   waitTime: 150,
   date: '2018-08-15T23:43:32'
@@ -241,6 +286,30 @@ var timeData = [{
   }), _react.default.createElement(_.Tooltip, {
     content: _react.default.createElement(_.TooltipBody, {
       summaryTitle: "Reviews",
+      aggregationOptions: {
+        type: 'total',
+        dataKeys: ['organic', 'text']
+      }
+    })
+  }), _react.default.createElement(_.Bar, {
+    name: "Organic",
+    dataKey: "organic",
+    color: _colors.default.cobaltBlue
+  }), _react.default.createElement(_.Bar, {
+    name: "Text",
+    dataKey: "text",
+    color: _colors.default.poppyRed
+  }));
+}).add('Tooltip, legend disabled', function () {
+  return _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      summaryTitle: "Reviews",
+      showLegend: false,
       aggregationOptions: {
         type: 'total',
         dataKeys: ['organic', 'text']
@@ -352,6 +421,45 @@ var timeData = [{
     name: "SO CAN THIS",
     dataKey: "text",
     color: _colors.default.poppyRed
+  }));
+}).add('Customized Axis, Tooltip', function () {
+  return _react.default.createElement(_.Chart, {
+    data: reviewsData
+  }, _react.default.createElement(_.YAxis, {
+    tickFormatter: _formatters.default.abbreviateNumber,
+    ticks: ['0', '1', '2', '3', '4', '5'],
+    domain: [0, 5]
+  }), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Tooltip, {
+    content: _react.default.createElement(_.TooltipBody, {
+      formatter: _formatters.default.roundToPlaces(1),
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['facebook', 'google', 'yelp'],
+        options: {
+          valueKey: 'reviewRating',
+          countKey: 'reviewCount'
+        }
+      },
+      summaryTitle: "Avg Star Rating"
+    })
+  }), _react.default.createElement(_.Line, {
+    name: "Facebook",
+    dataKey: "facebook.reviewRating",
+    color: _colors.default.siteColors.facebook,
+    connectNulls: true
+  }), _react.default.createElement(_.Line, {
+    name: "Google",
+    dataKey: "google.reviewRating",
+    color: _colors.default.siteColors.google,
+    connectNulls: true
+  }), _react.default.createElement(_.Line, {
+    name: "Yelp",
+    dataKey: "yelp.reviewRating",
+    color: _colors.default.siteColors.yelp,
+    connectNulls: true
   }));
 });
 (0, _react2.storiesOf)('Mixed Chart', module).add('Mixed', function () {
