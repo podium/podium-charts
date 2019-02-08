@@ -38,11 +38,14 @@ const optionsMap = {
 
 export default class Granularity extends Component {
   getOptions = () => {
-    const { timeRange } = this.props;
+    const { timeRange, exclude } = this.props;
     if (timeRange === 'custom') {
       return this.getCustomRangeOptions();
     }
-    return optionsMap[timeRange] || optionsMap.monthToDate;
+    const availableOptions = optionsMap[timeRange].filter(granularity => {
+      return !exclude.includes(granularity.value);
+    });
+    return availableOptions || optionsMap.monthToDate;
   };
 
   getCustomRangeOptions = () => {
@@ -113,9 +116,11 @@ Granularity.propTypes = {
     'weekToDate',
     'yearToDate',
     'yesterday'
-  ])
+  ]),
+  exclude: PropTypes.arrayOf(PropTypes.oneOf(['month', 'week', 'day', 'hour']))
 };
 
 Granularity.defaultProps = {
-  timeRange: 'monthToDate'
+  timeRange: 'monthToDate',
+  exclude: []
 };
