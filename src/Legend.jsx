@@ -86,7 +86,8 @@ export default function Legend({
       .reverse()
       .map(legendItem => {
         const { dataKey, color, name } = legendItem;
-        const formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
+        const formattedValue =
+          aggMap[dataKey] && formatter(aggMap[dataKey], dataKey);
         return (
           <ItemWrapper
             key={name}

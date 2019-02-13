@@ -21,6 +21,17 @@ import {
 } from './';
 import { Palette, WindowWidthMonitor } from './StoryHelpers';
 
+const customFormatter = (value, dataKey) => {
+  if (dataKey === 'text') {
+    return (
+      <a href="//yelp.com" target="_blank" rel="noopener noreferrer">
+        View in Yelp
+      </a>
+    );
+  }
+  return formatters.roundToPlaces(1)(value);
+};
+
 const data = [
   { sms: 200, text: 1, organic: 2, date: '2018-01-01T00:00:00.000Z' },
   { sms: 3000, text: 5, organic: 0, date: '2018-02-01T00:00:00.000Z' },
@@ -640,6 +651,45 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
+  .add('w/Custom Formatted Legend', () => (
+    <ReportCard>
+      <ReportTitle title="Total Reviews" data={data} />
+      <Granularity
+        timeRange="lastYear"
+        onChange={res => {
+          console.log(`You picked ${res}`);
+        }}
+      />
+      <Chart data={data}>
+        <YAxis />
+        <XAxis dataKey="date" tickFormatter={formatters.date()} />
+        <Line dataKey="sms" color={colors.cobaltBlue} />
+      </Chart>
+      <Summary
+        formatter={formatters.roundToPlaces(1)}
+        data={data}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['text', 'organic']
+        }}
+        granularity="month"
+        timeRange="custom"
+      />
+      <Legend
+        formatter={customFormatter}
+        data={data}
+        aggregationOptions={{
+          type: 'total',
+          dataKeys: ['organic', 'text']
+        }}
+        displayOptions={[
+          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
+        ]}
+      />
+    </ReportCard>
+  ))
+
   .add('w/Legend (multiple bars)', () => (
     <ReportCard>
       <ReportTitle title="Inbound Leads by Source" data={data} />

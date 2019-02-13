@@ -127,7 +127,7 @@ function Legend(_ref2) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name;
-      var formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey]);
+      var formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey], dataKey);
       return _react.default.createElement(ItemWrapper, {
         key: name,
         enabled: !selectedKey || dataKey === selectedKey,

@@ -14,6 +14,17 @@ var _StoryHelpers = require("./StoryHelpers");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var customFormatter = function customFormatter(value, dataKey) {
+  if (dataKey === 'text') {
+    return _react.default.createElement("a", {
+      href: "//yelp.com",
+      target: "_blank"
+    }, "View in Yelp");
+  }
+
+  return _formatters.default.roundToPlaces(1)(value);
+};
+
 var data = [{
   sms: 200,
   text: 1,
@@ -854,6 +865,49 @@ var timeData = [{
     }, {
       name: 'Cats',
       dataKey: 'cats',
+      color: _colors.default.poppyRed
+    }]
+  }));
+}).add('w/Custom Formatted Legend', function () {
+  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+    title: "Total Reviews",
+    data: data
+  }), _react.default.createElement(_.Granularity, {
+    timeRange: "lastYear",
+    onChange: function onChange(res) {
+      console.log("You picked ".concat(res));
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: data
+  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    dataKey: "date",
+    tickFormatter: _formatters.default.date()
+  }), _react.default.createElement(_.Line, {
+    dataKey: "sms",
+    color: _colors.default.cobaltBlue
+  })), _react.default.createElement(_.Summary, {
+    formatter: _formatters.default.roundToPlaces(1),
+    data: data,
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['text', 'organic']
+    },
+    granularity: "month",
+    timeRange: "custom"
+  }), _react.default.createElement(_.Legend, {
+    formatter: customFormatter,
+    data: data,
+    aggregationOptions: {
+      type: 'total',
+      dataKeys: ['organic', 'text']
+    },
+    displayOptions: [{
+      name: 'Organic',
+      dataKey: 'organic',
+      color: _colors.default.cobaltBlue
+    }, {
+      name: 'Text',
+      dataKey: 'text',
       color: _colors.default.poppyRed
     }]
   }));
