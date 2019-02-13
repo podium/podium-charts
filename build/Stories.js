@@ -18,7 +18,8 @@ var customFormatter = function customFormatter(value, dataKey) {
   if (dataKey === 'text') {
     return _react.default.createElement("a", {
       href: "//yelp.com",
-      target: "_blank"
+      target: "_blank",
+      rel: "noopener noreferrer"
     }, "View in Yelp");
   }
 
