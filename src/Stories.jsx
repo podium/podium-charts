@@ -73,6 +73,37 @@ const prevData = [
   { value: 0, granularity: '2018-11-10T00:00:00.000Z' }
 ];
 
+const powerLevels = [
+  {
+    granularity: '2018-11-01T00:00:00.000Z',
+    goku: 5000,
+    piccolo: 3500,
+    vegeta: 18000,
+    turtle: null
+  },
+  {
+    granularity: '2018-11-02T00:00:00.000Z',
+    goku: 6000,
+    piccolo: 3750,
+    vegeta: 19000,
+    turtle: null
+  },
+  {
+    granularity: '2018-11-03T00:00:00.000Z',
+    goku: 7500,
+    piccolo: 3600,
+    vegeta: 20000,
+    turtle: null
+  },
+  {
+    granularity: '2018-11-04T00:00:00.000Z',
+    goku: 24000,
+    piccolo: 4000,
+    vegeta: 21000,
+    turtle: null
+  }
+];
+
 const weightedAvgData = [
   {
     dogs: { cuteness: 5, amount: 10 },
@@ -609,44 +640,42 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
-  .add('w/Legend (no agg)', () => (
+  .add('w/Legend (series with no data)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" data={weightedAvgData} />
-      <Chart data={weightedAvgData}>
+      <ReportTitle title="Power Levels" data={powerLevels} />
+      <Chart data={powerLevels}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Line dataKey="dogs.cuteness" name="Dogs" color={colors.cobaltBlue} />
-        <Line dataKey="cats.cuteness" name="Cats" color={colors.poppyRed} />
-        <Tooltip
-          content={
-            <TooltipBody
-              formatter={formatters.roundToPlaces(1)}
-              aggregationOptions={{
-                type: 'weightedAvg',
-                dataKeys: ['dogs', 'cats'],
-                options: { valueKey: 'cuteness', countKey: 'amount' }
-              }}
-              summaryTitle="Animals"
-            />
-          }
-        />
+        <Line dataKey="goku" name="Goku" color="#FB7326" />
+        <Line dataKey="piccolo" name="Piccolo" color="#479919" />
+        <Line dataKey="vegeta" name="Vegeta" color="#3756B0" />
+        <Line dataKey="turtle" name="Turtle" color="#6A3027" />
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={weightedAvgData}
+        data={powerLevels}
         aggregationOptions={{
-          type: 'weightedAvg',
-          dataKeys: ['cats', 'dogs'],
-          options: { valueKey: 'cuteness', countKey: 'amount' }
+          type: 'avg',
+          dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
         }}
-        granularity="month"
-        timeRange="lastYear"
+        granularity="day"
+        timeRange="lastWeek"
       />
       <Legend
-        data={weightedAvgData}
+        formatter={formatters.nullToValue(
+          formatters.roundToPlaces(1),
+          '(no data)'
+        )}
+        data={powerLevels}
+        aggregationOptions={{
+          type: 'avg',
+          dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
+        }}
         displayOptions={[
-          { name: 'Dogs', dataKey: 'dogs', color: colors.cobaltBlue },
-          { name: 'Cats', dataKey: 'cats', color: colors.poppyRed }
+          { name: 'Goku', dataKey: 'goku', color: '#FB7326' },
+          { name: 'Piccolo', dataKey: 'piccolo', color: '#479919' },
+          { name: 'Vegeta', dataKey: 'vegeta', color: '#3756B0' },
+          { name: 'Turtle', dataKey: 'turtle', color: '#6A3027' }
         ]}
       />
     </ReportCard>

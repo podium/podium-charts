@@ -86,8 +86,7 @@ export default function Legend({
       .reverse()
       .map(legendItem => {
         const { dataKey, color, name } = legendItem;
-        const formattedValue =
-          aggMap[dataKey] && formatter(aggMap[dataKey], dataKey);
+        const formattedValue = formatter(aggMap[dataKey], dataKey);
         return (
           <ItemWrapper
             key={name}
@@ -143,6 +142,5 @@ Legend.propTypes = {
 };
 
 Legend.defaultProps = {
-  summaryType: 'total',
   formatter: formatters.commatize
 };

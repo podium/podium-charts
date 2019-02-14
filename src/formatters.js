@@ -76,11 +76,23 @@ export const commatize = number => {
   return number;
 };
 
+export const nullToValue = (delegateFormatter, fallbackValue) => (
+  value,
+  dataKey
+) => {
+  if (value === null) {
+    return fallbackValue;
+  } else {
+    return delegateFormatter(value, dataKey);
+  }
+};
+
 export default {
   abbreviateNumber,
   abbreviateTime,
   capitalize,
   commatize,
+  nullToValue,
   date,
   humanizeDuration,
   secondsToMinutes,
