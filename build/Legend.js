@@ -127,7 +127,7 @@ function Legend(_ref2) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name;
-      var formattedValue = aggMap[dataKey] && formatter(aggMap[dataKey], dataKey);
+      var formattedValue = formatter(aggMap[dataKey], dataKey);
       return _react.default.createElement(ItemWrapper, {
         key: name,
         enabled: !selectedKey || dataKey === selectedKey,
@@ -172,6 +172,5 @@ Legend.propTypes = {
   loading: _propTypes.default.bool
 };
 Legend.defaultProps = {
-  summaryType: 'total',
   formatter: _formatters.default.commatize
 };

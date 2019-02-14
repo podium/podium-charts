@@ -9,7 +9,7 @@ exports.capitalize = capitalize;
 exports.abbreviateNumber = abbreviateNumber;
 exports.abbreviateTime = abbreviateTime;
 exports.humanizeDuration = humanizeDuration;
-exports.default = exports.commatize = exports.roundToPlaces = void 0;
+exports.default = exports.nullToValue = exports.commatize = exports.roundToPlaces = void 0;
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -108,11 +108,24 @@ var commatize = function commatize(number) {
 };
 
 exports.commatize = commatize;
+
+var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {
+  return function (value, dataKey) {
+    if (value === null) {
+      return fallbackValue;
+    } else {
+      return delegateFormatter(value, dataKey);
+    }
+  };
+};
+
+exports.nullToValue = nullToValue;
 var _default = {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
   capitalize: capitalize,
   commatize: commatize,
+  nullToValue: nullToValue,
   date: date,
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,

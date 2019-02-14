@@ -148,6 +148,31 @@ var prevData = [{
   value: 0,
   granularity: '2018-11-10T00:00:00.000Z'
 }];
+var powerLevels = [{
+  granularity: '2018-11-01T00:00:00.000Z',
+  goku: 5000,
+  piccolo: 3500,
+  vegeta: 18000,
+  turtle: null
+}, {
+  granularity: '2018-11-02T00:00:00.000Z',
+  goku: 6000,
+  piccolo: 3750,
+  vegeta: 19000,
+  turtle: null
+}, {
+  granularity: '2018-11-03T00:00:00.000Z',
+  goku: 7500,
+  piccolo: 3600,
+  vegeta: 20000,
+  turtle: null
+}, {
+  granularity: '2018-11-04T00:00:00.000Z',
+  goku: 24000,
+  piccolo: 4000,
+  vegeta: 21000,
+  turtle: null
+}];
 var weightedAvgData = [{
   dogs: {
     cuteness: 5,
@@ -814,59 +839,63 @@ var timeData = [{
       color: _colors.default.poppyRed
     }]
   }));
-}).add('w/Legend (no agg)', function () {
+}).add('w/Legend (series with no data)', function () {
   return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
-    title: "Inbound Leads by Source",
-    data: weightedAvgData
+    title: "Power Levels",
+    data: powerLevels
   }), _react.default.createElement(_.Chart, {
-    data: weightedAvgData
+    data: powerLevels
   }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
     dataKey: "date",
     tickFormatter: _formatters.default.date()
   }), _react.default.createElement(_.Line, {
-    dataKey: "dogs.cuteness",
-    name: "Dogs",
-    color: _colors.default.cobaltBlue
+    dataKey: "goku",
+    name: "Goku",
+    color: "#FB7326"
   }), _react.default.createElement(_.Line, {
-    dataKey: "cats.cuteness",
-    name: "Cats",
-    color: _colors.default.poppyRed
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      formatter: _formatters.default.roundToPlaces(1),
-      aggregationOptions: {
-        type: 'weightedAvg',
-        dataKeys: ['dogs', 'cats'],
-        options: {
-          valueKey: 'cuteness',
-          countKey: 'amount'
-        }
-      },
-      summaryTitle: "Animals"
-    })
+    dataKey: "piccolo",
+    name: "Piccolo",
+    color: "#479919"
+  }), _react.default.createElement(_.Line, {
+    dataKey: "vegeta",
+    name: "Vegeta",
+    color: "#3756B0"
+  }), _react.default.createElement(_.Line, {
+    dataKey: "turtle",
+    name: "Turtle",
+    color: "#6A3027"
   })), _react.default.createElement(_.Summary, {
     formatter: _formatters.default.roundToPlaces(1),
-    data: weightedAvgData,
+    data: powerLevels,
     aggregationOptions: {
-      type: 'weightedAvg',
-      dataKeys: ['cats', 'dogs'],
-      options: {
-        valueKey: 'cuteness',
-        countKey: 'amount'
-      }
+      type: 'avg',
+      dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
     },
-    granularity: "month",
-    timeRange: "lastYear"
+    granularity: "day",
+    timeRange: "lastWeek"
   }), _react.default.createElement(_.Legend, {
-    data: weightedAvgData,
+    formatter: _formatters.default.nullToValue(_formatters.default.roundToPlaces(1), '(no data)'),
+    data: powerLevels,
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
+    },
     displayOptions: [{
-      name: 'Dogs',
-      dataKey: 'dogs',
-      color: _colors.default.cobaltBlue
+      name: 'Goku',
+      dataKey: 'goku',
+      color: '#FB7326'
     }, {
-      name: 'Cats',
-      dataKey: 'cats',
-      color: _colors.default.poppyRed
+      name: 'Piccolo',
+      dataKey: 'piccolo',
+      color: '#479919'
+    }, {
+      name: 'Vegeta',
+      dataKey: 'vegeta',
+      color: '#3756B0'
+    }, {
+      name: 'Turtle',
+      dataKey: 'turtle',
+      color: '#6A3027'
     }]
   }));
 }).add('w/Custom Formatted Legend', function () {
