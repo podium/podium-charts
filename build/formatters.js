@@ -110,13 +110,19 @@ var commatize = function commatize(number) {
 exports.commatize = commatize;
 
 var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {
-  return function (value, dataKey) {
+  if (typeof fallbackValue === 'undefined') {
+    throw new TypeError('No fallback value specified for formatter');
+  }
+
+  var formatter = function formatter(value, dataKey) {
     if (value === null) {
       return fallbackValue;
     } else {
       return delegateFormatter(value, dataKey);
     }
   };
+
+  return formatter;
 };
 
 exports.nullToValue = nullToValue;

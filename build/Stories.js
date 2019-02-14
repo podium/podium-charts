@@ -1319,4 +1319,6 @@ var timeData = [{
   return _react.default.createElement("div", null, "formatters.humanizeDuration(86400)", _react.default.createElement("div", null, "->"), _formatters.default.humanizeDuration(86400));
 }).add('commatize', function () {
   return _react.default.createElement("div", null, "formatters.commatize(\"\")", _react.default.createElement("div", null, "->"), _formatters.default.commatize(1000000000));
+}).add('nullToValue', function () {
+  return _react.default.createElement("div", null, _react.default.createElement("div", null, "formatters.nullToValue(formatters.commatize, 'N/A')(5000)", _react.default.createElement("div", null, "->"), _formatters.default.nullToValue(_formatters.default.commatize, 'N/A')(5000)), _react.default.createElement("br", null), _react.default.createElement("div", null, "formatters.nullToValue(formatters.commatize, 'N/A')(null)", _react.default.createElement("div", null, "->"), _formatters.default.nullToValue(_formatters.default.commatize, 'N/A')(null)));
 });
