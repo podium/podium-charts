@@ -1086,4 +1086,19 @@ storiesOf('formatters', module)
       <div>-></div>
       {formatters.commatize(1000000000)}
     </div>
+  ))
+  .add('nullToValue', () => (
+    <div>
+      <div>
+        formatters.nullToValue(formatters.commatize, 'N/A')(5000)
+        <div>-></div>
+        {formatters.nullToValue(formatters.commatize, 'N/A')(5000)}
+      </div>
+      <br />
+      <div>
+        formatters.nullToValue(formatters.commatize, 'N/A')(null)
+        <div>-></div>
+        {formatters.nullToValue(formatters.commatize, 'N/A')(null)}
+      </div>
+    </div>
   ));

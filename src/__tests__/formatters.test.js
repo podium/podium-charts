@@ -32,5 +32,12 @@ describe('formatters', () => {
       const result = formatter(9001, 'facebook');
       expect(result).toEqual('facebook:9001');
     });
+
+    it('should throw when called without a fallback value', () => {
+      expect(() => {
+        const formatter = nullToValue(commatize); // No fallback value specified!
+        console.log(formatter(5000, 'facebook')); // Unreachable
+      }).toThrow('No fallback value specified for formatter');
+    });
   });
 });

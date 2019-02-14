@@ -76,15 +76,18 @@ export const commatize = number => {
   return number;
 };
 
-export const nullToValue = (delegateFormatter, fallbackValue) => (
-  value,
-  dataKey
-) => {
-  if (value === null) {
-    return fallbackValue;
-  } else {
-    return delegateFormatter(value, dataKey);
+export const nullToValue = (delegateFormatter, fallbackValue) => {
+  if (typeof fallbackValue === 'undefined') {
+    throw new TypeError('No fallback value specified for formatter');
   }
+  const formatter = (value, dataKey) => {
+    if (value === null) {
+      return fallbackValue;
+    } else {
+      return delegateFormatter(value, dataKey);
+    }
+  };
+  return formatter;
 };
 
 export default {
