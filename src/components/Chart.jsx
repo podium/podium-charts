@@ -10,7 +10,7 @@ import {
   singleLineChart,
   filterChildren,
   getDeselectedColor
-} from './chartHelpers';
+} from '../utilities/chartHelpers';
 import {
   XAxis,
   YAxis,
@@ -30,7 +30,7 @@ import {
   YAxis as RechartsYAxis,
   Dot as RechartsDot
 } from 'recharts';
-import GhostChart from './Ghost/GhostChart';
+import GhostChart from '../Ghost/GhostChart';
 import ReportCardContext from './ReportCardContext';
 
 const GRAPHIK = 'Graphik, Helvetica, sans-serif';

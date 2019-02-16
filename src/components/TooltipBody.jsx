@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from '@podiumhq/podium-ui';
-import { getRowSummaryMetric } from './aggregators';
-import formatters from './formatters';
+import { getRowSummaryMetric } from '../utilities/aggregators';
+import formatters from '../utilities/formatters';
 import get from 'lodash.get';
 
 const TooltipBodyWrapper = styled.div`

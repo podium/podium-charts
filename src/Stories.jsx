@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import formatters from './formatters';
-import colors from './colors';
+import formatters from './utilities/formatters';
+import colors from './utilities/colors';
 import {
   Chart,
   XAxis,

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
-import { getOverallSummaryMetric } from './aggregators';
-import formatters from './formatters';
+import { getOverallSummaryMetric } from '../utilities/aggregators';
+import formatters from '../utilities/formatters';
 import get from 'lodash.get';
 import ReportCardContext from './ReportCardContext';
 

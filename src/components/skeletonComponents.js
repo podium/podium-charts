@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import formatters from './formatters';
+import formatters from '../utilities/formatters';
 
 export function Bar() {
   return null;
