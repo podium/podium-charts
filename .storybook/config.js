@@ -11,7 +11,7 @@ addDecorator(withInfo(
 }));
 
 function loadStories() {
-  require('../src/Stories.jsx');
+  require('../src/stories/Stories.jsx');
 }
 
 configure(loadStories, module);

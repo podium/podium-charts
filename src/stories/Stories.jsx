@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import formatters from './utilities/formatters';
-import colors from './utilities/colors';
+import formatters from '../utilities/formatters';
+import colors from '../utilities/colors';
 import {
   Chart,
   XAxis,
@@ -18,7 +18,7 @@ import {
   ReportCard,
   ReportTitle,
   ReportSummaryTitle
-} from './';
+} from '..';
 import { Palette, WindowWidthMonitor } from './StoryHelpers';
 
 const customFormatter = (value, dataKey) => {
