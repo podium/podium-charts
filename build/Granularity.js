@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.getOptions = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -68,9 +68,9 @@ var byHour = {
   label: 'By Hour'
 };
 var optionsMap = {
-  gtNinetyDays: [byMonth, byWeek],
-  gtThirtyOneDays: [byMonth, byWeek, byDay],
-  ltThirtyOneDays: [byWeek, byDay],
+  gtNinetyDays: [byMonth],
+  gtThirtyOneDays: [byMonth, byDay],
+  ltThirtyOneDays: [byDay],
   lastMonth: [byWeek, byDay],
   last12Months: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
@@ -80,6 +80,33 @@ var optionsMap = {
   weekToDate: [byDay, byHour],
   yearToDate: [byMonth, byWeek],
   yesterday: [byHour]
+};
+
+var getOptions = function getOptions(timeRange) {
+  var exclude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var dateStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var dateEnd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+  var resolvedTimeRange = timeRange === 'custom' ? getCustomRange(dateStart, dateEnd) : timeRange;
+  var availableOptions = optionsMap[resolvedTimeRange].filter(function (granularity) {
+    return !exclude.includes(granularity.value);
+  });
+  return availableOptions || optionsMap.monthToDate;
+};
+
+exports.getOptions = getOptions;
+
+var getCustomRange = function getCustomRange(dateStart, dateEnd) {
+  var dateStartMoment = (0, _moment.default)(dateStart);
+  var dateEndMoment = (0, _moment.default)(dateEnd);
+  var days = dateEndMoment.diff(dateStartMoment, 'days');
+
+  if (days <= 31) {
+    return 'ltThirtyOneDays';
+  } else if (days <= 90) {
+    return 'gtThirtyOneDays';
+  } else {
+    return 'gtNinetyDays';
+  }
 };
 
 var Granularity =
@@ -98,48 +125,23 @@ function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Granularity)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.getOptions = function () {
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Granularity)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.timeRangeChanged = function (prevProps) {
       var _this$props = _this.props,
           timeRange = _this$props.timeRange,
-          exclude = _this$props.exclude;
-
-      if (timeRange === 'custom') {
-        return _this.getCustomRangeOptions();
-      }
-
-      var availableOptions = optionsMap[timeRange].filter(function (granularity) {
-        return !exclude.includes(granularity.value);
-      });
-      return availableOptions || optionsMap.monthToDate;
-    }, _this.getCustomRangeOptions = function () {
-      var _this$props2 = _this.props,
-          dateStart = _this$props2.dateStart,
-          dateEnd = _this$props2.dateEnd;
-      var dateStartMoment = (0, _moment.default)(dateStart);
-      var dateEndMoment = (0, _moment.default)(dateEnd);
-      var days = dateEndMoment.diff(dateStartMoment, 'days');
-
-      if (days <= 31) {
-        return optionsMap['ltThirtyOneDays'];
-      } else if (days <= 90) {
-        return optionsMap['gtThirtyOneDays'];
-      } else {
-        return optionsMap['gtNinetyDays'];
-      }
-    }, _this.timeRangeChanged = function (prevProps) {
-      var _this$props3 = _this.props,
-          timeRange = _this$props3.timeRange,
-          dateStart = _this$props3.dateStart,
-          dateEnd = _this$props3.dateEnd;
+          dateStart = _this$props.dateStart,
+          dateEnd = _this$props.dateEnd;
       return prevProps.timeRange !== timeRange || prevProps.dateStart !== dateStart || prevProps.dateEnd !== dateEnd;
     }, _this.componentDidUpdate = function (prevProps) {
-      var _this$props4 = _this.props,
-          value = _this$props4.value,
-          onChange = _this$props4.onChange;
+      var _this$props2 = _this.props,
+          value = _this$props2.value,
+          onChange = _this$props2.onChange,
+          timeRange = _this$props2.timeRange,
+          exclude = _this$props2.exclude,
+          dateStart = _this$props2.dateStart,
+          dateEnd = _this$props2.dateEnd;
 
       if (_this.timeRangeChanged(prevProps)) {
-        var options = _this.getOptions();
-
+        var options = getOptions(timeRange, exclude, dateStart, dateEnd);
         var validRangeValues = options.map(function (option) {
           return option.value;
         });
@@ -151,10 +153,14 @@ function (_Component) {
   _createClass(Granularity, [{
     key: "render",
     value: function render() {
-      var _this$props5 = this.props,
-          value = _this$props5.value,
-          onChange = _this$props5.onChange;
-      var options = this.getOptions();
+      var _this$props3 = this.props,
+          value = _this$props3.value,
+          onChange = _this$props3.onChange,
+          timeRange = _this$props3.timeRange,
+          exclude = _this$props3.exclude,
+          dateStart = _this$props3.dateStart,
+          dateEnd = _this$props3.dateEnd;
+      var options = getOptions(timeRange, exclude, dateStart, dateEnd);
       var placeholder = options[0].label || '';
       return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
         options: options,
