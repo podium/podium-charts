@@ -22,9 +22,9 @@ const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
 const optionsMap = {
-  gtNinetyDays: [byMonth, byWeek],
-  gtThirtyOneDays: [byMonth, byWeek, byDay],
-  ltThirtyOneDays: [byWeek, byDay],
+  gtNinetyDays: [byMonth],
+  gtThirtyOneDays: [byMonth, byDay],
+  ltThirtyOneDays: [byDay],
   lastMonth: [byWeek, byDay],
   last12Months: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
@@ -36,33 +36,37 @@ const optionsMap = {
   yesterday: [byHour]
 };
 
+export const getOptions = (
+  timeRange,
+  exclude = [],
+  dateStart = null,
+  dateEnd = null
+) => {
+  // timeOptions = timeRange === 'custom' ? getCustomRange(dateStart, dateEnd)
+  if (timeRange === 'custom') {
+    return getCustomRangeOptions(dateStart, dateEnd);
+  }
+  const availableOptions = optionsMap[timeRange].filter(granularity => {
+    return !exclude.includes(granularity.value);
+  });
+  return availableOptions || optionsMap.monthToDate;
+};
+
+const getCustomRangeOptions = (dateStart, dateEnd) => {
+  const dateStartMoment = moment(dateStart);
+  const dateEndMoment = moment(dateEnd);
+  const days = dateEndMoment.diff(dateStartMoment, 'days');
+
+  if (days <= 31) {
+    return optionsMap['ltThirtyOneDays'];
+  } else if (days <= 90) {
+    return optionsMap['gtThirtyOneDays'];
+  } else {
+    return optionsMap['gtNinetyDays'];
+  }
+};
+
 export default class Granularity extends Component {
-  getOptions = () => {
-    const { timeRange, exclude } = this.props;
-    if (timeRange === 'custom') {
-      return this.getCustomRangeOptions();
-    }
-    const availableOptions = optionsMap[timeRange].filter(granularity => {
-      return !exclude.includes(granularity.value);
-    });
-    return availableOptions || optionsMap.monthToDate;
-  };
-
-  getCustomRangeOptions = () => {
-    const { dateStart, dateEnd } = this.props;
-    const dateStartMoment = moment(dateStart);
-    const dateEndMoment = moment(dateEnd);
-    const days = dateEndMoment.diff(dateStartMoment, 'days');
-
-    if (days <= 31) {
-      return optionsMap['ltThirtyOneDays'];
-    } else if (days <= 90) {
-      return optionsMap['gtThirtyOneDays'];
-    } else {
-      return optionsMap['gtNinetyDays'];
-    }
-  };
-
   timeRangeChanged = prevProps => {
     const { timeRange, dateStart, dateEnd } = this.props;
     return (
@@ -73,17 +77,31 @@ export default class Granularity extends Component {
   };
 
   componentDidUpdate = prevProps => {
-    const { value, onChange } = this.props;
+    const {
+      value,
+      onChange,
+      timeRange,
+      exclude,
+      dateStart,
+      dateEnd
+    } = this.props;
     if (this.timeRangeChanged(prevProps)) {
-      const options = this.getOptions();
+      const options = getOptions(timeRange, exclude, dateStart, dateEnd);
       const validRangeValues = options.map(option => option.value);
       if (!validRangeValues.includes(value)) onChange(validRangeValues[0]);
     }
   };
 
   render() {
-    const { value, onChange } = this.props;
-    const options = this.getOptions();
+    const {
+      value,
+      onChange,
+      timeRange,
+      exclude,
+      dateStart,
+      dateEnd
+    } = this.props;
+    const options = getOptions(timeRange, exclude, dateStart, dateEnd);
     const placeholder = options[0].label || '';
 
     return (
