@@ -86,13 +86,8 @@ var getOptions = function getOptions(timeRange) {
   var exclude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var dateStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var dateEnd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-  // timeOptions = timeRange === 'custom' ? getCustomRange(dateStart, dateEnd)
-  if (timeRange === 'custom') {
-    return getCustomRangeOptions(dateStart, dateEnd);
-  }
-
-  var availableOptions = optionsMap[timeRange].filter(function (granularity) {
+  var resolvedTimeRange = timeRange === 'custom' ? getCustomRange(dateStart, dateEnd) : timeRange;
+  var availableOptions = optionsMap[resolvedTimeRange].filter(function (granularity) {
     return !exclude.includes(granularity.value);
   });
   return availableOptions || optionsMap.monthToDate;
@@ -100,17 +95,17 @@ var getOptions = function getOptions(timeRange) {
 
 exports.getOptions = getOptions;
 
-var getCustomRangeOptions = function getCustomRangeOptions(dateStart, dateEnd) {
+var getCustomRange = function getCustomRange(dateStart, dateEnd) {
   var dateStartMoment = (0, _moment.default)(dateStart);
   var dateEndMoment = (0, _moment.default)(dateEnd);
   var days = dateEndMoment.diff(dateStartMoment, 'days');
 
   if (days <= 31) {
-    return optionsMap['ltThirtyOneDays'];
+    return 'ltThirtyOneDays';
   } else if (days <= 90) {
-    return optionsMap['gtThirtyOneDays'];
+    return 'gtThirtyOneDays';
   } else {
-    return optionsMap['gtNinetyDays'];
+    return 'gtNinetyDays';
   }
 };
 

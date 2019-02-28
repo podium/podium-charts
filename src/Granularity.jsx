@@ -42,27 +42,25 @@ export const getOptions = (
   dateStart = null,
   dateEnd = null
 ) => {
-  // timeOptions = timeRange === 'custom' ? getCustomRange(dateStart, dateEnd)
-  if (timeRange === 'custom') {
-    return getCustomRangeOptions(dateStart, dateEnd);
-  }
-  const availableOptions = optionsMap[timeRange].filter(granularity => {
+  const resolvedTimeRange =
+    timeRange === 'custom' ? getCustomRange(dateStart, dateEnd) : timeRange;
+  const availableOptions = optionsMap[resolvedTimeRange].filter(granularity => {
     return !exclude.includes(granularity.value);
   });
   return availableOptions || optionsMap.monthToDate;
 };
 
-const getCustomRangeOptions = (dateStart, dateEnd) => {
+const getCustomRange = (dateStart, dateEnd) => {
   const dateStartMoment = moment(dateStart);
   const dateEndMoment = moment(dateEnd);
   const days = dateEndMoment.diff(dateStartMoment, 'days');
 
   if (days <= 31) {
-    return optionsMap['ltThirtyOneDays'];
+    return 'ltThirtyOneDays';
   } else if (days <= 90) {
-    return optionsMap['gtThirtyOneDays'];
+    return 'gtThirtyOneDays';
   } else {
-    return optionsMap['gtNinetyDays'];
+    return 'gtNinetyDays';
   }
 };
 
