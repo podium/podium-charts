@@ -4,7 +4,8 @@ const {
   goldfish,
   cobaltBlue,
   siteColors,
-  poppyRed
+  poppyRed,
+  lightSteel
 } = podiumUiColors;
 
 const colors = {
@@ -13,6 +14,7 @@ const colors = {
   cobaltBlue,
   siteColors,
   poppyRed,
+  lightSteel,
   bondiBlue: '#008DB8',
   chathamsBlue: '#11497D',
   hawkesBlue: '#CCD7FC',
