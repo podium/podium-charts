@@ -11,13 +11,15 @@ var podiumBrand = _podiumUi.colors.podiumBrand,
     goldfish = _podiumUi.colors.goldfish,
     cobaltBlue = _podiumUi.colors.cobaltBlue,
     siteColors = _podiumUi.colors.siteColors,
-    poppyRed = _podiumUi.colors.poppyRed;
+    poppyRed = _podiumUi.colors.poppyRed,
+    lightSteel = _podiumUi.colors.lightSteel;
 var colors = {
   podiumBrand: podiumBrand,
   goldfish: goldfish,
   cobaltBlue: cobaltBlue,
   siteColors: siteColors,
   poppyRed: poppyRed,
+  lightSteel: lightSteel,
   bondiBlue: '#008DB8',
   chathamsBlue: '#11497D',
   hawkesBlue: '#CCD7FC',
