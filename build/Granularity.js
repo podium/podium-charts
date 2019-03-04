@@ -54,11 +54,9 @@ var GranularityWrapper = _styledComponents.default.div(_templateObject(), _podiu
 var byMonth = {
   value: 'month',
   label: 'By Month'
-};
-var byWeek = {
-  value: 'week',
-  label: 'By Week'
-};
+}; // TODO: add back after we resolve issues related to weekly granularity in the platform
+// const byWeek = { value: 'week', label: 'By Week' };
+
 var byDay = {
   value: 'day',
   label: 'By Day'
@@ -71,14 +69,14 @@ var optionsMap = {
   gtNinetyDays: [byMonth],
   gtThirtyOneDays: [byMonth, byDay],
   ltThirtyOneDays: [byDay],
-  lastMonth: [byWeek, byDay],
-  last12Months: [byMonth, byWeek],
+  lastMonth: [byDay],
+  last12Months: [byMonth],
   lastWeek: [byDay, byHour],
-  lastYear: [byMonth, byWeek],
-  monthToDate: [byWeek, byDay],
+  lastYear: [byMonth],
+  monthToDate: [byDay],
   today: [byHour],
   weekToDate: [byDay, byHour],
-  yearToDate: [byMonth, byWeek],
+  yearToDate: [byMonth],
   yesterday: [byHour]
 };
 

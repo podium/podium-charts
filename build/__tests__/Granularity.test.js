@@ -5,11 +5,8 @@ var _Granularity = require("../Granularity");
 var byMonth = {
   value: 'month',
   label: 'By Month'
-};
-var byWeek = {
-  value: 'week',
-  label: 'By Week'
-};
+}; // const byWeek = { value: 'week', label: 'By Week' };
+
 var byDay = {
   value: 'day',
   label: 'By Day'
@@ -27,8 +24,8 @@ describe('Granularity', function () {
       var lastYearOptions = (0, _Granularity.getOptions)(lastYear);
       var lastMonthOptions = (0, _Granularity.getOptions)(lastMonth);
       var lastWeekOptions = (0, _Granularity.getOptions)(lastWeek);
-      expect(lastYearOptions).toEqual([byMonth, byWeek]);
-      expect(lastMonthOptions).toEqual([byWeek, byDay]);
+      expect(lastYearOptions).toEqual([byMonth]);
+      expect(lastMonthOptions).toEqual([byDay]);
       expect(lastWeekOptions).toEqual([byDay, byHour]);
     });
     it('should return the correct granularity options for a custom range', function () {
