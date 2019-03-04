@@ -1,7 +1,7 @@
 import { getOptions } from '../Granularity';
 
 const byMonth = { value: 'month', label: 'By Month' };
-const byWeek = { value: 'week', label: 'By Week' };
+// const byWeek = { value: 'week', label: 'By Week' };
 const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
@@ -16,8 +16,8 @@ describe('Granularity', () => {
       const lastMonthOptions = getOptions(lastMonth);
       const lastWeekOptions = getOptions(lastWeek);
 
-      expect(lastYearOptions).toEqual([byMonth, byWeek]);
-      expect(lastMonthOptions).toEqual([byWeek, byDay]);
+      expect(lastYearOptions).toEqual([byMonth]);
+      expect(lastMonthOptions).toEqual([byDay]);
       expect(lastWeekOptions).toEqual([byDay, byHour]);
     });
 
