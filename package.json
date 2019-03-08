@@ -1,6 +1,6 @@
 {
   "name": "podium-charts",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "A collection of Podium chart components",
   "main": "build/index.js",
   "scripts": {
