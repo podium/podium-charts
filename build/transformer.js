@@ -37,11 +37,11 @@ var multiDataset = function multiDataset(data) {
   var combinedData = Object.keys(data).reduce(function (outsideAcc, alias) {
     // Look at tests in src/__tests__/transformer.test.js for examples
     // There are three ways to use this transformer:
-    //   1) Pass in custom groupBy
+    //   1) Pass in custom groupBy resulting in:
     //     ({granularity: "2018-1-01", value}, groupBy) => { "2018-1-01": { groupBy: { alias1: 1, alias2: 2 }}}
-    //   2) Use groupBy from query that's on the row
+    //   2) Use groupBy from query that's on the row resulting in:
     //     { "2018-1-01": { [row.groupBy]: { alias1: 1, alias2: 2 }}}
-    //   3) No groupBy or row.groupBy resulting in no nesting
+    //   3) No groupBy or row.groupBy resulting in no nesting resulting in:
     //     { "2018-1-01": { alias1: 1, alias2: 2 }}
     return data[alias].reduce(function (insideAcc, row) {
       if (groupBy) {
