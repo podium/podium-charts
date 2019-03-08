@@ -30,9 +30,9 @@ const TrendWrapper = styled.div`
 const Trend = ({ direction, preferDown }) => (
   <TrendWrapper direction={direction} preferDown={preferDown}>
     {direction === 'neutral' ? (
-      <IconMinus color={colors.white} size="12" />
+      <IconMinus color={colors.white} size="small" />
     ) : (
-      <IconArrow color={colors.white} size="12" direction={direction} />
+      <IconArrow color={colors.white} size="small" direction={direction} />
     )}
   </TrendWrapper>
 );
