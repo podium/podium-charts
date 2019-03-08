@@ -58,10 +58,10 @@ var Trend = function Trend(_ref3) {
     preferDown: preferDown
   }, direction === 'neutral' ? _react.default.createElement(_podiumUi.IconMinus, {
     color: _podiumUi.colors.white,
-    size: "12"
+    size: "small"
   }) : _react.default.createElement(_podiumUi.IconArrow, {
     color: _podiumUi.colors.white,
-    size: "12",
+    size: "small",
     direction: direction
   }));
 };
