@@ -1,4 +1,4 @@
-import { getOptions } from '../Granularity';
+import { getOptions } from '../charts/Granularity';
 
 const byMonth = { value: 'month', label: 'By Month' };
 // const byWeek = { value: 'week', label: 'By Week' };

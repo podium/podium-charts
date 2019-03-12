@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { colors } from '@podiumhq/podium-ui';
 import get from 'lodash.get';
-import formatters from './utils/formatters';
-import { getRowSummaryMetric } from './utils/aggregators';
+import formatters from '../utils/formatters';
+import { getRowSummaryMetric } from '../utils/aggregators';
 
 const TooltipBodyWrapper = styled.div`
   display: flex;

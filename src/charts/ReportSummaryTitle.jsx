@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { colors, ToolTip } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import Trend from './Trend';
-import { getOverallSummaryMetric, calculateTrend } from './utils/aggregators';
+import { getOverallSummaryMetric, calculateTrend } from '../utils/aggregators';
 
 const SummaryTitleWrapper = styled.div`
   width: 100%;

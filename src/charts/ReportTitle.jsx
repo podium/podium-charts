@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
-import { renderRangeLabel, fullDate } from './utils/chartHelpers';
+import { renderRangeLabel, fullDate } from '../utils/chartHelpers';
 
 const TitleWrapper = styled.div`
   margin-bottom: 16px;

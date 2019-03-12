@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import get from 'lodash.get';
 import Ghost from './Ghost/Ghost';
-import { getOverallSummaryMetric } from './utils/aggregators';
-import formatters from './utils/formatters';
+import { getOverallSummaryMetric } from '../utils/aggregators';
+import formatters from '../utils/formatters';
 import ReportCardContext from './ReportCardContext';
 
 const LegendWrapper = styled.div`
