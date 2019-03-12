@@ -12,7 +12,7 @@ exports.YAxis = YAxis;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
+var _formatters = _interopRequireDefault(require("../utils/formatters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

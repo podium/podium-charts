@@ -97,25 +97,25 @@ Object.defineProperty(exports, "colors", {
   }
 });
 
-var _Chart = _interopRequireDefault(require("./Chart"));
+var _Chart = _interopRequireDefault(require("./charts/Chart"));
 
-var _Legend = _interopRequireDefault(require("./Legend"));
+var _Legend = _interopRequireDefault(require("./charts/Legend"));
 
-var _Summary = _interopRequireDefault(require("./Summary"));
+var _Summary = _interopRequireDefault(require("./charts/Summary"));
 
-var _TooltipBody = _interopRequireDefault(require("./TooltipBody"));
+var _TooltipBody = _interopRequireDefault(require("./charts/TooltipBody"));
 
-var _TooltipBodyTime = _interopRequireDefault(require("./TooltipBodyTime"));
+var _TooltipBodyTime = _interopRequireDefault(require("./charts/TooltipBodyTime"));
 
-var _ReportCard = _interopRequireDefault(require("./ReportCard"));
+var _ReportCard = _interopRequireDefault(require("./charts/ReportCard"));
 
-var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
+var _ReportTitle = _interopRequireDefault(require("./charts/ReportTitle"));
 
-var _ReportSummaryTitle = _interopRequireDefault(require("./ReportSummaryTitle"));
+var _ReportSummaryTitle = _interopRequireDefault(require("./charts/ReportSummaryTitle"));
 
-var _Granularity = _interopRequireDefault(require("./Granularity"));
+var _Granularity = _interopRequireDefault(require("./charts/Granularity"));
 
-var _skeletonComponents = require("./skeletonComponents");
+var _skeletonComponents = require("./charts/skeletonComponents");
 
 Object.keys(_skeletonComponents).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;

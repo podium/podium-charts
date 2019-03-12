@@ -17,9 +17,9 @@ var _lodash = _interopRequireDefault(require("lodash.get"));
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
-var _aggregators = require("./utils/aggregators");
+var _aggregators = require("../utils/aggregators");
 
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
+var _formatters = _interopRequireDefault(require("../utils/formatters"));
 
 var _ReportCardContext = _interopRequireDefault(require("./ReportCardContext"));
 

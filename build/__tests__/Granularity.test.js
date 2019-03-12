@@ -1,6 +1,6 @@
 "use strict";
 
-var _Granularity = require("../Granularity");
+var _Granularity = require("../charts/Granularity");
 
 var byMonth = {
   value: 'month',

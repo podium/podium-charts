@@ -17,7 +17,7 @@ var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
 var _Trend = _interopRequireDefault(require("./Trend"));
 
-var _aggregators = require("./utils/aggregators");
+var _aggregators = require("../utils/aggregators");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
