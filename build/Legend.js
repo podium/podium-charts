@@ -13,13 +13,13 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _lodash = _interopRequireDefault(require("lodash.get"));
+
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
-var _aggregators = require("./aggregators");
+var _aggregators = require("./utils/aggregators");
 
-var _formatters = _interopRequireDefault(require("./formatters"));
-
-var _lodash = _interopRequireDefault(require("lodash.get"));
+var _formatters = _interopRequireDefault(require("./utils/formatters"));
 
 var _ReportCardContext = _interopRequireDefault(require("./ReportCardContext"));
 

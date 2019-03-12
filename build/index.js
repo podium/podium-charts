@@ -93,7 +93,7 @@ Object.defineProperty(exports, "aggregators", {
 Object.defineProperty(exports, "colors", {
   enumerable: true,
   get: function get() {
-    return _colors.default;
+    return _Colors.default;
   }
 });
 
@@ -128,12 +128,12 @@ Object.keys(_skeletonComponents).forEach(function (key) {
   });
 });
 
-var _formatters = _interopRequireDefault(require("./formatters"));
+var _formatters = _interopRequireDefault(require("./utils/formatters"));
 
-var _transformer = _interopRequireDefault(require("./transformer"));
+var _transformer = _interopRequireDefault(require("./utils/transformer"));
 
-var _aggregators = _interopRequireDefault(require("./aggregators"));
+var _aggregators = _interopRequireDefault(require("./utils/aggregators"));
 
-var _colors = _interopRequireDefault(require("./colors"));
+var _Colors = _interopRequireDefault(require("./Colors"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

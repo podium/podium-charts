@@ -13,15 +13,15 @@ var _lodash = _interopRequireDefault(require("lodash.get"));
 
 var _podiumUi = require("@podiumhq/podium-ui");
 
+var _recharts = require("recharts");
+
 var _Rectangle = _interopRequireDefault(require("./Rectangle"));
 
 var _ChartStyledComponents = require("./ChartStyledComponents");
 
-var _chartHelpers = require("./chartHelpers");
+var _chartHelpers = require("./utils/chartHelpers");
 
 var _skeletonComponents = require("./skeletonComponents");
-
-var _recharts = require("recharts");
 
 var _GhostChart = _interopRequireDefault(require("./Ghost/GhostChart"));
 

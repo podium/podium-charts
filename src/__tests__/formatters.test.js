@@ -1,4 +1,4 @@
-import { roundToPlaces, commatize, nullToValue } from '../formatters';
+import { roundToPlaces, commatize, nullToValue } from '../utils/formatters';
 
 describe('formatters', () => {
   describe('roundToPlaces', () => {

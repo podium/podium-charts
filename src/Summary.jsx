@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
-import { fullDate } from './chartHelpers';
-import { getRowSummaryMetric, getOverallSummaryMetric } from './aggregators';
-import formatters from './formatters';
+import { fullDate } from './utils/chartHelpers';
+import {
+  getRowSummaryMetric,
+  getOverallSummaryMetric
+} from './utils/aggregators';
+import formatters from './utils/formatters';
 
 const SummaryWrapper = styled.div``;
 

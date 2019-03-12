@@ -17,9 +17,9 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _lodash = _interopRequireDefault(require("lodash.get"));
 
-var _ = require("./");
+var _formatters = _interopRequireDefault(require("./utils/formatters"));
 
-var _aggregators = require("./aggregators");
+var _aggregators = require("./utils/aggregators");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -181,7 +181,7 @@ function TooltipBody(props) {
 
   var formatSummary = function formatSummary(seconds) {
     var minutes = seconds / 60;
-    return _react.default.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(_.formatters.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && _react.default.createElement(Humanized, null, "".concat(_.formatters.humanizeDuration(seconds))));
+    return _react.default.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(_formatters.default.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && _react.default.createElement(Humanized, null, "".concat(_formatters.default.humanizeDuration(seconds))));
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
@@ -193,7 +193,7 @@ function TooltipBody(props) {
         key: name
       }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, _.formatters.secondsToMinutes(value)));
+      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, _formatters.default.secondsToMinutes(value)));
     });
   };
 

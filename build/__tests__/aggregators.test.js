@@ -1,6 +1,6 @@
 "use strict";
 
-var _aggregators = require("../aggregators");
+var _aggregators = require("../utils/aggregators");
 
 var STANDARD = [{
   dogs: 5,

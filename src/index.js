@@ -9,7 +9,7 @@ export { default as ReportSummaryTitle } from './ReportSummaryTitle';
 export { default as Granularity } from './Granularity';
 
 export * from './skeletonComponents';
-export { default as formatters } from './formatters';
-export { default as transformer } from './transformer';
-export { default as aggregators } from './aggregators';
-export { default as colors } from './colors';
+export { default as formatters } from './utils/formatters';
+export { default as transformer } from './utils/transformer';
+export { default as aggregators } from './utils/aggregators';
+export { default as colors } from './Colors';

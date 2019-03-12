@@ -1,6 +1,6 @@
 "use strict";
 
-var _transformer = _interopRequireDefault(require("../transformer"));
+var _transformer = _interopRequireDefault(require("../utils/transformer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

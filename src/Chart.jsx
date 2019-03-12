@@ -2,24 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash.get';
 import { colors } from '@podiumhq/podium-ui';
-import Rectangle from './Rectangle';
-import { ChartWrapper } from './ChartStyledComponents';
-import {
-  detectChartType,
-  getStackPositions,
-  singleLineChart,
-  filterChildren,
-  getDeselectedColor
-} from './chartHelpers';
-import {
-  XAxis,
-  YAxis,
-  Bar,
-  Line,
-  SummaryLine,
-  Tooltip
-} from './skeletonComponents';
-
 import {
   ResponsiveContainer,
   Bar as RechartsBar,
@@ -30,6 +12,24 @@ import {
   YAxis as RechartsYAxis,
   Dot as RechartsDot
 } from 'recharts';
+import Rectangle from './Rectangle';
+import { ChartWrapper } from './ChartStyledComponents';
+import {
+  detectChartType,
+  getStackPositions,
+  singleLineChart,
+  filterChildren,
+  getDeselectedColor
+} from './utils/chartHelpers';
+import {
+  XAxis,
+  YAxis,
+  Bar,
+  Line,
+  SummaryLine,
+  Tooltip
+} from './skeletonComponents';
+
 import GhostChart from './Ghost/GhostChart';
 import ReportCardContext from './ReportCardContext';
 
