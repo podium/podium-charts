@@ -10,7 +10,8 @@ import { withInfo } from '@storybook/addon-info';
 
 addParameters({
   options: {
-    name: 'Podium Reporting Toolkit'
+    name: 'Podium Reporting Toolkit',
+    addonPanelInRight: true
     //theme: themes.light
   }
 });

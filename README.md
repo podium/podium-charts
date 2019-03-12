@@ -26,4 +26,4 @@ yarn storybook # alternatively you can just run `yarn start`
 ```
 
 ### Important Notes
-All dates and times are displayed as they are received. If you need data displayed in a certain timezone, the data needs to be converted beforehand.
+* All dates and times are displayed as they are received. If you need data displayed in a certain timezone, the data needs to be converted beforehand.

@@ -199,11 +199,17 @@ const timeData = [
 ];
 
 storiesOf('Bar Chart', module)
-  .add('Small', () => (
-    <Chart data={data} width={200} height={100}>
-      <Bar dataKey="organic" color="#000" />
-    </Chart>
-  ))
+  .add(
+    'Small',
+    () => (
+      <Chart data={data} width={200} height={100}>
+        <Bar dataKey="organic" color="#000" />
+      </Chart>
+    ),
+    {
+      notes: 'A very simple example of addon notes'
+    }
+  )
   .add('Axis', () => (
     <Chart data={data}>
       <YAxis tickFormatter={formatters.humanizeDuration} />
