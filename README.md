@@ -1,5 +1,5 @@
-# Podium Charts
-A collection of Podium's charting components built in React.
+# Podium Reporting Toolkit
+A collection of Podium's reporting platform and charting components built in React.
 
 Podium Charts provides Podium styles and conveniences on top of the Recharts library. http://recharts.org/en-US/api
 
@@ -13,16 +13,16 @@ Clone the repo
 git clone git@github.com:podium/podium-charts.git
 ```
 
-Using npm v6.4.1 install dependencies
+Using yarn install dependencies
 
 ```
-npm install
+yarn
 ```
 
 Start storybook on port 9001
 
 ```
-npm run storybook
+yarn storybook # alternatively you can just run `yarn start`
 ```
 
 ### Important Notes
