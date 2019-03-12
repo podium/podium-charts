@@ -1,15 +1,15 @@
-export { default as Chart } from './charts/Chart';
-export { default as Legend } from './charts/Legend';
-export { default as Summary } from './charts/Summary';
-export { default as TooltipBody } from './charts/TooltipBody';
-export { default as TooltipBodyTime } from './charts/TooltipBodyTime';
-export { default as ReportCard } from './charts/ReportCard';
-export { default as ReportTitle } from './charts/ReportTitle';
-export { default as ReportSummaryTitle } from './charts/ReportSummaryTitle';
-export { default as Granularity } from './charts/Granularity';
+export { default as Chart } from './Charts/Chart';
+export { default as Legend } from './Charts/Legend';
+export { default as Summary } from './Charts/Summary';
+export { default as TooltipBody } from './Charts/TooltipBody';
+export { default as TooltipBodyTime } from './Charts/TooltipBodyTime';
+export { default as ReportCard } from './Charts/ReportCard';
+export { default as ReportTitle } from './Charts/ReportTitle';
+export { default as ReportSummaryTitle } from './Charts/ReportSummaryTitle';
+export { default as Granularity } from './Charts/Granularity';
 
-export * from './charts/skeletonComponents';
-export { default as formatters } from './charts/utils/formatters';
-export { default as transformer } from './charts/utils/transformer';
-export { default as aggregators } from './charts/utils/aggregators';
+export * from './Charts/skeletonComponents';
+export { default as formatters } from './Charts/utils/formatters';
+export { default as transformer } from './Charts/utils/transformer';
+export { default as aggregators } from './Charts/utils/aggregators';
 export { default as colors } from './Colors';

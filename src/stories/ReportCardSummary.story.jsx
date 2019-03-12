@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import formatters from '../charts/utils/formatters';
+import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
 import { Chart, SummaryLine, ReportCard, ReportSummaryTitle } from '../';
 import {

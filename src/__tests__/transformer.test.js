@@ -1,4 +1,4 @@
-import transformer from '../charts/utils/transformer';
+import transformer from '../Charts/utils/transformer';
 
 const COMPLETE_DATA = {
   dataSet1: [

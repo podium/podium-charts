@@ -97,25 +97,25 @@ Object.defineProperty(exports, "colors", {
   }
 });
 
-var _Chart = _interopRequireDefault(require("./charts/Chart"));
+var _Chart = _interopRequireDefault(require("./Charts/Chart"));
 
-var _Legend = _interopRequireDefault(require("./charts/Legend"));
+var _Legend = _interopRequireDefault(require("./Charts/Legend"));
 
-var _Summary = _interopRequireDefault(require("./charts/Summary"));
+var _Summary = _interopRequireDefault(require("./Charts/Summary"));
 
-var _TooltipBody = _interopRequireDefault(require("./charts/TooltipBody"));
+var _TooltipBody = _interopRequireDefault(require("./Charts/TooltipBody"));
 
-var _TooltipBodyTime = _interopRequireDefault(require("./charts/TooltipBodyTime"));
+var _TooltipBodyTime = _interopRequireDefault(require("./Charts/TooltipBodyTime"));
 
-var _ReportCard = _interopRequireDefault(require("./charts/ReportCard"));
+var _ReportCard = _interopRequireDefault(require("./Charts/ReportCard"));
 
-var _ReportTitle = _interopRequireDefault(require("./charts/ReportTitle"));
+var _ReportTitle = _interopRequireDefault(require("./Charts/ReportTitle"));
 
-var _ReportSummaryTitle = _interopRequireDefault(require("./charts/ReportSummaryTitle"));
+var _ReportSummaryTitle = _interopRequireDefault(require("./Charts/ReportSummaryTitle"));
 
-var _Granularity = _interopRequireDefault(require("./charts/Granularity"));
+var _Granularity = _interopRequireDefault(require("./Charts/Granularity"));
 
-var _skeletonComponents = require("./charts/skeletonComponents");
+var _skeletonComponents = require("./Charts/skeletonComponents");
 
 Object.keys(_skeletonComponents).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -128,11 +128,11 @@ Object.keys(_skeletonComponents).forEach(function (key) {
   });
 });
 
-var _formatters = _interopRequireDefault(require("./charts/utils/formatters"));
+var _formatters = _interopRequireDefault(require("./Charts/utils/formatters"));
 
-var _transformer = _interopRequireDefault(require("./charts/utils/transformer"));
+var _transformer = _interopRequireDefault(require("./Charts/utils/transformer"));
 
-var _aggregators = _interopRequireDefault(require("./charts/utils/aggregators"));
+var _aggregators = _interopRequireDefault(require("./Charts/utils/aggregators"));
 
 var _Colors = _interopRequireDefault(require("./Colors"));
 

@@ -4,7 +4,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _react2 = require("@storybook/react");
 
-var _formatters = _interopRequireDefault(require("../charts/utils/formatters"));
+var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

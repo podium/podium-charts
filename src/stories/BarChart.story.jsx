@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import formatters from '../charts/utils/formatters';
+import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
 import { Chart, XAxis, YAxis, Bar, Tooltip, TooltipBody } from '../';
 import { data } from './storyHelpers';

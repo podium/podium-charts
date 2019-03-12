@@ -2,7 +2,7 @@ import {
   getRowSummaryMetric,
   getOverallSummaryMetric,
   calculateTrend
-} from '../charts/utils/aggregators';
+} from '../Charts/utils/aggregators';
 
 const STANDARD = [
   { dogs: 5, cats: 8, date: '2018-09-15T23:43:32' },

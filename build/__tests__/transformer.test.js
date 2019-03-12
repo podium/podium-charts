@@ -1,6 +1,6 @@
 "use strict";
 
-var _transformer = _interopRequireDefault(require("../charts/utils/transformer"));
+var _transformer = _interopRequireDefault(require("../Charts/utils/transformer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

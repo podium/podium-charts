@@ -1,6 +1,6 @@
 "use strict";
 
-var _aggregators = require("../charts/utils/aggregators");
+var _aggregators = require("../Charts/utils/aggregators");
 
 var STANDARD = [{
   dogs: 5,

@@ -2,7 +2,7 @@ import {
   roundToPlaces,
   commatize,
   nullToValue
-} from '../charts/utils/formatters';
+} from '../Charts/utils/formatters';
 
 describe('formatters', () => {
   describe('roundToPlaces', () => {

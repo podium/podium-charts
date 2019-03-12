@@ -11,7 +11,7 @@ addDecorator(
   })
 );
 
-const req = require.context('../src/stories', true, /\.story\.jsx$/);
+const req = require.context('../src/Stories', true, /\.story\.jsx$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
