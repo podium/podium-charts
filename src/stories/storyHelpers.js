@@ -1,5 +1,5 @@
 import React from 'react';
-import formatters from '../utils/formatters';
+import formatters from '../charts/utils/formatters';
 
 export function Palette({ color, name }) {
   const paletteWrapper = {

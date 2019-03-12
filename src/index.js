@@ -9,7 +9,7 @@ export { default as ReportSummaryTitle } from './charts/ReportSummaryTitle';
 export { default as Granularity } from './charts/Granularity';
 
 export * from './charts/skeletonComponents';
-export { default as formatters } from './utils/formatters';
-export { default as transformer } from './utils/transformer';
-export { default as aggregators } from './utils/aggregators';
+export { default as formatters } from './charts/utils/formatters';
+export { default as transformer } from './charts/utils/transformer';
+export { default as aggregators } from './charts/utils/aggregators';
 export { default as colors } from './Colors';

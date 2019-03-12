@@ -20,7 +20,7 @@ import {
   singleLineChart,
   filterChildren,
   getDeselectedColor
-} from '../utils/chartHelpers';
+} from './utils/chartHelpers';
 import {
   XAxis,
   YAxis,

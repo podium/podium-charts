@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import formatters from '../utils/formatters';
+import formatters from '../charts/utils/formatters';
 
 storiesOf('Formatters', module)
   .add('date', () => (

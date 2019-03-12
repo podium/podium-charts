@@ -1,4 +1,4 @@
-import { getDeselectedColor } from '../utils/chartHelpers';
+import { getDeselectedColor } from '../charts/utils/chartHelpers';
 
 describe('chartHelpers', () => {
   describe('getDeselectedColor', () => {

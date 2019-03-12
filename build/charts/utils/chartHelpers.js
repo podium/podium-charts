@@ -16,7 +16,7 @@ var _recharts = require("recharts");
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _skeletonComponents = require("../charts/skeletonComponents");
+var _skeletonComponents = require("../skeletonComponents");
 
 var _podiumUi = require("@podiumhq/podium-ui");
 

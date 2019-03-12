@@ -1,6 +1,6 @@
 "use strict";
 
-var _chartHelpers = require("../utils/chartHelpers");
+var _chartHelpers = require("../charts/utils/chartHelpers");
 
 describe('chartHelpers', function () {
   describe('getDeselectedColor', function () {

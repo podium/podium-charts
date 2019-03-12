@@ -128,11 +128,11 @@ Object.keys(_skeletonComponents).forEach(function (key) {
   });
 });
 
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
+var _formatters = _interopRequireDefault(require("./charts/utils/formatters"));
 
-var _transformer = _interopRequireDefault(require("./utils/transformer"));
+var _transformer = _interopRequireDefault(require("./charts/utils/transformer"));
 
-var _aggregators = _interopRequireDefault(require("./utils/aggregators"));
+var _aggregators = _interopRequireDefault(require("./charts/utils/aggregators"));
 
 var _Colors = _interopRequireDefault(require("./Colors"));
 

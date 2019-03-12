@@ -19,7 +19,7 @@ var _Rectangle = _interopRequireDefault(require("./Rectangle"));
 
 var _ChartStyledComponents = require("./ChartStyledComponents");
 
-var _chartHelpers = require("../utils/chartHelpers");
+var _chartHelpers = require("./utils/chartHelpers");
 
 var _skeletonComponents = require("./skeletonComponents");
 

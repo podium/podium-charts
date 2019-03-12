@@ -6,7 +6,7 @@ import {
   LineChart as RechartsLineChart
 } from 'recharts';
 import moment from 'moment';
-import { Line, Bar } from '../charts/skeletonComponents';
+import { Line, Bar } from '../skeletonComponents';
 import { colors } from '@podiumhq/podium-ui';
 
 const DEFAULT_DESELECTED_COLOR = colors.mystic;

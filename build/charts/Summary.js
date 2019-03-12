@@ -15,11 +15,11 @@ var _podiumUi = require("@podiumhq/podium-ui");
 
 var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
 
-var _chartHelpers = require("../utils/chartHelpers");
+var _chartHelpers = require("./utils/chartHelpers");
 
-var _aggregators = require("../utils/aggregators");
+var _aggregators = require("./utils/aggregators");
 
-var _formatters = _interopRequireDefault(require("../utils/formatters"));
+var _formatters = _interopRequireDefault(require("./utils/formatters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
