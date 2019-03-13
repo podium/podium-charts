@@ -25,11 +25,6 @@ const podiumTheme = create({
   inputBorder: 'silver',
   inputTextColor: 'black',
   inputBorderRadius: 4
-
-  //brandTitle: 'Podium Reporting Toolkit'
-  //brandUrl: 'https://github.com/podium/podium-charts'
-  //brandImage:
-  //'https://cdn.shortpixel.ai/client/q_lossless,ret_img/https://www.podium.com/wp-content/uploads/2018/05/podium-logo-dark-large.png'
 });
 
 addParameters({
