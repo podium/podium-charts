@@ -39,7 +39,7 @@ function detectChartType(children) {
 
   _react.default.Children.forEach(filteredChildren, function (child) {
     if (!childrenTypes.includes(child.type) && allowedTypes.has(child.type)) {
-      childrenTypes = _toConsumableArray(childrenTypes).concat([child.type]);
+      childrenTypes = [].concat(_toConsumableArray(childrenTypes), [child.type]);
     }
   });
 
