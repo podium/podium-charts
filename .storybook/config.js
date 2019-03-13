@@ -1,18 +1,42 @@
 import { addParameters, configure, addDecorator } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-//import { create } from '@storybook/theming';
+import { create } from '@storybook/theming';
 
-//const podiumTheme = create({
-//base: 'light',
-//brandTitle: 'Podium Reporting Toolkit',
-//brandImage: 'find img url',
-//});
+const podiumTheme = create({
+  base: 'light',
+  colorSecondary: '#4C76E0',
+
+  // UI
+  appBg: 'white',
+  appBorderColor: 'grey',
+  appBorderRadius: 4,
+
+  // Text colors
+  textColor: '#333333',
+  textInverseColor: 'white',
+
+  // Toolbar default and active colors
+  barTextColor: 'black',
+  barSelectedColor: '#4C76E0',
+  barBg: 'white',
+
+  // Form colors
+  inputBg: 'white',
+  inputBorder: 'silver',
+  inputTextColor: 'black',
+  inputBorderRadius: 4
+
+  //brandTitle: 'Podium Reporting Toolkit'
+  //brandUrl: 'https://github.com/podium/podium-charts'
+  //brandImage:
+  //'https://cdn.shortpixel.ai/client/q_lossless,ret_img/https://www.podium.com/wp-content/uploads/2018/05/podium-logo-dark-large.png'
+});
 
 addParameters({
   options: {
+    addonPanelInRight: true,
     name: 'Podium Reporting Toolkit',
-    addonPanelInRight: true
-    //theme: themes.light
+    theme: podiumTheme
   }
 });
 
