@@ -93,29 +93,29 @@ Object.defineProperty(exports, "aggregators", {
 Object.defineProperty(exports, "colors", {
   enumerable: true,
   get: function get() {
-    return _colors.default;
+    return _Colors.default;
   }
 });
 
-var _Chart = _interopRequireDefault(require("./Chart"));
+var _Chart = _interopRequireDefault(require("./Charts/Chart"));
 
-var _Legend = _interopRequireDefault(require("./Legend"));
+var _Legend = _interopRequireDefault(require("./Charts/Legend"));
 
-var _Summary = _interopRequireDefault(require("./Summary"));
+var _Summary = _interopRequireDefault(require("./Charts/Summary"));
 
-var _TooltipBody = _interopRequireDefault(require("./TooltipBody"));
+var _TooltipBody = _interopRequireDefault(require("./Charts/TooltipBody"));
 
-var _TooltipBodyTime = _interopRequireDefault(require("./TooltipBodyTime"));
+var _TooltipBodyTime = _interopRequireDefault(require("./Charts/TooltipBodyTime"));
 
-var _ReportCard = _interopRequireDefault(require("./ReportCard"));
+var _ReportCard = _interopRequireDefault(require("./Charts/ReportCard"));
 
-var _ReportTitle = _interopRequireDefault(require("./ReportTitle"));
+var _ReportTitle = _interopRequireDefault(require("./Charts/ReportTitle"));
 
-var _ReportSummaryTitle = _interopRequireDefault(require("./ReportSummaryTitle"));
+var _ReportSummaryTitle = _interopRequireDefault(require("./Charts/ReportSummaryTitle"));
 
-var _Granularity = _interopRequireDefault(require("./Granularity"));
+var _Granularity = _interopRequireDefault(require("./Charts/Granularity"));
 
-var _skeletonComponents = require("./skeletonComponents");
+var _skeletonComponents = require("./Charts/skeletonComponents");
 
 Object.keys(_skeletonComponents).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -128,12 +128,12 @@ Object.keys(_skeletonComponents).forEach(function (key) {
   });
 });
 
-var _formatters = _interopRequireDefault(require("./formatters"));
+var _formatters = _interopRequireDefault(require("./Charts/utils/formatters"));
 
-var _transformer = _interopRequireDefault(require("./transformer"));
+var _transformer = _interopRequireDefault(require("./Charts/utils/transformer"));
 
-var _aggregators = _interopRequireDefault(require("./aggregators"));
+var _aggregators = _interopRequireDefault(require("./Charts/utils/aggregators"));
 
-var _colors = _interopRequireDefault(require("./colors"));
+var _Colors = _interopRequireDefault(require("./Colors"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
