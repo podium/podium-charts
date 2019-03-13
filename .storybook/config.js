@@ -26,8 +26,10 @@ addDecorator(
   })
 );
 
+const req = require.context('../src/Stories', true, /\.story\.jsx$/);
+
 function loadStories() {
-  require('../src/Stories.jsx');
+  req.keys().forEach(filename => req(filename));
 }
 
 configure(loadStories, module);

@@ -1,6 +1,6 @@
 "use strict";
 
-var _formatters = require("../formatters");
+var _formatters = require("../Charts/utils/formatters");
 
 describe('formatters', function () {
   describe('roundToPlaces', function () {
