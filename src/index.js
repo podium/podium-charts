@@ -13,3 +13,5 @@ export { default as formatters } from './Charts/utils/formatters';
 export { default as transformer } from './Charts/utils/transformer';
 export { default as aggregators } from './Charts/utils/aggregators';
 export { default as colors } from './Colors';
+
+export { default as ReportingTable } from './Table/ReportingTable';
