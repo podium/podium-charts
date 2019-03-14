@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
-import { IconCheck } from '@podiumhq/podium-ui';
+import { Stars, IconCheck, SiteLogo } from '@podiumhq/podium-ui';
 import { ReportingTable } from '../Table';
 
 const FavGradient = styled.div`
@@ -13,6 +13,12 @@ const FavGradient = styled.div`
 const ContactField = styled.div`
   display: flex;
   flex-flow: column;
+`;
+
+const ReviewContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
 `;
 
 const UserName = styled.div`
@@ -37,6 +43,12 @@ const Container = styled.div`
   padding: 0 26px;
 `;
 
+const StyledLogo = styled(SiteLogo)`
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  margin-right: 8px;
+`;
 const data = [
   {
     name: { name: 'Luke Skywalker', contact: '1-801-555-1234' },
@@ -45,14 +57,14 @@ const data = [
     followedLink: true,
     review: { site: 'google', rating: 5 },
     favoriteGradient:
-      'linear-gradient(to right, rgb(0, 242, 96), rgb(5, 117, 230))'
+      'linear-gradient(to right, rgb(5, 117, 230), rgb(0, 242, 96))'
   },
   {
     name: { name: 'Anakin Skywalker', contact: '1-801-555-1235' },
     sentBy: { name: 'Qui-Gon Jinn', location: 'Naboo' },
     timeSent: 'March 2, 12:00 AM',
     followedLink: false,
-    review: { site: 'google', rating: 1 },
+    review: { site: 'yelp', rating: 1 },
     favoriteGradient:
       'linear-gradient(to right, rgb(195, 20, 50), rgb(36, 11, 54))'
   },
@@ -61,7 +73,7 @@ const data = [
     sentBy: { name: 'Luke Skywalker', location: 'Tatooine' },
     timeSent: 'March 3, 12:00 AM',
     followedLink: true,
-    review: { site: 'google', rating: 3.5 },
+    review: { site: 'facebook', rating: 3.5 },
     favoriteGradient: 'linear-gradient(to right, #f7ff00, #212121);'
   }
 ];
@@ -122,7 +134,12 @@ const FollowedLink = ({ rowData }) =>
   rowData.followedLink ? <IconCheck color="#3B5CAD" /> : '';
 
 const Review = ({ rowData }) => {
-  return <div>review</div>;
+  return (
+    <ReviewContainer>
+      <StyledLogo site={rowData.review.site} />
+      <Stars rating={rowData.review.rating} size={20} />
+    </ReviewContainer>
+  );
 };
 
 const Gradient = ({ rowData }) => (
