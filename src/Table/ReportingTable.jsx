@@ -26,11 +26,7 @@ const MoreInfo = styled.div`
 
 class ReportingTable extends Component {
   renderTableHeaders = () => {
-    const { headers, showHeaders } = this.props;
-
-    if (!showHeaders) {
-      return null;
-    }
+    const { headers } = this.props;
 
     return (
       <TableRow>
@@ -98,14 +94,11 @@ ReportingTable.propTypes = {
   data: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
   dataComponents: PropTypes.object,
-  focusRow: PropTypes.func,
-  loading: PropTypes.bool,
-  showHeaders: PropTypes.bool
+  loading: PropTypes.bool
 };
 
 ReportingTable.defaultProps = {
-  dataComponents: {},
-  showHeaders: true
+  dataComponents: {}
 };
 
 export default ReportingTable;

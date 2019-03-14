@@ -21,18 +21,18 @@ const UserName = styled.div`
 `;
 
 const UserContact = styled.div`
-  color: '#778692';
-  font-size: 12px;
+  color: #778692;
+`;
+const SentByName = styled.div``;
+
+const SentByContact = styled.div`
+  color: #778692;
 `;
 
 const Container = styled.div`
+  background: #ffffff;
   border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
-  margin-bottom: 24px;
-  background-color: white;
-  width: 80%;
-  margin: 0 auto;
-
+  border: 1px solid #e8e9ec;
   overflow-y: scroll;
   padding: 0 26px;
 `;
@@ -40,7 +40,7 @@ const Container = styled.div`
 const data = [
   {
     name: { name: 'Luke Skywalker', contact: '1-801-555-1234' },
-    sentBy: 'Obi Wan Kenobi',
+    sentBy: { name: 'Obi Wan Kenobi', location: 'Tatooine' },
     timeSent: 'March 1, 12:00 AM',
     followedLink: true,
     review: { site: 'google', rating: 5 },
@@ -49,12 +49,20 @@ const data = [
   },
   {
     name: { name: 'Anakin Skywalker', contact: '1-801-555-1235' },
-    sentBy: 'Qui-Gon Jinn',
+    sentBy: { name: 'Qui-Gon Jinn', location: 'Naboo' },
     timeSent: 'March 2, 12:00 AM',
     followedLink: false,
     review: { site: 'google', rating: 1 },
     favoriteGradient:
       'linear-gradient(to right, rgb(195, 20, 50), rgb(36, 11, 54))'
+  },
+  {
+    name: { name: 'Ben Solo', contact: '1-801-555-1236' },
+    sentBy: { name: 'Luke Skywalker', location: 'Tatooine' },
+    timeSent: 'March 3, 12:00 AM',
+    followedLink: true,
+    review: { site: 'google', rating: 3.5 },
+    favoriteGradient: 'linear-gradient(to right, #f7ff00, #212121);'
   }
 ];
 
@@ -100,6 +108,15 @@ const Name = ({ rowData }) => {
     </ContactField>
   );
 };
+const SentBy = ({ rowData }) => {
+  const { name, location } = rowData.sentBy;
+  return (
+    <ContactField>
+      <SentByName>{name}</SentByName>
+      <SentByContact>{location}</SentByContact>
+    </ContactField>
+  );
+};
 
 const FollowedLink = ({ rowData }) =>
   rowData.followedLink ? <IconCheck color="#3B5CAD" /> : '';
@@ -116,7 +133,8 @@ const dataComponents = {
   name: <Name />,
   favoriteGradient: <Gradient />,
   followedLink: <FollowedLink />,
-  review: <Review />
+  review: <Review />,
+  sentBy: <SentBy />
 };
 
 storiesOf('Reporting Table', module)
@@ -131,12 +149,10 @@ storiesOf('Reporting Table', module)
     </Container>
   ))
   .add('Loading', () => (
-    <Container>
-      <ReportingTable
-        loading
-        data={data}
-        headers={headers}
-        dataComponents={dataComponents}
-      />
-    </Container>
+    <ReportingTable
+      loading
+      data={data}
+      headers={headers}
+      dataComponents={dataComponents}
+    />
   ));
