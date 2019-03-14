@@ -1,94 +1,111 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { TableLoading, ToolTip, IconInfo, colors } from '@podiumhq/podium-ui';
 import {
   Table,
   TableHeader,
   TableBody,
-  TableRow,
   TableCell,
-  TableHeaderCell,
-  IconChevron
-} from '@podiumhq/podium-ui';
+  TableRow,
+  TableHeaderCell
+} from './';
 
-const ChevronWrapper = styled.div`
-  display: inline;
-  svg {
-    position: absolute;
-    right: 24px;
-    transition: 0.2s;
+const MoreInfo = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 35%;
+  color: ${colors.lightSteel};
+  &&& {
+    svg {
+      fill: ${colors.lightSteel};
+      position: initial;
+    }
   }
 `;
 
-class ReportingTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeColumn: 'totalConversations', sortDirection: 'desc' };
-  }
+class ReportingTable extends Component {
+  renderTableHeaders = () => {
+    const { headers, showHeaders } = this.props;
 
-  onSort = dir => {
-    console.log(dir);
-    //this.setState({sortDirection: dir})
-  };
-
-  render() {
-    const { headers, data } = this.props;
-    const { activeColumn, sortDirection } = this.state;
+    if (!showHeaders) {
+      return null;
+    }
 
     return (
-      <Table showBorders>
-        <TableHeader>
-          <TableRow>
-            {headers.map(header => {
-              const active = activeColumn === header.id;
-              const sort = header.onSort && active && (
-                <ChevronWrapper>
-                  <IconChevron size="medium" direction="down" />
-                </ChevronWrapper>
-              );
+      <TableRow>
+        {headers &&
+          headers.map((header, index) => {
+            return (
+              <TableHeaderCell key={header.id} width={header.width}>
+                {header.tooltip && (
+                  <MoreInfo>
+                    <ToolTip position="top" type="arrow" tip={header.tooltip}>
+                      <IconInfo size="small" />
+                    </ToolTip>
+                  </MoreInfo>
+                )}
+                <div>{header.content}</div>
+              </TableHeaderCell>
+            );
+          })}
+      </TableRow>
+    );
+  };
 
+  renderTableBody = () => {
+    const { data, dataComponents, headers } = this.props;
+
+    return (
+      data &&
+      data.map((row, rowIndex) => {
+        return (
+          <TableRow key={`row|${rowIndex}`}>
+            {headers.map((header, headerIndex) => {
+              const tableCellComponent = dataComponents[header.id];
+              const Component =
+                tableCellComponent &&
+                React.cloneElement(tableCellComponent, { rowData: row });
               return (
-                <TableHeaderCell
-                  key={header.id}
-                  active={active}
-                  onClick={header.onSort || null}
-                  sortDirection={header.onSort && sortDirection}
+                <TableCell
+                  key={`cell|${rowIndex}|${headerIndex}`}
                   width={header.width}
                 >
-                  {/* Have to do || '' because storybook does not correctly render nulls */}
-                  <div>
-                    {header.content}
-                    {sort || ''}
-                  </div>
-                </TableHeaderCell>
+                  {Component || row[header.id]}
+                </TableCell>
               );
             })}
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((row, rowIndex) => (
-            <TableRow key={`row|${rowIndex}`}>
-              {headers.map(header => (
-                <TableCell
-                  key={`cell|${rowIndex}|${header.id}`}
-                  activeRow={rowIndex === 2}
-                  activeColumn={header.id === activeColumn}
-                  width={header.width}
-                >
-                  {row[header.id]}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
+        );
+      })
+    );
+  };
+
+  render() {
+    const { loading } = this.props;
+    return loading ? (
+      <TableLoading />
+    ) : (
+      <Table>
+        <TableHeader>{this.renderTableHeaders()}</TableHeader>
+        <TableBody>{this.renderTableBody()}</TableBody>
       </Table>
     );
   }
 }
 
 ReportingTable.propTypes = {
-  data: PropTypes.array,
-  headers: PropTypes.array
+  data: PropTypes.array.isRequired,
+  headers: PropTypes.array.isRequired,
+  dataComponents: PropTypes.object,
+  focusRow: PropTypes.func,
+  loading: PropTypes.bool,
+  showHeaders: PropTypes.bool
+};
+
+ReportingTable.defaultProps = {
+  dataComponents: {},
+  showHeaders: true
 };
 
 export default ReportingTable;
