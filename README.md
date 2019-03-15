@@ -5,6 +5,9 @@ Podium Charts provides Podium styles and conveniences on top of the Recharts lib
 
 ## Getting Started
 
+### Documentation
+Documentation for each component is in progress and lives within storybook itself. Click on the "Notes" tab inside the story to view it. 
+
 ### Installing
 
 Clone the repo
