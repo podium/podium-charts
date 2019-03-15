@@ -4,13 +4,7 @@ import { TableLoading } from '@podiumhq/podium-ui';
 import { TableWrapper } from './TableStyledComponents';
 
 export default function Table({ loading, alternateColors, children }) {
-  return loading ? (
-    <TableLoading />
-  ) : (
-    <div>
-      <TableWrapper>{children}</TableWrapper>
-    </div>
-  );
+  return loading ? <TableLoading /> : <TableWrapper>{children}</TableWrapper>;
 }
 
 Table.propTypes = {

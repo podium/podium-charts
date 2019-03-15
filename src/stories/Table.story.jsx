@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { Stars, IconCheck, SiteLogo } from '@podiumhq/podium-ui';
 import { ReportingTable } from '../Table';
+import {
+  DefaultNotes,
+  FixedHeaderNotes,
+  HeaderTooltipNotes,
+  HeaderComponentNotes
+} from './TableHelpers';
 
 const FavGradient = styled.div`
   background: ${props => props.gradient};
@@ -49,7 +55,13 @@ const StyledLogo = styled(SiteLogo)`
   width: 28px;
   margin-right: 8px;
 `;
-const data = [
+
+const StyledHeader = styled.div`
+  color: orange;
+  text-decoration: underline;
+`;
+
+const dataForComponents = [
   {
     name: { name: 'Luke Skywalker', contact: '1-801-555-1234' },
     sentBy: { name: 'Obi Wan Kenobi', location: 'Tatooine' },
@@ -78,10 +90,34 @@ const data = [
   }
 ];
 
-const headers = [
+const textOnlyData = [
+  {
+    name: 'Frodo Baggins',
+    sentBy: 'Gandalf the Grey',
+    timeSent: 'March 1, 12:00 AM',
+    followedLink: true,
+    review: 5
+  },
+  {
+    name: 'Frodo Baggins',
+    sentBy: 'Gandalf the Grey',
+    timeSent: 'March 1, 12:00 AM',
+    followedLink: true,
+    review: 3.5
+  },
+  {
+    name: 'Samwise Gamgee',
+    sentBy: 'Gandalf the White',
+    timeSent: 'March 1, 12:00 AM',
+    followedLink: true,
+    review: 2
+  }
+];
+
+const fixedWidthHeaders = [
   {
     id: 'name',
-    content: 'Name & Phone/Email',
+    content: <StyledHeader>Name & Phone/Email</StyledHeader>,
     width: '350px'
   },
   {
@@ -108,6 +144,81 @@ const headers = [
     id: 'favoriteGradient',
     content: 'Favorite Gradient',
     width: '15%'
+  }
+];
+
+const headersForComponents = [
+  {
+    id: 'name',
+    content: <StyledHeader>Name & Phone/Email</StyledHeader>
+  },
+  {
+    id: 'sentBy',
+    content: 'Sent By'
+  },
+  {
+    id: 'timeSent',
+    content: 'Time Sent'
+  },
+  {
+    id: 'followedLink',
+    content: 'Followed Link'
+  },
+  {
+    id: 'review',
+    content: 'Review'
+  },
+  {
+    id: 'favoriteGradient',
+    content: 'Favorite Gradient'
+  }
+];
+
+const textOnlyHeaders = [
+  {
+    id: 'name',
+    content: 'Name & Phone/Email'
+  },
+  {
+    id: 'sentBy',
+    content: 'Sent By'
+  },
+  {
+    id: 'timeSent',
+    content: 'Time Sent'
+  },
+  {
+    id: 'followedLink',
+    content: 'Followed Link'
+  },
+  {
+    id: 'review',
+    content: 'Review'
+  }
+];
+
+const headersWithTooltip = [
+  {
+    id: 'name',
+    content: 'Name & Phone/Email'
+  },
+  {
+    id: 'sentBy',
+    content: 'Sent By'
+  },
+  {
+    id: 'timeSent',
+    content: 'Time Sent',
+    tooltip: 'I am a tooltip!'
+  },
+  {
+    id: 'followedLink',
+    content: 'Followed Link',
+    tooltip: 'I am also a tooltip!'
+  },
+  {
+    id: 'review',
+    content: 'Review'
   }
 ];
 
@@ -155,21 +266,66 @@ const dataComponents = {
 };
 
 storiesOf('Reporting Table', module)
-  .add('Default', () => (
-    <Container>
+  .add(
+    'Default',
+    () => (
+      <Container>
+        <ReportingTable
+          loading={false}
+          data={textOnlyData}
+          headers={textOnlyHeaders}
+        />
+      </Container>
+    ),
+    { notes: DefaultNotes }
+  )
+
+  .add(
+    'Fixed Width Headers',
+    () => (
+      <Container>
+        <ReportingTable
+          loading={false}
+          data={textOnlyData}
+          headers={fixedWidthHeaders}
+        />
+      </Container>
+    ),
+    { notes: FixedHeaderNotes }
+  )
+
+  .add(
+    'Tooltips in Headers',
+    () => (
       <ReportingTable
         loading={false}
-        data={data}
-        headers={headers}
-        dataComponents={dataComponents}
+        data={textOnlyData}
+        headers={headersWithTooltip}
       />
-    </Container>
-  ))
+    ),
+    { notes: HeaderTooltipNotes }
+  )
+
+  .add(
+    'Components in Cells',
+    () => (
+      <Container>
+        <ReportingTable
+          loading={false}
+          data={dataForComponents}
+          headers={headersForComponents}
+          dataComponents={dataComponents}
+        />
+      </Container>
+    ),
+    { notes: HeaderComponentNotes }
+  )
+
   .add('Loading', () => (
     <ReportingTable
       loading
-      data={data}
-      headers={headers}
+      data={textOnlyData}
+      headers={textOnlyHeaders}
       dataComponents={dataComponents}
     />
   ));

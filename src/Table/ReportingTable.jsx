@@ -91,14 +91,17 @@ class ReportingTable extends Component {
 }
 
 ReportingTable.propTypes = {
-  data: PropTypes.array.isRequired,
-  headers: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.object).isRequired,
   dataComponents: PropTypes.object,
   loading: PropTypes.bool
 };
 
 ReportingTable.defaultProps = {
-  dataComponents: {}
+  dataComponents: {},
+  loading: false,
+  data: [],
+  headers: []
 };
 
 export default ReportingTable;
