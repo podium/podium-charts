@@ -19,7 +19,7 @@ function Table(_ref) {
   var loading = _ref.loading,
       alternateColors = _ref.alternateColors,
       children = _ref.children;
-  return loading ? _react.default.createElement(_podiumUi.TableLoading, null) : _react.default.createElement("div", null, _react.default.createElement(_TableStyledComponents.TableWrapper, null, children));
+  return loading ? _react.default.createElement(_podiumUi.TableLoading, null) : _react.default.createElement(_TableStyledComponents.TableWrapper, null, children);
 }
 
 Table.propTypes = {

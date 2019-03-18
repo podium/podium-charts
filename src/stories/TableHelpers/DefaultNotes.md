@@ -12,6 +12,18 @@ This story is an example of a simple and basic text-only table.
 
 ## Configuration
 
+### Data 
+Data should be structured as an array of objects, with each object being the data for an entire row. The key values need to match the `id` field of the header config. As we will see with the `dataComponents` option below, the value of the data can be fairly customized. For example, you may have a data object that looks like this: 
+
+```js
+[{
+	name: { first: "John", last: "Doe" },
+	review: 5
+}] 
+``` 
+This format allows you to grab the nested data to build out more complex cell data. 
+
+
 ### Headers
 **Header Object**
 
@@ -67,17 +79,6 @@ This will produce the following result:
 |Beyonce|5|
 |Jay-Z|4.5|
 
-### Data 
-Data should be structured as an array of objects, with each object being the data for an entire row. The key values need to match the `id` field of the header config. As we will see with the `dataComponents` option below, the value of the data can be fairly customized. For example, you may have a data object that looks like this: 
-
-```js
-[{
-	name: { first: "John", last: "Doe" },
-	review: 5
-}] 
-``` 
-This format allows you to grab the nested data to build out more complex cell data. 
-
 ### Data Components _optional_
 If you would like to display a react component inside of a table data cell, you will need to pass in a `dataComponents` prop, which is an object mapping each data key (ie. `name` in the previous examples) to a custom built component. Let's use this data as an example: 
 
@@ -87,7 +88,7 @@ If you would like to display a react component inside of a table data cell, you 
 	review: 5
 }] 
 ``` 
-Let's say you'd would like to have the cell Display the first and last names on a separate line inside the same cell, you would start by building a component that looks something like this:
+Let's say you would like to have the cell Display the first and last names on a separate line inside the same cell, you would start by building a component that looks something like this:
 
 ```jsx
 const ContactNameDisplayCell = ({ rowData }) => (

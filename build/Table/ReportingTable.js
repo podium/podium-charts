@@ -117,13 +117,16 @@ function (_Component) {
 }(_react.Component);
 
 ReportingTable.propTypes = {
-  data: _propTypes.default.array.isRequired,
-  headers: _propTypes.default.array.isRequired,
+  data: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
+  headers: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
   dataComponents: _propTypes.default.object,
   loading: _propTypes.default.bool
 };
 ReportingTable.defaultProps = {
-  dataComponents: {}
+  dataComponents: {},
+  loading: false,
+  data: [],
+  headers: []
 };
 var _default = ReportingTable;
 exports.default = _default;

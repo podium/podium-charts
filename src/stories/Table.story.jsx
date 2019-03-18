@@ -322,10 +322,12 @@ storiesOf('Reporting Table', module)
   )
 
   .add('Loading', () => (
-    <ReportingTable
-      loading
-      data={textOnlyData}
-      headers={textOnlyHeaders}
-      dataComponents={dataComponents}
-    />
+    <div>
+      <ReportingTable
+        loading
+        data={textOnlyData}
+        headers={textOnlyHeaders}
+        dataComponents={dataComponents}
+      />
+    </div>
   ));
