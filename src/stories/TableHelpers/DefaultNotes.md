@@ -13,21 +13,22 @@ This story is an example of a simple and basic text-only table.
 ## Configuration
 
 ### Headers
-**Config Options**
+**Header Object**
+
+Headers are created as an array of objects. Each object represent attributes of that particular header. These are the accessable keys in each header object:
 
 ```js
-[
-	{
-		id: String (required)  // key to associate with data object key
-		content: [String | React Component] (required) // data to display in the header cell
-		width: String // set a fixed width on the entire column (px or % value)
-		tooltip: [String | React Component] // adds a help icon in the header with a tooltip containing this content 
-	},
-	...
-]
+{
+	id: String (required)  // key to associate with data object key
+	content: [String | React Component] (required) // data to display in the header cell
+	width: String // set a fixed width on the entire column (px or % value)
+	tooltip: [String | React Component] // adds a help icon in the header with a tooltip containing this content 
+}
 ```
 
-Headers are created as an array of objects. Each object represent attributes of that particular header:
+_Example:_
+
+**Header Definition**
 
 ```js
 const headers = [
@@ -42,20 +43,29 @@ const headers = [
 ]
 ```
 
-The `id` key must match whatever key will be associated with the data. For example, this data:
+**Data Definition**
+
+The `id` key must match whatever key will be associated with the data.
 
 ```js
-const data = [{
-	name: 'Beyonce',
-	review: 5
-}]
+const data = [
+	{
+		name: 'Beyonce',
+		review: 5
+	},
+	{
+		name: 'Jay-Z',
+		review: 4.5
+	}
+]
 ```
 
-Will produce the following result: 
+This will produce the following result: 
 
 |Contact Name|Review Received|
 |------------|:-------------:|
 |Beyonce|5|
+|Jay-Z|4.5|
 
 ### Data 
 Data should be structured as an array of objects, with each object being the data for an entire row. The key values need to match the `id` field of the header config. As we will see with the `dataComponents` option below, the value of the data can be fairly customized. For example, you may have a data object that looks like this: 
