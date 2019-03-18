@@ -16,7 +16,8 @@ var _exportNames = {
   formatters: true,
   transformer: true,
   aggregators: true,
-  colors: true
+  colors: true,
+  ReportingTable: true
 };
 Object.defineProperty(exports, "Chart", {
   enumerable: true,
@@ -96,6 +97,12 @@ Object.defineProperty(exports, "colors", {
     return _Colors.default;
   }
 });
+Object.defineProperty(exports, "ReportingTable", {
+  enumerable: true,
+  get: function get() {
+    return _ReportingTable.default;
+  }
+});
 
 var _Chart = _interopRequireDefault(require("./Charts/Chart"));
 
@@ -135,5 +142,7 @@ var _transformer = _interopRequireDefault(require("./Charts/utils/transformer"))
 var _aggregators = _interopRequireDefault(require("./Charts/utils/aggregators"));
 
 var _Colors = _interopRequireDefault(require("./Colors"));
+
+var _ReportingTable = _interopRequireDefault(require("./Table/ReportingTable"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
