@@ -13,27 +13,36 @@ This story is an example of a simple and basic text-only table.
 ## Configuration
 
 ### Headers
-**Options**
+**Config Options**
 
 ```js
-{
-	id: String // key to associate with data object key
-	content: [String | React Component] // data to display in the header cell
-	width: String // set a fixed width on the entire column (px or % value)
-	tooltip: [String | React Component] // adds a help icon in the header with a tooltip containing this content 
-}
+[
+	{
+		id: String (required)  // key to associate with data object key
+		content: [String | React Component] (required) // data to display in the header cell
+		width: String // set a fixed width on the entire column (px or % value)
+		tooltip: [String | React Component] // adds a help icon in the header with a tooltip containing this content 
+	},
+	...
+]
 ```
 
 Headers are created as an array of objects. Each object represent attributes of that particular header:
 
 ```js
-const headers = [{
-	id: 'name', // key to associate with data
-	content: "Contact Name" // display value of the header cell
-}]
+const headers = [
+	{
+		id: 'name', // key to associate with data
+		content: "Contact Name", // display value of the header cell
+	},
+	{
+		id: 'review',
+		content: 'Review Received'
+	}
+]
 ```
 
-The `id` key must match whatever key will be associated with the data. For example, with the following data the `Beyonce` will show under the `Contact Name` column.
+The `id` key must match whatever key will be associated with the data. For example, this data:
 
 ```js
 const data = [{
@@ -41,6 +50,12 @@ const data = [{
 	review: 5
 }]
 ```
+
+Will produce the following result: 
+
+|Contact Name|Review Received|
+|------------|:-------------:|
+|Beyonce|5|
 
 ### Data 
 Data should be structured as an array of objects, with each object being the data for an entire row. The key values need to match the `id` field of the header config. As we will see with the `dataComponents` option below, the value of the data can be fairly customized. For example, you may have a data object that looks like this: 
@@ -65,7 +80,7 @@ If you would like to display a react component inside of a table data cell, you 
 Let's say you'd would like to have the cell Display the first and last names on a separate line inside the same cell, you would start by building a component that looks something like this:
 
 ```jsx
-const MyComponent = ({ rowData }) => (
+const ContactNameDisplayCell = ({ rowData }) => (
 	<div style={styles}>
 		<div>{rowData.name.first}</div>
 		<div>{rowData.name.last}</div>
@@ -78,7 +93,7 @@ Now that you have your component built, create the `dataComponents` object like 
 
 ```js
 const dataComponents = {
-	name: <MyComponent />
+	name: <ContactNameDisplayCell />
 }
 ```
 Once this prop is passed in, the table will know to map all cells associated with the `name` key to the provided component (passing in the data along the way). 
