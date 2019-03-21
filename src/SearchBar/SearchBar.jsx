@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { IconSearch, colors } from '@podiumhq/podium-ui';
 
 const Container = styled.div`
-  width: 100%;
+  width: ${({ width }) => width};
   display: flex;
   font-family: Graphik, Helvetica, sans-serif;
 `;
@@ -36,10 +36,10 @@ const IconContainer = styled.div`
   background: ${colors.whiteSmoke};
 `;
 
-const SearchBar = ({ onChange }) => {
+const SearchBar = ({ onChange, placeholder, width }) => {
   return (
-    <Container>
-      <Input onChange={onChange} placeholder="Search" />
+    <Container width={width}>
+      <Input onChange={onChange} placeholder={placeholder} />
       <IconContainer>
         <IconSearch height="24px" width="24px" color={colors.jumbo} />
       </IconContainer>
@@ -48,7 +48,14 @@ const SearchBar = ({ onChange }) => {
 };
 
 SearchBar.propTypes = {
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  width: PropTypes.string
+};
+
+SearchBar.defaultProps = {
+  placeholder: 'Search',
+  width: '100%'
 };
 
 export default SearchBar;
