@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Pagination from '../Pagination';
+import { DefaultNotes } from './PaginationHelpers';
 
 class PaginationParent extends React.Component {
   state = { currentPage: 1, totalPages: 15 };
@@ -22,4 +23,6 @@ class PaginationParent extends React.Component {
   }
 }
 
-storiesOf('Pagination', module).add('default', () => <PaginationParent />);
+storiesOf('Pagination', module).add('default', () => <PaginationParent />, {
+  notes: DefaultNotes
+});

@@ -22,28 +22,26 @@ const Page = styled.div`
   margin: 0 2px;
 `;
 
-class Pagination extends React.Component {
-  render() {
-    const { currentPage, totalPages, onPageChange } = this.props;
-    return (
-      <Container>
-        {currentPage > 1 && (
-          <ChangeLink onClick={() => onPageChange(currentPage - 1)}>
-            Previous
-          </ChangeLink>
-        )}
-        <Label>Page</Label>
-        <Page>{currentPage} /</Page>
-        <Page>{totalPages}</Page>
-        {currentPage < totalPages && (
-          <ChangeLink onClick={() => onPageChange(currentPage + 1)}>
-            Next
-          </ChangeLink>
-        )}
-      </Container>
-    );
-  }
-}
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  return (
+    <Container>
+      {currentPage > 1 && (
+        <ChangeLink onClick={() => onPageChange(currentPage - 1)}>
+          Previous
+        </ChangeLink>
+      )}
+      <Label>Page</Label>
+      <Page>{currentPage} /</Page>
+      {/* <input onBlur={e => console.log(e.target.value}) /> */}
+      <Page>{totalPages}</Page>
+      {currentPage < totalPages && (
+        <ChangeLink onClick={() => onPageChange(currentPage + 1)}>
+          Next
+        </ChangeLink>
+      )}
+    </Container>
+  );
+};
 
 Pagination.propTypes = {
   currentPage: PropTypes.number,

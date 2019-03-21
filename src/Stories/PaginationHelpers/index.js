@@ -1,1 +1,1 @@
-export { default as DefaultNotes } from './DefaultNotes';
+export { default as DefaultNotes } from './DefaultNotes.md';
