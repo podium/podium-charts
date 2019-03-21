@@ -32,7 +32,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       )}
       <Label>Page</Label>
       <Page>{currentPage} /</Page>
-      {/* <input onBlur={e => console.log(e.target.value}) /> */}
       <Page>{totalPages}</Page>
       {currentPage < totalPages && (
         <ChangeLink onClick={() => onPageChange(currentPage + 1)}>
