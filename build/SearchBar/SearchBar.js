@@ -36,7 +36,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  display: flex;\n  font-family: Graphik, Helvetica, sans-serif;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: ", ";\n  display: flex;\n  font-family: Graphik, Helvetica, sans-serif;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -47,17 +47,24 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = _styledComponents.default.div(_templateObject());
+var Container = _styledComponents.default.div(_templateObject(), function (_ref) {
+  var width = _ref.width;
+  return width;
+});
 
 var Input = _styledComponents.default.input(_templateObject2(), _podiumUi.colors.iron);
 
 var IconContainer = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.iron, _podiumUi.colors.whiteSmoke);
 
-var SearchBar = function SearchBar(_ref) {
-  var onChange = _ref.onChange;
-  return _react.default.createElement(Container, null, _react.default.createElement(Input, {
+var SearchBar = function SearchBar(_ref2) {
+  var onChange = _ref2.onChange,
+      placeholder = _ref2.placeholder,
+      width = _ref2.width;
+  return _react.default.createElement(Container, {
+    width: width
+  }, _react.default.createElement(Input, {
     onChange: onChange,
-    placeholder: "Search"
+    placeholder: placeholder
   }), _react.default.createElement(IconContainer, null, _react.default.createElement(_podiumUi.IconSearch, {
     height: "24px",
     width: "24px",
@@ -66,7 +73,13 @@ var SearchBar = function SearchBar(_ref) {
 };
 
 SearchBar.propTypes = {
-  onChange: _propTypes.default.func.isRequired
+  onChange: _propTypes.default.func.isRequired,
+  placeholder: _propTypes.default.string,
+  width: _propTypes.default.string
+};
+SearchBar.defaultProps = {
+  placeholder: 'Search',
+  width: '100%'
 };
 var _default = SearchBar;
 exports.default = _default;
