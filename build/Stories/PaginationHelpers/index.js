@@ -10,6 +10,6 @@ Object.defineProperty(exports, "DefaultNotes", {
   }
 });
 
-var _DefaultNotes = _interopRequireDefault(require("./DefaultNotes"));
+var _DefaultNotes = _interopRequireDefault(require("./DefaultNotes.md"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

@@ -6,6 +6,8 @@ var _react2 = require("@storybook/react");
 
 var _Pagination = _interopRequireDefault(require("../Pagination"));
 
+var _PaginationHelpers = require("./PaginationHelpers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -68,4 +70,6 @@ function (_React$Component) {
 
 (0, _react2.storiesOf)('Pagination', module).add('default', function () {
   return _react.default.createElement(PaginationParent, null);
+}, {
+  notes: _PaginationHelpers.DefaultNotes
 });
