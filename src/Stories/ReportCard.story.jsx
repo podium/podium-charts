@@ -139,7 +139,7 @@ storiesOf('Report Card', module)
           { name: 'Goku', dataKey: 'goku', color: '#FB7326' },
           { name: 'Piccolo', dataKey: 'piccolo', color: '#479919' },
           { name: 'Vegeta', dataKey: 'vegeta', color: '#3756B0' },
-          { name: 'Turtle', dataKey: 'turtle', color: '#6A3027' }
+          { name: 'Turtle With No Name', dataKey: 'turtle', color: '#6A3027' }
         ]}
       />
     </ReportCard>
