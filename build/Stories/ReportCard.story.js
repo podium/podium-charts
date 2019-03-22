@@ -169,7 +169,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       dataKey: 'vegeta',
       color: '#3756B0'
     }, {
-      name: 'Turtle',
+      name: 'Turtle With No Name',
       dataKey: 'turtle',
       color: '#6A3027'
     }]

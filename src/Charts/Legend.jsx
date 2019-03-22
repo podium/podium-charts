@@ -36,8 +36,8 @@ const ItemWrapper = styled.div`
 `;
 
 const ColorLabel = styled.div`
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   border-radius: 2px;
   background-color: ${props => props.color};
   margin-right: 8px;
@@ -46,6 +46,7 @@ const ColorLabel = styled.div`
 const Label = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 8px;
 `;
 
 export default function Legend({
