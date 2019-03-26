@@ -1,10 +1,15 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    default: './src/index.js',
+    tables: './src/tables.entry.js',
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.js'
+    libraryTarget: 'umd',
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -31,5 +36,16 @@ module.exports = {
         loader: 'svg-inline-loader'
       }
     ]
-  }
+  },
+  externals: [
+    // FIXME: Make sure these work correctly in production
+    'moment',
+    'prop-types',
+    'react',
+    'react-dom',
+    'styled-components'
+  ],
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
 };

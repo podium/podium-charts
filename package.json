@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "rm -rf build/ && webpack --mode=production"
+    "build": "rm -rf build/ && webpack --mode=production",
+    "analyze": "rm -rf build/ && webpack --mode=production --profile --json > tmp/stats.json && webpack-bundle-analyzer tmp/stats.json"
   },
   "husky": {
     "hooks": {
@@ -59,6 +60,7 @@
     "regenerator-runtime": "^0.13.1",
     "styled-components": "^4.1.2",
     "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
