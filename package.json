@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "rm -rf build/ && babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties"
+    "build": "rm -rf build/ && webpack --mode=production"
   },
   "husky": {
     "hooks": {
@@ -40,7 +40,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^5.9.0",
     "eslint-config-react-app": "^3.0.5",
@@ -57,7 +57,9 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "regenerator-runtime": "^0.13.1",
-    "styled-components": "^4.1.2"
+    "styled-components": "^4.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "dependencies": {
     "humanize-duration": "^3.16.0",
@@ -65,7 +67,8 @@
     "lodash.get": "^4.4.2",
     "lodash.groupby": "^4.6.0",
     "lodash.set": "^4.3.2",
-    "recharts": "^1.4.1"
+    "recharts": "^1.4.1",
+    "svg-inline-loader": "^0.8.0"
   },
   "peerDependencies": {
     "@podiumhq/podium-ui": "^16.0.1",
