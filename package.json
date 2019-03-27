@@ -13,6 +13,7 @@
     "build": "rm -rf build/ && webpack --mode=production",
     "analyze": "rm -rf build/ && mkdir -p tmp/ && webpack --mode=production --profile --json > tmp/stats.json && webpack-bundle-analyzer tmp/stats.json"
   },
+  "sideEffects": false,
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
