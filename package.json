@@ -11,7 +11,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
     "build": "rm -rf build/ && webpack --mode=production",
-    "analyze": "rm -rf build/ && webpack --mode=production --profile --json > tmp/stats.json && webpack-bundle-analyzer tmp/stats.json"
+    "analyze": "rm -rf build/ && mkdir -p tmp/ && webpack --mode=production --profile --json > tmp/stats.json && webpack-bundle-analyzer tmp/stats.json"
   },
   "husky": {
     "hooks": {
