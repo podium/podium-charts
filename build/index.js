@@ -17,7 +17,9 @@ var _exportNames = {
   transformer: true,
   aggregators: true,
   colors: true,
-  ReportingTable: true
+  ReportingTable: true,
+  SearchBar: true,
+  Pagination: true
 };
 Object.defineProperty(exports, "Chart", {
   enumerable: true,
@@ -103,6 +105,18 @@ Object.defineProperty(exports, "ReportingTable", {
     return _ReportingTable.default;
   }
 });
+Object.defineProperty(exports, "SearchBar", {
+  enumerable: true,
+  get: function get() {
+    return _SearchBar.default;
+  }
+});
+Object.defineProperty(exports, "Pagination", {
+  enumerable: true,
+  get: function get() {
+    return _Pagination.default;
+  }
+});
 
 var _Chart = _interopRequireDefault(require("./Charts/Chart"));
 
@@ -144,5 +158,9 @@ var _aggregators = _interopRequireDefault(require("./Charts/utils/aggregators"))
 var _Colors = _interopRequireDefault(require("./Colors"));
 
 var _ReportingTable = _interopRequireDefault(require("./Table/ReportingTable"));
+
+var _SearchBar = _interopRequireDefault(require("./SearchBar"));
+
+var _Pagination = _interopRequireDefault(require("./Pagination"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
