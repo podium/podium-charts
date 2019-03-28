@@ -1,87 +1,77 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-var _Colors = _interopRequireDefault(require("../Colors"));
-
-var _ = require("../");
-
-var _storyHelpers = require("./storyHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _react2.storiesOf)('Line Chart', module).add('Small', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import formatters from '../Charts/utils/formatters';
+import colors from '../Colors';
+import { Chart, XAxis, YAxis, Line, Tooltip, TooltipBody, TooltipBodyTime } from '../';
+import { data, reviewsData } from './storyHelpers';
+storiesOf('Line Chart', module).add('Small', function () {
+  return React.createElement(Chart, {
+    data: data,
     width: 200,
     height: 100
-  }, _react.default.createElement(_.Line, {
+  }, React.createElement(Line, {
     dataKey: "organic",
     color: "#000"
   }));
 }).add('Axis', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateNumber
-  }), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateNumber
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }));
 }).add('TooltipBodyTime', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateTime
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBodyTime, null)
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.armyGreen
+    color: colors.armyGreen
   }));
 }).add('Multiple Lines', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     name: "THIS CAN BE ANTYHING",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Line, {
+    color: colors.cobaltBlue
+  }), React.createElement(Line, {
     name: "SO CAN THIS",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 }).add('Customized Axis, Tooltip', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.reviewsData
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateNumber,
+  return React.createElement(Chart, {
+    data: reviewsData
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateNumber,
     ticks: ['0', '1', '2', '3', '4', '5'],
     domain: [0, 5]
-  }), _react.default.createElement(_.XAxis, {
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      formatter: _formatters.default.roundToPlaces(1),
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
+      formatter: formatters.roundToPlaces(1),
       aggregationOptions: {
         type: 'weightedAvg',
         dataKeys: ['facebook', 'google', 'yelp'],
@@ -92,20 +82,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       },
       summaryTitle: "Avg Star Rating"
     })
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     name: "Facebook",
     dataKey: "facebook.reviewRating",
-    color: _Colors.default.siteColors.facebook,
+    color: colors.siteColors.facebook,
     connectNulls: true
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     name: "Google",
     dataKey: "google.reviewRating",
-    color: _Colors.default.siteColors.google,
+    color: colors.siteColors.google,
     connectNulls: true
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     name: "Yelp",
     dataKey: "yelp.reviewRating",
-    color: _Colors.default.siteColors.yelp,
+    color: colors.siteColors.yelp,
     connectNulls: true
   }));
 });

@@ -1,40 +1,30 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-var _Colors = _interopRequireDefault(require("../Colors"));
-
-var _ = require("../");
-
-var _storyHelpers = require("./storyHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _react2.storiesOf)('Mixed Chart', module).add('Mixed', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import formatters from '../Charts/utils/formatters';
+import colors from '../Colors';
+import { Chart, XAxis, YAxis, Bar, Line, Tooltip, TooltipBody } from '../';
+import { data } from './storyHelpers';
+storiesOf('Mixed Chart', module).add('Mixed', function () {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Bar, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    color: colors.cobaltBlue
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryTitle: "Reviews",
       aggregationOptions: {
         type: 'total',
         dataKeys: ['organic', 'text']
       }
     })
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     name: "Text",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 });

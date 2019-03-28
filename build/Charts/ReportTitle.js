@@ -1,22 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = ReportTitle;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _chartHelpers = require("./utils/chartHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  color: white;\n"]);
 
@@ -59,15 +40,16 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var TitleWrapper = _styledComponents.default.div(_templateObject());
-
-var Title = _styledComponents.default.div(_templateObject2());
-
-var RangeLabel = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
-
-var DateRangePlaceholder = _styledComponents.default.span(_templateObject4());
-
-function ReportTitle(_ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { colors } from '@podiumhq/podium-ui';
+import { renderRangeLabel, fullDate } from './utils/chartHelpers';
+var TitleWrapper = styled.div(_templateObject());
+var Title = styled.div(_templateObject2());
+var RangeLabel = styled.div(_templateObject3(), colors.steel);
+var DateRangePlaceholder = styled.span(_templateObject4());
+export default function ReportTitle(_ref) {
   var data = _ref.data,
       title = _ref.title,
       loading = _ref.loading,
@@ -77,20 +59,19 @@ function ReportTitle(_ref) {
 
   var renderTimeRange = function renderTimeRange() {
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return "".concat((0, _chartHelpers.fullDate)(dateStart), " - ").concat((0, _chartHelpers.fullDate)(dateEnd));
+      return "".concat(fullDate(dateStart), " - ").concat(fullDate(dateEnd));
     } else {
-      return (0, _chartHelpers.renderRangeLabel)(data);
+      return renderRangeLabel(data);
     }
   };
 
-  return _react.default.createElement(TitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(RangeLabel, null, loading ? _react.default.createElement(DateRangePlaceholder, null, "Date Range") : renderTimeRange()));
+  return React.createElement(TitleWrapper, null, React.createElement(Title, null, title), React.createElement(RangeLabel, null, loading ? React.createElement(DateRangePlaceholder, null, "Date Range") : renderTimeRange()));
 }
-
 ReportTitle.propTypes = {
-  data: _propTypes.default.array.isRequired,
-  title: _propTypes.default.string.isRequired,
-  timeRange: _propTypes.default.string,
-  dateStart: _propTypes.default.string,
-  dateEnd: _propTypes.default.string,
-  loading: _propTypes.default.bool
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  timeRange: PropTypes.string,
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string,
+  loading: PropTypes.bool
 };

@@ -1,82 +1,72 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-var _Colors = _interopRequireDefault(require("../Colors"));
-
-var _ = require("../");
-
-var _storyHelpers = require("./storyHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _react2.storiesOf)('Report Card Summary', module).add('Default', function () {
-  return _react.default.createElement("div", {
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import formatters from '../Charts/utils/formatters';
+import colors from '../Colors';
+import { Chart, SummaryLine, ReportCard, ReportSummaryTitle } from '../';
+import { WindowWidthMonitor, data, weightedAvgData, weightedAvgDataPrev, currData, prevData } from './storyHelpers';
+storiesOf('Report Card Summary', module).add('Default', function () {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, {
+  }, React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.abbreviateNumber,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.abbreviateNumber,
     dataKeys: ['sms'],
     title: "Inbound Leads",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    data: data,
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'total',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Average Trend', function () {
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, {
+  }, React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.humanizeDuration,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.humanizeDuration,
     dataKeys: ['sms'],
     title: "Median Response Time",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.currData, _storyHelpers.prevData],
+    data: data,
+    trendData: [currData, prevData],
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Weighted Average Trend', function () {
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, {
+  }, React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.roundToPlaces(1),
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.roundToPlaces(1),
     dataKeys: ['sms'],
     title: "Site Rating",
-    data: _storyHelpers.weightedAvgData,
-    trendData: [_storyHelpers.weightedAvgData, _storyHelpers.weightedAvgDataPrev],
+    data: weightedAvgData,
+    trendData: [weightedAvgData, weightedAvgDataPrev],
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['dogs', 'cats'],
@@ -85,131 +75,131 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         countKey: 'amount'
       }
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.weightedAvgData,
+  }), React.createElement(Chart, {
+    data: weightedAvgData,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "dogs.cuteness",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Prefer Downward Trend', function () {
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.humanizeDuration,
+  }, React.createElement(ReportCard, null, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.humanizeDuration,
     dataKeys: ['sms'],
     title: "Median Response Time",
-    data: _storyHelpers.data,
+    data: data,
     preferDown: true,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Loading', function () {
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, {
+  }, React.createElement(ReportCard, {
     loading: true
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.humanizeDuration,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.humanizeDuration,
     dataKeys: ['sms'],
     title: "Median Response Time",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    data: data,
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'total',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Long title', function () {
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement(_.ReportCard, {
+  }, React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.abbreviateNumber,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.abbreviateNumber,
     dataKeys: ['sms'],
     title: "This title is very long, yes indeed",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    data: data,
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'total',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }))));
 }).add('Responsive metric size', function () {
-  return _react.default.createElement("div", null, _react.default.createElement(_storyHelpers.WindowWidthMonitor, null), _react.default.createElement("div", {
+  return React.createElement("div", null, React.createElement(WindowWidthMonitor, null), React.createElement("div", {
     style: {
       width: '270px'
     }
-  }, _react.default.createElement("h3", null, "This will shrink at 1000px:"), _react.default.createElement(_.ReportCard, {
+  }, React.createElement("h3", null, "This will shrink at 1000px:"), React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.abbreviateNumber,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.abbreviateNumber,
     dataKeys: ['sms'],
     title: "This title is very long, yes indeed",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    data: data,
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'total',
       dataKeys: ['value']
     },
     smallWidth: 1000
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
-  }))), _react.default.createElement("h3", null, "This will not shrink:"), _react.default.createElement(_.ReportCard, {
+    color: colors.cobaltBlue
+  }))), React.createElement("h3", null, "This will not shrink:"), React.createElement(ReportCard, {
     width: "270px"
-  }, _react.default.createElement(_.ReportSummaryTitle, {
-    formatter: _formatters.default.abbreviateNumber,
+  }, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.abbreviateNumber,
     dataKeys: ['sms'],
     title: "This title is very long, yes indeed",
-    data: _storyHelpers.data,
-    trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    data: data,
+    trendData: [prevData, currData],
     aggregationOptions: {
       type: 'total',
       dataKeys: ['value']
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+  }), React.createElement(Chart, {
+    data: data,
     height: 100
-  }, _react.default.createElement(_.SummaryLine, {
+  }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   })))));
 });

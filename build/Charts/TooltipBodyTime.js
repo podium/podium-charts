@@ -1,28 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = TooltipBody;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _moment = _interopRequireDefault(require("moment"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _lodash = _interopRequireDefault(require("lodash.get"));
-
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
-
-var _aggregators = require("./utils/aggregators");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _templateObject10() {
   var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  color: ", ";\n  font-weight: 500;\n"]);
 
@@ -125,28 +100,26 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var TooltipBodyWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mineShaft);
-
-var ColorLabel = _styledComponents.default.div(_templateObject2(), function (props) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import moment from 'moment';
+import { colors } from '@podiumhq/podium-ui';
+import get from 'lodash.get';
+import formatters from './utils/formatters';
+import { getRowSummaryMetric } from './utils/aggregators';
+var TooltipBodyWrapper = styled.div(_templateObject(), colors.mineShaft);
+var ColorLabel = styled.div(_templateObject2(), function (props) {
   return props.fill;
 });
-
-var TooltipData = _styledComponents.default.div(_templateObject3());
-
-var Label = _styledComponents.default.div(_templateObject4());
-
-var LabelValue = _styledComponents.default.div(_templateObject5());
-
-var Body = _styledComponents.default.div(_templateObject6());
-
-var Header = _styledComponents.default.div(_templateObject7());
-
-var Summary = _styledComponents.default.div(_templateObject8());
-
-var XAxisLabel = _styledComponents.default.div(_templateObject9());
-
-var Humanized = _styledComponents.default.div(_templateObject10(), _podiumUi.colors.jumbo);
-
+var TooltipData = styled.div(_templateObject3());
+var Label = styled.div(_templateObject4());
+var LabelValue = styled.div(_templateObject5());
+var Body = styled.div(_templateObject6());
+var Header = styled.div(_templateObject7());
+var Summary = styled.div(_templateObject8());
+var XAxisLabel = styled.div(_templateObject9());
+var Humanized = styled.div(_templateObject10(), colors.jumbo);
 var granMap = {
   month: 'MMMM YYYY',
   year: 'YYYY',
@@ -156,24 +129,22 @@ var granMap = {
 
 var fullDate = function fullDate(date, granularity) {
   var format = granMap[granularity] || 'MMMM YYYY';
-
-  var momentDate = _moment.default.utc(date);
-
+  var momentDate = moment.utc(date);
   if (momentDate.isValid()) return momentDate.format(format);
   return date;
 };
 
-function TooltipBody(props) {
+export default function TooltipBody(props) {
   var renderSummary = function renderSummary() {
     var payload = props.payload,
         aggregationOptions = props.aggregationOptions;
     var seconds = null; // If there is only one data key then display that and don't do any aggs
 
     if (payload && payload.length === 1) {
-      seconds = (0, _lodash.default)(payload, '[0].value');
+      seconds = get(payload, '[0].value');
     } else if (aggregationOptions) {
-      var rowData = (0, _lodash.default)(payload, '[0].payload');
-      seconds = (0, _aggregators.getRowSummaryMetric)(rowData, aggregationOptions);
+      var rowData = get(payload, '[0].payload');
+      seconds = getRowSummaryMetric(rowData, aggregationOptions);
     }
 
     return formatSummary(seconds);
@@ -181,7 +152,7 @@ function TooltipBody(props) {
 
   var formatSummary = function formatSummary(seconds) {
     var minutes = seconds / 60;
-    return _react.default.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(_formatters.default.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && _react.default.createElement(Humanized, null, "".concat(_formatters.default.humanizeDuration(seconds))));
+    return React.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(formatters.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && React.createElement(Humanized, null, "".concat(formatters.humanizeDuration(seconds))));
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
@@ -189,20 +160,19 @@ function TooltipBody(props) {
       var value = dataField.value,
           color = dataField.color,
           name = dataField.name;
-      return _react.default.createElement(TooltipData, {
+      return React.createElement(TooltipData, {
         key: name
-      }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
+      }, React.createElement(Label, null, React.createElement(ColorLabel, {
         fill: color
-      }), _react.default.createElement("div", null, name ? name : '')), _react.default.createElement(LabelValue, null, _formatters.default.secondsToMinutes(value)));
+      }), React.createElement("div", null, name ? name : '')), React.createElement(LabelValue, null, formatters.secondsToMinutes(value)));
     });
   };
 
   var summary = renderSummary();
-  return _react.default.createElement(TooltipBodyWrapper, null, _react.default.createElement(Header, null, _react.default.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), summary && _react.default.createElement(Summary, null, summary)), props.payload && props.payload.length > 1 && _react.default.createElement(Body, null, renderToolTipLegend()));
+  return React.createElement(TooltipBodyWrapper, null, React.createElement(Header, null, React.createElement(XAxisLabel, null, fullDate(props.label, props.granularity)), summary && React.createElement(Summary, null, summary)), props.payload && props.payload.length > 1 && React.createElement(Body, null, renderToolTipLegend()));
 }
-
 TooltipBody.propTypes = {
-  granularity: _propTypes.default.string
+  granularity: PropTypes.string
 };
 TooltipBody.defaultProps = {
   granularity: 'month'

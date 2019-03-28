@@ -1,19 +1,3 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _Table = require("../Table");
-
-var _TableHelpers = require("./TableHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _templateObject10() {
   var data = _taggedTemplateLiteral(["\n  color: orange;\n  text-decoration: underline;\n"]);
 
@@ -116,28 +100,24 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var FavGradient = _styledComponents.default.div(_templateObject(), function (props) {
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import styled from 'styled-components';
+import { Stars, IconCheck, SiteLogo } from '@podiumhq/podium-ui';
+import { ReportingTable } from '../Table';
+import { DefaultNotes, FixedHeaderNotes, HeaderTooltipNotes, HeaderComponentNotes } from './TableHelpers';
+var FavGradient = styled.div(_templateObject(), function (props) {
   return props.gradient;
 });
-
-var ContactField = _styledComponents.default.div(_templateObject2());
-
-var ReviewContainer = _styledComponents.default.div(_templateObject3());
-
-var UserName = _styledComponents.default.div(_templateObject4());
-
-var UserContact = _styledComponents.default.div(_templateObject5());
-
-var SentByName = _styledComponents.default.div(_templateObject6());
-
-var SentByContact = _styledComponents.default.div(_templateObject7());
-
-var Container = _styledComponents.default.div(_templateObject8());
-
-var StyledLogo = (0, _styledComponents.default)(_podiumUi.SiteLogo)(_templateObject9());
-
-var StyledHeader = _styledComponents.default.div(_templateObject10());
-
+var ContactField = styled.div(_templateObject2());
+var ReviewContainer = styled.div(_templateObject3());
+var UserName = styled.div(_templateObject4());
+var UserContact = styled.div(_templateObject5());
+var SentByName = styled.div(_templateObject6());
+var SentByContact = styled.div(_templateObject7());
+var Container = styled.div(_templateObject8());
+var StyledLogo = styled(SiteLogo)(_templateObject9());
+var StyledHeader = styled.div(_templateObject10());
 var dataForComponents = [{
   name: {
     name: 'Luke Skywalker',
@@ -208,7 +188,7 @@ var textOnlyData = [{
 }];
 var fixedWidthHeaders = [{
   id: 'name',
-  content: _react.default.createElement(StyledHeader, null, "Name & Phone/Email"),
+  content: React.createElement(StyledHeader, null, "Name & Phone/Email"),
   width: '350px'
 }, {
   id: 'sentBy',
@@ -233,7 +213,7 @@ var fixedWidthHeaders = [{
 }];
 var headersForComponents = [{
   id: 'name',
-  content: _react.default.createElement(StyledHeader, null, "Name & Phone/Email")
+  content: React.createElement(StyledHeader, null, "Name & Phone/Email")
 }, {
   id: 'sentBy',
   content: 'Sent By'
@@ -290,7 +270,7 @@ var Name = function Name(_ref) {
   var _rowData$name = rowData.name,
       name = _rowData$name.name,
       contact = _rowData$name.contact;
-  return _react.default.createElement(ContactField, null, _react.default.createElement(UserName, null, name), _react.default.createElement(UserContact, null, contact));
+  return React.createElement(ContactField, null, React.createElement(UserName, null, name), React.createElement(UserContact, null, contact));
 };
 
 var SentBy = function SentBy(_ref2) {
@@ -298,21 +278,21 @@ var SentBy = function SentBy(_ref2) {
   var _rowData$sentBy = rowData.sentBy,
       name = _rowData$sentBy.name,
       location = _rowData$sentBy.location;
-  return _react.default.createElement(ContactField, null, _react.default.createElement(SentByName, null, name), _react.default.createElement(SentByContact, null, location));
+  return React.createElement(ContactField, null, React.createElement(SentByName, null, name), React.createElement(SentByContact, null, location));
 };
 
 var FollowedLink = function FollowedLink(_ref3) {
   var rowData = _ref3.rowData;
-  return rowData.followedLink ? _react.default.createElement(_podiumUi.IconCheck, {
+  return rowData.followedLink ? React.createElement(IconCheck, {
     color: "#3B5CAD"
   }) : '';
 };
 
 var Review = function Review(_ref4) {
   var rowData = _ref4.rowData;
-  return _react.default.createElement(ReviewContainer, null, _react.default.createElement(StyledLogo, {
+  return React.createElement(ReviewContainer, null, React.createElement(StyledLogo, {
     site: rowData.review.site
-  }), _react.default.createElement(_podiumUi.Stars, {
+  }), React.createElement(Stars, {
     rating: rowData.review.rating,
     size: 20
   }));
@@ -320,53 +300,53 @@ var Review = function Review(_ref4) {
 
 var Gradient = function Gradient(_ref5) {
   var rowData = _ref5.rowData;
-  return _react.default.createElement(FavGradient, {
+  return React.createElement(FavGradient, {
     gradient: rowData.favoriteGradient
   });
 };
 
 var dataComponents = {
-  name: _react.default.createElement(Name, null),
-  favoriteGradient: _react.default.createElement(Gradient, null),
-  followedLink: _react.default.createElement(FollowedLink, null),
-  review: _react.default.createElement(Review, null),
-  sentBy: _react.default.createElement(SentBy, null)
+  name: React.createElement(Name, null),
+  favoriteGradient: React.createElement(Gradient, null),
+  followedLink: React.createElement(FollowedLink, null),
+  review: React.createElement(Review, null),
+  sentBy: React.createElement(SentBy, null)
 };
-(0, _react2.storiesOf)('Reporting Table', module).add('Default', function () {
-  return _react.default.createElement(Container, null, _react.default.createElement(_Table.ReportingTable, {
+storiesOf('Reporting Table', module).add('Default', function () {
+  return React.createElement(Container, null, React.createElement(ReportingTable, {
     loading: false,
     data: textOnlyData,
     headers: textOnlyHeaders
   }));
 }, {
-  notes: _TableHelpers.DefaultNotes
+  notes: DefaultNotes
 }).add('Fixed Width Headers', function () {
-  return _react.default.createElement(Container, null, _react.default.createElement(_Table.ReportingTable, {
+  return React.createElement(Container, null, React.createElement(ReportingTable, {
     loading: false,
     data: textOnlyData,
     headers: fixedWidthHeaders
   }));
 }, {
-  notes: _TableHelpers.FixedHeaderNotes
+  notes: FixedHeaderNotes
 }).add('Tooltips in Headers', function () {
-  return _react.default.createElement(_Table.ReportingTable, {
+  return React.createElement(ReportingTable, {
     loading: false,
     data: textOnlyData,
     headers: headersWithTooltip
   });
 }, {
-  notes: _TableHelpers.HeaderTooltipNotes
+  notes: HeaderTooltipNotes
 }).add('Components in Cells', function () {
-  return _react.default.createElement(Container, null, _react.default.createElement(_Table.ReportingTable, {
+  return React.createElement(Container, null, React.createElement(ReportingTable, {
     loading: false,
     data: dataForComponents,
     headers: headersForComponents,
     dataComponents: dataComponents
   }));
 }, {
-  notes: _TableHelpers.HeaderComponentNotes
+  notes: HeaderComponentNotes
 }).add('Loading', function () {
-  return _react.default.createElement("div", null, _react.default.createElement(_Table.ReportingTable, {
+  return React.createElement("div", null, React.createElement(ReportingTable, {
     loading: true,
     data: textOnlyData,
     headers: textOnlyHeaders,

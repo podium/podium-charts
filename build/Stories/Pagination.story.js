@@ -1,15 +1,3 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _Pagination = _interopRequireDefault(require("../Pagination"));
-
-var _PaginationHelpers = require("./PaginationHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27,6 +15,11 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import Pagination from '../Pagination';
+import { DefaultNotes } from './PaginationHelpers';
 
 var PaginationParent =
 /*#__PURE__*/
@@ -57,7 +50,7 @@ function (_React$Component) {
   _createClass(PaginationParent, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_Pagination.default, {
+      return React.createElement("div", null, React.createElement(Pagination, {
         currentPage: this.state.currentPage,
         totalPages: this.state.totalPages,
         onPageChange: this.handlePageChange
@@ -66,10 +59,10 @@ function (_React$Component) {
   }]);
 
   return PaginationParent;
-}(_react.default.Component);
+}(React.Component);
 
-(0, _react2.storiesOf)('Pagination', module).add('default', function () {
-  return _react.default.createElement(PaginationParent, null);
+storiesOf('Pagination', module).add('default', function () {
+  return React.createElement(PaginationParent, null);
 }, {
-  notes: _PaginationHelpers.DefaultNotes
+  notes: DefaultNotes
 });

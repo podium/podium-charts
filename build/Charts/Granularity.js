@@ -1,24 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.getOptions = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _moment = _interopRequireDefault(require("moment"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49,8 +28,12 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var GranularityWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mystic);
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Select, colors } from '@podiumhq/podium-ui';
+import styled from 'styled-components';
+import moment from 'moment';
+var GranularityWrapper = styled.div(_templateObject(), colors.mystic);
 var byMonth = {
   value: 'month',
   label: 'By Month'
@@ -79,8 +62,7 @@ var optionsMap = {
   yearToDate: [byMonth],
   yesterday: [byHour]
 };
-
-var getOptions = function getOptions(timeRange) {
+export var getOptions = function getOptions(timeRange) {
   var exclude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var dateStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var dateEnd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
@@ -91,11 +73,9 @@ var getOptions = function getOptions(timeRange) {
   return availableOptions || optionsMap.monthToDate;
 };
 
-exports.getOptions = getOptions;
-
 var getCustomRange = function getCustomRange(dateStart, dateEnd) {
-  var dateStartMoment = (0, _moment.default)(dateStart);
-  var dateEndMoment = (0, _moment.default)(dateEnd);
+  var dateStartMoment = moment(dateStart);
+  var dateEndMoment = moment(dateEnd);
   var days = dateEndMoment.diff(dateStartMoment, 'days');
 
   if (days <= 31) {
@@ -160,7 +140,7 @@ function (_Component) {
           dateEnd = _this$props3.dateEnd;
       var options = getOptions(timeRange, exclude, dateStart, dateEnd);
       var placeholder = options[0].label || '';
-      return _react.default.createElement(GranularityWrapper, null, _react.default.createElement(_podiumUi.Select, {
+      return React.createElement(GranularityWrapper, null, React.createElement(Select, {
         options: options,
         placeholder: placeholder,
         onChange: onChange,
@@ -171,16 +151,16 @@ function (_Component) {
   }]);
 
   return Granularity;
-}(_react.Component);
+}(Component);
 
-exports.default = Granularity;
+export { Granularity as default };
 Granularity.propTypes = {
-  value: _propTypes.default.string,
-  dateEnd: _propTypes.default.string,
-  onChange: _propTypes.default.func,
-  dateStart: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
-  exclude: _propTypes.default.arrayOf(_propTypes.default.oneOf(['month', 'week', 'day', 'hour']))
+  value: PropTypes.string,
+  dateEnd: PropTypes.string,
+  onChange: PropTypes.func,
+  dateStart: PropTypes.string,
+  timeRange: PropTypes.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
+  exclude: PropTypes.arrayOf(PropTypes.oneOf(['month', 'week', 'day', 'hour']))
 };
 Granularity.defaultProps = {
   timeRange: 'monthToDate',

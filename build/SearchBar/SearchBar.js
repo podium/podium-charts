@@ -1,20 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  height: 40px;\n  border: solid 1px ", ";\n  border-radius: 0 4px 4px 0;\n  border-left: none;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 8px;\n  box-sizing: border-box;\n  background: ", ";\n"]);
 
@@ -47,39 +30,40 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = _styledComponents.default.div(_templateObject(), function (_ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { IconSearch, colors } from '@podiumhq/podium-ui';
+var Container = styled.div(_templateObject(), function (_ref) {
   var width = _ref.width;
   return width;
 });
-
-var Input = _styledComponents.default.input(_templateObject2(), _podiumUi.colors.iron);
-
-var IconContainer = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.iron, _podiumUi.colors.whiteSmoke);
+var Input = styled.input(_templateObject2(), colors.iron);
+var IconContainer = styled.div(_templateObject3(), colors.iron, colors.whiteSmoke);
 
 var SearchBar = function SearchBar(_ref2) {
   var onChange = _ref2.onChange,
       placeholder = _ref2.placeholder,
       width = _ref2.width;
-  return _react.default.createElement(Container, {
+  return React.createElement(Container, {
     width: width
-  }, _react.default.createElement(Input, {
+  }, React.createElement(Input, {
     onChange: onChange,
     placeholder: placeholder
-  }), _react.default.createElement(IconContainer, null, _react.default.createElement(_podiumUi.IconSearch, {
+  }), React.createElement(IconContainer, null, React.createElement(IconSearch, {
     height: "24px",
     width: "24px",
-    color: _podiumUi.colors.jumbo
+    color: colors.jumbo
   })));
 };
 
 SearchBar.propTypes = {
-  onChange: _propTypes.default.func.isRequired,
-  placeholder: _propTypes.default.string,
-  width: _propTypes.default.string
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  width: PropTypes.string
 };
 SearchBar.defaultProps = {
   placeholder: 'Search',
   width: '100%'
 };
-var _default = SearchBar;
-exports.default = _default;
+export default SearchBar;

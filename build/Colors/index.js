@@ -1,17 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var podiumBrand = _podiumUi.colors.podiumBrand,
-    goldfish = _podiumUi.colors.goldfish,
-    cobaltBlue = _podiumUi.colors.cobaltBlue,
-    siteColors = _podiumUi.colors.siteColors,
-    poppyRed = _podiumUi.colors.poppyRed;
+import { colors as podiumUiColors } from '@podiumhq/podium-ui';
+var podiumBrand = podiumUiColors.podiumBrand,
+    goldfish = podiumUiColors.goldfish,
+    cobaltBlue = podiumUiColors.cobaltBlue,
+    siteColors = podiumUiColors.siteColors,
+    poppyRed = podiumUiColors.poppyRed;
 var colors = {
   podiumBrand: podiumBrand,
   goldfish: goldfish,
@@ -27,5 +19,4 @@ var colors = {
   matisse: '#1B5493',
   turquoise: '#28CBAD'
 };
-var _default = colors;
-exports.default = _default;
+export default colors;

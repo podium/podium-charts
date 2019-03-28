@@ -1,71 +1,61 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-var _Colors = _interopRequireDefault(require("../Colors"));
-
-var _ = require("../");
-
-var _storyHelpers = require("./storyHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _react2.storiesOf)('Bar Chart', module).add('Small', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data,
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import formatters from '../Charts/utils/formatters';
+import colors from '../Colors';
+import { Chart, XAxis, YAxis, Bar, Tooltip, TooltipBody } from '../';
+import { data } from './storyHelpers';
+storiesOf('Bar Chart', module).add('Small', function () {
+  return React.createElement(Chart, {
+    data: data,
     width: 200,
     height: 100
-  }, _react.default.createElement(_.Bar, {
+  }, React.createElement(Bar, {
     dataKey: "organic",
     color: "#000"
   }));
 }).add('Axis', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.humanizeDuration
-  }), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.humanizeDuration
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Bar, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Bar, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   }));
 }).add('Tooltip', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryTitle: "Reviews",
       aggregationOptions: {
         type: 'total',
         dataKeys: ['organic', 'text']
       }
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 }).add('Tooltip, legend disabled', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryTitle: "Reviews",
       showLegend: false,
       aggregationOptions: {
@@ -73,55 +63,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         dataKeys: ['organic', 'text']
       }
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 }).add('Stacked', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     stackId: "1",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     stackId: "1",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 }).add('Multiple', function () {
-  return _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  return React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     dataKey: "text",
-    color: _Colors.default.poppyRed
+    color: colors.poppyRed
   }));
 });

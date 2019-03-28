@@ -1,15 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getRowSummaryMetric = getRowSummaryMetric;
-exports.getOverallSummaryMetric = getOverallSummaryMetric;
-exports.default = exports.calculateTrend = exports.datasetWeightedAvg = exports.datasetAvg = exports.dataSetTotal = exports.rowWeightedAvg = exports.rowAvg = exports.rowTotal = void 0;
-
-var _lodash = _interopRequireDefault(require("lodash.get"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import get from 'lodash.get';
 
 var isAggregationOptions = function isAggregationOptions(options) {
   return options && options.type && options.dataKeys;
@@ -21,15 +10,14 @@ var validateAggregationOptions = function validateAggregationOptions(options) {
   }
 };
 
-function getRowSummaryMetric(dataRow, aggregationOptions) {
+export function getRowSummaryMetric(dataRow, aggregationOptions) {
   validateAggregationOptions(aggregationOptions);
   var type = aggregationOptions.type,
       dataKeys = aggregationOptions.dataKeys,
       options = aggregationOptions.options;
   return rowSummaryFunctions[type](dataRow, dataKeys, options);
 }
-
-function getOverallSummaryMetric(data, aggregationOptions) {
+export function getOverallSummaryMetric(data, aggregationOptions) {
   if (!data) return null;
   validateAggregationOptions(aggregationOptions);
   var type = aggregationOptions.type,
@@ -38,8 +26,7 @@ function getOverallSummaryMetric(data, aggregationOptions) {
   return datasetSummaryFunctions[type](data, dataKeys, options);
 } // Helpers
 
-
-var rowTotal = function rowTotal(row, dataKeys) {
+export var rowTotal = function rowTotal(row, dataKeys) {
   var sum = 0;
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
@@ -48,7 +35,7 @@ var rowTotal = function rowTotal(row, dataKeys) {
   try {
     for (var _iterator = dataKeys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var key = _step.value;
-      var value = (0, _lodash.default)(row, key, 0);
+      var value = get(row, key, 0);
 
       if (isNumeric(value)) {
         sum += value;
@@ -71,10 +58,7 @@ var rowTotal = function rowTotal(row, dataKeys) {
 
   return sum;
 };
-
-exports.rowTotal = rowTotal;
-
-var rowAvg = function rowAvg(row, dataKeys) {
+export var rowAvg = function rowAvg(row, dataKeys) {
   var sum = 0;
   var usedKeys = 0;
   var _iteratorNormalCompletion2 = true;
@@ -84,7 +68,7 @@ var rowAvg = function rowAvg(row, dataKeys) {
   try {
     for (var _iterator2 = dataKeys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
       var key = _step2.value;
-      var value = (0, _lodash.default)(row, key, 0);
+      var value = get(row, key, 0);
 
       if (isNumeric(value)) {
         sum += value;
@@ -109,13 +93,11 @@ var rowAvg = function rowAvg(row, dataKeys) {
   return usedKeys === 0 ? null : sum / usedKeys;
 };
 
-exports.rowAvg = rowAvg;
-
 var isWeightedAvgOptions = function isWeightedAvgOptions(options) {
   return options && options.valueKey && options.countKey;
 };
 
-var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
+export var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
   if (!isWeightedAvgOptions(options)) {
     throw new TypeError('Malformed weighted average options');
   }
@@ -131,8 +113,8 @@ var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
   try {
     for (var _iterator3 = dataKeys[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
       var key = _step3.value;
-      var value = (0, _lodash.default)(row, [key, valueKey], null);
-      var count = (0, _lodash.default)(row, [key, countKey], null);
+      var value = get(row, [key, valueKey], null);
+      var count = get(row, [key, countKey], null);
 
       if (isNumeric(value) && isNumeric(count)) {
         sum += value * count;
@@ -156,23 +138,17 @@ var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
 
   return totalCount === 0 ? null : sum / totalCount;
 };
-
-exports.rowWeightedAvg = rowWeightedAvg;
 var rowSummaryFunctions = {
   total: rowTotal,
   avg: rowAvg,
   weightedAvg: rowWeightedAvg
 };
-
-var dataSetTotal = function dataSetTotal(data, dataKeys) {
+export var dataSetTotal = function dataSetTotal(data, dataKeys) {
   return data.reduce(function (acc, row) {
     return rowSummaryFunctions.total(row, dataKeys) + acc;
   }, 0);
 };
-
-exports.dataSetTotal = dataSetTotal;
-
-var datasetAvg = function datasetAvg(data, dataKeys) {
+export var datasetAvg = function datasetAvg(data, dataKeys) {
   var sum = 0;
   var usedKeys = 0;
   var _iteratorNormalCompletion4 = true;
@@ -189,7 +165,7 @@ var datasetAvg = function datasetAvg(data, dataKeys) {
       try {
         for (var _iterator5 = dataKeys[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
           var key = _step5.value;
-          var value = (0, _lodash.default)(row, key, 0);
+          var value = get(row, key, 0);
 
           if (isNumeric(value)) {
             sum += value;
@@ -228,10 +204,7 @@ var datasetAvg = function datasetAvg(data, dataKeys) {
 
   return usedKeys === 0 ? null : sum / usedKeys;
 };
-
-exports.datasetAvg = datasetAvg;
-
-var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
+export var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
   if (!isWeightedAvgOptions(options)) {
     throw new TypeError('Malformed weighted average options');
   }
@@ -254,8 +227,8 @@ var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
       try {
         for (var _iterator7 = dataKeys[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
           var key = _step7.value;
-          var value = (0, _lodash.default)(row, [key, valueKey], null);
-          var count = (0, _lodash.default)(row, [key, countKey], null);
+          var value = get(row, [key, valueKey], null);
+          var count = get(row, [key, countKey], null);
 
           if (isNumeric(value) && isNumeric(count)) {
             sum += value * count;
@@ -294,8 +267,6 @@ var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, options) {
 
   return totalCount === 0 ? null : sum / totalCount;
 };
-
-exports.datasetWeightedAvg = datasetWeightedAvg;
 var datasetSummaryFunctions = {
   total: dataSetTotal,
   avg: datasetAvg,
@@ -306,7 +277,7 @@ function isNumeric(value) {
   return value !== undefined && value !== null;
 }
 
-var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
+export var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
   if (currDataValue === null || prevDataValue === null || currDataValue === prevDataValue) {
     return 'neutral';
   } else if (currDataValue < prevDataValue) {
@@ -315,9 +286,7 @@ var calculateTrend = function calculateTrend(prevDataValue, currDataValue) {
     return 'up';
   }
 };
-
-exports.calculateTrend = calculateTrend;
-var _default = {
+export default {
   getRowSummaryMetric: getRowSummaryMetric,
   getOverallSummaryMetric: getOverallSummaryMetric,
   validateAggregationOptions: validateAggregationOptions,
@@ -329,4 +298,3 @@ var _default = {
   rowWeightedAvg: rowWeightedAvg,
   calculateTrend: calculateTrend
 };
-exports.default = _default;

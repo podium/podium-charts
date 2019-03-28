@@ -1,14 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Ghosting = void 0;
-
-var _styledComponents = _interopRequireWildcard(require("styled-components"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
 function _templateObject2() {
   var data = _taggedTemplateLiteral(["\n  ", " ", " ", " ", " font-family: 'BLOKK';\n  > * {\n    font-family: 'BLOKK';\n  }\n  @supports (-webkit-background-clip: text) {\n    animation: ", " 1.5s linear;\n    -webkit-animation: ", " 1.5s linear;\n    -webkit-animation-iteration-count: infinite;\n\n    background: linear-gradient(\n      to right,\n      #eeeeee 20%,\n      #dddddd 40%,\n      #eeeeee 60%\n    );\n    background-size: 200% auto;\n\n    background-clip: text;\n    text-fill-color: transparent;\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    > * {\n      background: linear-gradient(\n        to right,\n        #eeeeee 8%,\n        #dddddd 18%,\n        #eeeeee 33%\n      );\n      background-size: 200% auto;\n      background-clip: text;\n      text-fill-color: transparent;\n      -webkit-background-clip: text;\n      -webkit-text-fill-color: transparent;\n\n      text-overflow: unset;\n      font-family: 'BLOKK';\n      animation: ", " 1.5s linear;\n      -webkit-animation: ", " 1.5s linear;\n      -webkit-animation-iteration-count: infinite;\n    }\n  }\n"]);
 
@@ -31,9 +20,9 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var pulsate = (0, _styledComponents.keyframes)(_templateObject());
-
-var Ghosting = _styledComponents.default.span(_templateObject2(), function (_ref) {
+import styled, { keyframes } from 'styled-components';
+var pulsate = keyframes(_templateObject());
+export var Ghosting = styled.span(_templateObject2(), function (_ref) {
   var color = _ref.color;
   return color && "\n    color: ".concat(color, ";\n      > * {\n        color: ").concat(color, ";\n      }\n  ");
 }, function (_ref2) {
@@ -46,5 +35,3 @@ var Ghosting = _styledComponents.default.span(_templateObject2(), function (_ref
   var letterSpacing = _ref4.letterSpacing;
   return letterSpacing && "\n    letter-spacing: ".concat(letterSpacing, ";\n      > * {\n       letter-spacing: ").concat(letterSpacing, ";\n      }\n  ");
 }, pulsate, pulsate, pulsate, pulsate);
-
-exports.Ghosting = Ghosting;

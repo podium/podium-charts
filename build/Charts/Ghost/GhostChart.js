@@ -1,18 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -43,9 +28,11 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Line = _styledComponents.default.div(_templateObject());
-
-var Container = _styledComponents.default.div(_templateObject2(), function (_ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+var Line = styled.div(_templateObject());
+var Container = styled.div(_templateObject2(), function (_ref) {
   var height = _ref.height;
   return "".concat(height, "px");
 });
@@ -61,22 +48,21 @@ var GhostChart = function GhostChart(_ref2) {
 
   var renderLines = function renderLines() {
     return _toConsumableArray(new Array(numberOfLines)).map(function (_, i) {
-      return _react.default.createElement(Line, {
+      return React.createElement(Line, {
         key: i
       });
     });
   };
 
-  return _react.default.createElement(Container, {
+  return React.createElement(Container, {
     height: height
   }, renderLines());
 };
 
 GhostChart.propTypes = {
-  height: _propTypes.default.number.isRequired
+  height: PropTypes.number.isRequired
 };
 GhostChart.defaultProps = {
   height: 300
 };
-var _default = GhostChart;
-exports.default = _default;
+export default GhostChart;

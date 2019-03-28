@@ -1,7 +1,4 @@
-"use strict";
-
-var _Granularity = require("../Charts/Granularity");
-
+import { getOptions } from '../Charts/Granularity';
 var byMonth = {
   value: 'month',
   label: 'By Month'
@@ -21,9 +18,9 @@ describe('Granularity', function () {
       var lastYear = 'lastYear';
       var lastMonth = 'lastMonth';
       var lastWeek = 'lastWeek';
-      var lastYearOptions = (0, _Granularity.getOptions)(lastYear);
-      var lastMonthOptions = (0, _Granularity.getOptions)(lastMonth);
-      var lastWeekOptions = (0, _Granularity.getOptions)(lastWeek);
+      var lastYearOptions = getOptions(lastYear);
+      var lastMonthOptions = getOptions(lastMonth);
+      var lastWeekOptions = getOptions(lastWeek);
       expect(lastYearOptions).toEqual([byMonth]);
       expect(lastMonthOptions).toEqual([byDay]);
       expect(lastWeekOptions).toEqual([byDay, byHour]);
@@ -41,16 +38,16 @@ describe('Granularity', function () {
         dateStart: '2019-01-01',
         dateEnd: '2019-04-02'
       };
-      var days15Options = (0, _Granularity.getOptions)('custom', [], days15.dateStart, days15.dateEnd);
-      var days45Options = (0, _Granularity.getOptions)('custom', [], days45.dateStart, days45.dateEnd);
-      var days91Options = (0, _Granularity.getOptions)('custom', [], days91.dateStart, days91.dateEnd);
+      var days15Options = getOptions('custom', [], days15.dateStart, days15.dateEnd);
+      var days45Options = getOptions('custom', [], days45.dateStart, days45.dateEnd);
+      var days91Options = getOptions('custom', [], days91.dateStart, days91.dateEnd);
       expect(days15Options).toEqual([byDay]);
       expect(days45Options).toEqual([byMonth, byDay]);
       expect(days91Options).toEqual([byMonth]);
     });
     it('should exclude options provided in the exclude param', function () {
       var lastYear = 'lastYear';
-      var excludedOptions = (0, _Granularity.getOptions)(lastYear, ['week']);
+      var excludedOptions = getOptions(lastYear, ['week']);
       expect(excludedOptions).toEqual([byMonth]);
     });
   });
