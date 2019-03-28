@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _SearchBar = _interopRequireDefault(require("./SearchBar.jsx"));
+var _SearchBar = _interopRequireDefault(require("./SearchBar"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
