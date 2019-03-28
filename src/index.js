@@ -15,3 +15,5 @@ export { default as aggregators } from './Charts/utils/aggregators';
 export { default as colors } from './Colors';
 
 export { default as ReportingTable } from './Table/ReportingTable';
+export { default as SearchBar } from './SearchBar';
+export { default as Pagination } from './Pagination';
