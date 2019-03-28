@@ -8,7 +8,6 @@ import { getOverallSummaryMetric, calculateTrend } from './utils/aggregators';
 
 const SummaryTitleWrapper = styled.div`
   width: 100%;
-  padding-top: 8px;
 `;
 
 const Title = styled.div`
