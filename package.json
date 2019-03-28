@@ -1,8 +1,9 @@
 {
   "name": "podium-reporting-toolkit",
-  "version": "0.15.5",
+  "version": "0.16.1",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
+  "module": "build/index.js",
   "scripts": {
     "test": "jest",
     "tdd": "jest --watchAll",
@@ -10,7 +11,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "rm -rf build/ && babel src --out-dir build --presets=@babel/preset-env,@babel/preset-react --plugins=transform-class-properties"
+    "build": "rm -rf build/ && babel src --out-dir build"
   },
   "husky": {
     "hooks": {
@@ -26,6 +27,7 @@
   },
   "author": "Some Notion",
   "license": "ISC",
+  "sideEffects": false,
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.1.6",
