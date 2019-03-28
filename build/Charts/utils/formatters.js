@@ -1,23 +1,6 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.date = date;
-exports.secondsToMinutes = secondsToMinutes;
-exports.capitalize = capitalize;
-exports.abbreviateNumber = abbreviateNumber;
-exports.abbreviateTime = abbreviateTime;
-exports.humanizeDuration = humanizeDuration;
-exports.default = exports.nullToValue = exports.commatize = exports.roundToPlaces = void 0;
-
-var _moment = _interopRequireDefault(require("moment"));
-
-var _humanizeDuration = _interopRequireDefault(require("humanize-duration"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function date() {
+import moment from 'moment';
+import humanReadableDuration from 'humanize-duration';
+export function date() {
   var granularity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'month';
   var granularityMap = {
     hour: 'ha',
@@ -31,13 +14,11 @@ function date() {
     return '';
   };
   return function (date) {
-    var momentDate = _moment.default.utc(date);
-
+    var momentDate = moment.utc(date);
     return momentDate.isValid() ? momentDate.format(granularityFormat) : '';
   };
 }
-
-var roundToPlaces = function roundToPlaces(places) {
+export var roundToPlaces = function roundToPlaces(places) {
   return function (input) {
     var number = Number(input);
     var modifier = Math.pow(10, places);
@@ -45,18 +26,13 @@ var roundToPlaces = function roundToPlaces(places) {
     return commatize(roundedNumber.toString());
   };
 };
-
-exports.roundToPlaces = roundToPlaces;
-
-function secondsToMinutes(int) {
+export function secondsToMinutes(int) {
   return commatize(Math.round(int / 60));
 }
-
-function capitalize(string) {
+export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
-function abbreviateNumber(value) {
+export function abbreviateNumber(value) {
   if (value < 10000) return commatize(value);
   var newValue = value;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
@@ -71,13 +47,11 @@ function abbreviateNumber(value) {
   newValue += suffixes[suffixNum];
   return newValue;
 }
-
-function abbreviateTime(seconds) {
+export function abbreviateTime(seconds) {
   var minutes = Math.round(seconds / 60);
   return abbreviateNumber(minutes);
 }
-
-function humanizeDuration(seconds) {
+export function humanizeDuration(seconds) {
   if (seconds < 60) return '< 1 min';
   var ms = seconds * 1000;
   var humanizeConfig = {
@@ -98,18 +72,14 @@ function humanizeDuration(seconds) {
       }
     }
   };
-  var displayTime = (0, _humanizeDuration.default)(ms, humanizeConfig);
+  var displayTime = humanReadableDuration(ms, humanizeConfig);
   return displayTime;
 }
-
-var commatize = function commatize(number) {
+export var commatize = function commatize(number) {
   if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
-
-exports.commatize = commatize;
-
-var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {
+export var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {
   if (typeof fallbackValue === 'undefined') {
     throw new TypeError('No fallback value specified for formatter');
   }
@@ -124,9 +94,7 @@ var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {
 
   return formatter;
 };
-
-exports.nullToValue = nullToValue;
-var _default = {
+export default {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
   capitalize: capitalize,
@@ -137,4 +105,3 @@ var _default = {
   secondsToMinutes: secondsToMinutes,
   roundToPlaces: roundToPlaces
 };
-exports.default = _default;

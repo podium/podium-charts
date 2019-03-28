@@ -1,49 +1,39 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-
-var _react2 = require("@storybook/react");
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-var _Colors = _interopRequireDefault(require("../Colors"));
-
-var _ = require("../");
-
-var _storyHelpers = require("./storyHelpers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _react2.storiesOf)('Report Card', module).add('w/Chart,Title', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import formatters from '../Charts/utils/formatters';
+import colors from '../Colors';
+import { Chart, XAxis, YAxis, Bar, Granularity, Line, Legend, Summary, Tooltip, TooltipBody, TooltipBodyTime, ReportCard, ReportTitle } from '../';
+import { data, powerLevels, weightedAvgData, timeData, customFormatter } from './storyHelpers';
+storiesOf('Report Card', module).add('w/Chart,Title', function () {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+    data: data
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateTime
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
+    color: colors.cobaltBlue
   })));
 }).add('w/Summary', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: data
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.cobaltBlue
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['sms']
@@ -52,25 +42,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     timeRange: "lastYear"
   }));
 }).add('w/Legend (weightedAvg)', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: _storyHelpers.weightedAvgData
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.weightedAvgData
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: weightedAvgData
+  }), React.createElement(Chart, {
+    data: weightedAvgData
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "dogs.cuteness",
     name: "Dogs",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Line, {
+    color: colors.cobaltBlue
+  }), React.createElement(Line, {
     dataKey: "cats.cuteness",
     name: "Cats",
-    color: _Colors.default.poppyRed
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
-      formatter: _formatters.default.roundToPlaces(1),
+    color: colors.poppyRed
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
+      formatter: formatters.roundToPlaces(1),
       aggregationOptions: {
         type: 'weightedAvg',
         dataKeys: ['dogs', 'cats'],
@@ -81,9 +71,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       },
       summaryTitle: "Animals"
     })
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.weightedAvgData,
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['cats', 'dogs'],
@@ -94,9 +84,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     },
     granularity: "month",
     timeRange: "lastYear"
-  }), _react.default.createElement(_.Legend, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.weightedAvgData,
+  }), React.createElement(Legend, {
+    formatter: formatters.roundToPlaces(1),
+    data: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['cats', 'dogs'],
@@ -108,50 +98,50 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     displayOptions: [{
       name: 'Dogs',
       dataKey: 'dogs',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Cats',
       dataKey: 'cats',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('w/Legend (series with no data)', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Power Levels",
-    data: _storyHelpers.powerLevels
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.powerLevels
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: powerLevels
+  }), React.createElement(Chart, {
+    data: powerLevels
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "goku",
     name: "Goku",
     color: "#FB7326"
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     dataKey: "piccolo",
     name: "Piccolo",
     color: "#479919"
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     dataKey: "vegeta",
     name: "Vegeta",
     color: "#3756B0"
-  }), _react.default.createElement(_.Line, {
+  }), React.createElement(Line, {
     dataKey: "turtle",
     name: "Turtle",
     color: "#6A3027"
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.powerLevels,
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: powerLevels,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
     },
     granularity: "day",
     timeRange: "lastWeek"
-  }), _react.default.createElement(_.Legend, {
-    formatter: _formatters.default.nullToValue(_formatters.default.roundToPlaces(1), '(no data)'),
-    data: _storyHelpers.powerLevels,
+  }), React.createElement(Legend, {
+    formatter: formatters.nullToValue(formatters.roundToPlaces(1), '(no data)'),
+    data: powerLevels,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
@@ -175,34 +165,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     }]
   }));
 }).add('w/Custom Formatted Legend', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Granularity, {
+    data: data
+  }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.cobaltBlue
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
     },
     granularity: "month",
     timeRange: "custom"
-  }), _react.default.createElement(_.Legend, {
-    formatter: _storyHelpers.customFormatter,
-    data: _storyHelpers.data,
+  }), React.createElement(Legend, {
+    formatter: customFormatter,
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['organic', 'text']
@@ -210,120 +200,120 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Text',
       dataKey: 'text',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('w/Legend (multiple bars)', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: data
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     dataKey: "text",
-    color: _Colors.default.poppyRed
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.poppyRed
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['organic', 'text']
     },
     granularity: "month",
     timeRange: "lastYear"
-  }), _react.default.createElement(_.Legend, {
-    data: _storyHelpers.weightedAvgData,
+  }), React.createElement(Legend, {
+    data: weightedAvgData,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Text',
       dataKey: 'text',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('w/Legend (stacked bars)', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: data
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryType: "total",
       summaryTitle: "Reviews"
     })
-  }), _react.default.createElement(_.Bar, {
+  }), React.createElement(Bar, {
     name: "Organic",
     stackId: "1",
     dataKey: "organic",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Bar, {
+    color: colors.cobaltBlue
+  }), React.createElement(Bar, {
     name: "Text",
     stackId: "1",
     dataKey: "text",
-    color: _Colors.default.poppyRed
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.poppyRed
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['organic', 'text']
     },
     granularity: "month",
     timeRange: "lastYear"
-  }), _react.default.createElement(_.Legend, {
-    data: _storyHelpers.weightedAvgData,
+  }), React.createElement(Legend, {
+    data: weightedAvgData,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Text',
       dataKey: 'text',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('w/Tooltip', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Cats vs Dogs",
-    data: _storyHelpers.weightedAvgData
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.weightedAvgData
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: weightedAvgData
+  }), React.createElement(Chart, {
+    data: weightedAvgData
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "dogs.cuteness",
     name: "Dogs",
-    color: _Colors.default.poppyRed
-  }), _react.default.createElement(_.Line, {
+    color: colors.poppyRed
+  }), React.createElement(Line, {
     dataKey: "cats.cuteness",
     name: "Cats",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    color: colors.cobaltBlue
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       aggregationOptions: {
         type: 'weightedAvg',
         dataKeys: ['cats', 'dogs'],
@@ -333,11 +323,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         }
       },
       summaryTitle: "Animals",
-      formatter: _formatters.default.roundToPlaces(1)
+      formatter: formatters.roundToPlaces(1)
     })
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.weightedAvgData,
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       options: {
@@ -350,25 +340,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     timeRange: "lastYear"
   }));
 }).add('w/TooltipBody (single key)', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Single Value Tooltip",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: data
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
     name: "SMS",
-    color: _Colors.default.poppyRed
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    color: colors.poppyRed
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       summaryTitle: "Minutes"
     })
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.commatize,
-    data: _storyHelpers.data,
+  })), React.createElement(Summary, {
+    formatter: formatters.commatize,
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['sms']
@@ -377,23 +367,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     timeRange: "lastYear"
   }));
 }).add('w/TooltipBodyTime', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Wait Time",
-    data: _storyHelpers.timeData
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.timeData
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+    data: timeData
+  }), React.createElement(Chart, {
+    data: timeData
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "waitTime",
     name: "Wait Time",
-    color: _Colors.default.poppyRed
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.commatize,
-    data: _storyHelpers.timeData,
+    color: colors.poppyRed
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBodyTime, null)
+  })), React.createElement(Summary, {
+    formatter: formatters.commatize,
+    data: timeData,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['waitTime']
@@ -402,78 +392,78 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     timeRange: "lastYear"
   }));
 }).add('Loading', function () {
-  return _react.default.createElement(_.ReportCard, {
+  return React.createElement(ReportCard, {
     loading: true
-  }, _react.default.createElement(_.ReportTitle, {
+  }, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Granularity, {
+    data: data
+  }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateTime
-  }), _react.default.createElement(_.XAxis, {
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateTime
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBodyTime, null)
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.cobaltBlue
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBodyTime, null)
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
     },
     granularity: "month",
     timeRange: "lastYear"
-  }), _react.default.createElement(_.Legend, {
-    data: _storyHelpers.data,
+  }), React.createElement(Legend, {
+    data: data,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Text',
       dataKey: 'text',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('w/Granularity', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: _storyHelpers.data
-  }), _react.default.createElement(_.Granularity, {
+    data: data
+  }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
       console.log("You picked ".concat(res));
     }
-  }), _react.default.createElement(_.Chart, {
-    data: _storyHelpers.data
-  }, _react.default.createElement(_.YAxis, null), _react.default.createElement(_.XAxis, {
+  }), React.createElement(Chart, {
+    data: data
+  }, React.createElement(YAxis, null), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Line, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Line, {
     dataKey: "sms",
-    color: _Colors.default.cobaltBlue
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+    color: colors.cobaltBlue
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
     },
     granularity: "month",
     timeRange: "custom"
-  }), _react.default.createElement(_.Legend, {
-    formatter: _formatters.default.roundToPlaces(1),
-    data: _storyHelpers.data,
+  }), React.createElement(Legend, {
+    formatter: formatters.roundToPlaces(1),
+    data: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['organic', 'text']
@@ -481,37 +471,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
-      color: _Colors.default.cobaltBlue
+      color: colors.cobaltBlue
     }, {
       name: 'Text',
       dataKey: 'text',
-      color: _Colors.default.poppyRed
+      color: colors.poppyRed
     }]
   }));
 }).add('null data', function () {
-  return _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportTitle, {
+  return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Cats vs Dogs",
     data: [],
     timeRange: "custom",
     dateStart: "2018-12-05",
     dateEnd: "2019-01-10"
-  }), _react.default.createElement(_.Chart, {
+  }), React.createElement(Chart, {
     data: []
-  }, _react.default.createElement(_.YAxis, {
-    tickFormatter: _formatters.default.abbreviateNumber
-  }), _react.default.createElement(_.XAxis, {
+  }, React.createElement(YAxis, {
+    tickFormatter: formatters.abbreviateNumber
+  }), React.createElement(XAxis, {
     dataKey: "date",
-    tickFormatter: _formatters.default.date()
-  }), _react.default.createElement(_.Bar, {
+    tickFormatter: formatters.date()
+  }), React.createElement(Bar, {
     dataKey: "dogs.cuteness",
     name: "Dogs",
-    color: _Colors.default.poppyRed
-  }), _react.default.createElement(_.Bar, {
+    color: colors.poppyRed
+  }), React.createElement(Bar, {
     dataKey: "cats.cuteness",
     name: "Cats",
-    color: _Colors.default.cobaltBlue
-  }), _react.default.createElement(_.Tooltip, {
-    content: _react.default.createElement(_.TooltipBody, {
+    color: colors.cobaltBlue
+  }), React.createElement(Tooltip, {
+    content: React.createElement(TooltipBody, {
       aggregationOptions: {
         type: 'weightedAvg',
         dataKeys: ['cats', 'dogs'],
@@ -521,10 +511,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         }
       },
       summaryTitle: "Animals",
-      formatter: _formatters.default.roundToPlaces(1)
+      formatter: formatters.roundToPlaces(1)
     })
-  })), _react.default.createElement(_.Summary, {
-    formatter: _formatters.default.roundToPlaces(1),
+  })), React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
     data: [],
     aggregationOptions: {
       type: 'weightedAvg',

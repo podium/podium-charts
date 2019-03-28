@@ -1,17 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Palette = Palette;
-exports.customFormatter = exports.timeData = exports.weightedAvgDataPrev = exports.weightedAvgData = exports.powerLevels = exports.prevData = exports.currData = exports.reviewsData = exports.data = exports.WindowWidthMonitor = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _formatters = _interopRequireDefault(require("../Charts/utils/formatters"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34,7 +20,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function Palette(_ref) {
+import React from 'react';
+import formatters from '../Charts/utils/formatters';
+export function Palette(_ref) {
   var color = _ref.color,
       name = _ref.name;
   var paletteWrapper = {
@@ -55,16 +43,15 @@ function Palette(_ref) {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: 'white'
   };
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     style: _objectSpread({}, paletteWrapper, {
       backgroundColor: color
     })
-  }, _react.default.createElement("div", {
+  }, React.createElement("div", {
     style: paletteLabel
-  }, _react.default.createElement("div", null, name), _react.default.createElement("div", null, color)));
+  }, React.createElement("div", null, name), React.createElement("div", null, color)));
 }
-
-var WindowWidthMonitor =
+export var WindowWidthMonitor =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(WindowWidthMonitor, _React$Component);
@@ -102,15 +89,13 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var width = this.state.width;
-      return _react.default.createElement("p", null, "Window width: ", width, "px");
+      return React.createElement("p", null, "Window width: ", width, "px");
     }
   }]);
 
   return WindowWidthMonitor;
-}(_react.default.Component);
-
-exports.WindowWidthMonitor = WindowWidthMonitor;
-var data = [{
+}(React.Component);
+export var data = [{
   sms: 200,
   text: 1,
   organic: 2,
@@ -170,8 +155,7 @@ var data = [{
   organic: 0,
   date: '2018-12-01T00:00:00.000Z'
 }];
-exports.data = data;
-var reviewsData = [{
+export var reviewsData = [{
   date: '2018-09-15T23:43:32',
   facebook: {
     reviewRating: 4.5,
@@ -216,8 +200,7 @@ var reviewsData = [{
     reviewCount: 2
   }
 }];
-exports.reviewsData = reviewsData;
-var currData = [{
+export var currData = [{
   value: 605,
   granularity: '2018-12-01T00:00:00.000Z'
 }, {
@@ -248,8 +231,7 @@ var currData = [{
   value: 0,
   granularity: '2018-12-10T00:00:00.000Z'
 }];
-exports.currData = currData;
-var prevData = [{
+export var prevData = [{
   value: 600,
   granularity: '2018-11-01T00:00:00.000Z'
 }, {
@@ -280,8 +262,7 @@ var prevData = [{
   value: 0,
   granularity: '2018-11-10T00:00:00.000Z'
 }];
-exports.prevData = prevData;
-var powerLevels = [{
+export var powerLevels = [{
   granularity: '2018-11-01T00:00:00.000Z',
   goku: 5000,
   piccolo: 3500,
@@ -306,8 +287,7 @@ var powerLevels = [{
   vegeta: 21000,
   turtle: null
 }];
-exports.powerLevels = powerLevels;
-var weightedAvgData = [{
+export var weightedAvgData = [{
   dogs: {
     cuteness: 5,
     amount: 10
@@ -338,8 +318,7 @@ var weightedAvgData = [{
   },
   date: '2018-11-15T23:43:32'
 }];
-exports.weightedAvgData = weightedAvgData;
-var weightedAvgDataPrev = [{
+export var weightedAvgDataPrev = [{
   dogs: {
     cuteness: 4,
     amount: 9
@@ -370,8 +349,7 @@ var weightedAvgDataPrev = [{
   },
   date: '2018-08-15T23:43:32'
 }];
-exports.weightedAvgDataPrev = weightedAvgDataPrev;
-var timeData = [{
+export var timeData = [{
   waitTime: 150,
   date: '2018-08-15T23:43:32'
 }, {
@@ -384,18 +362,14 @@ var timeData = [{
   waitTime: 980,
   date: '2018-11-15T23:43:32'
 }];
-exports.timeData = timeData;
-
-var customFormatter = function customFormatter(value, dataKey) {
+export var customFormatter = function customFormatter(value, dataKey) {
   if (dataKey === 'text') {
-    return _react.default.createElement("a", {
+    return React.createElement("a", {
       href: "//yelp.com",
       target: "_blank",
       rel: "noopener noreferrer"
     }, "View in Yelp");
   }
 
-  return _formatters.default.roundToPlaces(1)(value);
+  return formatters.roundToPlaces(1)(value);
 };
-
-exports.customFormatter = customFormatter;

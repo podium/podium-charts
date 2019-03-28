@@ -1,30 +1,16 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Table;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _TableStyledComponents = require("./TableStyledComponents");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Table(_ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import { TableLoading } from '@podiumhq/podium-ui';
+import { TableWrapper } from './TableStyledComponents';
+export default function Table(_ref) {
   var loading = _ref.loading,
       alternateColors = _ref.alternateColors,
       children = _ref.children;
-  return loading ? _react.default.createElement(_podiumUi.TableLoading, null) : _react.default.createElement(_TableStyledComponents.TableWrapper, null, children);
+  return loading ? React.createElement(TableLoading, null) : React.createElement(TableWrapper, null, children);
 }
-
 Table.propTypes = {
-  loading: _propTypes.default.bool,
-  children: _propTypes.default.oneOfType([_propTypes.default.arrayOf(_propTypes.default.node), _propTypes.default.node])
+  loading: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 Table.defaultProps = {
   loading: false,

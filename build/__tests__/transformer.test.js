@@ -1,9 +1,4 @@
-"use strict";
-
-var _transformer = _interopRequireDefault(require("../Charts/utils/transformer"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+import transformer from '../Charts/utils/transformer';
 var COMPLETE_DATA = {
   dataSet1: [{
     value: 1,
@@ -60,8 +55,7 @@ var ONE_GROUP_BY = {
 };
 describe('multiDataset', function () {
   test('should return dataSet1 and dataSet2 as a nested object with custom passed-in groupBy', function () {
-    var result = _transformer.default.multiDataset(NO_GROUP_BY, 'customGroupBy');
-
+    var result = transformer.multiDataset(NO_GROUP_BY, 'customGroupBy');
     expect(result).toEqual([{
       customGroupBy: {
         dataSet1: 1,
@@ -81,8 +75,7 @@ describe('multiDataset', function () {
     }]);
   });
   test('should prioritize custom passed-in groupBy over row.groupBy', function () {
-    var result = _transformer.default.multiDataset(COMPLETE_DATA, 'customGroupBy');
-
+    var result = transformer.multiDataset(COMPLETE_DATA, 'customGroupBy');
     expect(result).toEqual([{
       customGroupBy: {
         dataSet1: 1,
@@ -102,8 +95,7 @@ describe('multiDataset', function () {
     }]);
   });
   test('should return dataSet1 and dataSet2 as a nested object using groupBy from data', function () {
-    var result = _transformer.default.multiDataset(COMPLETE_DATA);
-
+    var result = transformer.multiDataset(COMPLETE_DATA);
     expect(result).toEqual([{
       google: {
         dataSet1: 1,
@@ -123,8 +115,7 @@ describe('multiDataset', function () {
     }]);
   });
   test('should return correct format if groupBy is present in one dataset and not the other', function () {
-    var result = _transformer.default.multiDataset(ONE_GROUP_BY);
-
+    var result = transformer.multiDataset(ONE_GROUP_BY);
     expect(result).toEqual([{
       dataSet2: 10,
       date: '2018-01-15T23:43:32',
@@ -142,15 +133,13 @@ describe('multiDataset', function () {
     }]);
   });
   test('should return a blank array if no data', function () {
-    var result = _transformer.default.multiDataset({});
-
+    var result = transformer.multiDataset({});
     expect(result).toEqual([]);
   });
 });
 describe('singleDataset', function () {
   test('should return data with groupBy as key and granularity as date', function () {
-    var result = _transformer.default.singleDataset(COMPLETE_DATA['dataSet1']);
-
+    var result = transformer.singleDataset(COMPLETE_DATA['dataSet1']);
     expect(result).toEqual([{
       date: '2018-01-15T23:43:32',
       google: 1
@@ -160,8 +149,7 @@ describe('singleDataset', function () {
     }]);
   });
   test('should return correct format if no groupBy is present', function () {
-    var result = _transformer.default.singleDataset(ONE_GROUP_BY['dataSet2']);
-
+    var result = transformer.singleDataset(ONE_GROUP_BY['dataSet2']);
     expect(result).toEqual([{
       date: '2018-01-15T23:43:32',
       value: 10
@@ -171,8 +159,7 @@ describe('singleDataset', function () {
     }]);
   });
   test('should return a blank array if no data', function () {
-    var result = _transformer.default.singleDataset([]);
-
+    var result = transformer.singleDataset([]);
     expect(result).toEqual([]);
   });
 });

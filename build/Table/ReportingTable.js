@@ -1,24 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _ = require("./");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49,7 +28,12 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var MoreInfo = _styledComponents.default.div(_templateObject(), _podiumUi.colors.lightSteel, _podiumUi.colors.lightSteel);
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { TableLoading, ToolTip, IconInfo, colors } from '@podiumhq/podium-ui';
+import { Table, TableHeader, TableBody, TableCell, TableRow, TableHeaderCell } from './';
+var MoreInfo = styled.div(_templateObject(), colors.lightSteel, colors.lightSteel);
 
 var ReportingTable =
 /*#__PURE__*/
@@ -69,17 +53,17 @@ function (_Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ReportingTable)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.renderTableHeaders = function () {
       var headers = _this.props.headers;
-      return _react.default.createElement(_.TableRow, null, headers && headers.map(function (header, index) {
-        return _react.default.createElement(_.TableHeaderCell, {
+      return React.createElement(TableRow, null, headers && headers.map(function (header, index) {
+        return React.createElement(TableHeaderCell, {
           key: header.id,
           width: header.width
-        }, header.tooltip && _react.default.createElement(MoreInfo, null, _react.default.createElement(_podiumUi.ToolTip, {
+        }, header.tooltip && React.createElement(MoreInfo, null, React.createElement(ToolTip, {
           position: "top",
           type: "arrow",
           tip: header.tooltip
-        }, _react.default.createElement(_podiumUi.IconInfo, {
+        }, React.createElement(IconInfo, {
           size: "small"
-        }))), _react.default.createElement("div", null, header.content));
+        }))), React.createElement("div", null, header.content));
       }));
     }, _this.renderTableBody = function () {
       var _this$props = _this.props,
@@ -87,16 +71,14 @@ function (_Component) {
           dataComponents = _this$props.dataComponents,
           headers = _this$props.headers;
       return data && data.map(function (row, rowIndex) {
-        return _react.default.createElement(_.TableRow, {
+        return React.createElement(TableRow, {
           key: "row|".concat(rowIndex)
         }, headers.map(function (header, headerIndex) {
           var tableCellComponent = dataComponents[header.id];
-
-          var Component = tableCellComponent && _react.default.cloneElement(tableCellComponent, {
+          var Component = tableCellComponent && React.cloneElement(tableCellComponent, {
             rowData: row
           });
-
-          return _react.default.createElement(_.TableCell, {
+          return React.createElement(TableCell, {
             key: "cell|".concat(rowIndex, "|").concat(headerIndex),
             width: header.width
           }, Component || row[header.id]);
@@ -109,18 +91,18 @@ function (_Component) {
     key: "render",
     value: function render() {
       var loading = this.props.loading;
-      return loading ? _react.default.createElement(_podiumUi.TableLoading, null) : _react.default.createElement(_.Table, null, _react.default.createElement(_.TableHeader, null, this.renderTableHeaders()), _react.default.createElement(_.TableBody, null, this.renderTableBody()));
+      return loading ? React.createElement(TableLoading, null) : React.createElement(Table, null, React.createElement(TableHeader, null, this.renderTableHeaders()), React.createElement(TableBody, null, this.renderTableBody()));
     }
   }]);
 
   return ReportingTable;
-}(_react.Component);
+}(Component);
 
 ReportingTable.propTypes = {
-  data: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
-  headers: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
-  dataComponents: _propTypes.default.object,
-  loading: _propTypes.default.bool
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataComponents: PropTypes.object,
+  loading: PropTypes.bool
 };
 ReportingTable.defaultProps = {
   dataComponents: {},
@@ -128,5 +110,4 @@ ReportingTable.defaultProps = {
   data: [],
   headers: []
 };
-var _default = ReportingTable;
-exports.default = _default;
+export default ReportingTable;

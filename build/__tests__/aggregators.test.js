@@ -1,7 +1,4 @@
-"use strict";
-
-var _aggregators = require("../Charts/utils/aggregators");
-
+import { getRowSummaryMetric, getOverallSummaryMetric, calculateTrend } from '../Charts/utils/aggregators';
 var STANDARD = [{
   dogs: 5,
   cats: 8,
@@ -198,8 +195,8 @@ describe('getRowSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var standardResult = (0, _aggregators.getRowSummaryMetric)(getLast(STANDARD), aggregationOptions);
-      var missingResult = (0, _aggregators.getRowSummaryMetric)(getLast(MISSING_VALUES), aggregationOptions);
+      var standardResult = getRowSummaryMetric(getLast(STANDARD), aggregationOptions);
+      var missingResult = getRowSummaryMetric(getLast(MISSING_VALUES), aggregationOptions);
       expect(standardResult).toEqual(10);
       expect(missingResult).toEqual(6);
     });
@@ -208,7 +205,7 @@ describe('getRowSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_POINT_WITH_ALL_NULLS), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_POINT_WITH_ALL_NULLS), aggregationOptions);
       expect(result).toEqual(0);
     });
   });
@@ -218,7 +215,7 @@ describe('getRowSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(STANDARD), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(STANDARD), aggregationOptions);
       expect(result).toEqual(5);
     });
     test('should leave null values out of average', function () {
@@ -226,7 +223,7 @@ describe('getRowSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(MISSING_VALUES), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(MISSING_VALUES), aggregationOptions);
       expect(result).toEqual(6);
     });
     test('should return null when the final data point has no values', function () {
@@ -234,7 +231,7 @@ describe('getRowSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_POINT_WITH_ALL_NULLS), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_POINT_WITH_ALL_NULLS), aggregationOptions);
       expect(result).toEqual(null);
     });
   });
@@ -249,7 +246,7 @@ describe('getRowSummaryMetric', function () {
         }
       }; // equals 9 / 13
 
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_WITH_COUNTS), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_WITH_COUNTS), aggregationOptions);
       expect(result).toEqual(0.6923076923076923);
     });
     test('should get weighted average with custom names for value and count', function () {
@@ -261,7 +258,7 @@ describe('getRowSummaryMetric', function () {
           countKey: 'amount'
         }
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_WITH_COUNTS_CUSTOM_NAMES), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_WITH_COUNTS_CUSTOM_NAMES), aggregationOptions);
       expect(result).toEqual(0.6923076923076923);
     });
     test('should get weighted average when data contains nulls', function () {
@@ -273,7 +270,7 @@ describe('getRowSummaryMetric', function () {
           countKey: 'count'
         }
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_WITH_COUNTS_AND_NULLS), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_WITH_COUNTS_AND_NULLS), aggregationOptions);
       expect(result).toEqual(0.5);
     });
     test('should return null when all values and counts are null', function () {
@@ -285,7 +282,7 @@ describe('getRowSummaryMetric', function () {
           countKey: 'count'
         }
       };
-      var result = (0, _aggregators.getRowSummaryMetric)(getLast(DATA_WITH_COUNTS_ONLY_NULLS), aggregationOptions);
+      var result = getRowSummaryMetric(getLast(DATA_WITH_COUNTS_ONLY_NULLS), aggregationOptions);
       expect(result).toBe(null);
     });
   });
@@ -293,7 +290,7 @@ describe('getRowSummaryMetric', function () {
 describe('getOverallSummaryMetric', function () {
   describe('total', function () {
     test('should return null when given null data', function () {
-      var result = (0, _aggregators.getOverallSummaryMetric)(null);
+      var result = getOverallSummaryMetric(null);
       expect(result).toEqual(null);
     });
     test('should sum data from every month', function () {
@@ -301,7 +298,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(STANDARD, aggregationOptions);
+      var result = getOverallSummaryMetric(STANDARD, aggregationOptions);
       expect(result).toEqual(44);
     });
     test('should sum data from every month when some values are missing', function () {
@@ -309,7 +306,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(MISSING_VALUES, aggregationOptions);
+      var result = getOverallSummaryMetric(MISSING_VALUES, aggregationOptions);
       expect(result).toEqual(35);
     });
     test('should sum data with rows containing all nulls', function () {
@@ -317,7 +314,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_POINT_WITH_ALL_NULLS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_POINT_WITH_ALL_NULLS, aggregationOptions);
       expect(result).toEqual(29);
     });
     test('should return 0 if all data is null', function () {
@@ -325,7 +322,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'total',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_ALL_NULLS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_ALL_NULLS, aggregationOptions);
       expect(result).toEqual(0);
     });
   });
@@ -335,7 +332,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(STANDARD, aggregationOptions);
+      var result = getOverallSummaryMetric(STANDARD, aggregationOptions);
       expect(result).toEqual(5.5);
     });
     test('should leave null values out of average from every month', function () {
@@ -343,8 +340,8 @@ describe('getOverallSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var missingResult = (0, _aggregators.getOverallSummaryMetric)(MISSING_VALUES, aggregationOptions);
-      var allNullsResult = (0, _aggregators.getOverallSummaryMetric)(DATA_POINT_WITH_ALL_NULLS, aggregationOptions);
+      var missingResult = getOverallSummaryMetric(MISSING_VALUES, aggregationOptions);
+      var allNullsResult = getOverallSummaryMetric(DATA_POINT_WITH_ALL_NULLS, aggregationOptions);
       expect(missingResult).toEqual(5.833333333333333);
       expect(allNullsResult).toEqual(5.8);
     });
@@ -353,7 +350,7 @@ describe('getOverallSummaryMetric', function () {
         type: 'avg',
         dataKeys: ['dogs', 'cats']
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_ALL_NULLS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_ALL_NULLS, aggregationOptions);
       expect(result).toEqual(null);
     });
   });
@@ -368,7 +365,7 @@ describe('getOverallSummaryMetric', function () {
         }
       }; // 262.5 / 76
 
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_COUNTS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_COUNTS, aggregationOptions);
       expect(result).toEqual(3.4539473684210527);
     });
     test('should get weighted average with custom value and count keys', function () {
@@ -380,7 +377,7 @@ describe('getOverallSummaryMetric', function () {
           countKey: 'amount'
         }
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_COUNTS_CUSTOM_NAMES, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_COUNTS_CUSTOM_NAMES, aggregationOptions);
       expect(result).toEqual(3.4539473684210527);
     });
     test('should get weighted average when data contains nulls', function () {
@@ -392,7 +389,7 @@ describe('getOverallSummaryMetric', function () {
           countKey: 'count'
         }
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_COUNTS_AND_NULLS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_COUNTS_AND_NULLS, aggregationOptions);
       expect(result).toEqual(1.8953488372093024);
     });
     test('should return null when all counts and values are null', function () {
@@ -404,29 +401,29 @@ describe('getOverallSummaryMetric', function () {
           countKey: 'count'
         }
       };
-      var result = (0, _aggregators.getOverallSummaryMetric)(DATA_WITH_COUNTS_ONLY_NULLS, aggregationOptions);
+      var result = getOverallSummaryMetric(DATA_WITH_COUNTS_ONLY_NULLS, aggregationOptions);
       expect(result).toBe(null);
     });
   });
   describe('calculateTrend', function () {
     test('should return upward trend', function () {
-      var result = (0, _aggregators.calculateTrend)(1, 2);
+      var result = calculateTrend(1, 2);
       expect(result).toEqual('up');
     });
     test('should return downward trend', function () {
-      var result = (0, _aggregators.calculateTrend)(3, 2);
+      var result = calculateTrend(3, 2);
       expect(result).toEqual('down');
     });
     test('should return neutral trend with equal data', function () {
-      var result = (0, _aggregators.calculateTrend)(3, 3);
+      var result = calculateTrend(3, 3);
       expect(result).toEqual('neutral');
     });
     test('should return neutral trend when there is no previous data', function () {
-      var result = (0, _aggregators.calculateTrend)(null, 3);
+      var result = calculateTrend(null, 3);
       expect(result).toEqual('neutral');
     });
     test('should return neutral trend when there is no current data', function () {
-      var result = (0, _aggregators.calculateTrend)(3, null);
+      var result = calculateTrend(3, null);
       expect(result).toEqual('neutral');
     });
   });

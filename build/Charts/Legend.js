@@ -1,30 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Legend;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _lodash = _interopRequireDefault(require("lodash.get"));
-
-var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
-
-var _aggregators = require("./utils/aggregators");
-
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
-
-var _ReportCardContext = _interopRequireDefault(require("./ReportCardContext"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -71,20 +44,25 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var LegendWrapper = _styledComponents.default.div(_templateObject(), _podiumUi.colors.mineShaft);
-
-var ItemWrapper = _styledComponents.default.div(_templateObject2(), function (_ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { colors } from '@podiumhq/podium-ui';
+import get from 'lodash.get';
+import Ghost from './Ghost/Ghost';
+import { getOverallSummaryMetric } from './utils/aggregators';
+import formatters from './utils/formatters';
+import ReportCardContext from './ReportCardContext';
+var LegendWrapper = styled.div(_templateObject(), colors.mineShaft);
+var ItemWrapper = styled.div(_templateObject2(), function (_ref) {
   var enabled = _ref.enabled;
   return !enabled && "\n    opacity: 0.3;\n  ";
 });
-
-var ColorLabel = _styledComponents.default.div(_templateObject3(), function (props) {
+var ColorLabel = styled.div(_templateObject3(), function (props) {
   return props.color;
 });
-
-var Label = _styledComponents.default.div(_templateObject4());
-
-function Legend(_ref2) {
+var Label = styled.div(_templateObject4());
+export default function Legend(_ref2) {
   var loading = _ref2.loading,
       data = _ref2.data,
       aggregationOptions = _ref2.aggregationOptions,
@@ -97,7 +75,7 @@ function Legend(_ref2) {
       dataKeys: [dataKey],
       options: aggregationOptions.options
     };
-    return (0, _aggregators.getOverallSummaryMetric)(data, itemAggregationOptions);
+    return getOverallSummaryMetric(data, itemAggregationOptions);
   };
 
   var createAggMap = function createAggMap() {
@@ -108,11 +86,11 @@ function Legend(_ref2) {
   };
 
   var renderGhostState = function renderGhostState() {
-    return _react.default.createElement(LegendWrapper, null, _react.default.createElement(_Ghost.default, {
+    return React.createElement(LegendWrapper, null, React.createElement(Ghost, {
       row: true
-    }), _react.default.createElement(_Ghost.default, {
+    }), React.createElement(Ghost, {
       row: true
-    }), _react.default.createElement(_Ghost.default, {
+    }), React.createElement(Ghost, {
       row: true
     }));
   };
@@ -128,7 +106,7 @@ function Legend(_ref2) {
           color = legendItem.color,
           name = legendItem.name;
       var formattedValue = formatter(aggMap[dataKey], dataKey);
-      return _react.default.createElement(ItemWrapper, {
+      return React.createElement(ItemWrapper, {
         key: name,
         enabled: !selectedKey || dataKey === selectedKey,
         onMouseEnter: function onMouseEnter() {
@@ -137,40 +115,39 @@ function Legend(_ref2) {
         onMouseLeave: function onMouseLeave() {
           return onSelectKey(null);
         }
-      }, _react.default.createElement(Label, null, _react.default.createElement(ColorLabel, {
+      }, React.createElement(Label, null, React.createElement(ColorLabel, {
         color: color
-      }), _react.default.createElement("div", null, name ? name : '')), formattedValue && _react.default.createElement("div", null, formattedValue));
+      }), React.createElement("div", null, name ? name : '')), formattedValue && React.createElement("div", null, formattedValue));
     });
   };
 
   if (loading) return renderGhostState();
-  var dataKeys = (0, _lodash.default)(aggregationOptions, 'dataKeys');
+  var dataKeys = get(aggregationOptions, 'dataKeys');
   var aggMap = createAggMap(dataKeys);
-  return _react.default.createElement(_ReportCardContext.default.Consumer, null, function (_ref3) {
+  return React.createElement(ReportCardContext.Consumer, null, function (_ref3) {
     var selectedKey = _ref3.selectedKey,
         onSelectKey = _ref3.onSelectKey;
-    return _react.default.createElement(LegendWrapper, null, renderLegendItems(aggMap, selectedKey, onSelectKey));
+    return React.createElement(LegendWrapper, null, renderLegendItems(aggMap, selectedKey, onSelectKey));
   });
 }
-
 Legend.propTypes = {
-  data: _propTypes.default.array.isRequired,
-  aggregationOptions: _propTypes.default.shape({
-    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
-    dataKeys: _propTypes.default.array.isRequired,
-    options: _propTypes.default.shape({
-      valueKey: _propTypes.default.string,
-      countKey: _propTypes.default.string
+  data: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
     })
   }),
-  displayOptions: _propTypes.default.arrayOf(_propTypes.default.shape({
-    name: _propTypes.default.string,
-    color: _propTypes.default.string,
-    dataKey: _propTypes.default.string
+  displayOptions: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    color: PropTypes.string,
+    dataKey: PropTypes.string
   })).isRequired,
-  formatter: _propTypes.default.func,
-  loading: _propTypes.default.bool
+  formatter: PropTypes.func,
+  loading: PropTypes.bool
 };
 Legend.defaultProps = {
-  formatter: _formatters.default.commatize
+  formatter: formatters.commatize
 };

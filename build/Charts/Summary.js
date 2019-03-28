@@ -1,28 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Summary;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _Ghost = _interopRequireDefault(require("./Ghost/Ghost"));
-
-var _chartHelpers = require("./utils/chartHelpers");
-
-var _aggregators = require("./utils/aggregators");
-
-var _formatters = _interopRequireDefault(require("./utils/formatters"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n  padding: 8px;\n"]);
 
@@ -75,23 +50,27 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var SummaryWrapper = _styledComponents.default.div(_templateObject());
-
-var ToDate = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.steel);
-
-var TimeRange = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.steel);
-
-var SummaryLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.mineShaft);
-
-var Space = _styledComponents.default.div(_templateObject5());
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
+import Ghost from './Ghost/Ghost';
+import { fullDate } from './utils/chartHelpers';
+import { getRowSummaryMetric, getOverallSummaryMetric } from './utils/aggregators';
+import formatters from './utils/formatters';
+var SummaryWrapper = styled.div(_templateObject());
+var ToDate = styled.div(_templateObject2(), colors.steel);
+var TimeRange = styled.div(_templateObject3(), colors.steel);
+var SummaryLabel = styled.div(_templateObject4(), colors.mineShaft);
+var Space = styled.div(_templateObject5());
 
 var getLatestSummaryMetric = function getLatestSummaryMetric(data, aggregationOptions) {
   if (!data) return null;
   var currentDataObj = data[data.length - 1];
-  return (0, _aggregators.getRowSummaryMetric)(currentDataObj, aggregationOptions);
+  return getRowSummaryMetric(currentDataObj, aggregationOptions);
 };
 
-function Summary(_ref) {
+export default function Summary(_ref) {
   var data = _ref.data,
       formatter = _ref.formatter,
       granularity = _ref.granularity,
@@ -109,59 +88,58 @@ function Summary(_ref) {
   };
 
   var renderGhostState = function renderGhostState() {
-    return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(_Ghost.default, {
+    return React.createElement(SummaryWrapper, null, React.createElement(Ghost, {
       height: "14px",
       width: "78px"
-    }), _react.default.createElement(_Ghost.default, {
+    }), React.createElement(Ghost, {
       height: "27px",
       width: "44px"
-    }), _react.default.createElement(Space, null), _react.default.createElement(_Ghost.default, {
+    }), React.createElement(Space, null), React.createElement(Ghost, {
       height: "14px",
       width: "78px"
-    }), _react.default.createElement(_Ghost.default, {
+    }), React.createElement(Ghost, {
       height: "27px",
       width: "44px"
     }));
   };
 
   var renderTimeRange = function renderTimeRange() {
-    var selectedOption = _podiumUi.ReportingDatePicker.options.find(function (option) {
+    var selectedOption = ReportingDatePicker.options.find(function (option) {
       return option.value === timeRange;
     }) || {};
 
     if (timeRange === 'custom' && dateStart && dateEnd) {
-      return _react.default.createElement(TimeRange, null, "".concat((0, _chartHelpers.fullDate)(dateStart, 'MMM'), " - ").concat((0, _chartHelpers.fullDate)(dateEnd, 'MMM')));
+      return React.createElement(TimeRange, null, "".concat(fullDate(dateStart, 'MMM'), " - ").concat(fullDate(dateEnd, 'MMM')));
     } else {
-      return _react.default.createElement(TimeRange, null, selectedOption.label);
+      return React.createElement(TimeRange, null, selectedOption.label);
     }
   };
 
   if (loading) return renderGhostState();
   var currentData = getLatestSummaryMetric(data, aggregationOptions);
-  var entireData = (0, _aggregators.getOverallSummaryMetric)(data, aggregationOptions);
+  var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
-  return _react.default.createElement(SummaryWrapper, null, _react.default.createElement(ToDate, null, titleCase(granularity), " to Date"), _react.default.createElement(SummaryLabel, null, currentDataFormatted), _react.default.createElement(Space, null), renderTimeRange(), _react.default.createElement(SummaryLabel, null, entireDataFormatted));
+  return React.createElement(SummaryWrapper, null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
-
 Summary.propTypes = {
-  data: _propTypes.default.array.isRequired,
-  aggregationOptions: _propTypes.default.shape({
-    type: _propTypes.default.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
-    dataKeys: _propTypes.default.array.isRequired,
-    options: _propTypes.default.shape({
-      valueKey: _propTypes.default.string,
-      countKey: _propTypes.default.string
+  data: PropTypes.array.isRequired,
+  aggregationOptions: PropTypes.shape({
+    type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
+    dataKeys: PropTypes.array.isRequired,
+    options: PropTypes.shape({
+      valueKey: PropTypes.string,
+      countKey: PropTypes.string
     })
   }).isRequired,
-  formatter: _propTypes.default.func,
-  loading: _propTypes.default.bool,
-  unit: _propTypes.default.string,
-  timeRange: _propTypes.default.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
-  dateStart: _propTypes.default.string,
-  dateEnd: _propTypes.default.string
+  formatter: PropTypes.func,
+  loading: PropTypes.bool,
+  unit: PropTypes.string,
+  timeRange: PropTypes.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string
 };
 Summary.defaultProps = {
   unit: '',
-  formatter: _formatters.default.commatize
+  formatter: formatters.commatize
 };

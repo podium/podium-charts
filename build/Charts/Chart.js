@@ -1,34 +1,3 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _lodash = _interopRequireDefault(require("lodash.get"));
-
-var _podiumUi = require("@podiumhq/podium-ui");
-
-var _recharts = require("recharts");
-
-var _Rectangle = _interopRequireDefault(require("./Rectangle"));
-
-var _ChartStyledComponents = require("./ChartStyledComponents");
-
-var _chartHelpers = require("./utils/chartHelpers");
-
-var _skeletonComponents = require("./skeletonComponents");
-
-var _GhostChart = _interopRequireDefault(require("./Ghost/GhostChart"));
-
-var _ReportCardContext = _interopRequireDefault(require("./ReportCardContext"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -57,12 +26,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import get from 'lodash.get';
+import { colors } from '@podiumhq/podium-ui';
+import { ResponsiveContainer, Bar as RechartsBar, CartesianGrid as RechartsCartesianGrid, Line as RechartsLine, Tooltip as RechartsTooltip, XAxis as RechartsXAxis, YAxis as RechartsYAxis, Dot as RechartsDot } from 'recharts';
+import Rectangle from './Rectangle';
+import { ChartWrapper } from './ChartStyledComponents';
+import { detectChartType, getStackPositions, singleLineChart, filterChildren, getDeselectedColor } from './utils/chartHelpers';
+import { XAxis, YAxis, Bar, Line, SummaryLine, Tooltip } from './skeletonComponents';
+import GhostChart from './Ghost/GhostChart';
+import ReportCardContext from './ReportCardContext';
 var GRAPHIK = 'Graphik, Helvetica, sans-serif';
 
 var determineDataKey = function determineDataKey(dataKey) {
   if (typeof dataKey !== 'function') {
     return function (data) {
-      return (0, _lodash.default)(data, dataKey.split('.'), null);
+      return get(data, dataKey.split('.'), null);
     };
   }
 
@@ -132,19 +112,19 @@ function (_React$Component) {
           children = _this$props.children;
       var isFirstRender = this.isFirstRender;
       this.isFirstRender = false;
-      var filteredChildren = (0, _chartHelpers.filterChildren)(children);
-      var graph = (0, _chartHelpers.detectChartType)(filteredChildren);
+      var filteredChildren = filterChildren(children);
+      var graph = detectChartType(filteredChildren);
       var RechartsChartType = graph;
-      var mapping = new Map([[_skeletonComponents.XAxis, this.renderXAxis], [_skeletonComponents.YAxis, this.renderYAxis], [_skeletonComponents.Bar, this.renderBar], [_skeletonComponents.Line, this.renderLine], [_skeletonComponents.SummaryLine, this.renderSummaryLine], [_skeletonComponents.Tooltip, this.renderTooltip]]);
-      if (loading) return _react.default.createElement(_GhostChart.default, {
+      var mapping = new Map([[XAxis, this.renderXAxis], [YAxis, this.renderYAxis], [Bar, this.renderBar], [Line, this.renderLine], [SummaryLine, this.renderSummaryLine], [Tooltip, this.renderTooltip]]);
+      if (loading) return React.createElement(GhostChart, {
         height: height
       });
-      return _react.default.createElement(_ReportCardContext.default.Consumer, null, function (_ref) {
+      return React.createElement(ReportCardContext.Consumer, null, function (_ref) {
         var selectedKey = _ref.selectedKey;
-        return _react.default.createElement(_ChartStyledComponents.ChartWrapper, null, _react.default.createElement(_recharts.ResponsiveContainer, {
+        return React.createElement(ChartWrapper, null, React.createElement(ResponsiveContainer, {
           width: width,
           height: height
-        }, _react.default.createElement(RechartsChartType, {
+        }, React.createElement(RechartsChartType, {
           data: data,
           margin: {
             top: 20,
@@ -153,9 +133,9 @@ function (_React$Component) {
             left: 25
           },
           barCategoryGap: "30%"
-        }, _react.default.createElement(_recharts.CartesianGrid, {
+        }, React.createElement(RechartsCartesianGrid, {
           vertical: false,
-          stroke: _podiumUi.colors.mystic
+          stroke: colors.mystic
         }), _this2.renderChildren(mapping, {
           selectedKey: selectedKey,
           isFirstRender: isFirstRender
@@ -165,9 +145,7 @@ function (_React$Component) {
   }]);
 
   return Chart;
-}(_react.default.Component);
-
-exports.default = Chart;
+}(React.Component);
 
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
@@ -177,8 +155,8 @@ var _initialiseProps = function _initialiseProps() {
         children = _this3$props.children,
         data = _this3$props.data;
     if (!data || data.length === 0) return null;
-    var filteredChildren = (0, _chartHelpers.filterChildren)(children);
-    return _react.default.Children.map(filteredChildren, function (child) {
+    var filteredChildren = filterChildren(children);
+    return React.Children.map(filteredChildren, function (child) {
       var renderComponent = mapping.get(child.type);
       if (renderComponent) return renderComponent(child.props, renderContext);
     });
@@ -188,17 +166,17 @@ var _initialiseProps = function _initialiseProps() {
     var dataKey = _ref2.dataKey,
         props = _objectWithoutProperties(_ref2, ["dataKey"]);
 
-    return _react.default.createElement(_recharts.XAxis, _extends({
+    return React.createElement(RechartsXAxis, _extends({
       axisLine: false,
       tickLine: false,
-      stroke: _podiumUi.colors.lightSteel,
+      stroke: colors.lightSteel,
       fontFamily: GRAPHIK,
       dataKey: determineDataKey(dataKey)
     }, props));
   };
 
   this.renderYAxis = function (props) {
-    return _react.default.createElement(_recharts.YAxis, _extends({
+    return React.createElement(RechartsYAxis, _extends({
       stroke: "#ADB6BE",
       axisLine: false,
       tickLine: false,
@@ -213,12 +191,12 @@ var _initialiseProps = function _initialiseProps() {
         props = _objectWithoutProperties(_ref3, ["dataKey"]);
 
     var selectedKey = _ref4.selectedKey;
-    var filteredChildren = (0, _chartHelpers.filterChildren)(_this3.props.children);
-    var stackPosition = (0, _chartHelpers.getStackPositions)(filteredChildren);
-    var color = isDeselected(dataKey, selectedKey) ? (0, _chartHelpers.getDeselectedColor)(props.color) : props.color;
-    return _react.default.createElement(_recharts.Bar, _extends({
+    var filteredChildren = filterChildren(_this3.props.children);
+    var stackPosition = getStackPositions(filteredChildren);
+    var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
+    return React.createElement(RechartsBar, _extends({
       maxBarSize: 100,
-      shape: _react.default.createElement(_Rectangle.default, _extends({}, props, {
+      shape: React.createElement(Rectangle, _extends({}, props, {
         dataKey: dataKey,
         stackPosition: stackPosition
       })),
@@ -233,8 +211,8 @@ var _initialiseProps = function _initialiseProps() {
 
     var selectedKey = _ref6.selectedKey,
         isFirstRender = _ref6.isFirstRender;
-    var color = isDeselected(dataKey, selectedKey) ? (0, _chartHelpers.getDeselectedColor)(props.color) : props.color;
-    return _react.default.createElement(_recharts.Line, _extends({
+    var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
+    return React.createElement(RechartsLine, _extends({
       type: "linear",
       stroke: color,
       isAnimationActive: isFirstRender,
@@ -253,7 +231,7 @@ var _initialiseProps = function _initialiseProps() {
     var dataKey = _ref7.dataKey,
         props = _objectWithoutProperties(_ref7, ["dataKey"]);
 
-    return _react.default.createElement(_recharts.Line, _extends({
+    return React.createElement(RechartsLine, _extends({
       type: "linear",
       stroke: props.color,
       isAnimationActive: true,
@@ -262,14 +240,14 @@ var _initialiseProps = function _initialiseProps() {
       dataKey: determineDataKey(dataKey),
       dot: function dot(data) {
         if (data.index === _this3.props.data.length - 1) {
-          return _react.default.createElement(_recharts.Dot, {
+          return React.createElement(RechartsDot, {
             r: 2.5,
             cx: data.cx,
             cy: data.cy,
             stroke: props.color,
             strokeWidth: "2",
             color: props.color,
-            fill: _podiumUi.colors.white
+            fill: colors.white
           });
         }
 
@@ -279,8 +257,8 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderTooltip = function (props) {
-    var filteredChildren = (0, _chartHelpers.filterChildren)(_this3.props.children);
-    var singleLine = (0, _chartHelpers.singleLineChart)(filteredChildren);
+    var filteredChildren = filterChildren(_this3.props.children);
+    var singleLine = singleLineChart(filteredChildren);
     var cursorSettings = {
       fill: '#F1F2F4',
       strokeWidth: 1
@@ -292,14 +270,14 @@ var _initialiseProps = function _initialiseProps() {
       });
     }
 
-    return _react.default.createElement(_recharts.Tooltip, _extends({
+    return React.createElement(RechartsTooltip, _extends({
       cursor: cursorSettings,
       isAnimationActive: false,
       offset: 20,
       wrapperStyle: {
         minWidth: '160px',
         borderRadius: '4px',
-        backgroundColor: _podiumUi.colors.white,
+        backgroundColor: colors.white,
         boxShadow: '0 5px 12px 0 rgba(0,0,0,0.24)',
         padding: '16px 24px'
       }
@@ -307,12 +285,13 @@ var _initialiseProps = function _initialiseProps() {
   };
 };
 
+export { Chart as default };
 Chart.propTypes = {
-  data: _propTypes.default.array.isRequired,
-  width: _propTypes.default.number,
-  height: _propTypes.default.number,
-  title: _propTypes.default.string,
-  loading: _propTypes.default.bool
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  title: PropTypes.string,
+  loading: PropTypes.bool
 };
 Chart.defaultProps = {
   height: 300
