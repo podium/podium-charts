@@ -11,28 +11,33 @@ import {
   currData,
   prevData
 } from './storyHelpers';
+import { DefaultNotes } from './ReportCardSummaryHelpers';
 
 storiesOf('Report Card Summary', module)
-  .add('Default', () => (
-    <div style={{ width: '270px' }}>
-      <ReportCard width="270px">
-        <ReportSummaryTitle
-          formatter={formatters.abbreviateNumber}
-          dataKeys={['sms']}
-          title="Inbound Leads"
-          data={data}
-          trendData={[prevData, currData]}
-          aggregationOptions={{
-            type: 'total',
-            dataKeys: ['value']
-          }}
-        />
-        <Chart data={data} height={100}>
-          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-        </Chart>
-      </ReportCard>
-    </div>
-  ))
+  .add(
+    'Default',
+    () => (
+      <div style={{ width: '270px' }}>
+        <ReportCard width="270px">
+          <ReportSummaryTitle
+            formatter={formatters.abbreviateNumber}
+            dataKeys={['sms']}
+            title="Inbound Leads"
+            data={data}
+            trendData={[prevData, currData]}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['value']
+            }}
+          />
+          <Chart data={data} height={100}>
+            <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          </Chart>
+        </ReportCard>
+      </div>
+    ),
+    { notes: DefaultNotes }
+  )
   .add('Average Trend', () => (
     <div style={{ width: '270px' }}>
       <ReportCard width="270px">
