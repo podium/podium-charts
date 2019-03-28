@@ -153,10 +153,7 @@ function (_React$Component) {
             left: 25
           },
           barCategoryGap: "30%"
-        }, _react.default.createElement(_recharts.CartesianGrid, {
-          vertical: false,
-          stroke: _podiumUi.colors.mystic
-        }), _this2.renderChildren(mapping, {
+        }, _this2.renderCartesianGrid(filteredChildren), _this2.renderChildren(mapping, {
           selectedKey: selectedKey,
           isFirstRender: isFirstRender
         }))));
@@ -304,6 +301,16 @@ var _initialiseProps = function _initialiseProps() {
         padding: '16px 24px'
       }
     }, props));
+  };
+
+  this.renderCartesianGrid = function (filteredChildren) {
+    var shouldRenderGrid = filteredChildren.some(function (child) {
+      return child.type === _skeletonComponents.XAxis || child.type === _skeletonComponents.YAxis;
+    });
+    return shouldRenderGrid && _react.default.createElement(_recharts.CartesianGrid, {
+      vertical: false,
+      stroke: _podiumUi.colors.mystic
+    });
   };
 };
 

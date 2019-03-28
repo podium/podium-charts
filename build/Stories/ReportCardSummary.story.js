@@ -12,6 +12,8 @@ var _ = require("../");
 
 var _storyHelpers = require("./storyHelpers");
 
+var _ReportCardSummaryHelpers = require("./ReportCardSummaryHelpers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _react2.storiesOf)('Report Card Summary', module).add('Default', function () {
@@ -39,6 +41,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     dataKey: "sms",
     color: _Colors.default.cobaltBlue
   }))));
+}, {
+  notes: _ReportCardSummaryHelpers.DefaultNotes
 }).add('Average Trend', function () {
   return _react.default.createElement("div", {
     style: {
@@ -105,6 +109,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     data: _storyHelpers.data,
     preferDown: true,
     trendData: [_storyHelpers.prevData, _storyHelpers.currData],
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['value']
+    }
+  }), _react.default.createElement(_.Chart, {
+    data: _storyHelpers.data,
+    height: 100
+  }, _react.default.createElement(_.SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: _Colors.default.cobaltBlue
+  }))));
+}).add('No change trend', function () {
+  return _react.default.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, _react.default.createElement(_.ReportCard, null, _react.default.createElement(_.ReportSummaryTitle, {
+    formatter: _formatters.default.humanizeDuration,
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: _storyHelpers.data,
+    preferDown: true,
+    trendData: [_storyHelpers.prevData, _storyHelpers.prevData],
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['value']

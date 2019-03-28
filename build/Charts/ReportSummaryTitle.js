@@ -21,8 +21,18 @@ var _aggregators = require("./utils/aggregators");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject5() {
+function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  white-space: nowrap;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -32,7 +42,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-weight: 600;\n  font-size: 32px;\n\n  ", "\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -42,7 +52,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-weight: 600;\n  font-size: 32px;\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -52,7 +62,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n  font-weight: 500;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -77,14 +87,16 @@ var SummaryTitleWrapper = _styledComponents.default.div(_templateObject());
 
 var Title = _styledComponents.default.div(_templateObject2(), _podiumUi.colors.mineShaft);
 
-var MonthToDate = _styledComponents.default.div(_templateObject3(), _podiumUi.colors.mineShaft, function (_ref) {
+var TitleContainer = _styledComponents.default.div(_templateObject3());
+
+var MonthToDate = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.mineShaft, function (_ref) {
   var smallWidth = _ref.smallWidth;
   return smallWidth !== 0 && "\n    @media (max-width: ".concat(smallWidth, "px) {\n      font-size: 24px;\n    }\n  ");
 });
 
-var MonthToDateLabel = _styledComponents.default.div(_templateObject4(), _podiumUi.colors.steel);
+var MonthToDateLabel = _styledComponents.default.div(_templateObject5(), _podiumUi.colors.steel);
 
-var ToolTipWrapper = _styledComponents.default.div(_templateObject5());
+var ToolTipWrapper = _styledComponents.default.div(_templateObject6());
 
 function ReportSummaryTitle(_ref2) {
   var data = _ref2.data,
@@ -118,20 +130,20 @@ function ReportSummaryTitle(_ref2) {
   var prevDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[0], aggregationOptions) : 0;
   var currDataValue = trendData ? (0, _aggregators.getOverallSummaryMetric)(trendData[1], aggregationOptions) : 0;
   var currDataFormatted = currDataValue === null ? 'N/A' : formatter(currDataValue);
-  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(Title, null, title), _react.default.createElement(MonthToDate, {
-    smallWidth: smallWidth
-  }, _react.default.createElement("span", {
-    style: {
-      marginRight: '8px'
-    }
-  }, currDataFormatted), _react.default.createElement(_podiumUi.ToolTip, {
+  return _react.default.createElement(SummaryTitleWrapper, null, _react.default.createElement(TitleContainer, null, _react.default.createElement(Title, null, title), _react.default.createElement(_podiumUi.ToolTip, {
     type: "arrow",
     tip: renderToolTip(prevDataValue),
     position: "top"
   }, _react.default.createElement(_Trend.default, {
     direction: (0, _aggregators.calculateTrend)(prevDataValue, currDataValue),
     preferDown: preferDown
-  }))), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
+  }))), _react.default.createElement(MonthToDate, {
+    smallWidth: smallWidth
+  }, _react.default.createElement("span", {
+    style: {
+      marginRight: '8px'
+    }
+  }, currDataFormatted)), _react.default.createElement(MonthToDateLabel, null, "Month To Date"));
 }
 
 ReportSummaryTitle.propTypes = {
