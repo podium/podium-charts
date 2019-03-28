@@ -3,6 +3,7 @@
   "version": "0.15.4",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
+  "module": "build/index.js",
   "scripts": {
     "test": "jest",
     "tdd": "jest --watchAll",
