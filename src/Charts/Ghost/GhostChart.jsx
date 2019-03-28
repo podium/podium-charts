@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const calculateLines = height => {
   if (height >= 300) return 5;
-  return 3;
+  return 0;
 };
 
 const GhostChart = ({ height }) => {
