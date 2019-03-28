@@ -1,6 +1,6 @@
 {
   "name": "podium-reporting-toolkit",
-  "version": "0.15.3",
+  "version": "0.15.5",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
   "scripts": {
@@ -32,11 +32,11 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@podiumhq/podium-ui": "^16.0.1",
-    "@storybook/addon-actions": "^5.0.1",
+    "@storybook/addon-actions": "^5.0.5",
     "@storybook/addon-console": "^1.1.0",
-    "@storybook/addon-info": "^5.0.1",
-    "@storybook/addon-notes": "^5.0.1",
-    "@storybook/react": "^5.0.1",
+    "@storybook/addon-info": "^5.0.5",
+    "@storybook/addon-notes": "^5.0.5",
+    "@storybook/react": "^5.0.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.6.0",
