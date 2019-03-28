@@ -99,6 +99,28 @@ storiesOf('Report Card Summary', module)
       </ReportCard>
     </div>
   ))
+  .add('No change trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard>
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          preferDown
+          trendData={[prevData, prevData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
+        />
+        <Chart data={data} height={100}>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+
   .add('Loading', () => (
     <div style={{ width: '270px' }}>
       <ReportCard loading>

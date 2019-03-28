@@ -1112,10 +1112,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@podiumhq/podium-ui@^16.0.1":
-  version "16.0.4"
-  resolved "https://registry.yarnpkg.com/@podiumhq/podium-ui/-/podium-ui-16.0.4.tgz#7ec54b953e21a466b9052d1c13f789e4de474e77"
-  integrity sha512-J+GrsA/CUQdmJFxbI4hsYypZ/ZbkuFwu07yRWdJOZX3lnU1OQlzowqvlL8Q+jhpyxCLKrKJ6uQwxuJCrQOtT9Q==
+"@podiumhq/podium-ui@^16.3.2":
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/@podiumhq/podium-ui/-/podium-ui-16.3.2.tgz#d02ed89f8556d95bbcedce6d49fa25b0e159b5be"
+  integrity sha512-fcRYmLYlmLniI+/ap/Al2ZxCU6TL+Q9Y5EE6DBVXPtVEaiOVEKE9HO/lOjTQhSgvnMQ9if5OOHVhBAqonjwokw==
   dependencies:
     dayjs "1.7.8"
     fuse.js "3.4.2"

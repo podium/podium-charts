@@ -14,9 +14,16 @@ const SummaryTitleWrapper = styled.div`
 const Title = styled.div`
   color: ${colors.mineShaft};
   font-size: 16px;
+  font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MonthToDate = styled.div`
@@ -91,15 +98,17 @@ export default function ReportSummaryTitle({
 
   return (
     <SummaryTitleWrapper>
-      <Title>{title}</Title>
-      <MonthToDate smallWidth={smallWidth}>
-        <span style={{ marginRight: '8px' }}>{currDataFormatted}</span>
+      <TitleContainer>
+        <Title>{title}</Title>
         <ToolTip type="arrow" tip={renderToolTip(prevDataValue)} position="top">
           <Trend
             direction={calculateTrend(prevDataValue, currDataValue)}
             preferDown={preferDown}
           />
         </ToolTip>
+      </TitleContainer>
+      <MonthToDate smallWidth={smallWidth}>
+        <span style={{ marginRight: '8px' }}>{currDataFormatted}</span>
       </MonthToDate>
       <MonthToDateLabel>Month To Date</MonthToDateLabel>
     </SummaryTitleWrapper>
