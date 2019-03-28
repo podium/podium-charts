@@ -29,7 +29,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-weight: normal;\n  padding: 0 32px;\n  height: 56px;\n\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-weight: normal;\n  padding: 16px 32px;\n  min-height: 56px;\n\n  ", ";\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -49,7 +49,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral([""]);
+  var data = _taggedTemplateLiteral(["\n  min-height: 56px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
