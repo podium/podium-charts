@@ -8,6 +8,7 @@ export default function TableHeaderCell(_ref) {
       sortDirection = _ref.sortDirection,
       children = _ref.children,
       width = _ref.width;
+  console.log('WIDTH', width);
   return React.createElement(TableHeaderCellWrapper, {
     active: active,
     onClick: onClick,
@@ -20,7 +21,7 @@ TableHeaderCell.propTypes = {
   onClick: PropTypes.func,
   sortDirection: PropTypes.oneOf([null, 'asc', 'desc']),
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  width: PropTypes.number
+  width: PropTypes.string
 };
 TableHeaderCell.defaultProps = {
   active: false,

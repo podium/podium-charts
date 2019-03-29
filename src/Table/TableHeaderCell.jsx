@@ -10,6 +10,7 @@ export default function TableHeaderCell({
   children,
   width
 }) {
+  console.log('WIDTH', width);
   return (
     <TableHeaderCellWrapper
       active={active}
@@ -30,7 +31,7 @@ TableHeaderCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
-  width: PropTypes.number
+  width: PropTypes.string
 };
 
 TableHeaderCell.defaultProps = {
