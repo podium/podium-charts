@@ -1,4 +1,4 @@
-export const defaultCellWidth = 200;
+export const defaultCellWidth = 100;
 
 export default {
   defaultCellWidth
