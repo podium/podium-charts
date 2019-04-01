@@ -10,7 +10,6 @@ export default function TableHeaderCell({
   children,
   width
 }) {
-  console.log('WIDTH', width);
   return (
     <TableHeaderCellWrapper
       active={active}
