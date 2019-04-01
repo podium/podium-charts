@@ -8,7 +8,6 @@ export default function TableHeaderCell(_ref) {
       sortDirection = _ref.sortDirection,
       children = _ref.children,
       width = _ref.width;
-  console.log('WIDTH', width);
   return React.createElement(TableHeaderCellWrapper, {
     active: active,
     onClick: onClick,
