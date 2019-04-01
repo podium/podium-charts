@@ -66,15 +66,17 @@ export const TableWrapper = styled.table`
   ${borders}
 `;
 
-export const TableRowWrapper = styled.tr``;
+export const TableRowWrapper = styled.tr`
+  min-height: 56px;
+`;
 
 export const TableHeaderWrapper = styled.thead``;
 
 export const TableCellWrapper = styled.td`
   color: ${mineShaft};
   font-weight: normal;
-  padding: 0 32px;
-  height: 56px;
+  padding: 16px 32px;
+  min-height: 56px;
 
   ${({ width }) => width && `min-width: ${width}`};
 `;
