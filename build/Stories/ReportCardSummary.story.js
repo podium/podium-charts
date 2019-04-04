@@ -4,6 +4,7 @@ import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
 import { Chart, SummaryLine, ReportCard, ReportSummaryTitle } from '../';
 import { WindowWidthMonitor, data, weightedAvgData, weightedAvgDataPrev, currData, prevData } from './storyHelpers';
+import { DefaultNotes } from './ReportCardSummaryHelpers';
 storiesOf('Report Card Summary', module).add('Default', function () {
   return React.createElement("div", {
     style: {
@@ -23,12 +24,15 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
     color: colors.cobaltBlue
   }))));
+}, {
+  notes: DefaultNotes
 }).add('Average Trend', function () {
   return React.createElement("div", {
     style: {
@@ -48,7 +52,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -77,7 +82,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: weightedAvgData,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "dogs.cuteness",
@@ -101,7 +107,33 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
+  }, React.createElement(SummaryLine, {
+    connectNulls: true,
+    dataKey: "sms",
+    color: colors.cobaltBlue
+  }))));
+}).add('No change trend', function () {
+  return React.createElement("div", {
+    style: {
+      width: '270px'
+    }
+  }, React.createElement(ReportCard, null, React.createElement(ReportSummaryTitle, {
+    formatter: formatters.humanizeDuration,
+    dataKeys: ['sms'],
+    title: "Median Response Time",
+    data: data,
+    preferDown: true,
+    trendData: [prevData, prevData],
+    aggregationOptions: {
+      type: 'avg',
+      dataKeys: ['value']
+    }
+  }), React.createElement(Chart, {
+    data: data,
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -126,7 +158,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -151,7 +184,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -177,7 +211,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     smallWidth: 1000
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -196,7 +231,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",

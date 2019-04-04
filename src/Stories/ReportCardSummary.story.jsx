@@ -11,28 +11,33 @@ import {
   currData,
   prevData
 } from './storyHelpers';
+import { DefaultNotes } from './ReportCardSummaryHelpers';
 
 storiesOf('Report Card Summary', module)
-  .add('Default', () => (
-    <div style={{ width: '270px' }}>
-      <ReportCard width="270px">
-        <ReportSummaryTitle
-          formatter={formatters.abbreviateNumber}
-          dataKeys={['sms']}
-          title="Inbound Leads"
-          data={data}
-          trendData={[prevData, currData]}
-          aggregationOptions={{
-            type: 'total',
-            dataKeys: ['value']
-          }}
-        />
-        <Chart data={data} height={100}>
-          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
-        </Chart>
-      </ReportCard>
-    </div>
-  ))
+  .add(
+    'Default',
+    () => (
+      <div style={{ width: '270px' }}>
+        <ReportCard width="270px">
+          <ReportSummaryTitle
+            formatter={formatters.abbreviateNumber}
+            dataKeys={['sms']}
+            title="Inbound Leads"
+            data={data}
+            trendData={[prevData, currData]}
+            aggregationOptions={{
+              type: 'total',
+              dataKeys: ['value']
+            }}
+          />
+          <Chart data={data} height={100} hideGrid>
+            <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+          </Chart>
+        </ReportCard>
+      </div>
+    ),
+    { notes: DefaultNotes }
+  )
   .add('Average Trend', () => (
     <div style={{ width: '270px' }}>
       <ReportCard width="270px">
@@ -47,7 +52,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -68,7 +73,7 @@ storiesOf('Report Card Summary', module)
             options: { valueKey: 'cuteness', countKey: 'amount' }
           }}
         />
-        <Chart data={weightedAvgData} height={100}>
+        <Chart data={weightedAvgData} height={100} hideGrid>
           <SummaryLine
             connectNulls
             dataKey="dogs.cuteness"
@@ -93,12 +98,34 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
     </div>
   ))
+  .add('No change trend', () => (
+    <div style={{ width: '270px' }}>
+      <ReportCard>
+        <ReportSummaryTitle
+          formatter={formatters.humanizeDuration}
+          dataKeys={['sms']}
+          title="Median Response Time"
+          data={data}
+          preferDown
+          trendData={[prevData, prevData]}
+          aggregationOptions={{
+            type: 'avg',
+            dataKeys: ['value']
+          }}
+        />
+        <Chart data={data} height={100} hideGrid>
+          <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+      </ReportCard>
+    </div>
+  ))
+
   .add('Loading', () => (
     <div style={{ width: '270px' }}>
       <ReportCard loading>
@@ -113,7 +140,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -133,7 +160,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -158,7 +185,7 @@ storiesOf('Report Card Summary', module)
             }}
             smallWidth={1000}
           />
-          <Chart data={data} height={100}>
+          <Chart data={data} height={100} hideGrid>
             <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
           </Chart>
         </ReportCard>
@@ -175,7 +202,7 @@ storiesOf('Report Card Summary', module)
               dataKeys: ['value']
             }}
           />
-          <Chart data={data} height={100}>
+          <Chart data={data} height={100} hideGrid>
             <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
           </Chart>
         </ReportCard>

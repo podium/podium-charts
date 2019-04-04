@@ -213,8 +213,12 @@ export default class Chart extends React.Component {
     );
   };
 
+  renderCartesianGrid = () => {
+    return <RechartsCartesianGrid vertical={false} stroke={colors.mystic} />;
+  };
+
   render() {
-    const { data, width, height, loading, children } = this.props;
+    const { data, width, height, hideGrid, loading, children } = this.props;
     const isFirstRender = this.isFirstRender;
     this.isFirstRender = false;
     const filteredChildren = filterChildren(children);
@@ -240,10 +244,7 @@ export default class Chart extends React.Component {
                 margin={{ top: 20, right: 20, bottom: 20, left: 25 }}
                 barCategoryGap="30%"
               >
-                <RechartsCartesianGrid
-                  vertical={false}
-                  stroke={colors.mystic}
-                />
+                {!hideGrid && this.renderCartesianGrid()}
                 {this.renderChildren(mapping, { selectedKey, isFirstRender })}
               </RechartsChartType>
             </ResponsiveContainer>
@@ -259,9 +260,11 @@ Chart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   title: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  hideGrid: PropTypes.bool
 };
 
 Chart.defaultProps = {
-  height: 300
+  height: 300,
+  hideGrid: false
 };

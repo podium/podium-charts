@@ -69,7 +69,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  position: relative;\n  font-weight: 500;\n  text-align: left;\n  padding: 8px 32px 8px 32px;\n  height: 56px;\n  //min-width: 56px;\n\n  ", ";\n\n  &&& {\n    ", ";\n  }\n\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  position: relative;\n  font-weight: 500;\n  text-align: left;\n  padding: 8px 32px 8px 32px;\n  height: 56px;\n\n  ", ";\n\n  &&& {\n    ", ";\n  }\n\n  ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;

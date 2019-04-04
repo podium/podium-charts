@@ -1,5 +1,15 @@
-function _templateObject5() {
+function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  white-space: nowrap;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -9,7 +19,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 14px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-weight: 600;\n  font-size: 32px;\n\n  ", "\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -19,7 +29,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  color: ", ";\n  font-weight: 600;\n  font-size: 32px;\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -29,7 +39,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 16px;\n  font-weight: 500;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -39,7 +49,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 100%;\n  padding-top: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 100%;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -59,12 +69,13 @@ import Trend from './Trend';
 import { getOverallSummaryMetric, calculateTrend } from './utils/aggregators';
 var SummaryTitleWrapper = styled.div(_templateObject());
 var Title = styled.div(_templateObject2(), colors.mineShaft);
-var MonthToDate = styled.div(_templateObject3(), colors.mineShaft, function (_ref) {
+var TitleContainer = styled.div(_templateObject3());
+var MonthToDate = styled.div(_templateObject4(), colors.mineShaft, function (_ref) {
   var smallWidth = _ref.smallWidth;
   return smallWidth !== 0 && "\n    @media (max-width: ".concat(smallWidth, "px) {\n      font-size: 24px;\n    }\n  ");
 });
-var MonthToDateLabel = styled.div(_templateObject4(), colors.steel);
-var ToolTipWrapper = styled.div(_templateObject5());
+var MonthToDateLabel = styled.div(_templateObject5(), colors.steel);
+var ToolTipWrapper = styled.div(_templateObject6());
 export default function ReportSummaryTitle(_ref2) {
   var data = _ref2.data,
       title = _ref2.title,
@@ -97,20 +108,20 @@ export default function ReportSummaryTitle(_ref2) {
   var prevDataValue = trendData ? getOverallSummaryMetric(trendData[0], aggregationOptions) : 0;
   var currDataValue = trendData ? getOverallSummaryMetric(trendData[1], aggregationOptions) : 0;
   var currDataFormatted = currDataValue === null ? 'N/A' : formatter(currDataValue);
-  return React.createElement(SummaryTitleWrapper, null, React.createElement(Title, null, title), React.createElement(MonthToDate, {
-    smallWidth: smallWidth
-  }, React.createElement("span", {
-    style: {
-      marginRight: '8px'
-    }
-  }, currDataFormatted), React.createElement(ToolTip, {
+  return React.createElement(SummaryTitleWrapper, null, React.createElement(TitleContainer, null, React.createElement(Title, null, title), React.createElement(ToolTip, {
     type: "arrow",
     tip: renderToolTip(prevDataValue),
     position: "top"
   }, React.createElement(Trend, {
     direction: calculateTrend(prevDataValue, currDataValue),
     preferDown: preferDown
-  }))), React.createElement(MonthToDateLabel, null, "Month To Date"));
+  }))), React.createElement(MonthToDate, {
+    smallWidth: smallWidth
+  }, React.createElement("span", {
+    style: {
+      marginRight: '8px'
+    }
+  }, currDataFormatted)), React.createElement(MonthToDateLabel, null, "Month To Date"));
 }
 ReportSummaryTitle.propTypes = {
   data: PropTypes.array.isRequired,

@@ -39,7 +39,7 @@ var Container = styled.div(_templateObject2(), function (_ref) {
 
 var calculateLines = function calculateLines(height) {
   if (height >= 300) return 5;
-  return 3;
+  return 0;
 };
 
 var GhostChart = function GhostChart(_ref2) {

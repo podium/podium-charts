@@ -1,5 +1,35 @@
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 18px;\n  height: 18px;\n  border-radius: 2px;\n  background-color: ", ";\n  margin: 2px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 22px;\n  height: 22px;\n  border-radius: 2px;\n  background-color: ", ";\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  height: 24px;\n  width: 24px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -12,13 +42,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors, IconArrow, IconMinus } from '@podiumhq/podium-ui';
+import styled, { css } from 'styled-components';
+import { colors, IconUploadSquareSolid, IconDownloadSquareSolid, IconMinus } from '@podiumhq/podium-ui';
 
-var calculateTrendColor = function calculateTrendColor(_ref) {
-  var direction = _ref.direction,
-      preferDown = _ref.preferDown;
-
+var calculateTrendIconColor = function calculateTrendIconColor(direction, preferDown) {
   switch (direction) {
     case 'up':
       return preferDown ? colors.poppyRed : colors.podiumBrand;
@@ -27,31 +54,36 @@ var calculateTrendColor = function calculateTrendColor(_ref) {
       return preferDown ? colors.podiumBrand : colors.poppyRed;
 
     default:
-      return colors.iron;
+      return colors.white;
   }
 };
 
-var TrendWrapper = styled.div(_templateObject(), function (props) {
-  return calculateTrendColor(props);
-}, function (_ref2) {
-  var direction = _ref2.direction;
-  return direction === 'up' && "svg { transform: translate(90deg); } ";
-});
+var arrowCss = css(_templateObject());
+var StyledIconUpArrow = styled(IconUploadSquareSolid)(_templateObject2(), arrowCss);
+var StyledIconDownArrow = styled(IconDownloadSquareSolid)(_templateObject3(), arrowCss);
+var NeutralTrendWrapper = styled.div(_templateObject4(), colors.iron);
 
-var Trend = function Trend(_ref3) {
-  var direction = _ref3.direction,
-      preferDown = _ref3.preferDown;
-  return React.createElement(TrendWrapper, {
-    direction: direction,
-    preferDown: preferDown
-  }, direction === 'neutral' ? React.createElement(IconMinus, {
-    color: colors.white,
-    size: "small"
-  }) : React.createElement(IconArrow, {
-    color: colors.white,
-    size: "small",
-    direction: direction
-  }));
+var Trend = function Trend(_ref) {
+  var direction = _ref.direction,
+      preferDown = _ref.preferDown;
+
+  switch (direction) {
+    case 'up':
+      return React.createElement(StyledIconUpArrow, {
+        color: calculateTrendIconColor(direction, preferDown)
+      });
+
+    case 'down':
+      return React.createElement(StyledIconDownArrow, {
+        color: calculateTrendIconColor(direction, preferDown)
+      });
+
+    default:
+      return React.createElement(NeutralTrendWrapper, null, React.createElement(IconMinus, {
+        color: colors.white,
+        size: "small"
+      }));
+  }
 };
 
 Trend.propTypes = {
