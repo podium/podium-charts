@@ -30,7 +30,7 @@ storiesOf('Report Card Summary', module)
               dataKeys: ['value']
             }}
           />
-          <Chart data={data} height={100}>
+          <Chart data={data} height={100} hideGrid>
             <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
           </Chart>
         </ReportCard>
@@ -52,7 +52,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -73,7 +73,7 @@ storiesOf('Report Card Summary', module)
             options: { valueKey: 'cuteness', countKey: 'amount' }
           }}
         />
-        <Chart data={weightedAvgData} height={100}>
+        <Chart data={weightedAvgData} height={100} hideGrid>
           <SummaryLine
             connectNulls
             dataKey="dogs.cuteness"
@@ -98,7 +98,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -119,7 +119,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -140,7 +140,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -160,7 +160,7 @@ storiesOf('Report Card Summary', module)
             dataKeys: ['value']
           }}
         />
-        <Chart data={data} height={100}>
+        <Chart data={data} height={100} hideGrid>
           <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
         </Chart>
       </ReportCard>
@@ -185,7 +185,7 @@ storiesOf('Report Card Summary', module)
             }}
             smallWidth={1000}
           />
-          <Chart data={data} height={100}>
+          <Chart data={data} height={100} hideGrid>
             <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
           </Chart>
         </ReportCard>
@@ -202,7 +202,7 @@ storiesOf('Report Card Summary', module)
               dataKeys: ['value']
             }}
           />
-          <Chart data={data} height={100}>
+          <Chart data={data} height={100} hideGrid>
             <SummaryLine connectNulls dataKey="sms" color={colors.cobaltBlue} />
           </Chart>
         </ReportCard>
