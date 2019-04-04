@@ -108,6 +108,7 @@ function (_React$Component) {
           data = _this$props.data,
           width = _this$props.width,
           height = _this$props.height,
+          hideGrid = _this$props.hideGrid,
           loading = _this$props.loading,
           children = _this$props.children;
       var isFirstRender = this.isFirstRender;
@@ -133,7 +134,7 @@ function (_React$Component) {
             left: 25
           },
           barCategoryGap: "30%"
-        }, _this2.renderCartesianGrid(filteredChildren), _this2.renderChildren(mapping, {
+        }, !hideGrid && _this2.renderCartesianGrid(), _this2.renderChildren(mapping, {
           selectedKey: selectedKey,
           isFirstRender: isFirstRender
         }))));
@@ -281,11 +282,8 @@ var _initialiseProps = function _initialiseProps() {
     }, props));
   };
 
-  this.renderCartesianGrid = function (filteredChildren) {
-    var shouldRenderGrid = filteredChildren.some(function (child) {
-      return child.type === XAxis || child.type === YAxis;
-    });
-    return shouldRenderGrid && React.createElement(RechartsCartesianGrid, {
+  this.renderCartesianGrid = function () {
+    return React.createElement(RechartsCartesianGrid, {
       vertical: false,
       stroke: colors.mystic
     });
@@ -298,8 +296,10 @@ Chart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   title: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  hideGrid: PropTypes.bool
 };
 Chart.defaultProps = {
-  height: 300
+  height: 300,
+  hideGrid: false
 };

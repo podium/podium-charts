@@ -24,7 +24,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -51,7 +52,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -80,7 +82,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: weightedAvgData,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "dogs.cuteness",
@@ -104,7 +107,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -128,7 +132,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -153,7 +158,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -178,7 +184,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -204,7 +211,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     smallWidth: 1000
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
@@ -223,7 +231,8 @@ storiesOf('Report Card Summary', module).add('Default', function () {
     }
   }), React.createElement(Chart, {
     data: data,
-    height: 100
+    height: 100,
+    hideGrid: true
   }, React.createElement(SummaryLine, {
     connectNulls: true,
     dataKey: "sms",
