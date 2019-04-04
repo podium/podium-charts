@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-9.7%" y="-6.9%" width="119.4%" height="119.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.191179801 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Integrate" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Integrate-1" transform="translate(-925.000000, -352.000000)">
+            <g id="Group-40" transform="translate(667.000000, 307.000000)">
+                <g id="Group-39" transform="translate(111.000000, 44.000000)">
+                    <g id="Group" filter="url(#filter-1)" transform="translate(151.000000, 3.000000)">
+                        <ellipse id="Oval" fill="#FFFFFF" cx="34.5" cy="32" rx="31.5" ry="20"></ellipse>
+                        <g id="facebook-messenger-copy" fill-rule="nonzero" fill="#0084FF">
+                            <path d="M36,0 C16.1177143,0 0,14.9237778 0,33.3333333 C0,43.8233333 5.23498137,53.1802222 13.4161491,59.2904444 L13.4161491,72 L25.6738137,65.2726667 C28.945118,66.178 32.4107329,66.6666667 36,66.6666667 C55.8822857,66.6666667 72,51.7428889 72,33.3333333 C72,14.9237778 55.8822857,0 36,0 Z M39.5776398,44.8888889 L30.4099379,35.1111111 L12.5217391,44.8888889 L32.1987578,24 L41.5900621,33.7777778 L59.2546584,24 L39.5776398,44.8888889 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
