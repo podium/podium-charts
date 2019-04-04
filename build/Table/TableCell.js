@@ -16,7 +16,7 @@ export default function TableCell(_ref) {
 TableCell.propTypes = {
   activeRow: PropTypes.bool,
   activeColumn: PropTypes.bool,
-  width: PropTypes.number,
+  width: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 TableCell.defaultProps = {

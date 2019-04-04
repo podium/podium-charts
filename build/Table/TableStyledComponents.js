@@ -69,7 +69,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  position: relative;\n  font-weight: 500;\n  text-align: left;\n  padding: 8px 32px 8px 32px;\n  height: 56px;\n\n  ", ";\n\n  ", ";\n\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  position: relative;\n  font-weight: 500;\n  text-align: left;\n  padding: 8px 32px 8px 32px;\n  height: 56px;\n  //min-width: 56px;\n\n  ", ";\n\n  &&& {\n    ", ";\n  }\n\n  ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -93,7 +93,7 @@ export var TableHeaderCellWrapper = styled.th(_templateObject(), black, function
   return active && "background-color: ".concat(activeColumnBackgroundColor, ";");
 }, function (_ref2) {
   var width = _ref2.width;
-  return width && "min-width: ".concat(width, "px");
+  return width && "width: ".concat(width);
 }, function (_ref3) {
   var sortDirection = _ref3.sortDirection;
   return sortDirection && " cursor: pointer;\n      position: relative;\n      align-items: center;\n      cursor: pointer;\n      user-select: none;\n    ";
