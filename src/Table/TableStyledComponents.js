@@ -12,7 +12,6 @@ export const TableHeaderCellWrapper = styled.th`
   text-align: left;
   padding: 8px 32px 8px 32px;
   height: 56px;
-  //min-width: 56px;
 
   ${({ active }) =>
     active && `background-color: ${activeColumnBackgroundColor};`};
