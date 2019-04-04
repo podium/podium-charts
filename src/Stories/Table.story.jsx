@@ -118,32 +118,28 @@ const fixedWidthHeaders = [
   {
     id: 'name',
     content: <StyledHeader>Name & Phone/Email</StyledHeader>,
-    width: '350px'
+    width: '50%'
   },
   {
     id: 'sentBy',
     content: 'Sent By',
-    width: '15%'
+    width: '5px'
   },
   {
     id: 'timeSent',
-    content: 'Time Sent',
-    width: '15%'
+    content: 'Time Sent'
   },
   {
     id: 'followedLink',
-    content: 'Followed Link',
-    width: '15%'
+    content: 'Followed Link'
   },
   {
     id: 'review',
-    content: 'Review',
-    width: '15%'
+    content: 'Review'
   },
   {
     id: 'favoriteGradient',
-    content: 'Favorite Gradient',
-    width: '15%'
+    content: 'Favorite Gradient'
   }
 ];
 

@@ -16,7 +16,9 @@ export const TableHeaderCellWrapper = styled.th`
   ${({ active }) =>
     active && `background-color: ${activeColumnBackgroundColor};`};
 
-  ${({ width }) => width && `min-width: ${width}px`};
+  &&& {
+    ${({ width }) => width && `width: ${width}`};
+  }
 
   ${({ sortDirection }) =>
     sortDirection &&

@@ -23,7 +23,7 @@ export default function TableCell({
 TableCell.propTypes = {
   activeRow: PropTypes.bool,
   activeColumn: PropTypes.bool,
-  width: PropTypes.number,
+  width: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

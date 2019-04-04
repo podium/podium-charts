@@ -1,4 +1,4 @@
-export var defaultCellWidth = 100;
+export var defaultCellWidth = '56px';
 export default {
   defaultCellWidth: defaultCellWidth
 };
