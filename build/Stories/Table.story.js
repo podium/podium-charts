@@ -341,7 +341,7 @@ storiesOf('Reporting Table', module).add('Default', function () {
   }));
 }, {
   notes: HeaderComponentNotes
-}).add('Loading', function () {
+}).add('Table Loading', function () {
   return React.createElement("div", null, React.createElement(ReportingTable, {
     loading: true,
     data: textOnlyData,
