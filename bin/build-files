@@ -1,21 +1,42 @@
 #!/bin/bash
-git stash -k
-echo "RUNNING BUILD...... (\°_°)\ ┬─┬"
+MESSAGE="AUTOBUILD_MESSAGE"
+
+#get_stash () { git stash list | grep $MESSAGE }
+
+git stash save -k $MESSAGE 
+
+echo "---------------------------------"
+echo "RUNNING BUILD....... (\°_°)\ ┬─┬ "
+echo "---------------------------------"
+
 yarn build
 
 if [ $? -ne 0 ]; then
-	git stash pop
+	if [[ $(git stash list | grep $MESSAGE) ]]; then
+		echo "there are files"
+		git stash pop
+	else
+		echo "no stashed files found"
+	fi
+
 	echo "!!!!!!!!!!!!!!!!!!!"
 	echo "BUILD FAILED!!! Try Again...."
 	echo "!!!!!!!!!!!!!!!!!!!"
+
 	exit 1
 fi
 
 echo "BUILD COMPLETE....."
+
 git add build
-git stash pop
+
+if [[ $(git stash list | grep $MESSAGE) ]]; then
+	echo "success: there are files"
+	git stash pop
+else
+	echo "success: no stashed files found"
+fi
 
 echo "---------------------------------"
-echo "  Build Succeeded! (╯°□°)╯︵ ┻━┻"
+echo "  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
 echo "---------------------------------"
-
