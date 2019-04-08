@@ -64,11 +64,66 @@ export const fullDate = (date, monthFormat = 'MMMM') => {
   return date;
 };
 
-export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
-  if (!data || data.length === 0) return null;
-  const start = data[0]['date'];
-  const end = data[data.length - 1]['date'];
-  return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
+export const renderRangeLabel = (
+  timeRange = 'thisMonth',
+  dateStart,
+  dateEnd
+) => {
+  // return given dateStart and dateEnd
+  if (timeRange === 'custom' && dateStart && dateEnd) {
+    return `${fullDate(dateStart)} - ${fullDate(dateEnd)}`;
+  }
+  // calculate range label using timeRange
+  const now = moment.utc();
+  const timeRangeMap = {
+    today: [now, now],
+    yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
+    thisWeek: [now.clone().startOf('week'), now],
+    weekToDate: [now.clone().startOf('week'), now],
+    thisMonth: [now.clone().startOf('month'), now],
+    monthToDate: [now.clone().startOf('month'), now],
+    thisYear: [now.clone().startOf('year'), now],
+    yearToDate: [now.clone().startOf('year'), now],
+    lastWeek: [
+      now
+        .clone()
+        .subtract(1, 'week')
+        .startOf('week'),
+      now
+        .clone()
+        .subtract(1, 'week')
+        .endOf('week')
+    ],
+    lastMonth: [
+      now
+        .clone()
+        .subtract(1, 'month')
+        .startOf('month'),
+      now
+        .clone()
+        .subtract(1, 'month')
+        .endOf('month')
+    ],
+    last12Months: [
+      now
+        .clone()
+        .subtract(12, 'month')
+        .startOf('month'),
+      now
+    ],
+    lastYear: [
+      now
+        .clone()
+        .subtract(1, 'year')
+        .startOf('year'),
+      now
+        .clone()
+        .subtract(1, 'year')
+        .endOf('year')
+    ]
+  };
+
+  return `${timeRangeMap[timeRange].map(date => fullDate(date)).join(' - ')}`;
 };
 
 export const getDeselectedColor = color => {

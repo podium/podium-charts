@@ -1,3 +1,4 @@
+
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  font-size: 12px;\n  color: white;\n"]);
 
