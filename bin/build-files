@@ -1,6 +1,8 @@
 #!/bin/bash
 git stash -k
+echo "RUNNING BUILD......"
 yarn build
+echo "BUILD COMPLETE....."
 git add build
 git stash pop
 
