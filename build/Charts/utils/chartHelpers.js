@@ -62,12 +62,35 @@ export var fullDate = function fullDate(date) {
   if (momentDate.isValid()) return momentDate.format("".concat(monthFormat, " D, YYYY"));
   return date;
 };
-export var renderRangeLabel = function renderRangeLabel(data) {
-  var monthFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MMMM';
-  if (!data || data.length === 0) return null;
-  var start = data[0]['date'];
-  var end = data[data.length - 1]['date'];
-  return "".concat(fullDate(start, monthFormat), " - ").concat(fullDate(end, monthFormat));
+export var renderRangeLabel = function renderRangeLabel() {
+  var timeRange = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'thisMonth';
+  var dateStart = arguments.length > 1 ? arguments[1] : undefined;
+  var dateEnd = arguments.length > 2 ? arguments[2] : undefined;
+
+  // return given dateStart and dateEnd
+  if (timeRange === 'custom' && dateStart && dateEnd) {
+    return "".concat(fullDate(dateStart), " - ").concat(fullDate(dateEnd));
+  } // calculate range label using timeRange
+
+
+  var now = moment.utc();
+  var timeRangeMap = {
+    today: [now, now],
+    yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
+    thisWeek: [now.clone().startOf('week'), now],
+    weekToDate: [now.clone().startOf('week'), now],
+    thisMonth: [now.clone().startOf('month'), now],
+    monthToDate: [now.clone().startOf('month'), now],
+    thisYear: [now.clone().startOf('year'), now],
+    yearToDate: [now.clone().startOf('year'), now],
+    lastWeek: [now.clone().subtract(1, 'week').startOf('week'), now.clone().subtract(1, 'week').endOf('week')],
+    lastMonth: [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')],
+    last12Months: [now.clone().subtract(12, 'month').startOf('month'), now],
+    lastYear: [now.clone().subtract(1, 'year').startOf('year'), now.clone().subtract(1, 'year').endOf('year')]
+  };
+  return "".concat(timeRangeMap[timeRange].map(function (date) {
+    return fullDate(date);
+  }).join(' - '));
 };
 export var getDeselectedColor = function getDeselectedColor(color) {
   if (color.match(/^#[0-9a-f]{6}$/i)) {
