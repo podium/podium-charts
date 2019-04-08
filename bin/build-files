@@ -3,7 +3,7 @@ MESSAGE="AUTOBUILD_MESSAGE"
 
 #get_stash () { git stash list | grep $MESSAGE }
 
-git stash save -k $MESSAGE 
+git stash save -k -u $MESSAGE 
 
 echo "---------------------------------"
 echo "RUNNING BUILD....... (\°_°)\ ┬─┬ "
