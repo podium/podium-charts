@@ -317,7 +317,7 @@ storiesOf('Reporting Table', module)
     { notes: HeaderComponentNotes }
   )
 
-  .add('Table Loading', () => (
+  .add('Tables Loading', () => (
     <div>
       <ReportingTable
         loading
