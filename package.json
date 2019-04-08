@@ -12,7 +12,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
     "build": "rm -rf build/ && babel src --out-dir build",
-		"build-files": "bin/build-files"
+    "build-files": "bin/build-files"
   },
   "husky": {
     "hooks": {
