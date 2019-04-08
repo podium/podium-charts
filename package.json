@@ -11,7 +11,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
     "lint": "eslint src/** --fix --ext .jsx,.js,.ts,.tsx .",
-    "build": "rm -rf build/ && babel src --out-dir build"
+    "build": "rm -rf build/ && babel src --out-dir build",
+		"build-files": "bin/build-files"
   },
   "husky": {
     "hooks": {
@@ -22,7 +23,8 @@
     "src/**/*.{js,jsx,ts,tsx,json,css}": [
       "prettier --write",
       "eslint --fix --config react-app --max-warnings 0",
-      "git add"
+      "git add",
+			"build-files"
     ]
   },
   "author": "Some Notion",
