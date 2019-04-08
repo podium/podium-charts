@@ -16,15 +16,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn build-files"
     }
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css}": [
       "prettier --write",
       "eslint --fix --config react-app --max-warnings 0",
-      "git add",
-			"build-files"
+      "git add"
     ]
   },
   "author": "Some Notion",

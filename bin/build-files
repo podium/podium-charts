@@ -1,12 +1,10 @@
 #!/bin/bash
-if git diff-index --quiet HEAD --; then
-	yarn build
-	git add build
+git stash -k
+yarn build
+git add build
+git stash pop
 
-	echo "------------------"
-	echo "  Build Succeeded!"
-	echo "------------------"
-else
-	echo "⚠️  You have uncommitted changes to your current branch not publishing your branch."
-	exit 1
-fi
+echo "------------------"
+echo "  Build Succeeded!"
+echo "------------------"
+
