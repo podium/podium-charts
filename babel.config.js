@@ -15,7 +15,8 @@ const CONFIG = {
     ['@babel/preset-env', { modules: false }],
     '@babel/preset-react'
   ],
-  plugins: ['transform-class-properties']
+  plugins: ['transform-class-properties'],
+  ignore: ['./src/__tests__']
 }
 
 module.exports = api => {
