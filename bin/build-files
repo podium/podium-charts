@@ -1,42 +1,53 @@
 #!/bin/bash
 MESSAGE="AUTOBUILD_MESSAGE"
-
-#get_stash () { git stash list | grep $MESSAGE }
+BLUE='\033[0;34m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 git stash save -k -u $MESSAGE 
 
-echo "---------------------------------"
-echo "RUNNING BUILD....... (\°_°)\ ┬─┬ "
-echo "---------------------------------"
+echo "-----------------------------"
+echo " Checking for deleted files.."
+echo "-----------------------------"
+
+if [[ $(git status | grep deleted) ]]; then
+	echo "${YELLOW}WARN:${NC} You have deleted files. Cleaning up..."
+	rm -rf $(git status | grep deleted | awk '{print $2}')
+else
+	echo "no deleted files found, continuing..."
+fi
+
+echo -e "${BLUE}---------------------------------"
+echo -e "${BLUE}RUNNING BUILD....... (\°_°)\ ┬─┬ "
+echo -e "${BLUE}---------------------------------"
 
 yarn build
 
 if [ $? -ne 0 ]; then
 	if [[ $(git stash list | grep $MESSAGE) ]]; then
-		echo "there are files"
 		git stash pop
-	else
-		echo "no stashed files found"
 	fi
 
-	echo "!!!!!!!!!!!!!!!!!!!"
-	echo "BUILD FAILED!!! Try Again...."
-	echo "!!!!!!!!!!!!!!!!!!!"
+	echo "${RED}*****************************"
+	echo "${RED}BUILD FAILED!!! Try Again...."
+	echo "${RED}*****************************"
 
 	exit 1
 fi
 
-echo "BUILD COMPLETE....."
+#echo "${GREEN}BUILD COMPLETE....."
 
 git add build
 
 if [[ $(git stash list | grep $MESSAGE) ]]; then
-	echo "success: there are files"
+	echo "${GREEN}Done.${NC} unstashing untracked files..."
 	git stash pop
 else
-	echo "success: no stashed files found"
+	echo "${GREEN}Done.${NC} There were no stashed or untracked files"
 fi
 
-echo "---------------------------------"
-echo "  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
-echo "---------------------------------"
+echo "${GREEN}---------------------------------"
+echo "${GREEN}  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
+echo "${GREEN}---------------------------------"
