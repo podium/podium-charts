@@ -85,7 +85,7 @@ export var renderRangeLabel = function renderRangeLabel() {
     yearToDate: [now.clone().startOf('year'), now],
     lastWeek: [now.clone().subtract(1, 'week').startOf('week').add(1, 'day'), now.clone().subtract(1, 'week').endOf('week').add(1, 'day')],
     lastMonth: [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')],
-    last12Months: [now.clone().subtract(12, 'month'), now],
+    last12Months: [now.clone().subtract(12, 'month').startOf('month'), now.clone().startOf('month')],
     lastYear: [now.clone().subtract(1, 'year').startOf('year'), now.clone().subtract(1, 'year').endOf('year')]
   };
   console.log(timeRangeMap[timeRange]);

@@ -1,6 +1,15 @@
 import { getDeselectedColor } from '../Charts/utils/chartHelpers';
 
 describe('chartHelpers', () => {
+  // describe('renderRangeLabel', () => {
+  //   beforeAll(() => {
+  //     jest.mock('moment', () => () => ({utc: () => moment.utc('2018–04-09T00:00:00')}));
+  //     console.log(moment());
+  //   });
+
+  //   it('')
+  // });
+
   describe('getDeselectedColor', () => {
     it('should return semi-transparent rgba values', () => {
       const result = getDeselectedColor('#E73E51');
