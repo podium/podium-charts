@@ -8,15 +8,15 @@ NC='\033[0m' # No Color
 
 git stash save -k -u $MESSAGE 
 
-echo "-----------------------------"
-echo " Checking for deleted files.."
-echo "-----------------------------"
+echo -e "-----------------------------"
+echo -e " Checking for deleted files.."
+echo -e "-----------------------------"
 
 if [[ $(git status | grep deleted) ]]; then
-	echo "${YELLOW}WARN:${NC} You have deleted files. Cleaning up..."
+	echo -e "${YELLOW}WARN:${NC} You have deleted files. Cleaning up..."
 	rm -rf $(git status | grep deleted | awk '{print $2}')
 else
-	echo "no deleted files found, continuing..."
+	echo -e "no deleted files found, continuing..."
 fi
 
 echo -e "${BLUE}---------------------------------"
@@ -30,24 +30,24 @@ if [ $? -ne 0 ]; then
 		git stash pop
 	fi
 
-	echo "${RED}*****************************"
-	echo "BUILD FAILED!!! Try Again...."
-	echo "*****************************${NC}"
+	echo -e "${RED}*****************************"
+	echo -e "BUILD FAILED!!! Try Again...."
+	echo -e "*****************************${NC}"
 
 	exit 1
 fi
 
-#echo "${GREEN}BUILD COMPLETE....."
+#echo -e "${GREEN}BUILD COMPLETE....."
 
 git add build
 
 if [[ $(git stash list | grep $MESSAGE) ]]; then
-	echo "${GREEN}Done.${NC} unstashing untracked files..."
+	echo -e "${GREEN}Done.${NC} unstashing untracked files..."
 	git stash pop
 else
-	echo "${GREEN}Done.${NC} There were no stashed or untracked files"
+	echo -e "${GREEN}Done.${NC} There were no stashed or untracked files"
 fi
 
-echo "${GREEN}---------------------------------"
-echo "  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
-echo "--------------------------------${NC}"
+echo -e "${GREEN}---------------------------------"
+echo -e "  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
+echo -e "--------------------------------${NC}"
