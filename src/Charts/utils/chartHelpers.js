@@ -78,8 +78,20 @@ export const renderRangeLabel = (
   const timeRangeMap = {
     today: [now, now],
     yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
-    thisWeek: [now.clone().startOf('week'), now],
-    weekToDate: [now.clone().startOf('week'), now],
+    thisWeek: [
+      now
+        .clone()
+        .startOf('week')
+        .add(1, 'day'),
+      now
+    ],
+    weekToDate: [
+      now
+        .clone()
+        .startOf('week')
+        .add(1, 'day'),
+      now
+    ],
     thisMonth: [now.clone().startOf('month'), now],
     monthToDate: [now.clone().startOf('month'), now],
     thisYear: [now.clone().startOf('year'), now],
@@ -88,11 +100,13 @@ export const renderRangeLabel = (
       now
         .clone()
         .subtract(1, 'week')
-        .startOf('week'),
+        .startOf('week')
+        .add(1, 'day'),
       now
         .clone()
         .subtract(1, 'week')
         .endOf('week')
+        .add(1, 'day')
     ],
     lastMonth: [
       now
@@ -105,10 +119,8 @@ export const renderRangeLabel = (
         .endOf('month')
     ],
     last12Months: [
-      now
-        .clone()
-        .subtract(12, 'month')
-        .startOf('month'),
+      now.clone().subtract(12, 'month'),
+      // .startOf('month'),
       now
     ],
     lastYear: [
@@ -123,6 +135,7 @@ export const renderRangeLabel = (
     ]
   };
 
+  console.log(timeRangeMap[timeRange]);
   return `${timeRangeMap[timeRange].map(date => fullDate(date)).join(' - ')}`;
 };
 

@@ -77,17 +77,19 @@ export var renderRangeLabel = function renderRangeLabel() {
   var timeRangeMap = {
     today: [now, now],
     yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
-    thisWeek: [now.clone().startOf('week'), now],
-    weekToDate: [now.clone().startOf('week'), now],
+    thisWeek: [now.clone().startOf('week').add(1, 'day'), now],
+    weekToDate: [now.clone().startOf('week').add(1, 'day'), now],
     thisMonth: [now.clone().startOf('month'), now],
     monthToDate: [now.clone().startOf('month'), now],
     thisYear: [now.clone().startOf('year'), now],
     yearToDate: [now.clone().startOf('year'), now],
-    lastWeek: [now.clone().subtract(1, 'week').startOf('week'), now.clone().subtract(1, 'week').endOf('week')],
+    lastWeek: [now.clone().subtract(1, 'week').startOf('week').add(1, 'day'), now.clone().subtract(1, 'week').endOf('week').add(1, 'day')],
     lastMonth: [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')],
-    last12Months: [now.clone().subtract(12, 'month').startOf('month'), now],
+    last12Months: [now.clone().subtract(12, 'month') // .startOf('month'),
+    , now],
     lastYear: [now.clone().subtract(1, 'year').startOf('year'), now.clone().subtract(1, 'year').endOf('year')]
   };
+  console.log(timeRangeMap[timeRange]);
   return "".concat(timeRangeMap[timeRange].map(function (date) {
     return fullDate(date);
   }).join(' - '));

@@ -210,7 +210,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Legend (multiple bars)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    timeRange: "thisMonth"
+    timeRange: "last12Months"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, null), React.createElement(XAxis, {

@@ -185,7 +185,7 @@ storiesOf('Report Card', module)
 
   .add('w/Legend (multiple bars)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" timeRange="thisMonth" />
+      <ReportTitle title="Inbound Leads by Source" timeRange="last12Months" />
       <Chart data={data}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
