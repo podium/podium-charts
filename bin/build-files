@@ -6,12 +6,14 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Stash any local unstaged changes
 git stash save -k -u $MESSAGE 
 
 echo -e "-----------------------------"
 echo -e " Checking for deleted files.."
 echo -e "-----------------------------"
 
+# If any of the changes include deleted files, ensure the commit is clean
 if [[ $(git status | grep deleted) ]]; then
 	echo -e "${YELLOW}WARN:${NC} You have deleted files. Cleaning up..."
 	rm -rf $(git status | grep deleted | awk '{print $2}')
@@ -23,9 +25,11 @@ echo -e "${BLUE}---------------------------------"
 echo -e "RUNNING BUILD....... (\°_°)\ ┬─┬ "
 echo -e "---------------------------------${NC}"
 
+# Build with cleaned files
 yarn build
 
 if [ $? -ne 0 ]; then
+  # if the build fails, exit gracefully
 	if [[ $(git stash list | grep $MESSAGE) ]]; then
 		git stash pop
 	fi
@@ -37,10 +41,10 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-#echo -e "${GREEN}BUILD COMPLETE....."
-
+# Add the new build files
 git add build
 
+# Add any unstaged local changes back from the stash
 if [[ $(git stash list | grep $MESSAGE) ]]; then
 	echo -e "${GREEN}Done.${NC} unstashing untracked files..."
 	git stash pop
@@ -48,6 +52,7 @@ else
 	echo -e "${GREEN}Done.${NC} There were no stashed or untracked files"
 fi
 
+#Finish with glory and honor
 echo -e "${GREEN}---------------------------------"
 echo -e "  Build Succeeded! (╯°□°)╯︵ ┻━┻ "
 echo -e "--------------------------------${NC}"
