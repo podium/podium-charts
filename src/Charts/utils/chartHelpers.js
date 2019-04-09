@@ -118,11 +118,7 @@ export const renderRangeLabel = (
         .subtract(1, 'month')
         .endOf('month')
     ],
-    last12Months: [
-      now.clone().subtract(12, 'month'),
-      // .startOf('month'),
-      now
-    ],
+    last12Months: [now.clone().subtract(12, 'month'), now],
     lastYear: [
       now
         .clone()
