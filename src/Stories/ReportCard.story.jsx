@@ -28,7 +28,7 @@ import {
 storiesOf('Report Card', module)
   .add('w/Chart,Title', () => (
     <ReportCard>
-      <ReportTitle title="Total Reviews" data={data} />
+      <ReportTitle title="Total Reviews" timeRange="lastYear" />
       <Chart data={data}>
         <YAxis tickFormatter={formatters.abbreviateTime} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -38,7 +38,7 @@ storiesOf('Report Card', module)
   ))
   .add('w/Summary', () => (
     <ReportCard>
-      <ReportTitle title="Total Reviews" data={data} />
+      <ReportTitle title="Total Reviews" timeRange="lastYear" />
       <Chart data={data}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -58,7 +58,12 @@ storiesOf('Report Card', module)
   ))
   .add('w/Legend (weightedAvg)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" data={weightedAvgData} />
+      <ReportTitle
+        title="Inbound Leads by Source"
+        timeRange="custom"
+        dateStart="2018-09-15T23:43:32"
+        dateEnd="'2018-11-15T23:43:32'"
+      />
       <Chart data={weightedAvgData}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -146,7 +151,7 @@ storiesOf('Report Card', module)
   ))
   .add('w/Custom Formatted Legend', () => (
     <ReportCard>
-      <ReportTitle title="Total Reviews" data={data} />
+      <ReportTitle title="Total Reviews" timeRange="lastYear" />
       <Granularity
         timeRange="lastYear"
         onChange={res => {
@@ -166,7 +171,7 @@ storiesOf('Report Card', module)
           dataKeys: ['text', 'organic']
         }}
         granularity="month"
-        timeRange="custom"
+        timeRange="lastYear"
       />
       <Legend
         formatter={customFormatter}
@@ -185,7 +190,7 @@ storiesOf('Report Card', module)
 
   .add('w/Legend (multiple bars)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" timeRange="last12Months" />
+      <ReportTitle title="Inbound Leads by Source" timeRange="lastYear" />
       <Chart data={data}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -216,7 +221,7 @@ storiesOf('Report Card', module)
   ))
   .add('w/Legend (stacked bars)', () => (
     <ReportCard>
-      <ReportTitle title="Inbound Leads by Source" data={data} />
+      <ReportTitle title="Inbound Leads by Source" timeRange="lastYear" />
       <Chart data={data}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -252,7 +257,12 @@ storiesOf('Report Card', module)
   ))
   .add('w/Tooltip', () => (
     <ReportCard>
-      <ReportTitle title="Cats vs Dogs" data={weightedAvgData} />
+      <ReportTitle
+        title="Cats vs Dogs"
+        timeRange="custom"
+        dateStart="2018-09-15T23:43:32"
+        dateEnd="2018-11-15T23:43:32"
+      />
       <Chart data={weightedAvgData}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -287,7 +297,7 @@ storiesOf('Report Card', module)
   ))
   .add('w/TooltipBody (single key)', () => (
     <ReportCard>
-      <ReportTitle title="Single Value Tooltip" data={data} />
+      <ReportTitle title="Single Value Tooltip" timeRange="lastYear" />
       <Chart data={data}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -308,7 +318,12 @@ storiesOf('Report Card', module)
   ))
   .add('w/TooltipBodyTime', () => (
     <ReportCard>
-      <ReportTitle title="Wait Time" data={timeData} />
+      <ReportTitle
+        title="Wait Time"
+        timeRange="custom"
+        dateStart="2018-08-15T23:43:32"
+        dateEnd="2018-11-15T23:43:32"
+      />
       <Chart data={timeData}>
         <YAxis />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />
@@ -323,13 +338,13 @@ storiesOf('Report Card', module)
           dataKeys: ['waitTime']
         }}
         granularity="month"
-        timeRange="lastYear"
+        timeRange="custom"
       />
     </ReportCard>
   ))
   .add('Loading', () => (
     <ReportCard loading>
-      <ReportTitle title="Total Reviews" data={data} />
+      <ReportTitle title="Total Reviews" timeRange="lastYear" />
       <Granularity
         timeRange="lastYear"
         onChange={res => {
@@ -364,7 +379,7 @@ storiesOf('Report Card', module)
 
   .add('w/Granularity', () => (
     <ReportCard>
-      <ReportTitle title="Total Reviews" data={data} />
+      <ReportTitle title="Total Reviews" timeRange="lastYear" />
       <Granularity
         timeRange="lastYear"
         onChange={res => {
@@ -384,7 +399,7 @@ storiesOf('Report Card', module)
           dataKeys: ['text', 'organic']
         }}
         granularity="month"
-        timeRange="custom"
+        timeRange="lastYear"
       />
       <Legend
         formatter={formatters.roundToPlaces(1)}
