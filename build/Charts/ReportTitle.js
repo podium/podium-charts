@@ -44,31 +44,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
-import { renderRangeLabel, fullDate } from './utils/chartHelpers';
+import { renderRangeLabel } from './utils/chartHelpers';
 var TitleWrapper = styled.div(_templateObject());
 var Title = styled.div(_templateObject2());
 var RangeLabel = styled.div(_templateObject3(), colors.steel);
 var DateRangePlaceholder = styled.span(_templateObject4());
 export default function ReportTitle(_ref) {
-  var data = _ref.data,
-      title = _ref.title,
+  var title = _ref.title,
       loading = _ref.loading,
       timeRange = _ref.timeRange,
       dateStart = _ref.dateStart,
       dateEnd = _ref.dateEnd;
-
-  var renderTimeRange = function renderTimeRange() {
-    if (timeRange === 'custom' && dateStart && dateEnd) {
-      return "".concat(fullDate(dateStart), " - ").concat(fullDate(dateEnd));
-    } else {
-      return renderRangeLabel(data);
-    }
-  };
-
-  return React.createElement(TitleWrapper, null, React.createElement(Title, null, title), React.createElement(RangeLabel, null, loading ? React.createElement(DateRangePlaceholder, null, "Date Range") : renderTimeRange()));
+  return React.createElement(TitleWrapper, null, React.createElement(Title, null, title), React.createElement(RangeLabel, null, loading ? React.createElement(DateRangePlaceholder, null, "Date Range") : renderRangeLabel(timeRange, dateStart, dateEnd)));
 }
 ReportTitle.propTypes = {
-  data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   timeRange: PropTypes.string,
   dateStart: PropTypes.string,

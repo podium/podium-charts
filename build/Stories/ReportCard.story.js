@@ -7,7 +7,7 @@ import { data, powerLevels, weightedAvgData, timeData, customFormatter } from '.
 storiesOf('Report Card', module).add('w/Chart,Title', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, {
@@ -22,7 +22,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Summary', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -44,7 +44,9 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Legend (weightedAvg)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: weightedAvgData
+    timeRange: "custom",
+    dateStart: "2018-09-15T23:43:32",
+    dateEnd: "2018-11-15T23:43:32"
   }), React.createElement(Chart, {
     data: weightedAvgData
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -167,7 +169,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Custom Formatted Legend', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
@@ -189,7 +191,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       dataKeys: ['text', 'organic']
     },
     granularity: "month",
-    timeRange: "custom"
+    timeRange: "lastYear"
   }), React.createElement(Legend, {
     formatter: customFormatter,
     data: data,
@@ -210,7 +212,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Legend (multiple bars)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -253,7 +255,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Legend (stacked bars)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -298,7 +300,9 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Tooltip', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Cats vs Dogs",
-    data: weightedAvgData
+    timeRange: "custom",
+    dateStart: "2018-09-15T23:43:32",
+    dateEnd: "2018-11-15T23:43:32"
   }), React.createElement(Chart, {
     data: weightedAvgData
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -342,7 +346,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/TooltipBody (single key)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Single Value Tooltip",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -369,7 +373,9 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/TooltipBodyTime', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Wait Time",
-    data: timeData
+    timeRange: "custom",
+    dateStart: "2018-08-15T23:43:32",
+    dateEnd: "2018-11-15T23:43:32"
   }), React.createElement(Chart, {
     data: timeData
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -389,14 +395,14 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       dataKeys: ['waitTime']
     },
     granularity: "month",
-    timeRange: "lastYear"
+    timeRange: "custom"
   }));
 }).add('Loading', function () {
   return React.createElement(ReportCard, {
     loading: true
   }, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
@@ -438,7 +444,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 }).add('w/Granularity', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    data: data
+    timeRange: "lastYear"
   }), React.createElement(Granularity, {
     timeRange: "lastYear",
     onChange: function onChange(res) {
@@ -460,7 +466,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       dataKeys: ['text', 'organic']
     },
     granularity: "month",
-    timeRange: "custom"
+    timeRange: "lastYear"
   }), React.createElement(Legend, {
     formatter: formatters.roundToPlaces(1),
     data: data,

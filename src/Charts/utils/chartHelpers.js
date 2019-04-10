@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import { Line, Bar } from '../skeletonComponents';
 import { colors } from '@podiumhq/podium-ui';
+import dateHelpers from './dateHelpers';
 
 const DEFAULT_DESELECTED_COLOR = colors.mystic;
 
@@ -64,11 +65,17 @@ export const fullDate = (date, monthFormat = 'MMMM') => {
   return date;
 };
 
-export const renderRangeLabel = (data, monthFormat = 'MMMM') => {
-  if (!data || data.length === 0) return null;
-  const start = data[0]['date'];
-  const end = data[data.length - 1]['date'];
-  return `${fullDate(start, monthFormat)} - ${fullDate(end, monthFormat)}`;
+export const renderRangeLabel = (
+  timeRange = 'thisMonth',
+  dateStart,
+  dateEnd
+) => {
+  if (timeRange === 'custom' && dateStart && dateEnd) {
+    return `${fullDate(dateStart)} - ${fullDate(dateEnd)}`;
+  }
+
+  const [start, end] = dateHelpers[timeRange]();
+  return `${fullDate(start)} - ${fullDate(end)}`;
 };
 
 export const getDeselectedColor = color => {
