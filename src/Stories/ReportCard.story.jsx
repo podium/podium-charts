@@ -62,7 +62,7 @@ storiesOf('Report Card', module)
         title="Inbound Leads by Source"
         timeRange="custom"
         dateStart="2018-09-15T23:43:32"
-        dateEnd="'2018-11-15T23:43:32'"
+        dateEnd="2018-11-15T23:43:32"
       />
       <Chart data={weightedAvgData}>
         <YAxis />

@@ -46,7 +46,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     title: "Inbound Leads by Source",
     timeRange: "custom",
     dateStart: "2018-09-15T23:43:32",
-    dateEnd: "'2018-11-15T23:43:32'"
+    dateEnd: "2018-11-15T23:43:32"
   }), React.createElement(Chart, {
     data: weightedAvgData
   }, React.createElement(YAxis, null), React.createElement(XAxis, {
