@@ -88,7 +88,6 @@ export var renderRangeLabel = function renderRangeLabel() {
     last12Months: [now.clone().subtract(12, 'month').startOf('month'), now.clone().startOf('month')],
     lastYear: [now.clone().subtract(1, 'year').startOf('year'), now.clone().subtract(1, 'year').endOf('year')]
   };
-  console.log(timeRangeMap[timeRange]);
   return "".concat(timeRangeMap[timeRange].map(function (date) {
     return fullDate(date);
   }).join(' - '));

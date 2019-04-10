@@ -137,7 +137,6 @@ export const renderRangeLabel = (
     ]
   };
 
-  console.log(timeRangeMap[timeRange]);
   return `${timeRangeMap[timeRange].map(date => fullDate(date)).join(' - ')}`;
 };
 
