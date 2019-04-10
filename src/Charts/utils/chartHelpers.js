@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import { Line, Bar } from '../skeletonComponents';
 import { colors } from '@podiumhq/podium-ui';
+import dateHelpers from './dateHelpers';
 
 const DEFAULT_DESELECTED_COLOR = colors.mystic;
 
@@ -69,75 +70,12 @@ export const renderRangeLabel = (
   dateStart,
   dateEnd
 ) => {
-  // return given dateStart and dateEnd
   if (timeRange === 'custom' && dateStart && dateEnd) {
     return `${fullDate(dateStart)} - ${fullDate(dateEnd)}`;
   }
-  // calculate range label using timeRange
-  const now = moment.utc();
-  const timeRangeMap = {
-    today: [now, now],
-    yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
-    thisWeek: [
-      now
-        .clone()
-        .startOf('week')
-        .add(1, 'day'),
-      now
-    ],
-    weekToDate: [
-      now
-        .clone()
-        .startOf('week')
-        .add(1, 'day'),
-      now
-    ],
-    thisMonth: [now.clone().startOf('month'), now],
-    monthToDate: [now.clone().startOf('month'), now],
-    thisYear: [now.clone().startOf('year'), now],
-    yearToDate: [now.clone().startOf('year'), now],
-    lastWeek: [
-      now
-        .clone()
-        .subtract(1, 'week')
-        .startOf('week')
-        .add(1, 'day'),
-      now
-        .clone()
-        .subtract(1, 'week')
-        .endOf('week')
-        .add(1, 'day')
-    ],
-    lastMonth: [
-      now
-        .clone()
-        .subtract(1, 'month')
-        .startOf('month'),
-      now
-        .clone()
-        .subtract(1, 'month')
-        .endOf('month')
-    ],
-    last12Months: [
-      now
-        .clone()
-        .subtract(12, 'month')
-        .startOf('month'),
-      now.clone().startOf('month')
-    ],
-    lastYear: [
-      now
-        .clone()
-        .subtract(1, 'year')
-        .startOf('year'),
-      now
-        .clone()
-        .subtract(1, 'year')
-        .endOf('year')
-    ]
-  };
 
-  return `${timeRangeMap[timeRange].map(date => fullDate(date)).join(' - ')}`;
+  const [start, end] = dateHelpers[timeRange]();
+  return `${fullDate(start)} - ${fullDate(end)}`;
 };
 
 export const getDeselectedColor = color => {

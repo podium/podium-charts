@@ -1,3 +1,11 @@
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -12,6 +20,7 @@ import { BarChart as RechartsBarChart, ComposedChart as RechartsComposedChart, L
 import moment from 'moment';
 import { Line, Bar } from '../skeletonComponents';
 import { colors } from '@podiumhq/podium-ui';
+import dateHelpers from './dateHelpers';
 var DEFAULT_DESELECTED_COLOR = colors.mystic;
 export function detectChartType(children) {
   var filteredChildren = filterChildren(children);
@@ -67,30 +76,16 @@ export var renderRangeLabel = function renderRangeLabel() {
   var dateStart = arguments.length > 1 ? arguments[1] : undefined;
   var dateEnd = arguments.length > 2 ? arguments[2] : undefined;
 
-  // return given dateStart and dateEnd
   if (timeRange === 'custom' && dateStart && dateEnd) {
     return "".concat(fullDate(dateStart), " - ").concat(fullDate(dateEnd));
-  } // calculate range label using timeRange
+  }
 
+  var _dateHelpers$timeRang = dateHelpers[timeRange](),
+      _dateHelpers$timeRang2 = _slicedToArray(_dateHelpers$timeRang, 2),
+      start = _dateHelpers$timeRang2[0],
+      end = _dateHelpers$timeRang2[1];
 
-  var now = moment.utc();
-  var timeRangeMap = {
-    today: [now, now],
-    yesterday: [now.clone().subtract(1, 'day'), now.clone().subtract(1, 'day')],
-    thisWeek: [now.clone().startOf('week').add(1, 'day'), now],
-    weekToDate: [now.clone().startOf('week').add(1, 'day'), now],
-    thisMonth: [now.clone().startOf('month'), now],
-    monthToDate: [now.clone().startOf('month'), now],
-    thisYear: [now.clone().startOf('year'), now],
-    yearToDate: [now.clone().startOf('year'), now],
-    lastWeek: [now.clone().subtract(1, 'week').startOf('week').add(1, 'day'), now.clone().subtract(1, 'week').endOf('week').add(1, 'day')],
-    lastMonth: [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')],
-    last12Months: [now.clone().subtract(12, 'month').startOf('month'), now.clone().startOf('month')],
-    lastYear: [now.clone().subtract(1, 'year').startOf('year'), now.clone().subtract(1, 'year').endOf('year')]
-  };
-  return "".concat(timeRangeMap[timeRange].map(function (date) {
-    return fullDate(date);
-  }).join(' - '));
+  return "".concat(fullDate(start), " - ").concat(fullDate(end));
 };
 export var getDeselectedColor = function getDeselectedColor(color) {
   if (color.match(/^#[0-9a-f]{6}$/i)) {
