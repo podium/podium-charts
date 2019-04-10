@@ -1,6 +1,6 @@
 {
   "name": "podium-reporting-toolkit",
-  "version": "0.16.4",
+  "version": "0.16.5",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
   "module": "build/index.js",
@@ -16,7 +16,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn build-files"
+      "pre-commit": "lint-staged && yarn test && yarn build-files"
     }
   },
   "lint-staged": {
