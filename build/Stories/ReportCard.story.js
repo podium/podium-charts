@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
 import { Chart, XAxis, YAxis, Bar, Granularity, Line, Legend, Summary, Tooltip, TooltipBody, TooltipBodyTime, ReportCard, ReportTitle } from '../';
+import { CustomLegendNotes } from './ReportCardHelpers';
 import { data, powerLevels, weightedAvgData, timeData, customFormatter } from './storyHelpers';
 storiesOf('Report Card', module).add('w/Chart,Title', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
@@ -200,15 +201,23 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       dataKeys: ['organic', 'text']
     },
     displayOptions: [{
+      name: 'Webchat',
+      dataKey: 'text',
+      color: colors.cobaltBlue,
+      disabled: true
+    }, {
       name: 'Organic',
       dataKey: 'organic',
       color: colors.cobaltBlue
     }, {
-      name: 'Text',
+      name: 'Something Else',
       dataKey: 'text',
-      color: colors.poppyRed
+      color: colors.poppyRed,
+      disabled: true
     }]
   }));
+}, {
+  notes: CustomLegendNotes
 }).add('w/Legend (multiple bars)', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Inbound Leads by Source",

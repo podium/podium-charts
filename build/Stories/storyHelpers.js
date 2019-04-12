@@ -368,7 +368,7 @@ export var customFormatter = function customFormatter(value, dataKey) {
       href: "//yelp.com",
       target: "_blank",
       rel: "noopener noreferrer"
-    }, "View in Yelp");
+    }, "Enable!");
   }
 
   return formatters.roundToPlaces(1)(value);

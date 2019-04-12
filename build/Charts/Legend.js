@@ -3,7 +3,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  margin-right: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  margin-right: 8px;\n  color: ", ";\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -61,13 +61,16 @@ var ItemWrapper = styled.div(_templateObject2(), function (_ref) {
 var ColorLabel = styled.div(_templateObject3(), function (props) {
   return props.color;
 });
-var Label = styled.div(_templateObject4());
-export default function Legend(_ref2) {
-  var loading = _ref2.loading,
-      data = _ref2.data,
-      aggregationOptions = _ref2.aggregationOptions,
-      displayOptions = _ref2.displayOptions,
-      formatter = _ref2.formatter;
+var Label = styled.div(_templateObject4(), function (_ref2) {
+  var disabled = _ref2.disabled;
+  return disabled && colors.steel;
+});
+export default function Legend(_ref3) {
+  var loading = _ref3.loading,
+      data = _ref3.data,
+      aggregationOptions = _ref3.aggregationOptions,
+      displayOptions = _ref3.displayOptions,
+      formatter = _ref3.formatter;
 
   var calculateValue = function calculateValue(dataKey) {
     var itemAggregationOptions = {
@@ -101,10 +104,16 @@ export default function Legend(_ref2) {
     var onSelectKey = arguments.length > 2 ? arguments[2] : undefined;
     // TODO: why do we need to reverse the displayOptions?
     // Maybe we want to reverse the rendering of stacked bars instead
-    return displayOptions.slice().reverse().map(function (legendItem) {
+    var legendItems = [];
+    var filteredItems = [];
+    displayOptions.forEach(function (item) {
+      item.disabled ? filteredItems.push(item) : legendItems.push(item);
+    });
+    return legendItems.reverse().concat(filteredItems).slice().map(function (legendItem) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
-          name = legendItem.name;
+          name = legendItem.name,
+          disabled = legendItem.disabled;
       var formattedValue = formatter(aggMap[dataKey], dataKey);
       return React.createElement(ItemWrapper, {
         key: name,
@@ -115,8 +124,10 @@ export default function Legend(_ref2) {
         onMouseLeave: function onMouseLeave() {
           return onSelectKey(null);
         }
-      }, React.createElement(Label, null, React.createElement(ColorLabel, {
-        color: color
+      }, React.createElement(Label, {
+        disabled: disabled
+      }, React.createElement(ColorLabel, {
+        color: disabled ? colors.mystic : color
       }), React.createElement("div", null, name ? name : '')), formattedValue && React.createElement("div", null, formattedValue));
     });
   };
@@ -124,9 +135,9 @@ export default function Legend(_ref2) {
   if (loading) return renderGhostState();
   var dataKeys = get(aggregationOptions, 'dataKeys');
   var aggMap = createAggMap(dataKeys);
-  return React.createElement(ReportCardContext.Consumer, null, function (_ref3) {
-    var selectedKey = _ref3.selectedKey,
-        onSelectKey = _ref3.onSelectKey;
+  return React.createElement(ReportCardContext.Consumer, null, function (_ref4) {
+    var selectedKey = _ref4.selectedKey,
+        onSelectKey = _ref4.onSelectKey;
     return React.createElement(LegendWrapper, null, renderLegendItems(aggMap, selectedKey, onSelectKey));
   });
 }
