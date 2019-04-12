@@ -28,6 +28,8 @@ This is primarily used for upsells or to show datakeys that have no direct data 
 />
 ``` 
 
+**Note:** All of the disabled keys will appear at the bottom of the legend.
+
 ## Custom Component For Value  
 If you would like to replace the displayed value in the legend with a custom component, you can define a custom formatter function that takes `dataKey` and `value`. This should handle the conditional logic to display either your custom component/formatter or a default formatter for keys that don't meet the direct condition:
 
