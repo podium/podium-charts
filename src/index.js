@@ -10,6 +10,7 @@ export { default as Granularity } from './Charts/Granularity';
 
 export * from './Charts/skeletonComponents';
 export { default as formatters } from './Charts/utils/formatters';
+export { default as dateHelpers } from './Charts/utils/dateHelpers';
 export { default as transformer } from './Charts/utils/transformer';
 export { default as aggregators } from './Charts/utils/aggregators';
 export { default as colors } from './Colors';
