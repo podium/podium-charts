@@ -228,7 +228,7 @@ export const customFormatter = (value, dataKey) => {
   if (dataKey === 'text') {
     return (
       <a href="//yelp.com" target="_blank" rel="noopener noreferrer">
-        View in Yelp
+        Enable!
       </a>
     );
   }

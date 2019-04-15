@@ -47,6 +47,7 @@ const Label = styled.div`
   display: flex;
   align-items: center;
   margin-right: 8px;
+  color: ${({ disabled }) => disabled && colors.steel};
 `;
 
 export default function Legend({
@@ -82,11 +83,18 @@ export default function Legend({
   const renderLegendItems = (aggMap = {}, selectedKey, onSelectKey) => {
     // TODO: why do we need to reverse the displayOptions?
     // Maybe we want to reverse the rendering of stacked bars instead
-    return displayOptions
-      .slice()
+    const legendItems = [];
+    const filteredItems = [];
+    displayOptions.forEach(item => {
+      item.disabled ? filteredItems.push(item) : legendItems.push(item);
+    });
+
+    return legendItems
       .reverse()
+      .concat(filteredItems)
+      .slice()
       .map(legendItem => {
-        const { dataKey, color, name } = legendItem;
+        const { dataKey, color, name, disabled } = legendItem;
         const formattedValue = formatter(aggMap[dataKey], dataKey);
         return (
           <ItemWrapper
@@ -95,8 +103,8 @@ export default function Legend({
             onMouseEnter={() => onSelectKey(dataKey)}
             onMouseLeave={() => onSelectKey(null)}
           >
-            <Label>
-              <ColorLabel color={color} />
+            <Label disabled={disabled}>
+              <ColorLabel color={disabled ? colors.mystic : color} />
               <div>{name ? name : ''}</div>
             </Label>
             {formattedValue && <div>{formattedValue}</div>}

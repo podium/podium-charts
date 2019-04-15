@@ -17,6 +17,7 @@ import {
   ReportCard,
   ReportTitle
 } from '../';
+import { CustomLegendNotes } from './ReportCardHelpers';
 import {
   data,
   powerLevels,
@@ -149,44 +150,59 @@ storiesOf('Report Card', module)
       />
     </ReportCard>
   ))
-  .add('w/Custom Formatted Legend', () => (
-    <ReportCard>
-      <ReportTitle title="Total Reviews" timeRange="lastYear" />
-      <Granularity
-        timeRange="lastYear"
-        onChange={res => {
-          console.log(`You picked ${res}`);
-        }}
-      />
-      <Chart data={data}>
-        <YAxis />
-        <XAxis dataKey="date" tickFormatter={formatters.date()} />
-        <Line dataKey="sms" color={colors.cobaltBlue} />
-      </Chart>
-      <Summary
-        formatter={formatters.roundToPlaces(1)}
-        data={data}
-        aggregationOptions={{
-          type: 'total',
-          dataKeys: ['text', 'organic']
-        }}
-        granularity="month"
-        timeRange="lastYear"
-      />
-      <Legend
-        formatter={customFormatter}
-        data={data}
-        aggregationOptions={{
-          type: 'total',
-          dataKeys: ['organic', 'text']
-        }}
-        displayOptions={[
-          { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
-          { name: 'Text', dataKey: 'text', color: colors.poppyRed }
-        ]}
-      />
-    </ReportCard>
-  ))
+  .add(
+    'w/Custom Formatted Legend',
+    () => (
+      <ReportCard>
+        <ReportTitle title="Total Reviews" timeRange="lastYear" />
+        <Granularity
+          timeRange="lastYear"
+          onChange={res => {
+            console.log(`You picked ${res}`);
+          }}
+        />
+        <Chart data={data}>
+          <YAxis />
+          <XAxis dataKey="date" tickFormatter={formatters.date()} />
+          <Line dataKey="sms" color={colors.cobaltBlue} />
+        </Chart>
+        <Summary
+          formatter={formatters.roundToPlaces(1)}
+          data={data}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['text', 'organic']
+          }}
+          granularity="month"
+          timeRange="lastYear"
+        />
+        <Legend
+          formatter={customFormatter}
+          data={data}
+          aggregationOptions={{
+            type: 'total',
+            dataKeys: ['organic', 'text']
+          }}
+          displayOptions={[
+            {
+              name: 'Webchat',
+              dataKey: 'text',
+              color: colors.cobaltBlue,
+              disabled: true
+            },
+            { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
+            {
+              name: 'Something Else',
+              dataKey: 'text',
+              color: colors.poppyRed,
+              disabled: true
+            }
+          ]}
+        />
+      </ReportCard>
+    ),
+    { notes: CustomLegendNotes }
+  )
 
   .add('w/Legend (multiple bars)', () => (
     <ReportCard>
