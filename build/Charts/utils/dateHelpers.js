@@ -1,7 +1,7 @@
 import moment from 'moment'; //  time ranges relative to current day
 
 var today = function today() {
-  return [moment.utc(), moment.utc()];
+  return [moment.utc().startOf('day'), moment.utc().endOf('day')];
 };
 
 var thisWeek = function thisWeek() {
@@ -18,7 +18,7 @@ var thisYear = function thisYear() {
 
 
 var yesterday = function yesterday() {
-  return [moment.utc().subtract(1, 'day'), moment.utc().subtract(1, 'day')];
+  return [moment.utc().startOf('day').subtract(1, 'day'), moment.utc().endOf('day').subtract(1, 'day')];
 };
 
 var lastWeek = function lastWeek() {
@@ -35,6 +35,11 @@ var lastYear = function lastYear() {
 
 var last12Months = function last12Months() {
   return [moment.utc().subtract(12, 'month').startOf('month'), moment.utc().startOf('month')];
+}; // Add timestamps to dates
+
+
+var custom = function custom(startDate, endDate) {
+  return [moment.utc(startDate).startOf('day'), moment.utc(endDate).endOf('day')];
 };
 
 export default {
@@ -49,5 +54,6 @@ export default {
   lastWeek: lastWeek,
   lastMonth: lastMonth,
   lastYear: lastYear,
-  last12Months: last12Months
+  last12Months: last12Months,
+  custom: custom
 };

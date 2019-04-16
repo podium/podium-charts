@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 //  time ranges relative to current day
-const today = () => [moment.utc(), moment.utc()];
+const today = () => [moment.utc().startOf('day'), moment.utc().endOf('day')];
 
 const thisWeek = () => [
   moment
@@ -17,8 +17,14 @@ const thisYear = () => [moment.utc().startOf('year'), moment.utc()];
 
 // time ranges relative to day in the past
 const yesterday = () => [
-  moment.utc().subtract(1, 'day'),
-  moment.utc().subtract(1, 'day')
+  moment
+    .utc()
+    .startOf('day')
+    .subtract(1, 'day'),
+  moment
+    .utc()
+    .endOf('day')
+    .subtract(1, 'day')
 ];
 
 const lastWeek = () => [
@@ -64,6 +70,12 @@ const last12Months = () => [
   moment.utc().startOf('month')
 ];
 
+// Add timestamps to dates
+const custom = (startDate, endDate) => [
+  moment.utc(startDate).startOf('day'),
+  moment.utc(endDate).endOf('day')
+];
+
 export default {
   today,
   thisWeek,
@@ -76,5 +88,6 @@ export default {
   lastWeek,
   lastMonth,
   lastYear,
-  last12Months
+  last12Months,
+  custom
 };
