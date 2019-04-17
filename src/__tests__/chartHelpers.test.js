@@ -63,7 +63,7 @@ describe('chartHelpers', () => {
 
       it('should calculate correct date range for last12Months', () => {
         const result = renderRangeLabel('last12Months');
-        expect(result).toEqual('September 1, 2018 - September 1, 2019');
+        expect(result).toEqual('September 13, 2018 - September 13, 2019');
       });
 
       it('should calculate correct date range for lastYear', () => {

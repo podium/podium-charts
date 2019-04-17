@@ -62,13 +62,7 @@ const lastYear = () => [
     .endOf('year')
 ];
 
-const last12Months = () => [
-  moment
-    .utc()
-    .subtract(12, 'month')
-    .startOf('month'),
-  moment.utc().startOf('month')
-];
+const last12Months = () => [moment.utc().subtract(12, 'month'), moment.utc()];
 
 // Add timestamps to dates
 const custom = (startDate, endDate) => [

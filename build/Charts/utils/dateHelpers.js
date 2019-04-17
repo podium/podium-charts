@@ -34,7 +34,7 @@ var lastYear = function lastYear() {
 };
 
 var last12Months = function last12Months() {
-  return [moment.utc().subtract(12, 'month').startOf('month'), moment.utc().startOf('month')];
+  return [moment.utc().subtract(12, 'month'), moment.utc()];
 }; // Add timestamps to dates
 
 
