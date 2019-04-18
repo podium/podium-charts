@@ -37,9 +37,11 @@ var GranularityWrapper = styled.div(_templateObject(), colors.mystic);
 var byMonth = {
   value: 'month',
   label: 'By Month'
-}; // TODO: add back after we resolve issues related to weekly granularity in the platform
-// const byWeek = { value: 'week', label: 'By Week' };
-
+};
+var byWeek = {
+  value: 'week',
+  label: 'By Week'
+};
 var byDay = {
   value: 'day',
   label: 'By Day'
@@ -52,14 +54,14 @@ var optionsMap = {
   gtNinetyDays: [byMonth],
   gtThirtyOneDays: [byMonth, byDay],
   ltThirtyOneDays: [byDay],
-  lastMonth: [byDay],
-  last12Months: [byMonth],
+  lastMonth: [byWeek, byDay],
+  last12Months: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
-  lastYear: [byMonth],
-  monthToDate: [byDay],
+  lastYear: [byMonth, byWeek],
+  monthToDate: [byWeek, byDay],
   today: [byHour],
   weekToDate: [byDay, byHour],
-  yearToDate: [byMonth],
+  yearToDate: [byMonth, byWeek],
   yesterday: [byHour]
 };
 export var getOptions = function getOptions(timeRange) {
