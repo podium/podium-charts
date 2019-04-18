@@ -22,8 +22,8 @@ const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
 const optionsMap = {
-  gtNinetyDays: [byMonth],
-  gtThirtyOneDays: [byMonth, byDay],
+  gtNinetyDays: [byMonth, byWeek],
+  gtThirtyOneDays: [byMonth, byWeek, byDay],
   ltThirtyOneDays: [byDay],
   lastMonth: [byWeek, byDay],
   last12Months: [byMonth, byWeek],

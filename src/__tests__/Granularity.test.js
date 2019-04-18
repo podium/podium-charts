@@ -46,8 +46,8 @@ describe('Granularity', () => {
       );
 
       expect(days15Options).toEqual([byDay]);
-      expect(days45Options).toEqual([byMonth, byDay]);
-      expect(days91Options).toEqual([byMonth]);
+      expect(days45Options).toEqual([byMonth, byWeek, byDay]);
+      expect(days91Options).toEqual([byMonth, byWeek]);
     });
 
     it('should exclude options provided in the exclude param', () => {
