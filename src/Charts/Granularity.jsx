@@ -17,23 +17,22 @@ const GranularityWrapper = styled.div`
 `;
 
 const byMonth = { value: 'month', label: 'By Month' };
-// TODO: add back after we resolve issues related to weekly granularity in the platform
-// const byWeek = { value: 'week', label: 'By Week' };
+const byWeek = { value: 'week', label: 'By Week' };
 const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
 const optionsMap = {
-  gtNinetyDays: [byMonth],
-  gtThirtyOneDays: [byMonth, byDay],
+  gtNinetyDays: [byMonth, byWeek],
+  gtThirtyOneDays: [byMonth, byWeek, byDay],
   ltThirtyOneDays: [byDay],
-  lastMonth: [byDay],
-  last12Months: [byMonth],
+  lastMonth: [byWeek, byDay],
+  last12Months: [byMonth, byWeek],
   lastWeek: [byDay, byHour],
-  lastYear: [byMonth],
-  monthToDate: [byDay],
+  lastYear: [byMonth, byWeek],
+  monthToDate: [byWeek, byDay],
   today: [byHour],
   weekToDate: [byDay, byHour],
-  yearToDate: [byMonth],
+  yearToDate: [byMonth, byWeek],
   yesterday: [byHour]
 };
 

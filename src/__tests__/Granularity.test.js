@@ -1,7 +1,7 @@
 import { getOptions } from '../Charts/Granularity';
 
 const byMonth = { value: 'month', label: 'By Month' };
-// const byWeek = { value: 'week', label: 'By Week' };
+const byWeek = { value: 'week', label: 'By Week' };
 const byDay = { value: 'day', label: 'By Day' };
 const byHour = { value: 'hour', label: 'By Hour' };
 
@@ -16,8 +16,8 @@ describe('Granularity', () => {
       const lastMonthOptions = getOptions(lastMonth);
       const lastWeekOptions = getOptions(lastWeek);
 
-      expect(lastYearOptions).toEqual([byMonth]);
-      expect(lastMonthOptions).toEqual([byDay]);
+      expect(lastYearOptions).toEqual([byMonth, byWeek]);
+      expect(lastMonthOptions).toEqual([byWeek, byDay]);
       expect(lastWeekOptions).toEqual([byDay, byHour]);
     });
 
@@ -46,8 +46,8 @@ describe('Granularity', () => {
       );
 
       expect(days15Options).toEqual([byDay]);
-      expect(days45Options).toEqual([byMonth, byDay]);
-      expect(days91Options).toEqual([byMonth]);
+      expect(days45Options).toEqual([byMonth, byWeek, byDay]);
+      expect(days91Options).toEqual([byMonth, byWeek]);
     });
 
     it('should exclude options provided in the exclude param', () => {
