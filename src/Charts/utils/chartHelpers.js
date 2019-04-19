@@ -43,18 +43,6 @@ export function getStackPositions(children) {
   return groupBy(stackPosition, 'stackId');
 }
 
-export function singleLineChart(children) {
-  const filteredChildren = filterChildren(children);
-  const graphElements = new Set([Line, Bar]);
-  let numberOfLines = 0;
-  let lineProps = {};
-  React.Children.forEach(filteredChildren, child => {
-    if (child.type === Line) lineProps = child.props;
-    if (graphElements.has(child.type)) numberOfLines += 1;
-  });
-  return numberOfLines === 1 ? lineProps : false;
-}
-
 export const filterChildren = children => {
   return React.Children.toArray(children).filter(child => child);
 };

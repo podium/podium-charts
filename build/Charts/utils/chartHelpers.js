@@ -49,17 +49,6 @@ export function getStackPositions(children) {
   });
   return groupBy(stackPosition, 'stackId');
 }
-export function singleLineChart(children) {
-  var filteredChildren = filterChildren(children);
-  var graphElements = new Set([Line, Bar]);
-  var numberOfLines = 0;
-  var lineProps = {};
-  React.Children.forEach(filteredChildren, function (child) {
-    if (child.type === Line) lineProps = child.props;
-    if (graphElements.has(child.type)) numberOfLines += 1;
-  });
-  return numberOfLines === 1 ? lineProps : false;
-}
 export var filterChildren = function filterChildren(children) {
   return React.Children.toArray(children).filter(function (child) {
     return child;
