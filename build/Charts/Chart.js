@@ -1,7 +1,3 @@
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
@@ -33,7 +29,7 @@ import { colors } from '@podiumhq/podium-ui';
 import { ResponsiveContainer, Bar as RechartsBar, CartesianGrid as RechartsCartesianGrid, Line as RechartsLine, Tooltip as RechartsTooltip, XAxis as RechartsXAxis, YAxis as RechartsYAxis, Dot as RechartsDot } from 'recharts';
 import Rectangle from './Rectangle';
 import { ChartWrapper } from './ChartStyledComponents';
-import { detectChartType, getStackPositions, singleLineChart, filterChildren, getDeselectedColor } from './utils/chartHelpers';
+import { detectChartType, getStackPositions, filterChildren, getDeselectedColor } from './utils/chartHelpers';
 import { XAxis, YAxis, Bar, Line, SummaryLine, Tooltip } from './skeletonComponents';
 import GhostChart from './Ghost/GhostChart';
 import ReportCardContext from './ReportCardContext';
@@ -255,21 +251,11 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderTooltip = function (props) {
-    var filteredChildren = filterChildren(_this3.props.children);
-    var singleLine = singleLineChart(filteredChildren);
-    var cursorSettings = {
-      fill: '#F1F2F4',
-      strokeWidth: 1
-    };
-
-    if (singleLine) {
-      cursorSettings = _objectSpread({}, cursorSettings, {
-        stroke: singleLine.color
-      });
-    }
-
     return React.createElement(RechartsTooltip, _extends({
-      cursor: cursorSettings,
+      cursor: {
+        fill: '#F1F2F4',
+        strokeWidth: 1
+      },
       isAnimationActive: false,
       offset: 20,
       wrapperStyle: {
