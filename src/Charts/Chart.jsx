@@ -17,7 +17,6 @@ import { ChartWrapper } from './ChartStyledComponents';
 import {
   detectChartType,
   getStackPositions,
-  singleLineChart,
   filterChildren,
   getDeselectedColor
 } from './utils/chartHelpers';
@@ -187,18 +186,9 @@ export default class Chart extends React.Component {
   );
 
   renderTooltip = props => {
-    const filteredChildren = filterChildren(this.props.children);
-    const singleLine = singleLineChart(filteredChildren);
-    let cursorSettings = { fill: '#F1F2F4', strokeWidth: 1 };
-    if (singleLine) {
-      cursorSettings = {
-        ...cursorSettings,
-        stroke: singleLine.color
-      };
-    }
     return (
       <RechartsTooltip
-        cursor={cursorSettings}
+        cursor={{ fill: '#F1F2F4', strokeWidth: 1 }}
         isAnimationActive={false}
         offset={20}
         wrapperStyle={{
