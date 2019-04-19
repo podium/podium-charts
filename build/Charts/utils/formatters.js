@@ -26,6 +26,41 @@ export var roundToPlaces = function roundToPlaces(places) {
     return commatize(roundedNumber.toString());
   };
 };
+export var roundToSignificantFigures = function roundToSignificantFigures(figures) {
+  return function (input) {
+    if (figures < 1) {
+      throw new TypeError('Invalid number of significant figures');
+    }
+
+    if (input < 10) {
+      return input.toFixed(figures - 1);
+    }
+
+    if (input < 100) {
+      if (figures === 1) {
+        return (Math.round(input / 10) * 10).toString();
+      } else {
+        return input.toFixed(figures - 2);
+      }
+    }
+
+    if (input < 1000) {
+      if (figures === 1) {
+        return (Math.round(input / 100) * 100).toString();
+      } else if (figures === 2) {
+        return (Math.round(input / 10) * 10).toString();
+      } else {
+        return input.toFixed(figures - 3);
+      }
+    }
+
+    if (input < 1000000) {
+      return roundToSignificantFigures(figures)(input / 1000) + 'K';
+    }
+
+    return abbreviateNumber(input, figures);
+  };
+};
 export function secondsToMinutes(int) {
   return commatize(Math.round(int / 60));
 }
@@ -33,6 +68,7 @@ export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 export function abbreviateNumber(value) {
+  var figures = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
   if (value < 10000) return commatize(value);
   var newValue = value;
   var suffixes = ['', 'K', 'M', 'B', 'T'];
@@ -43,13 +79,19 @@ export function abbreviateNumber(value) {
     suffixNum++;
   }
 
-  newValue = newValue.toPrecision(3);
+  newValue = newValue.toPrecision(figures);
   newValue += suffixes[suffixNum];
   return newValue;
 }
+/**
+ * Convert seconds to minutes, and display rounded to two significant figures.
+ *
+ * @param {number} seconds
+ */
+
 export function abbreviateTime(seconds) {
-  var minutes = Math.round(seconds / 60);
-  return abbreviateNumber(minutes);
+  var minutes = seconds / 60;
+  return roundToSignificantFigures(2)(minutes);
 }
 export function humanizeDuration(seconds) {
   if (seconds < 60) return '< 1 min';
