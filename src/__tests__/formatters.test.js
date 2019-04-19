@@ -1,7 +1,9 @@
 import {
   roundToPlaces,
   commatize,
-  nullToValue
+  nullToValue,
+  abbreviateNumber,
+  abbreviateTime
 } from '../Charts/utils/formatters';
 
 describe('formatters', () => {
@@ -42,6 +44,40 @@ describe('formatters', () => {
         const formatter = nullToValue(commatize); // No fallback value specified!
         console.log(formatter(5000, 'facebook')); // Unreachable
       }).toThrow('No fallback value specified for formatter');
+    });
+  });
+
+  describe('abbreviateNumber', () => {
+    it('should handle small numbers', () => {
+      expect(abbreviateNumber(0)).toEqual('0');
+      expect(abbreviateNumber(5)).toEqual('5');
+      expect(abbreviateNumber(57)).toEqual('57');
+      expect(abbreviateNumber(576)).toEqual('576');
+    });
+    it('should add commas to thousands', () => {
+      expect(abbreviateNumber(5763)).toEqual('5,763');
+    });
+    it('should simplify ten-thousands', () => {
+      expect(abbreviateNumber(57638)).toEqual('57.6K');
+      expect(abbreviateNumber(34153)).toEqual('34.2K');
+      expect(abbreviateNumber(20000)).toEqual('20.0K');
+    });
+    it('should simplify hundred-thousands', () => {
+      expect(abbreviateNumber(576385)).toEqual('576K');
+      expect(abbreviateNumber(576885)).toEqual('577K');
+      expect(abbreviateNumber(400000)).toEqual('400K');
+    });
+  });
+
+  describe('abbreviateTime', () => {
+    it('should handle small units of time', () => {
+      expect(abbreviateTime(0)).toEqual('0');
+      expect(abbreviateTime(120)).toEqual('2');
+      expect(abbreviateTime(300)).toEqual('5');
+    });
+
+    it('should handle larger units of time', () => {
+      expect(abbreviateTime(6000)).toEqual('100');
     });
   });
 });

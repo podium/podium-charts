@@ -76,7 +76,7 @@ export function humanizeDuration(seconds) {
   return displayTime;
 }
 export var commatize = function commatize(number) {
-  if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  if (number !== undefined && number !== null) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
 export var nullToValue = function nullToValue(delegateFormatter, fallbackValue) {

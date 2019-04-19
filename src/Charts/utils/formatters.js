@@ -72,7 +72,8 @@ export function humanizeDuration(seconds) {
 }
 
 export const commatize = number => {
-  if (number) return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  if (number !== undefined && number !== null)
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return number;
 };
 
