@@ -35,6 +35,7 @@ const ReportCardMain = styled.div`
 const ReportCardRight = styled.div`
   flex: 1;
   max-width: 320px;
+  min-width: 320px;
 `;
 
 const ReportCardSummary = styled.div`
