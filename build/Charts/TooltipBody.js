@@ -113,7 +113,8 @@ var granMap = {
   month: 'MMMM YYYY',
   year: 'YYYY',
   day: 'MMMM D, YYYY',
-  week: 'MMMM D, YYYY'
+  week: 'MMMM D, YYYY',
+  hour: 'h:mm A MMM D, YYYY'
 };
 
 var fullDate = function fullDate(date, granularity) {
