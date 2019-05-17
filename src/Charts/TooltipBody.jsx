@@ -65,17 +65,32 @@ const granMap = {
   month: 'MMMM YYYY',
   year: 'YYYY',
   day: 'MMMM D, YYYY',
-  week: 'MMMM D, YYYY'
+  week: 'MMMM D, YYYY',
+  hour: 'h:mm A MMM D, YYYY'
 };
 
 const fullDate = (date, granularity) => {
-  const format = granMap[granularity] || 'MMMM YYYY';
   const momentDate = moment.utc(date);
-  if (momentDate.isValid()) return momentDate.format(format);
-  return date;
+  if (!momentDate.isValid()) return date;
+
+  if (granularity === 'week') {
+    const startDate = momentDate
+      .clone()
+      .startOf('week')
+      .format('MMM D');
+    const endDate = momentDate
+      .clone()
+      .endOf('week')
+      .format('MMM D, YYYY');
+    return `${startDate} - ${endDate}`;
+  }
+
+  const format = granMap[granularity] || 'MMMM YYYY';
+  return momentDate.format(format);
 };
 
 export default function TooltipBody(props) {
+  const { granularity } = props;
   const renderSummary = () => {
     const { payload, summaryTitle, aggregationOptions, formatter } = props;
     let result = null;
@@ -114,7 +129,7 @@ export default function TooltipBody(props) {
   return (
     <TooltipBodyWrapper>
       <Header>
-        <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
+        <XAxisLabel>{fullDate(props.label, granularity)}</XAxisLabel>
         {summary && <Summary>{summary}</Summary>}
       </Header>
       {props.showLegend && props.payload && (
