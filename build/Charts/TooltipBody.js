@@ -117,6 +117,11 @@ var granMap = {
 };
 
 var fullDate = function fullDate(date, granularity) {
+  if (granularity === 'week') {
+    var formattedDateRange = "".concat(moment.utc(date).startOf('week').format('MMM D'), " - ").concat(moment.utc(date).endOf('week').format('MMM D, YYYY'));
+    return formattedDateRange;
+  }
+
   var format = granMap[granularity] || 'MMMM YYYY';
   var momentDate = moment.utc(date);
   if (momentDate.isValid()) return momentDate.format(format);
@@ -124,6 +129,8 @@ var fullDate = function fullDate(date, granularity) {
 };
 
 export default function TooltipBody(props) {
+  var granularity = props.granularity;
+
   var renderSummary = function renderSummary() {
     var payload = props.payload,
         summaryTitle = props.summaryTitle,
@@ -158,7 +165,7 @@ export default function TooltipBody(props) {
   };
 
   var summary = renderSummary();
-  return React.createElement(TooltipBodyWrapper, null, React.createElement(Header, null, React.createElement(XAxisLabel, null, fullDate(props.label)), summary && React.createElement(Summary, null, summary)), props.showLegend && props.payload && React.createElement(Body, null, renderToolTipLegend()));
+  return React.createElement(TooltipBodyWrapper, null, React.createElement(Header, null, React.createElement(XAxisLabel, null, fullDate(props.label, granularity)), summary && React.createElement(Summary, null, summary)), props.showLegend && props.payload && React.createElement(Body, null, renderToolTipLegend()));
 }
 TooltipBody.propTypes = {
   aggregationOptions: PropTypes.shape({

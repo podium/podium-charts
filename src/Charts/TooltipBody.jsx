@@ -69,6 +69,16 @@ const granMap = {
 };
 
 const fullDate = (date, granularity) => {
+  if (granularity === 'week') {
+    let formattedDateRange = `${moment
+      .utc(date)
+      .startOf('week')
+      .format('MMM D')} - ${moment
+      .utc(date)
+      .endOf('week')
+      .format('MMM D, YYYY')}`;
+    return formattedDateRange;
+  }
   const format = granMap[granularity] || 'MMMM YYYY';
   const momentDate = moment.utc(date);
   if (momentDate.isValid()) return momentDate.format(format);
@@ -76,6 +86,7 @@ const fullDate = (date, granularity) => {
 };
 
 export default function TooltipBody(props) {
+  const { granularity } = props;
   const renderSummary = () => {
     const { payload, summaryTitle, aggregationOptions, formatter } = props;
     let result = null;
@@ -114,7 +125,7 @@ export default function TooltipBody(props) {
   return (
     <TooltipBodyWrapper>
       <Header>
-        <XAxisLabel>{fullDate(props.label)}</XAxisLabel>
+        <XAxisLabel>{fullDate(props.label, granularity)}</XAxisLabel>
         {summary && <Summary>{summary}</Summary>}
       </Header>
       {props.showLegend && props.payload && (
