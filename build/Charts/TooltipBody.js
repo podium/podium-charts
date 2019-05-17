@@ -121,10 +121,9 @@ var fullDate = function fullDate(date, granularity) {
   if (!momentDate.isValid()) return date;
 
   if (granularity === 'week') {
-    var startDate = momentDate.startOf('week').format('MMM D');
-    var endDate = momentDate.endOf('week').format('MMM D, YYYY');
-    var formattedDateRange = "".concat(startDate, " - ").concat(endDate);
-    return formattedDateRange;
+    var startDate = momentDate.clone().startOf('week').format('MMM D');
+    var endDate = momentDate.clone().endOf('week').format('MMM D, YYYY');
+    return "".concat(startDate, " - ").concat(endDate);
   }
 
   var format = granMap[granularity] || 'MMMM YYYY';

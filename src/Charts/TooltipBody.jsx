@@ -73,10 +73,15 @@ const fullDate = (date, granularity) => {
   if (!momentDate.isValid()) return date;
 
   if (granularity === 'week') {
-    const startDate = momentDate.startOf('week').format('MMM D');
-    const endDate = momentDate.endOf('week').format('MMM D, YYYY');
-    const formattedDateRange = `${startDate} - ${endDate}`;
-    return formattedDateRange;
+    const startDate = momentDate
+      .clone()
+      .startOf('week')
+      .format('MMM D');
+    const endDate = momentDate
+      .clone()
+      .endOf('week')
+      .format('MMM D, YYYY');
+    return `${startDate} - ${endDate}`;
   }
 
   const format = granMap[granularity] || 'MMMM YYYY';
