@@ -69,20 +69,18 @@ const granMap = {
 };
 
 const fullDate = (date, granularity) => {
+  const momentDate = moment.utc(date);
+  if (!momentDate.isValid()) return date;
+
   if (granularity === 'week') {
-    let formattedDateRange = `${moment
-      .utc(date)
-      .startOf('week')
-      .format('MMM D')} - ${moment
-      .utc(date)
-      .endOf('week')
-      .format('MMM D, YYYY')}`;
+    const startDate = momentDate.startOf('week').format('MMM D');
+    const endDate = momentDate.endOf('week').format('MMM D, YYYY');
+    const formattedDateRange = `${startDate} - ${endDate}`;
     return formattedDateRange;
   }
+
   const format = granMap[granularity] || 'MMMM YYYY';
-  const momentDate = moment.utc(date);
-  if (momentDate.isValid()) return momentDate.format(format);
-  return date;
+  return momentDate.format(format);
 };
 
 export default function TooltipBody(props) {

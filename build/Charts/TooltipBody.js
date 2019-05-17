@@ -117,15 +117,18 @@ var granMap = {
 };
 
 var fullDate = function fullDate(date, granularity) {
+  var momentDate = moment.utc(date);
+  if (!momentDate.isValid()) return date;
+
   if (granularity === 'week') {
-    var formattedDateRange = "".concat(moment.utc(date).startOf('week').format('MMM D'), " - ").concat(moment.utc(date).endOf('week').format('MMM D, YYYY'));
+    var startDate = momentDate.startOf('week').format('MMM D');
+    var endDate = momentDate.endOf('week').format('MMM D, YYYY');
+    var formattedDateRange = "".concat(startDate, " - ").concat(endDate);
     return formattedDateRange;
   }
 
   var format = granMap[granularity] || 'MMMM YYYY';
-  var momentDate = moment.utc(date);
-  if (momentDate.isValid()) return momentDate.format(format);
-  return date;
+  return momentDate.format(format);
 };
 
 export default function TooltipBody(props) {
