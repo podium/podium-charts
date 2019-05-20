@@ -41,7 +41,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  flex: 1;\n  max-width: 320px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  flex: 1;\n  max-width: 320px;\n  min-width: 178px;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -71,7 +71,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  min-width: 178px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;

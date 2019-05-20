@@ -16,6 +16,7 @@ const ReportCardWrapper = styled.div`
   display: flex;
   border: 1px solid ${colors.mystic};
   border-radius: 6px;
+  min-width: 178px;
 `;
 
 const ReportCardHeader = styled.div`
@@ -35,6 +36,7 @@ const ReportCardMain = styled.div`
 const ReportCardRight = styled.div`
   flex: 1;
   max-width: 320px;
+  min-width: 178px;
 `;
 
 const ReportCardSummary = styled.div`
