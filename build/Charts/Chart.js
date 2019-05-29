@@ -235,6 +235,7 @@ var _initialiseProps = function _initialiseProps() {
       dot: function dot(data) {
         if (data.index === _this3.props.data.length - 1) {
           return React.createElement(RechartsDot, {
+            key: data.key,
             r: 2.5,
             cx: data.cx,
             cy: data.cy,
