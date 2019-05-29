@@ -169,6 +169,7 @@ export default class Chart extends React.Component {
         if (data.index === this.props.data.length - 1) {
           return (
             <RechartsDot
+              key={data.key}
               r={2.5}
               cx={data.cx}
               cy={data.cy}
