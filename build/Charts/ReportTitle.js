@@ -58,7 +58,7 @@ export default function ReportTitle(_ref) {
   return React.createElement(TitleWrapper, null, React.createElement(Title, null, title), React.createElement(RangeLabel, null, loading ? React.createElement(DateRangePlaceholder, null, "Date Range") : renderRangeLabel(timeRange, dateStart, dateEnd)));
 }
 ReportTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   timeRange: PropTypes.string,
   dateStart: PropTypes.string,
   dateEnd: PropTypes.string,

@@ -47,7 +47,7 @@ export default function ReportTitle({
 }
 
 ReportTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   timeRange: PropTypes.string,
   dateStart: PropTypes.string,
   dateEnd: PropTypes.string,
