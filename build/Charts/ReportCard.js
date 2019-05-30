@@ -156,13 +156,20 @@ function (_React$Component) {
               loading: loading
             });
           } else if (child.props.children) {
+            var subChildren = [];
+            var type;
             React.Children.forEach(child.props.children, function (subChild) {
               if (componentKeyMap.has(subChild.type)) {
-                newComponents[componentKeyMap.get(subChild.type)] = React.cloneElement(child, {
+                subChildren.push(React.cloneElement(subChild, {
                   loading: loading
-                });
+                }));
+                type = componentKeyMap.get(subChild.type);
               }
             });
+
+            if (type) {
+              newComponents[type] = React.cloneElement.apply(React, [child, {}].concat(subChildren));
+            }
           }
         });
         return newComponents;
