@@ -97,13 +97,19 @@ export default class ReportCard extends React.Component {
             { loading: loading }
           );
         } else if (child.props.children) {
+          const subChildren = [];
+          let type;
           React.Children.forEach(child.props.children, subChild => {
             if (componentKeyMap.has(subChild.type)) {
-              newComponents[
-                componentKeyMap.get(subChild.type)
-              ] = React.cloneElement(child, { loading: loading });
+              subChildren.push(
+                React.cloneElement(subChild, { loading: loading })
+              );
+              type = componentKeyMap.get(subChild.type);
             }
           });
+          if (type) {
+            newComponents[type] = React.cloneElement(child, {}, ...subChildren);
+          }
         }
       });
 
