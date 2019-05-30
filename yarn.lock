@@ -1112,10 +1112,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@podiumhq/podium-ui@^16.3.2":
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/@podiumhq/podium-ui/-/podium-ui-16.3.2.tgz#d02ed89f8556d95bbcedce6d49fa25b0e159b5be"
-  integrity sha512-fcRYmLYlmLniI+/ap/Al2ZxCU6TL+Q9Y5EE6DBVXPtVEaiOVEKE9HO/lOjTQhSgvnMQ9if5OOHVhBAqonjwokw==
+"@podiumhq/podium-ui@^16.15.0":
+  version "16.15.0"
+  resolved "https://registry.yarnpkg.com/@podiumhq/podium-ui/-/podium-ui-16.15.0.tgz#057db3bce51f525d15ad2772983f0fb9283f8f82"
+  integrity sha512-jQwFahHitiiLBh/S5mI0ZHnuafL6fxye4P4IaDWm3q9vO575G/M4nwvKpouiGrGdW4Ju0NvMdwp2A6lPrTyKCQ==
   dependencies:
     dayjs "1.7.8"
     fuse.js "3.4.2"
@@ -1123,7 +1123,6 @@
     moment "^2.17.1"
     polished "^2.3.3"
     prop-types "^15.5.10"
-    pure-render-decorator "^1.2.1"
     react-datepicker "^1.8.0"
     react-modal "^3.1.11"
     react-onclickoutside "^6.1.1"
@@ -9161,13 +9160,6 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
-
-pure-render-decorator@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/pure-render-decorator/-/pure-render-decorator-1.2.1.tgz#568870eeca17a1cee536b4fe94a3477fcd31eeb9"
-  integrity sha1-Vohw7soXoc7lNrT+lKNHf80x7rk=
-  dependencies:
-    fbjs "^0.8.0"
 
 q@^1.1.2:
   version "1.5.1"
