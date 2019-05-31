@@ -17,6 +17,7 @@ const ReportCardWrapper = styled.div`
   border: 1px solid ${colors.mystic};
   border-radius: 6px;
   min-width: 178px;
+  background: white;
 `;
 
 const ReportCardHeader = styled.div`

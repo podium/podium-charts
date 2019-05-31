@@ -71,7 +71,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  min-width: 178px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  border: 1px solid ", ";\n  border-radius: 6px;\n  min-width: 178px;\n  background: white;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
