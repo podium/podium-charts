@@ -15,7 +15,11 @@ storiesOf('Bar Chart', module)
     <Chart data={data}>
       <YAxis tickFormatter={formatters.humanizeDuration} />
       <XAxis dataKey="date" tickFormatter={formatters.date()} />
-      <Bar dataKey="sms" color={colors.cobaltBlue} />
+      <Bar
+        dataKey="sms"
+        onClick={item => console.log(item)}
+        color={colors.cobaltBlue}
+      />
     </Chart>
   ))
   .add('Tooltip', () => (
@@ -33,8 +37,18 @@ storiesOf('Bar Chart', module)
           />
         }
       />
-      <Bar name="Organic" dataKey="organic" color={colors.cobaltBlue} />
-      <Bar name="Text" dataKey="text" color={colors.poppyRed} />
+      <Bar
+        name="Organic"
+        dataKey="organic"
+        color={colors.cobaltBlue}
+        onClick={item => console.log('organic', item)}
+      />
+      <Bar
+        name="Text"
+        dataKey="text"
+        color={colors.poppyRed}
+        onClick={item => console.log('text', item)}
+      />
     </Chart>
   ))
   .add('Tooltip, legend disabled', () => (

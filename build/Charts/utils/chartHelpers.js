@@ -28,7 +28,7 @@ export function detectChartType(children) {
   var childrenTypes = [];
   React.Children.forEach(filteredChildren, function (child) {
     if (!childrenTypes.includes(child.type) && allowedTypes.has(child.type)) {
-      childrenTypes = [].concat(_toConsumableArray(childrenTypes), [child.type]);
+      childrenTypes = _toConsumableArray(childrenTypes).concat([child.type]);
     }
   });
   if (childrenTypes.length > 1) return RechartsComposedChart;

@@ -64,6 +64,7 @@ const getSeriesKey = dataKey => {
 /**
  * @typedef RenderContext
  * @property {string | null} selectedKey The series key that is currently selected on the Legend
+ * @property {function} onSelectKey The callback to change the selectedKey
  * @property {boolean} isFirstRender Whether we are rendering the Chart for the first time
  */
 
@@ -114,7 +115,7 @@ export default class Chart extends React.Component {
     />
   );
 
-  renderBar = ({ dataKey, ...props }, { selectedKey }) => {
+  renderBar = ({ dataKey, ...props }, { selectedKey, onSelectKey }) => {
     const filteredChildren = filterChildren(this.props.children);
     const stackPosition = getStackPositions(filteredChildren);
     const color = isDeselected(dataKey, selectedKey)
@@ -123,6 +124,11 @@ export default class Chart extends React.Component {
 
     return (
       <RechartsBar
+        onMouseEnter={() => {
+          console.log('you selected DATA', dataKey);
+          onSelectKey(dataKey);
+        }}
+        onMouseLeave={() => onSelectKey(null)}
         maxBarSize={100}
         shape={
           <Rectangle
@@ -138,7 +144,10 @@ export default class Chart extends React.Component {
     );
   };
 
-  renderLine = ({ dataKey, ...props }, { selectedKey, isFirstRender }) => {
+  renderLine = (
+    { dataKey, ...props },
+    { selectedKey, onSelectKey, isFirstRender }
+  ) => {
     const color = isDeselected(dataKey, selectedKey)
       ? getDeselectedColor(props.color)
       : props.color;
@@ -227,7 +236,7 @@ export default class Chart extends React.Component {
 
     return (
       <ReportCardContext.Consumer>
-        {({ selectedKey }) => (
+        {({ selectedKey, onSelectKey }) => (
           <ChartWrapper>
             <ResponsiveContainer width={width} height={height}>
               <RechartsChartType
@@ -236,7 +245,11 @@ export default class Chart extends React.Component {
                 barCategoryGap="30%"
               >
                 {!hideGrid && this.renderCartesianGrid()}
-                {this.renderChildren(mapping, { selectedKey, isFirstRender })}
+                {this.renderChildren(mapping, {
+                  selectedKey,
+                  onSelectKey,
+                  isFirstRender
+                })}
               </RechartsChartType>
             </ResponsiveContainer>
           </ChartWrapper>

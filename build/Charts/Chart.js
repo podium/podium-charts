@@ -16,11 +16,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -69,6 +69,7 @@ var getSeriesKey = function getSeriesKey(dataKey) {
 /**
  * @typedef RenderContext
  * @property {string | null} selectedKey The series key that is currently selected on the Legend
+ * @property {function} onSelectKey The callback to change the selectedKey
  * @property {boolean} isFirstRender Whether we are rendering the Chart for the first time
  */
 
@@ -85,7 +86,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Chart).call(this, props)); // Keeping out of component state because we don't want to trigger renders
 
-    _initialiseProps.call(_assertThisInitialized(_this));
+    _initialiseProps.call(_assertThisInitialized(_assertThisInitialized(_this)));
 
     _this.isFirstRender = true;
     return _this;
@@ -117,7 +118,8 @@ function (_React$Component) {
         height: height
       });
       return React.createElement(ReportCardContext.Consumer, null, function (_ref) {
-        var selectedKey = _ref.selectedKey;
+        var selectedKey = _ref.selectedKey,
+            onSelectKey = _ref.onSelectKey;
         return React.createElement(ChartWrapper, null, React.createElement(ResponsiveContainer, {
           width: width,
           height: height
@@ -132,6 +134,7 @@ function (_React$Component) {
           barCategoryGap: "30%"
         }, !hideGrid && _this2.renderCartesianGrid(), _this2.renderChildren(mapping, {
           selectedKey: selectedKey,
+          onSelectKey: onSelectKey,
           isFirstRender: isFirstRender
         }))));
       });
@@ -184,11 +187,19 @@ var _initialiseProps = function _initialiseProps() {
     var dataKey = _ref3.dataKey,
         props = _objectWithoutProperties(_ref3, ["dataKey"]);
 
-    var selectedKey = _ref4.selectedKey;
+    var selectedKey = _ref4.selectedKey,
+        onSelectKey = _ref4.onSelectKey;
     var filteredChildren = filterChildren(_this3.props.children);
     var stackPosition = getStackPositions(filteredChildren);
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsBar, _extends({
+      onMouseEnter: function onMouseEnter() {
+        console.log('you selected DATA', dataKey);
+        onSelectKey(dataKey);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return onSelectKey(null);
+      },
       maxBarSize: 100,
       shape: React.createElement(Rectangle, _extends({}, props, {
         dataKey: dataKey,
@@ -204,6 +215,7 @@ var _initialiseProps = function _initialiseProps() {
         props = _objectWithoutProperties(_ref5, ["dataKey"]);
 
     var selectedKey = _ref6.selectedKey,
+        onSelectKey = _ref6.onSelectKey,
         isFirstRender = _ref6.isFirstRender;
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsLine, _extends({
