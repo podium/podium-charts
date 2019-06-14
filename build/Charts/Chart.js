@@ -194,8 +194,7 @@ var _initialiseProps = function _initialiseProps() {
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsBar, _extends({
       onMouseEnter: function onMouseEnter() {
-        console.log('you selected DATA', dataKey);
-        onSelectKey(dataKey);
+        return onSelectKey(dataKey);
       },
       onMouseLeave: function onMouseLeave() {
         return onSelectKey(null);
@@ -219,6 +218,12 @@ var _initialiseProps = function _initialiseProps() {
         isFirstRender = _ref6.isFirstRender;
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsLine, _extends({
+      onMouseEnter: function onMouseEnter() {
+        return onSelectKey(dataKey);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return onSelectKey(null);
+      },
       type: "linear",
       stroke: color,
       isAnimationActive: isFirstRender,

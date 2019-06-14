@@ -124,10 +124,7 @@ export default class Chart extends React.Component {
 
     return (
       <RechartsBar
-        onMouseEnter={() => {
-          console.log('you selected DATA', dataKey);
-          onSelectKey(dataKey);
-        }}
+        onMouseEnter={() => onSelectKey(dataKey)}
         onMouseLeave={() => onSelectKey(null)}
         maxBarSize={100}
         shape={
@@ -154,6 +151,8 @@ export default class Chart extends React.Component {
 
     return (
       <RechartsLine
+        onMouseEnter={() => onSelectKey(dataKey)}
+        onMouseLeave={() => onSelectKey(null)}
         type="linear"
         stroke={color}
         isAnimationActive={isFirstRender}
