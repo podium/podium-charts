@@ -23,6 +23,9 @@ storiesOf('Bar Chart', module).add('Small', function () {
     tickFormatter: formatters.date()
   }), React.createElement(Bar, {
     dataKey: "sms",
+    onClick: function onClick(item) {
+      return console.log(item);
+    },
     color: colors.cobaltBlue
   }));
 }).add('Tooltip', function () {
@@ -42,11 +45,17 @@ storiesOf('Bar Chart', module).add('Small', function () {
   }), React.createElement(Bar, {
     name: "Organic",
     dataKey: "organic",
-    color: colors.cobaltBlue
+    color: colors.cobaltBlue,
+    onClick: function onClick(item) {
+      return console.log('organic', item);
+    }
   }), React.createElement(Bar, {
     name: "Text",
     dataKey: "text",
-    color: colors.poppyRed
+    color: colors.poppyRed,
+    onClick: function onClick(item) {
+      return console.log('text', item);
+    }
   }));
 }).add('Tooltip, legend disabled', function () {
   return React.createElement(Chart, {

@@ -69,6 +69,7 @@ var getSeriesKey = function getSeriesKey(dataKey) {
 /**
  * @typedef RenderContext
  * @property {string | null} selectedKey The series key that is currently selected on the Legend
+ * @property {function} onSelectKey The callback to change the selectedKey
  * @property {boolean} isFirstRender Whether we are rendering the Chart for the first time
  */
 
@@ -117,7 +118,8 @@ function (_React$Component) {
         height: height
       });
       return React.createElement(ReportCardContext.Consumer, null, function (_ref) {
-        var selectedKey = _ref.selectedKey;
+        var selectedKey = _ref.selectedKey,
+            onSelectKey = _ref.onSelectKey;
         return React.createElement(ChartWrapper, null, React.createElement(ResponsiveContainer, {
           width: width,
           height: height
@@ -132,6 +134,7 @@ function (_React$Component) {
           barCategoryGap: "30%"
         }, !hideGrid && _this2.renderCartesianGrid(), _this2.renderChildren(mapping, {
           selectedKey: selectedKey,
+          onSelectKey: onSelectKey,
           isFirstRender: isFirstRender
         }))));
       });
@@ -184,11 +187,18 @@ var _initialiseProps = function _initialiseProps() {
     var dataKey = _ref3.dataKey,
         props = _objectWithoutProperties(_ref3, ["dataKey"]);
 
-    var selectedKey = _ref4.selectedKey;
+    var selectedKey = _ref4.selectedKey,
+        onSelectKey = _ref4.onSelectKey;
     var filteredChildren = filterChildren(_this3.props.children);
     var stackPosition = getStackPositions(filteredChildren);
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsBar, _extends({
+      onMouseEnter: function onMouseEnter() {
+        return onSelectKey(dataKey);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return onSelectKey(null);
+      },
       maxBarSize: 100,
       shape: React.createElement(Rectangle, _extends({}, props, {
         dataKey: dataKey,
@@ -204,9 +214,16 @@ var _initialiseProps = function _initialiseProps() {
         props = _objectWithoutProperties(_ref5, ["dataKey"]);
 
     var selectedKey = _ref6.selectedKey,
+        onSelectKey = _ref6.onSelectKey,
         isFirstRender = _ref6.isFirstRender;
     var color = isDeselected(dataKey, selectedKey) ? getDeselectedColor(props.color) : props.color;
     return React.createElement(RechartsLine, _extends({
+      onMouseEnter: function onMouseEnter() {
+        return onSelectKey(dataKey);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return onSelectKey(null);
+      },
       type: "linear",
       stroke: color,
       isAnimationActive: isFirstRender,
