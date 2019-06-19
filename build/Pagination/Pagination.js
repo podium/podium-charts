@@ -1,5 +1,25 @@
-function _templateObject4() {
+function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  margin: 0 2px;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  margin: 0 2px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  min-width: 120px;\n  display: flex;\n  justify-content: center;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -9,7 +29,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  margin: 0 2px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  min-width: 65px;\n  margin: 0 4px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -19,7 +39,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  cursor: pointer;\n  margin: 0 2px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  cursor: pointer;\n  margin: 0 4px;\n  min-width: 65px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -46,22 +66,24 @@ import { colors } from '@podiumhq/podium-ui';
 import PropTypes from 'prop-types';
 var Container = styled.div(_templateObject());
 var ChangeLink = styled.div(_templateObject2(), colors.cobaltBlue);
-var Label = styled.div(_templateObject3());
-var Page = styled.div(_templateObject4());
+var Placeholder = styled.div(_templateObject3());
+var PageCountWrapper = styled.div(_templateObject4());
+var Label = styled.div(_templateObject5());
+var Page = styled.div(_templateObject6());
 
 var Pagination = function Pagination(_ref) {
   var currentPage = _ref.currentPage,
       totalPages = _ref.totalPages,
       onPageChange = _ref.onPageChange;
-  return React.createElement(Container, null, currentPage > 1 && React.createElement(ChangeLink, {
+  return React.createElement(Container, null, currentPage > 1 ? React.createElement(ChangeLink, {
     onClick: function onClick() {
       return onPageChange(currentPage - 1);
     }
-  }, "Previous"), React.createElement(Label, null, "Page"), React.createElement(Page, null, currentPage, " /"), React.createElement(Page, null, totalPages), currentPage < totalPages && React.createElement(ChangeLink, {
+  }, "Previous") : React.createElement(Placeholder, null), React.createElement(PageCountWrapper, null, React.createElement(Label, null, "Page"), React.createElement(Page, null, currentPage, " /"), React.createElement(Page, null, totalPages)), currentPage < totalPages ? React.createElement(ChangeLink, {
     onClick: function onClick() {
       return onPageChange(currentPage + 1);
     }
-  }, "Next"));
+  }, "Next") : React.createElement(Placeholder, null));
 };
 
 Pagination.propTypes = {

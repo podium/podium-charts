@@ -11,7 +11,18 @@ const Container = styled.div`
 const ChangeLink = styled.div`
   color: ${colors.cobaltBlue};
   cursor: pointer;
-  margin: 0 2px;
+  margin: 0 4px;
+  min-width: 65px;
+`;
+
+const Placeholder = styled.div`
+  min-width: 65px;
+  margin: 0 4px;
+`;
+const PageCountWrapper = styled.div`
+  min-width: 120px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Label = styled.div`
@@ -25,18 +36,24 @@ const Page = styled.div`
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <Container>
-      {currentPage > 1 && (
+      {currentPage > 1 ? (
         <ChangeLink onClick={() => onPageChange(currentPage - 1)}>
           Previous
         </ChangeLink>
+      ) : (
+        <Placeholder />
       )}
-      <Label>Page</Label>
-      <Page>{currentPage} /</Page>
-      <Page>{totalPages}</Page>
-      {currentPage < totalPages && (
+      <PageCountWrapper>
+        <Label>Page</Label>
+        <Page>{currentPage} /</Page>
+        <Page>{totalPages}</Page>
+      </PageCountWrapper>
+      {currentPage < totalPages ? (
         <ChangeLink onClick={() => onPageChange(currentPage + 1)}>
           Next
         </ChangeLink>
+      ) : (
+        <Placeholder />
       )}
     </Container>
   );
