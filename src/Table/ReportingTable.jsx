@@ -11,17 +11,26 @@ import {
   TableHeaderCell
 } from './';
 
-const MoreInfo = styled.div`
-  position: absolute;
-  left: 10px;
-  top: 35%;
+const MoreInfo = styled.span`
+  margin-left: 4px;
   color: ${colors.lightSteel};
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &&& {
     svg {
       fill: ${colors.lightSteel};
       position: initial;
     }
   }
+`;
+
+const HeaderData = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 class ReportingTable extends Component {
@@ -34,14 +43,16 @@ class ReportingTable extends Component {
           headers.map((header, index) => {
             return (
               <TableHeaderCell key={header.id} width={header.width}>
-                {header.tooltip && (
-                  <MoreInfo>
-                    <ToolTip position="top" type="arrow" tip={header.tooltip}>
-                      <IconInfo size="small" />
-                    </ToolTip>
-                  </MoreInfo>
-                )}
-                <div>{header.content}</div>
+                <HeaderData>
+                  <span>{header.content}</span>
+                  {header.tooltip && (
+                    <MoreInfo>
+                      <ToolTip position="top" type="arrow" tip={header.tooltip}>
+                        <IconInfo size="small" />
+                      </ToolTip>
+                    </MoreInfo>
+                  )}
+                </HeaderData>
               </TableHeaderCell>
             );
           })}

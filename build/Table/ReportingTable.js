@@ -16,8 +16,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  left: 10px;\n  top: 35%;\n  color: ", ";\n  &&& {\n    svg {\n      fill: ", ";\n      position: initial;\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-left: 4px;\n  color: ", ";\n  div {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  }\n\n  &&& {\n    svg {\n      fill: ", ";\n      position: initial;\n    }\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -33,7 +43,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TableLoading, ToolTip, IconInfo, colors } from '@podiumhq/podium-ui';
 import { Table, TableHeader, TableBody, TableCell, TableRow, TableHeaderCell } from './';
-var MoreInfo = styled.div(_templateObject(), colors.lightSteel, colors.lightSteel);
+var MoreInfo = styled.span(_templateObject(), colors.lightSteel, colors.lightSteel);
+var HeaderData = styled.div(_templateObject2());
 
 var ReportingTable =
 /*#__PURE__*/
@@ -57,13 +68,13 @@ function (_Component) {
         return React.createElement(TableHeaderCell, {
           key: header.id,
           width: header.width
-        }, header.tooltip && React.createElement(MoreInfo, null, React.createElement(ToolTip, {
+        }, React.createElement(HeaderData, null, React.createElement("span", null, header.content), header.tooltip && React.createElement(MoreInfo, null, React.createElement(ToolTip, {
           position: "top",
           type: "arrow",
           tip: header.tooltip
         }, React.createElement(IconInfo, {
           size: "small"
-        }))), React.createElement("div", null, header.content));
+        })))));
       }));
     }, _this.renderTableBody = function () {
       var _this$props = _this.props,
