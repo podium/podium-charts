@@ -3,20 +3,27 @@ var podiumBrand = podiumUiColors.podiumBrand,
     goldfish = podiumUiColors.goldfish,
     cobaltBlue = podiumUiColors.cobaltBlue,
     siteColors = podiumUiColors.siteColors,
-    poppyRed = podiumUiColors.poppyRed;
+    poppyRed = podiumUiColors.poppyRed,
+    mystic = podiumUiColors.mystic,
+    white = podiumUiColors.white,
+    steel = podiumUiColors.steel;
 var colors = {
-  podiumBrand: podiumBrand,
-  goldfish: goldfish,
-  cobaltBlue: cobaltBlue,
-  siteColors: siteColors,
-  poppyRed: poppyRed,
+  athensGray: '#e8e9ec',
   bondiBlue: '#008DB8',
   chathamsBlue: '#11497D',
+  cobaltBlue: cobaltBlue,
+  goldfish: goldfish,
   hawkesBlue: '#CCD7FC',
   jollyGreen: '#00804F',
   mandy: '#EE5866',
   mariner: '#3768D3',
   matisse: '#1B5493',
-  turquoise: '#28CBAD'
+  mystic: mystic,
+  podiumBrand: podiumBrand,
+  poppyRed: poppyRed,
+  siteColors: siteColors,
+  steel: steel,
+  turquoise: '#28CBAD',
+  white: white
 };
 export default colors;
