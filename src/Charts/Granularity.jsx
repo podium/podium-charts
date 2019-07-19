@@ -6,8 +6,8 @@ import moment from 'moment';
 
 const GranularityWrapper = styled.div`
   width: 200px;
-  color: ${colors.jumbo};
   div span div {
+    color: ${colors.jumbo};
     width: inherit;
     padding-right: 0px;
     border: 2px solid ${colors.mystic};
