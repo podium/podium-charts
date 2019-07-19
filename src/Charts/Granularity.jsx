@@ -6,10 +6,11 @@ import moment from 'moment';
 
 const GranularityWrapper = styled.div`
   width: 200px;
+  color: ${colors.jumbo};
   div span div {
     width: inherit;
     padding-right: 0px;
-    border: 1px solid ${colors.mystic};
+    border: 2px solid ${colors.mystic};
   }
   div ul {
     width: 90%;
