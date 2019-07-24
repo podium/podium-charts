@@ -17,6 +17,7 @@ export const singleDataset = data => {
 };
 
 export const multiDataset = (data, groupBy = null) => {
+  if (!data) return [];
   const combinedData = Object.keys(data).reduce((outsideAcc, alias) => {
     // Look at tests in src/__tests__/transformer.test.js for examples
     // There are three ways to use this transformer:
