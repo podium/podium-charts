@@ -142,5 +142,6 @@ Summary.propTypes = {
 };
 Summary.defaultProps = {
   unit: '',
-  formatter: formatters.commatize
+  formatter: formatters.commatize,
+  overallSummaryMetric: null
 };
