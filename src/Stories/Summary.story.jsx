@@ -13,6 +13,7 @@ storiesOf('Summary', module).add('WeightedAvg', () => (
       dataKeys: ['dogs', 'cats'],
       options: { valueKey: 'cuteness', countKey: 'amount' }
     }}
+    overallSummaryMetric={3.5}
     granularity="month"
     timeRange="lastYear"
   />

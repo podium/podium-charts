@@ -52,6 +52,7 @@ storiesOf('Report Card', module)
           type: 'total',
           dataKeys: ['sms']
         }}
+        overallSummaryMetric={9400}
         granularity="month"
         timeRange="lastYear"
       />
@@ -92,6 +93,7 @@ storiesOf('Report Card', module)
           dataKeys: ['cats', 'dogs'],
           options: { valueKey: 'cuteness', countKey: 'amount' }
         }}
+        overallSummaryMetric={3.5}
         granularity="month"
         timeRange="lastYear"
       />
@@ -128,6 +130,7 @@ storiesOf('Report Card', module)
           type: 'avg',
           dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
         }}
+        overallSummaryMetric={11279.2}
         granularity="day"
         timeRange="lastWeek"
       />
@@ -173,6 +176,7 @@ storiesOf('Report Card', module)
             type: 'total',
             dataKeys: ['text', 'organic']
           }}
+          overallSummaryMetric={80.6}
           granularity="month"
           timeRange="lastYear"
         />
@@ -223,6 +227,7 @@ storiesOf('Report Card', module)
           type: 'avg',
           dataKeys: ['organic', 'text']
         }}
+        overallSummaryMetric={3.7}
         granularity="month"
         timeRange="lastYear"
       />
@@ -259,6 +264,7 @@ storiesOf('Report Card', module)
           type: 'avg',
           dataKeys: ['organic', 'text']
         }}
+        overallSummaryMetric={3.7}
         granularity="month"
         timeRange="lastYear"
       />
@@ -306,6 +312,7 @@ storiesOf('Report Card', module)
           options: { valueKey: 'cuteness', countKey: 'amount' },
           dataKeys: ['dogs', 'cats']
         }}
+        overallSummaryMetric={3.5}
         granularity="month"
         timeRange="lastYear"
       />
@@ -327,6 +334,7 @@ storiesOf('Report Card', module)
           type: 'total',
           dataKeys: ['sms']
         }}
+        overallSummaryMetric={9400}
         granularity="month"
         timeRange="lastYear"
       />
@@ -353,6 +361,7 @@ storiesOf('Report Card', module)
           type: 'total',
           dataKeys: ['waitTime']
         }}
+        overallSummaryMetric={3130}
         granularity="month"
         timeRange="custom"
       />
@@ -414,6 +423,7 @@ storiesOf('Report Card', module)
           type: 'total',
           dataKeys: ['text', 'organic']
         }}
+        overallSummaryMetric={80.6}
         granularity="month"
         timeRange="lastYear"
       />

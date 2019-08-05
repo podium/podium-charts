@@ -15,6 +15,7 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
         countKey: 'amount'
       }
     },
+    overallSummaryMetric: 3.5,
     granularity: "month",
     timeRange: "lastYear"
   });
