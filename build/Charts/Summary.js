@@ -56,7 +56,7 @@ import styled from 'styled-components';
 import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { fullDate } from './utils/chartHelpers';
-import { getRowSummaryMetric, getOverallSummaryMetric } from './utils/aggregators';
+import { getRowSummaryMetric } from './utils/aggregators';
 import formatters from './utils/formatters';
 var SummaryWrapper = styled.div(_templateObject());
 var ToDate = styled.div(_templateObject2(), colors.steel);
@@ -79,7 +79,8 @@ export default function Summary(_ref) {
       timeRange = _ref.timeRange,
       dateStart = _ref.dateStart,
       dateEnd = _ref.dateEnd,
-      aggregationOptions = _ref.aggregationOptions;
+      aggregationOptions = _ref.aggregationOptions,
+      overallSummaryMetric = _ref.overallSummaryMetric;
 
   var titleCase = function titleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
@@ -117,9 +118,8 @@ export default function Summary(_ref) {
 
   if (loading) return renderGhostState();
   var currentData = getLatestSummaryMetric(data, aggregationOptions);
-  var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
-  var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
+  var entireDataFormatted = overallSummaryMetric === null ? 'N/A' : "".concat(formatter(overallSummaryMetric), " ").concat(unit);
   return React.createElement(SummaryWrapper, null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
 Summary.propTypes = {
@@ -137,7 +137,8 @@ Summary.propTypes = {
   unit: PropTypes.string,
   timeRange: PropTypes.oneOf(['custom', 'lastMonth', 'last12Months', 'lastWeek', 'lastYear', 'monthToDate', 'today', 'weekToDate', 'yearToDate', 'yesterday']),
   dateStart: PropTypes.string,
-  dateEnd: PropTypes.string
+  dateEnd: PropTypes.string,
+  overallSummaryMetric: PropTypes.number
 };
 Summary.defaultProps = {
   unit: '',
