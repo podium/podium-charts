@@ -115,13 +115,17 @@ export default function Summary(_ref) {
     }
   };
 
+  var shouldRenderToDate = function shouldRenderToDate(timeRange, dateEnd) {
+    return enabledGranularityList.includes(timeRange) || timeRange === 'custom' && dateEnd === formatters.getToday();
+  };
+
   if (loading) return renderGhostState();
   var currentData = getLatestSummaryMetric(data, aggregationOptions);
   var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
   var enabledGranularityList = ['last12Months', 'monthToDate', 'today', 'weekToDate', 'yearToDate'];
-  return React.createElement(SummaryWrapper, null, (enabledGranularityList.includes(timeRange) || timeRange === 'custom' && dateEnd === formatters.getToday()) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
+  return React.createElement(SummaryWrapper, null, shouldRenderToDate(timeRange, dateEnd) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
 Summary.propTypes = {
   data: PropTypes.array.isRequired,

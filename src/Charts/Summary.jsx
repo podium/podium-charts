@@ -86,6 +86,13 @@ export default function Summary({
     }
   };
 
+  const shouldRenderToDate = (timeRange, dateEnd) => {
+    return (
+      enabledGranularityList.includes(timeRange) ||
+      (timeRange === 'custom' && dateEnd === formatters.getToday())
+    );
+  };
+
   if (loading) return renderGhostState();
 
   const currentData = getLatestSummaryMetric(data, aggregationOptions);
@@ -106,8 +113,7 @@ export default function Summary({
 
   return (
     <SummaryWrapper>
-      {(enabledGranularityList.includes(timeRange) ||
-        (timeRange === 'custom' && dateEnd === formatters.getToday())) && (
+      {shouldRenderToDate(timeRange, dateEnd) && (
         <div>
           <ToDate>{titleCase(granularity)} to Date</ToDate>
           <SummaryLabel>{currentDataFormatted}</SummaryLabel>

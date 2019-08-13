@@ -95,8 +95,9 @@ export var nullToValue = function nullToValue(delegateFormatter, fallbackValue) 
   return formatter;
 };
 export var getToday = function getToday() {
+  var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'YYYY-MM-DD';
   var today = new Date();
-  return moment(today).format('YYYY-MM-DD');
+  return moment(today).format(format);
 };
 export default {
   abbreviateNumber: abbreviateNumber,

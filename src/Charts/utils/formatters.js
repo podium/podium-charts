@@ -90,10 +90,10 @@ export const nullToValue = (delegateFormatter, fallbackValue) => {
   return formatter;
 };
 
-export const getToday = () => {
+export const getToday = (format = 'YYYY-MM-DD') => {
   let today = new Date();
 
-  return moment(today).format('YYYY-MM-DD');
+  return moment(today).format(format);
 };
 
 export default {
