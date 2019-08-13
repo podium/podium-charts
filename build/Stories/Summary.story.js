@@ -18,4 +18,35 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
     granularity: "month",
     timeRange: "lastYear"
   });
+}).add('With To Date', function () {
+  return React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    },
+    granularity: "month",
+    timeRange: "monthToDate"
+  });
+}).add('Without To Date', function () {
+  return React.createElement(Summary, {
+    formatter: formatters.roundToPlaces(1),
+    data: weightedAvgData,
+    aggregationOptions: {
+      type: 'weightedAvg',
+      dataKeys: ['dogs', 'cats'],
+      options: {
+        valueKey: 'cuteness',
+        countKey: 'amount'
+      }
+    },
+    dateEnd: "2019-08-10",
+    granularity: "custom",
+    timeRange: "lastYear"
+  });
 });

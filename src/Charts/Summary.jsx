@@ -96,11 +96,24 @@ export default function Summary({
   const entireDataFormatted =
     entireData === null ? 'N/A' : `${formatter(entireData)} ${unit}`;
 
+  const enabledGranularityList = [
+    'last12Months',
+    'monthToDate',
+    'today',
+    'weekToDate',
+    'yearToDate'
+  ];
+
   return (
     <SummaryWrapper>
-      <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{currentDataFormatted}</SummaryLabel>
-      <Space />
+      {(enabledGranularityList.includes(timeRange) ||
+        (timeRange === 'custom' && dateEnd === formatters.getToday())) && (
+        <div>
+          <ToDate>{titleCase(granularity)} to Date</ToDate>
+          <SummaryLabel>{currentDataFormatted}</SummaryLabel>
+          <Space />
+        </div>
+      )}
       {renderTimeRange()}
       <SummaryLabel>{entireDataFormatted}</SummaryLabel>
     </SummaryWrapper>

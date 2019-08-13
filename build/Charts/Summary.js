@@ -120,7 +120,8 @@ export default function Summary(_ref) {
   var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
-  return React.createElement(SummaryWrapper, null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
+  var enabledGranularityList = ['last12Months', 'monthToDate', 'today', 'weekToDate', 'yearToDate'];
+  return React.createElement(SummaryWrapper, null, (enabledGranularityList.includes(timeRange) || timeRange === 'custom' && dateEnd === formatters.getToday()) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
 Summary.propTypes = {
   data: PropTypes.array.isRequired,
