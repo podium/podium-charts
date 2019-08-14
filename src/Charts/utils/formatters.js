@@ -90,11 +90,18 @@ export const nullToValue = (delegateFormatter, fallbackValue) => {
   return formatter;
 };
 
+export const getToday = (format = 'YYYY-MM-DD') => {
+  let today = new Date();
+
+  return moment(today).format(format);
+};
+
 export default {
   abbreviateNumber,
   abbreviateTime,
   capitalize,
   commatize,
+  getToday,
   nullToValue,
   date,
   humanizeDuration,

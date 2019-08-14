@@ -94,11 +94,17 @@ export var nullToValue = function nullToValue(delegateFormatter, fallbackValue) 
 
   return formatter;
 };
+export var getToday = function getToday() {
+  var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'YYYY-MM-DD';
+  var today = new Date();
+  return moment(today).format(format);
+};
 export default {
   abbreviateNumber: abbreviateNumber,
   abbreviateTime: abbreviateTime,
   capitalize: capitalize,
   commatize: commatize,
+  getToday: getToday,
   nullToValue: nullToValue,
   date: date,
   humanizeDuration: humanizeDuration,
