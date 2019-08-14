@@ -115,7 +115,9 @@ export default function Summary(_ref) {
     }
   };
 
-  var shouldRenderToDate = function shouldRenderToDate(timeRange, dateEnd) {
+  var enabledGranularityList = ['last12Months', 'monthToDate', 'today', 'weekToDate', 'yearToDate'];
+
+  var shouldRenderValueToDate = function shouldRenderValueToDate(timeRange, dateEnd) {
     return enabledGranularityList.includes(timeRange) || timeRange === 'custom' && dateEnd === formatters.getToday();
   };
 
@@ -124,8 +126,7 @@ export default function Summary(_ref) {
   var entireData = getOverallSummaryMetric(data, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = entireData === null ? 'N/A' : "".concat(formatter(entireData), " ").concat(unit);
-  var enabledGranularityList = ['last12Months', 'monthToDate', 'today', 'weekToDate', 'yearToDate'];
-  return React.createElement(SummaryWrapper, null, shouldRenderToDate(timeRange, dateEnd) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
+  return React.createElement(SummaryWrapper, null, shouldRenderValueToDate(timeRange, dateEnd) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
 Summary.propTypes = {
   data: PropTypes.array.isRequired,

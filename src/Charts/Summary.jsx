@@ -86,7 +86,15 @@ export default function Summary({
     }
   };
 
-  const shouldRenderToDate = (timeRange, dateEnd) => {
+  const enabledGranularityList = [
+    'last12Months',
+    'monthToDate',
+    'today',
+    'weekToDate',
+    'yearToDate'
+  ];
+
+  const shouldRenderValueToDate = (timeRange, dateEnd) => {
     return (
       enabledGranularityList.includes(timeRange) ||
       (timeRange === 'custom' && dateEnd === formatters.getToday())
@@ -103,17 +111,9 @@ export default function Summary({
   const entireDataFormatted =
     entireData === null ? 'N/A' : `${formatter(entireData)} ${unit}`;
 
-  const enabledGranularityList = [
-    'last12Months',
-    'monthToDate',
-    'today',
-    'weekToDate',
-    'yearToDate'
-  ];
-
   return (
     <SummaryWrapper>
-      {shouldRenderToDate(timeRange, dateEnd) && (
+      {shouldRenderValueToDate(timeRange, dateEnd) && (
         <div>
           <ToDate>{titleCase(granularity)} to Date</ToDate>
           <SummaryLabel>{currentDataFormatted}</SummaryLabel>
