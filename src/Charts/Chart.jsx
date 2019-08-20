@@ -83,6 +83,9 @@ export default class Chart extends React.Component {
     const { children, data } = this.props;
     if (!data || data.length === 0) return null;
 
+    // The sort is necessary, because recharts reverses the order of stacked-bar graph's data.
+    // This reverses the order of the Bar components while ignoring all other components so
+    // the order matches the order of the data passed in.
     const filteredChildren = filterChildren(children);
     return React.Children.toArray(filteredChildren)
       .sort((child1, child2) => {

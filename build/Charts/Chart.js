@@ -151,7 +151,10 @@ var _initialiseProps = function _initialiseProps() {
     var _this3$props = _this3.props,
         children = _this3$props.children,
         data = _this3$props.data;
-    if (!data || data.length === 0) return null;
+    if (!data || data.length === 0) return null; // The sort is necessary, because recharts reverses the order of stacked-bar graph's data.
+    // This reverses the order of the Bar components while ignoring all other components so
+    // the order matches the order of the data passed in.
+
     var filteredChildren = filterChildren(children);
     return React.Children.toArray(filteredChildren).sort(function (child1, child2) {
       if (child1.type === Bar && child2.type === Bar) return -1;else return 0;
