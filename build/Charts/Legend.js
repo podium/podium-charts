@@ -109,7 +109,7 @@ export default function Legend(_ref3) {
     displayOptions.forEach(function (item) {
       item.disabled ? filteredItems.push(item) : legendItems.push(item);
     });
-    return legendItems.reverse().concat(filteredItems).slice().map(function (legendItem) {
+    return legendItems.concat(filteredItems).slice().map(function (legendItem) {
       var dataKey = legendItem.dataKey,
           color = legendItem.color,
           name = legendItem.name,

@@ -90,7 +90,6 @@ export default function Legend({
     });
 
     return legendItems
-      .reverse()
       .concat(filteredItems)
       .slice()
       .map(legendItem => {

@@ -84,10 +84,16 @@ export default class Chart extends React.Component {
     if (!data || data.length === 0) return null;
 
     const filteredChildren = filterChildren(children);
-    return React.Children.map(filteredChildren, child => {
-      const renderComponent = mapping.get(child.type);
-      if (renderComponent) return renderComponent(child.props, renderContext);
-    });
+    return React.Children.toArray(filteredChildren)
+      .sort((child1, child2) => {
+        if (child1.type === Bar && child2.type === Bar) return -1;
+        else return 0;
+      })
+      .map(child => {
+        const renderComponent = mapping.get(child.type);
+        if (renderComponent) return renderComponent(child.props, renderContext);
+        else return null;
+      });
   };
 
   renderXAxis = ({ dataKey, ...props }) => {
