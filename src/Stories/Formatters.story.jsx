@@ -64,6 +64,14 @@ storiesOf('Formatters', module)
       {formatters.commatize(1000000000)}
     </div>
   ))
+  .add('currency', () => (
+    <div>
+      formatters.currency(24577.23)
+      <div>-></div>
+      {formatters.currency(24577.23)}
+    </div>
+  ))
+
   .add('nullToValue', () => (
     <div>
       <div>

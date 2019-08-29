@@ -96,6 +96,13 @@ export const getToday = (format = 'YYYY-MM-DD') => {
   return moment(today).format(format);
 };
 
+//handles dollars only as of now
+export const currency = dollars => {
+  const roundedDollars = Math.round(dollars);
+
+  return `$${commatize(roundedDollars)}`;
+};
+
 export default {
   abbreviateNumber,
   abbreviateTime,
@@ -106,5 +113,6 @@ export default {
   date,
   humanizeDuration,
   secondsToMinutes,
-  roundToPlaces
+  roundToPlaces,
+  currency
 };

@@ -98,6 +98,11 @@ export var getToday = function getToday() {
   var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'YYYY-MM-DD';
   var today = new Date();
   return moment(today).format(format);
+}; //handles dollars only as of now
+
+export var currency = function currency(dollars) {
+  var roundedDollars = Math.round(dollars);
+  return "$".concat(commatize(roundedDollars));
 };
 export default {
   abbreviateNumber: abbreviateNumber,
@@ -109,5 +114,6 @@ export default {
   date: date,
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,
-  roundToPlaces: roundToPlaces
+  roundToPlaces: roundToPlaces,
+  currency: currency
 };
