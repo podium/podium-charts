@@ -101,7 +101,7 @@ export const currency = pennies => {
   const dollars = Math.floor(pennies / 100);
   const cents = pennies % 100;
 
-  return `$${commatize(dollars)}.${cents}`;
+  return `$${commatize(dollars)}.${Math.round(cents)}`;
 };
 
 export const currencyRounded = pennies => {
@@ -122,5 +122,6 @@ export default {
   humanizeDuration,
   secondsToMinutes,
   roundToPlaces,
-  currency
+  currency,
+  currencyRounded
 };

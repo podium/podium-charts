@@ -103,7 +103,7 @@ export var getToday = function getToday() {
 export var currency = function currency(pennies) {
   var dollars = Math.floor(pennies / 100);
   var cents = pennies % 100;
-  return "$".concat(commatize(dollars), ".").concat(cents);
+  return "$".concat(commatize(dollars), ".").concat(Math.round(cents));
 };
 export var currencyRounded = function currencyRounded(pennies) {
   var dollars = pennies / 100;
@@ -121,5 +121,6 @@ export default {
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,
   roundToPlaces: roundToPlaces,
-  currency: currency
+  currency: currency,
+  currencyRounded: currencyRounded
 };
