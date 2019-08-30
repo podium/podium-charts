@@ -97,7 +97,15 @@ export const getToday = (format = 'YYYY-MM-DD') => {
 };
 
 //handles dollars only as of now
-export const currency = dollars => {
+export const currency = pennies => {
+  const dollars = Math.floor(pennies / 100);
+  const cents = pennies % 100;
+
+  return `$${commatize(dollars)}.${cents}`;
+};
+
+export const currencyRounded = pennies => {
+  const dollars = pennies / 100;
   const roundedDollars = Math.round(dollars);
 
   return `$${commatize(roundedDollars)}`;

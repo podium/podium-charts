@@ -100,7 +100,13 @@ export var getToday = function getToday() {
   return moment(today).format(format);
 }; //handles dollars only as of now
 
-export var currency = function currency(dollars) {
+export var currency = function currency(pennies) {
+  var dollars = Math.floor(pennies / 100);
+  var cents = pennies % 100;
+  return "$".concat(commatize(dollars), ".").concat(cents);
+};
+export var currencyRounded = function currencyRounded(pennies) {
+  var dollars = pennies / 100;
   var roundedDollars = Math.round(dollars);
   return "$".concat(commatize(roundedDollars));
 };
