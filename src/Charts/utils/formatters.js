@@ -96,8 +96,23 @@ export const getToday = (format = 'YYYY-MM-DD') => {
   return moment(today).format(format);
 };
 
-//handles dollars only as of now
-export const currency = dollars => {
+//handles USD only as of now
+export const currency = pennies => {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
+  }
+  const dollars = Math.floor(pennies / 100);
+  const cents = pennies % 100;
+
+  return `$${commatize(dollars)}.${cents}`;
+};
+
+export const currencyRounded = pennies => {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
+  }
+
+  const dollars = pennies / 100;
   const roundedDollars = Math.round(dollars);
 
   return `$${commatize(roundedDollars)}`;
@@ -114,5 +129,6 @@ export default {
   humanizeDuration,
   secondsToMinutes,
   roundToPlaces,
-  currency
+  currency,
+  currencyRounded
 };

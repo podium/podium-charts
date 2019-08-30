@@ -98,9 +98,23 @@ export var getToday = function getToday() {
   var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'YYYY-MM-DD';
   var today = new Date();
   return moment(today).format(format);
-}; //handles dollars only as of now
+}; //handles USD only as of now
 
-export var currency = function currency(dollars) {
+export var currency = function currency(pennies) {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
+  }
+
+  var dollars = Math.floor(pennies / 100);
+  var cents = pennies % 100;
+  return "$".concat(commatize(dollars), ".").concat(cents);
+};
+export var currencyRounded = function currencyRounded(pennies) {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
+  }
+
+  var dollars = pennies / 100;
   var roundedDollars = Math.round(dollars);
   return "$".concat(commatize(roundedDollars));
 };
@@ -115,5 +129,6 @@ export default {
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,
   roundToPlaces: roundToPlaces,
-  currency: currency
+  currency: currency,
+  currencyRounded: currencyRounded
 };
