@@ -1,7 +1,9 @@
 import {
   roundToPlaces,
   commatize,
-  nullToValue
+  nullToValue,
+  currency,
+  currencyRounded
 } from '../Charts/utils/formatters';
 
 describe('formatters', () => {
@@ -42,6 +44,42 @@ describe('formatters', () => {
         const formatter = nullToValue(commatize); // No fallback value specified!
         console.log(formatter(5000, 'facebook')); // Unreachable
       }).toThrow('No fallback value specified for formatter');
+    });
+  });
+
+  describe('currency', () => {
+    it('should display with cents', () => {
+      const result = currency(12345);
+      expect(result).toEqual('$123.45');
+    });
+
+    it('should commatize and display with cents', () => {
+      const result = currency(123456789);
+      expect(result).toEqual('$1,234,567.89');
+    });
+
+    it('should throw an error with malformed input', () => {
+      expect(() => {
+        currency(1.23);
+      }).toThrow(`Input must be an integer. Value provided: 1.23`);
+    });
+  });
+
+  describe('currencyRounded', () => {
+    it('should round to the nearest whole dollar', () => {
+      const result = currencyRounded(12345);
+      expect(result).toEqual('$123');
+    });
+
+    it('should round to the nearest whole dollar and commatize', () => {
+      const result = currencyRounded(123456789);
+      expect(result).toEqual('$1,234,568');
+    });
+
+    it('should throw an error with malformed input', () => {
+      expect(() => {
+        currencyRounded(1.23);
+      }).toThrow(`Input must be an integer. Value provided: 1.23`);
     });
   });
 });

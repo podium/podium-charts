@@ -73,7 +73,7 @@ storiesOf('Formatters', module)
   ))
   .add('currency (rounded)', () => (
     <div>
-      formatters.currency(2457723)
+      formatters.currencyRounded(2457723)
       <div>(pennies as input) -></div>
       {formatters.currencyRounded(2457723)}
     </div>
