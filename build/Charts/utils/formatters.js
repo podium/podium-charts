@@ -107,7 +107,8 @@ export var currency = function currency(pennies) {
 
   var dollars = Math.floor(pennies / 100);
   var cents = pennies % 100;
-  return "$".concat(commatize(dollars), ".").concat(cents);
+  var formattedCents = cents === 0 ? '00' : cents;
+  return "$".concat(commatize(dollars), ".").concat(formattedCents);
 };
 export var currencyRounded = function currencyRounded(pennies) {
   if (pennies.toString().indexOf('.') !== -1) {
