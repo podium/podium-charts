@@ -104,7 +104,9 @@ export const currency = pennies => {
   const dollars = Math.floor(pennies / 100);
   const cents = pennies % 100;
 
-  return `$${commatize(dollars)}.${cents}`;
+  const formattedCents = cents === 0 ? '00' : cents;
+
+  return `$${commatize(dollars)}.${formattedCents}`;
 };
 
 export const currencyRounded = pennies => {

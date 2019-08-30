@@ -53,6 +53,11 @@ describe('formatters', () => {
       expect(result).toEqual('$123.45');
     });
 
+    it('should display with 2 decimal places when there are no cents', () => {
+      const result = currency(12300);
+      expect(result).toEqual('$123.00');
+    });
+
     it('should commatize and display with cents', () => {
       const result = currency(123456789);
       expect(result).toEqual('$1,234,567.89');
