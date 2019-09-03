@@ -47,7 +47,11 @@ class ReportingTable extends Component {
                   <span>{header.content}</span>
                   {header.tooltip && (
                     <MoreInfo>
-                      <ToolTip position="top" type="arrow" tip={header.tooltip}>
+                      <ToolTip
+                        position="bottom"
+                        type="arrow"
+                        tip={header.tooltip}
+                      >
                         <IconInfo size="small" />
                       </ToolTip>
                     </MoreInfo>
