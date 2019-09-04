@@ -57,7 +57,7 @@ export function humanizeDuration(seconds) {
   var humanizeConfig = {
     largest: 2,
     delimiter: "\xA0",
-    units: ['h', 'm'],
+    units: ['d', 'h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
     round: true,
@@ -68,6 +68,9 @@ export function humanizeDuration(seconds) {
         },
         m: function m() {
           return 'min';
+        },
+        d: function d(x) {
+          return x === 1 ? 'day' : 'days';
         }
       }
     }
