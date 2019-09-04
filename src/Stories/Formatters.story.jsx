@@ -52,9 +52,16 @@ storiesOf('Formatters', module)
   ))
   .add('humanizeDuration', () => (
     <div>
-      formatters.humanizeDuration(86400)
-      <div>-></div>
-      {formatters.humanizeDuration(86400)}
+      <div>
+        formatters.humanizeDuration(86400)
+        <div>-></div>
+        {formatters.humanizeDuration(86400)}
+      </div>
+      <div>
+        formatters.humanizeDuration(16055)
+        <div>-></div>
+        {formatters.humanizeDuration(16055)}
+      </div>
     </div>
   ))
   .add('commatize', () => (
