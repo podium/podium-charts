@@ -52,9 +52,16 @@ storiesOf('Formatters', module)
   ))
   .add('humanizeDuration', () => (
     <div>
-      formatters.humanizeDuration(86400)
-      <div>-></div>
-      {formatters.humanizeDuration(86400)}
+      <div>
+        formatters.humanizeDuration(86400)
+        <div>-></div>
+        {formatters.humanizeDuration(86400)}
+      </div>
+      <div>
+        formatters.humanizeDuration(16055)
+        <div>-></div>
+        {formatters.humanizeDuration(16055)}
+      </div>
     </div>
   ))
   .add('commatize', () => (
@@ -64,6 +71,21 @@ storiesOf('Formatters', module)
       {formatters.commatize(1000000000)}
     </div>
   ))
+  .add('currency', () => (
+    <div>
+      formatters.currency(2457723)
+      <div>(pennies as input)-></div>
+      {formatters.currency(2457723)}
+    </div>
+  ))
+  .add('currency (rounded)', () => (
+    <div>
+      formatters.currencyRounded(2457723)
+      <div>(pennies as input) -></div>
+      {formatters.currencyRounded(2457723)}
+    </div>
+  ))
+
   .add('nullToValue', () => (
     <div>
       <div>

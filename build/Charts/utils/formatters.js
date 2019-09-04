@@ -57,7 +57,7 @@ export function humanizeDuration(seconds) {
   var humanizeConfig = {
     largest: 2,
     delimiter: "\xA0",
-    units: ['h', 'm'],
+    units: ['d', 'h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
     round: true,
@@ -68,6 +68,9 @@ export function humanizeDuration(seconds) {
         },
         m: function m() {
           return 'min';
+        },
+        d: function d(x) {
+          return x === 1 ? 'day' : 'days';
         }
       }
     }
@@ -98,6 +101,26 @@ export var getToday = function getToday() {
   var format = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'YYYY-MM-DD';
   var today = new Date();
   return moment(today).format(format);
+}; //handles USD only as of now
+
+export var currency = function currency(pennies) {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
+  }
+
+  var dollars = Math.floor(pennies / 100);
+  var cents = pennies % 100;
+  var formattedCents = cents === 0 ? '00' : cents;
+  return "$".concat(commatize(dollars), ".").concat(formattedCents);
+};
+export var currencyRounded = function currencyRounded(pennies) {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
+  }
+
+  var dollars = pennies / 100;
+  var roundedDollars = Math.round(dollars);
+  return "$".concat(commatize(roundedDollars));
 };
 export default {
   abbreviateNumber: abbreviateNumber,
@@ -109,5 +132,7 @@ export default {
   date: date,
   humanizeDuration: humanizeDuration,
   secondsToMinutes: secondsToMinutes,
-  roundToPlaces: roundToPlaces
+  roundToPlaces: roundToPlaces,
+  currency: currency,
+  currencyRounded: currencyRounded
 };
