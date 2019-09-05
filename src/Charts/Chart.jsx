@@ -86,7 +86,6 @@ export default class Chart extends React.Component {
     const filteredChildren = filterChildren(children);
     return React.Children.toArray(filteredChildren)
       .sort((child1, child2) => {
-        console.log(child1, child2);
         if (
           child1.type === Bar &&
           child1.props.stackId &&

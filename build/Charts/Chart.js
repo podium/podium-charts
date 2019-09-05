@@ -154,8 +154,6 @@ var _initialiseProps = function _initialiseProps() {
     if (!data || data.length === 0) return null;
     var filteredChildren = filterChildren(children);
     return React.Children.toArray(filteredChildren).sort(function (child1, child2) {
-      console.log(child1, child2);
-
       if (child1.type === Bar && child1.props.stackId && child2.type === Bar && child2.props.stackId) {
         // These two children are both Bars in a stacked-bar chart, so we want to reverse them so they
         // render top-to-bottom instead of bottom-to-top
