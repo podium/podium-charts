@@ -86,12 +86,17 @@ export default class Chart extends React.Component {
     const filteredChildren = filterChildren(children);
     return React.Children.toArray(filteredChildren)
       .sort((child1, child2) => {
-        if (child1.type === Bar && child2.type === Bar) {
-          // These two children are both Bars, so we want to reverse them so they
+        if (
+          child1.type === Bar &&
+          child1.props.stackId &&
+          child2.type === Bar &&
+          child2.props.stackId
+        ) {
+          // These two children are both Bars in a stacked-bar chart, so we want to reverse them so they
           // render top-to-bottom instead of bottom-to-top
           return -1;
         } else {
-          // One or both of these children is not a Bar, so we don't want to
+          // One or both of these children is not a Bar in a stacked-bar chart, so we don't want to
           // change this sorting.
           return 0;
         }
