@@ -1,6 +1,6 @@
 {
   "name": "podium-reporting-toolkit",
-  "version": "0.18.6",
+  "version": "0.18.7",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
   "module": "build/index.js",
