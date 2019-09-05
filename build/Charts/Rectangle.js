@@ -22,7 +22,7 @@ export default function Rectangle(props) {
     return !!payload[bar.dataKey];
   });
   if (!renderedBars.length) return React.createElement(RechartsRectangle, props);
-  var isTopBar = renderedBars[renderedBars.length - 1].dataKey === dataKey;
+  var isTopBar = renderedBars[0].dataKey === dataKey;
   if (isTopBar) return React.createElement(RechartsRectangle, _extends({}, props, {
     radius: calculateRadius(width)
   }));
