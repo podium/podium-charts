@@ -160,7 +160,7 @@ export default function TooltipBody(props) {
 
   var formatSummary = function formatSummary(seconds) {
     var minutes = seconds / 60;
-    return React.createElement("div", null, minutes < 1 ? "".concat(seconds, " Seconds") : "".concat(formatters.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && React.createElement(Humanized, null, "".concat(formatters.humanizeDuration(seconds))));
+    return React.createElement("div", null, minutes < 1 ? "".concat(Math.round(seconds), " Seconds") : "".concat(formatters.commatize(Math.round(minutes)), " Minutes"), minutes > 60 && React.createElement(Humanized, null, "".concat(formatters.humanizeDuration(seconds))));
   };
 
   var renderToolTipLegend = function renderToolTipLegend() {
