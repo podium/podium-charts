@@ -59,12 +59,16 @@ export function humanizeDuration(seconds) {
   const humanizeConfig = {
     largest: 2,
     delimiter: '\u00A0',
-    units: ['h', 'm'],
+    units: ['d', 'h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
     round: true,
     languages: {
-      abbreviations: { h: () => 'hr', m: () => 'min' }
+      abbreviations: {
+        h: () => 'hr',
+        m: () => 'min',
+        d: x => (x === 1 ? 'day' : 'days')
+      }
     }
   };
   const displayTime = humanReadableDuration(ms, humanizeConfig);
