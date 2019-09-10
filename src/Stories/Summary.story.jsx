@@ -15,7 +15,7 @@ storiesOf('Summary', module)
         options: { valueKey: 'cuteness', countKey: 'amount' }
       }}
       granularity="month"
-      timeRange="yearToDate"
+      timeRange="lastYear"
       overallSummaryMetric={3.5}
     />
   ))

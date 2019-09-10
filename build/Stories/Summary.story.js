@@ -16,7 +16,7 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
       }
     },
     granularity: "month",
-    timeRange: "yearToDate",
+    timeRange: "lastYear",
     overallSummaryMetric: 3.5
   });
 }).add('With To Date', function () {
