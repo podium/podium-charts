@@ -16,6 +16,7 @@ storiesOf('Summary', module)
       }}
       granularity="month"
       timeRange="lastYear"
+      overallSummaryMetric={3.5}
     />
   ))
   .add('With To Date', () => (
@@ -27,8 +28,9 @@ storiesOf('Summary', module)
         dataKeys: ['dogs', 'cats'],
         options: { valueKey: 'cuteness', countKey: 'amount' }
       }}
+      overallSummaryMetric={3.5}
       granularity="month"
-      timeRange="monthToDate"
+      timeRange="yearToDate"
     />
   ))
   .add('Without To Date', () => (

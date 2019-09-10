@@ -16,7 +16,8 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
       }
     },
     granularity: "month",
-    timeRange: "lastYear"
+    timeRange: "lastYear",
+    overallSummaryMetric: 3.5
   });
 }).add('With To Date', function () {
   return React.createElement(Summary, {
@@ -30,8 +31,9 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
         countKey: 'amount'
       }
     },
+    overallSummaryMetric: 3.5,
     granularity: "month",
-    timeRange: "monthToDate"
+    timeRange: "yearToDate"
   });
 }).add('Without To Date', function () {
   return React.createElement(Summary, {
