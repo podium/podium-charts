@@ -42,6 +42,7 @@ storiesOf('Summary', module)
         dataKeys: ['dogs', 'cats'],
         options: { valueKey: 'cuteness', countKey: 'amount' }
       }}
+      overallSummaryMetric={3.5}
       dateEnd="2019-08-10"
       granularity="custom"
       timeRange="lastYear"
