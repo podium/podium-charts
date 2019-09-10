@@ -69,7 +69,7 @@ function (_Component) {
           key: header.id,
           width: header.width
         }, React.createElement(HeaderData, null, React.createElement("span", null, header.content), header.tooltip && React.createElement(MoreInfo, null, React.createElement(ToolTip, {
-          position: "top",
+          position: "bottom",
           type: "arrow",
           tip: header.tooltip
         }, React.createElement(IconInfo, {

@@ -8,9 +8,13 @@ storiesOf('Formatters', module).add('date', function () {
 }).add('abbreviateNumber', function () {
   return React.createElement("div", null, "formatters.abbreviateNumber(100000000)", React.createElement("div", null, "->"), formatters.abbreviateNumber(100000000));
 }).add('humanizeDuration', function () {
-  return React.createElement("div", null, "formatters.humanizeDuration(86400)", React.createElement("div", null, "->"), formatters.humanizeDuration(86400));
+  return React.createElement("div", null, React.createElement("div", null, "formatters.humanizeDuration(86400)", React.createElement("div", null, "->"), formatters.humanizeDuration(86400)), React.createElement("div", null, "formatters.humanizeDuration(16055)", React.createElement("div", null, "->"), formatters.humanizeDuration(16055)));
 }).add('commatize', function () {
   return React.createElement("div", null, "formatters.commatize(\"\")", React.createElement("div", null, "->"), formatters.commatize(1000000000));
+}).add('currency', function () {
+  return React.createElement("div", null, "formatters.currency(2457723)", React.createElement("div", null, "(pennies as input)->"), formatters.currency(2457723));
+}).add('currency (rounded)', function () {
+  return React.createElement("div", null, "formatters.currencyRounded(2457723)", React.createElement("div", null, "(pennies as input) ->"), formatters.currencyRounded(2457723));
 }).add('nullToValue', function () {
   return React.createElement("div", null, React.createElement("div", null, "formatters.nullToValue(formatters.commatize, 'N/A')(5000)", React.createElement("div", null, "->"), formatters.nullToValue(formatters.commatize, 'N/A')(5000)), React.createElement("br", null), React.createElement("div", null, "formatters.nullToValue(formatters.commatize, 'N/A')(null)", React.createElement("div", null, "->"), formatters.nullToValue(formatters.commatize, 'N/A')(null)));
 });

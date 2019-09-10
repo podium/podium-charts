@@ -59,12 +59,16 @@ export function humanizeDuration(seconds) {
   const humanizeConfig = {
     largest: 2,
     delimiter: '\u00A0',
-    units: ['h', 'm'],
+    units: ['d', 'h', 'm'],
     language: 'abbreviations',
     spacer: ' ',
     round: true,
     languages: {
-      abbreviations: { h: () => 'hr', m: () => 'min' }
+      abbreviations: {
+        h: () => 'hr',
+        m: () => 'min',
+        d: x => (x === 1 ? 'day' : 'days')
+      }
     }
   };
   const displayTime = humanReadableDuration(ms, humanizeConfig);
@@ -90,14 +94,47 @@ export const nullToValue = (delegateFormatter, fallbackValue) => {
   return formatter;
 };
 
+export const getToday = (format = 'YYYY-MM-DD') => {
+  let today = new Date();
+
+  return moment(today).format(format);
+};
+
+//handles USD only as of now
+export const currency = pennies => {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
+  }
+  const dollars = Math.floor(pennies / 100);
+  const cents = pennies % 100;
+
+  const formattedCents = cents === 0 ? '00' : cents;
+
+  return `$${commatize(dollars)}.${formattedCents}`;
+};
+
+export const currencyRounded = pennies => {
+  if (pennies.toString().indexOf('.') !== -1) {
+    throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
+  }
+
+  const dollars = pennies / 100;
+  const roundedDollars = Math.round(dollars);
+
+  return `$${commatize(roundedDollars)}`;
+};
+
 export default {
   abbreviateNumber,
   abbreviateTime,
   capitalize,
   commatize,
+  getToday,
   nullToValue,
   date,
   humanizeDuration,
   secondsToMinutes,
-  roundToPlaces
+  roundToPlaces,
+  currency,
+  currencyRounded
 };

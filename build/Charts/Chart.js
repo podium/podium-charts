@@ -153,9 +153,19 @@ var _initialiseProps = function _initialiseProps() {
         data = _this3$props.data;
     if (!data || data.length === 0) return null;
     var filteredChildren = filterChildren(children);
-    return React.Children.map(filteredChildren, function (child) {
+    return React.Children.toArray(filteredChildren).sort(function (child1, child2) {
+      if (child1.type === Bar && child1.props.stackId && child2.type === Bar && child2.props.stackId) {
+        // These two children are both Bars in a stacked-bar chart, so we want to reverse them so they
+        // render top-to-bottom instead of bottom-to-top
+        return -1;
+      } else {
+        // One or both of these children is not a Bar in a stacked-bar chart, so we don't want to
+        // change this sorting.
+        return 0;
+      }
+    }).map(function (child) {
       var renderComponent = mapping.get(child.type);
-      if (renderComponent) return renderComponent(child.props, renderContext);
+      if (renderComponent) return renderComponent(child.props, renderContext);else return null;
     });
   };
 

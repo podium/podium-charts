@@ -84,6 +84,21 @@ export default function Summary({
     }
   };
 
+  const enabledGranularityList = [
+    'last12Months',
+    'monthToDate',
+    'today',
+    'weekToDate',
+    'yearToDate'
+  ];
+
+  const shouldRenderValueToDate = (timeRange, dateEnd) => {
+    return (
+      enabledGranularityList.includes(timeRange) ||
+      (timeRange === 'custom' && dateEnd === formatters.getToday())
+    );
+  };
+
   if (loading) return renderGhostState();
 
   const currentData = getLatestSummaryMetric(data, aggregationOptions);
@@ -97,9 +112,13 @@ export default function Summary({
 
   return (
     <SummaryWrapper>
-      <ToDate>{titleCase(granularity)} to Date</ToDate>
-      <SummaryLabel>{currentDataFormatted}</SummaryLabel>
-      <Space />
+      {shouldRenderValueToDate(timeRange, dateEnd) && (
+        <div>
+          <ToDate>{titleCase(granularity)} to Date</ToDate>
+          <SummaryLabel>{currentDataFormatted}</SummaryLabel>
+          <Space />
+        </div>
+      )}
       {renderTimeRange()}
       <SummaryLabel>{entireDataFormatted}</SummaryLabel>
     </SummaryWrapper>
