@@ -6,7 +6,7 @@ import { weightedAvgData } from './storyHelpers';
 storiesOf('Summary', module).add('WeightedAvg', function () {
   return React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    chartData: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['dogs', 'cats'],
@@ -22,7 +22,7 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
 }).add('With To Date', function () {
   return React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    chartData: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['dogs', 'cats'],
@@ -38,7 +38,7 @@ storiesOf('Summary', module).add('WeightedAvg', function () {
 }).add('Without To Date', function () {
   return React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    chartData: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['dogs', 'cats'],

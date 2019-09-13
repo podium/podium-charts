@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import get from 'lodash.get';
 import Ghost from './Ghost/Ghost';
-import { getOverallSummaryMetric } from './utils/aggregators';
 import formatters from './utils/formatters';
 import ReportCardContext from './ReportCardContext';
 
@@ -52,26 +51,28 @@ const Label = styled.div`
 
 export default function Legend({
   loading,
-  data,
+  legendData,
   aggregationOptions,
   displayOptions,
   formatter
 }) {
-  const calculateValue = dataKey => {
-    const itemAggregationOptions = {
-      type: aggregationOptions.type,
-      dataKeys: [dataKey],
-      options: aggregationOptions.options
-    };
-    return getOverallSummaryMetric(data, itemAggregationOptions);
+  const getDataKeys = displayOptions => {
+    return displayOptions.reduce((acc, option) => {
+      return [...acc, option.dataKey];
+    }, []);
   };
 
-  const createAggMap = (dataKeys = []) => {
+  const getValue = (legendData, dataKey) => {
+    const value = get(legendData, dataKey);
+    if (!value) return null;
+    return value;
+  };
+
+  const createLegendMap = (legendData, dataKeys = []) => {
     return dataKeys.reduce((acc, dataKey) => {
-      return { ...acc, [dataKey]: calculateValue(dataKey) };
+      return { ...acc, [dataKey]: getValue(legendData, dataKey) };
     }, {});
   };
-
   const renderGhostState = () => (
     <LegendWrapper>
       <Ghost row />
@@ -81,8 +82,6 @@ export default function Legend({
   );
 
   const renderLegendItems = (aggMap = {}, selectedKey, onSelectKey) => {
-    // TODO: why do we need to reverse the displayOptions?
-    // Maybe we want to reverse the rendering of stacked bars instead
     const legendItems = [];
     const filteredItems = [];
     displayOptions.forEach(item => {
@@ -114,14 +113,13 @@ export default function Legend({
 
   if (loading) return renderGhostState();
 
-  const dataKeys = get(aggregationOptions, 'dataKeys');
-  const aggMap = createAggMap(dataKeys);
-
+  const dataKeys = getDataKeys(displayOptions);
+  const legendMap = createLegendMap(legendData, dataKeys);
   return (
     <ReportCardContext.Consumer>
       {({ selectedKey, onSelectKey }) => (
         <LegendWrapper>
-          {renderLegendItems(aggMap, selectedKey, onSelectKey)}
+          {renderLegendItems(legendMap, selectedKey, onSelectKey)}
         </LegendWrapper>
       )}
     </ReportCardContext.Consumer>
@@ -129,7 +127,8 @@ export default function Legend({
 }
 
 Legend.propTypes = {
-  data: PropTypes.array.isRequired,
+  /** An object containing the dataKeys and the associated values to be displayed */
+  legendData: PropTypes.object.isRequired,
   aggregationOptions: PropTypes.shape({
     type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
     dataKeys: PropTypes.array.isRequired,

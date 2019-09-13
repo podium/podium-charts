@@ -71,7 +71,7 @@ var getLatestSummaryMetric = function getLatestSummaryMetric(data, aggregationOp
 };
 
 export default function Summary(_ref) {
-  var data = _ref.data,
+  var chartData = _ref.chartData,
       formatter = _ref.formatter,
       granularity = _ref.granularity,
       unit = _ref.unit,
@@ -123,7 +123,7 @@ export default function Summary(_ref) {
   };
 
   if (loading) return renderGhostState();
-  var currentData = getLatestSummaryMetric(data, aggregationOptions);
+  var currentData = getLatestSummaryMetric(chartData, aggregationOptions);
   var currentDataFormatted = currentData === null ? 'N/A' : "".concat(formatter(currentData), " ").concat(unit);
   var entireDataFormatted = overallSummaryMetric === null ? 'N/A' : "".concat(formatter(overallSummaryMetric), " ").concat(unit);
   return React.createElement(SummaryWrapper, null, shouldRenderValueToDate(timeRange, dateEnd) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));

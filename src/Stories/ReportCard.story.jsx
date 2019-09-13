@@ -20,8 +20,11 @@ import {
 import { CustomLegendNotes } from './ReportCardHelpers';
 import {
   data,
+  dataLegend,
   powerLevels,
+  powerLevelsLegend,
   weightedAvgData,
+  weightedAvgDataLegend,
   timeData,
   customFormatter
 } from './storyHelpers';
@@ -47,7 +50,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['sms']
@@ -87,7 +90,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={weightedAvgData}
+        chartData={weightedAvgData}
         aggregationOptions={{
           type: 'weightedAvg',
           dataKeys: ['cats', 'dogs'],
@@ -99,7 +102,7 @@ storiesOf('Report Card', module)
       />
       <Legend
         formatter={formatters.roundToPlaces(1)}
-        data={weightedAvgData}
+        legendData={weightedAvgDataLegend}
         aggregationOptions={{
           type: 'weightedAvg',
           dataKeys: ['cats', 'dogs'],
@@ -125,7 +128,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={powerLevels}
+        chartData={powerLevels}
         aggregationOptions={{
           type: 'avg',
           dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
@@ -139,7 +142,7 @@ storiesOf('Report Card', module)
           formatters.roundToPlaces(1),
           '(no data)'
         )}
-        data={powerLevels}
+        legendData={powerLevelsLegend}
         aggregationOptions={{
           type: 'avg',
           dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
@@ -171,7 +174,7 @@ storiesOf('Report Card', module)
         </Chart>
         <Summary
           formatter={formatters.roundToPlaces(1)}
-          data={data}
+          chartData={data}
           aggregationOptions={{
             type: 'total',
             dataKeys: ['text', 'organic']
@@ -182,7 +185,7 @@ storiesOf('Report Card', module)
         />
         <Legend
           formatter={customFormatter}
-          data={data}
+          legendData={dataLegend}
           aggregationOptions={{
             type: 'total',
             dataKeys: ['organic', 'text']
@@ -222,7 +225,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'avg',
           dataKeys: ['organic', 'text']
@@ -232,7 +235,7 @@ storiesOf('Report Card', module)
         timeRange="lastYear"
       />
       <Legend
-        data={weightedAvgData}
+        legendData={dataLegend}
         displayOptions={[
           { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
           { name: 'Text', dataKey: 'text', color: colors.poppyRed }
@@ -259,7 +262,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'avg',
           dataKeys: ['organic', 'text']
@@ -269,7 +272,7 @@ storiesOf('Report Card', module)
         timeRange="lastYear"
       />
       <Legend
-        data={weightedAvgData}
+        legendData={dataLegend}
         displayOptions={[
           { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
           { name: 'Text', dataKey: 'text', color: colors.poppyRed }
@@ -306,7 +309,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={weightedAvgData}
+        chartData={weightedAvgData}
         aggregationOptions={{
           type: 'weightedAvg',
           options: { valueKey: 'cuteness', countKey: 'amount' },
@@ -329,7 +332,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.commatize}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['sms']
@@ -356,7 +359,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.commatize}
-        data={timeData}
+        chartData={timeData}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['waitTime']
@@ -384,7 +387,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['text', 'organic']
@@ -393,7 +396,7 @@ storiesOf('Report Card', module)
         timeRange="lastYear"
       />
       <Legend
-        data={data}
+        legendData={dataLegend}
         displayOptions={[
           { name: 'Organic', dataKey: 'organic', color: colors.cobaltBlue },
           { name: 'Text', dataKey: 'text', color: colors.poppyRed }
@@ -418,7 +421,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        chartData={data}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['text', 'organic']
@@ -429,7 +432,7 @@ storiesOf('Report Card', module)
       />
       <Legend
         formatter={formatters.roundToPlaces(1)}
-        data={data}
+        legendData={dataLegend}
         aggregationOptions={{
           type: 'total',
           dataKeys: ['organic', 'text']
@@ -472,7 +475,7 @@ storiesOf('Report Card', module)
       </Chart>
       <Summary
         formatter={formatters.roundToPlaces(1)}
-        data={[]}
+        chartData={[]}
         aggregationOptions={{
           type: 'weightedAvg',
           options: { valueKey: 'cuteness', countKey: 'amount' },

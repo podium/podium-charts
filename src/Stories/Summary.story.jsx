@@ -8,7 +8,7 @@ storiesOf('Summary', module)
   .add('WeightedAvg', () => (
     <Summary
       formatter={formatters.roundToPlaces(1)}
-      data={weightedAvgData}
+      chartData={weightedAvgData}
       aggregationOptions={{
         type: 'weightedAvg',
         dataKeys: ['dogs', 'cats'],
@@ -22,7 +22,7 @@ storiesOf('Summary', module)
   .add('With To Date', () => (
     <Summary
       formatter={formatters.roundToPlaces(1)}
-      data={weightedAvgData}
+      chartData={weightedAvgData}
       aggregationOptions={{
         type: 'weightedAvg',
         dataKeys: ['dogs', 'cats'],
@@ -36,7 +36,7 @@ storiesOf('Summary', module)
   .add('Without To Date', () => (
     <Summary
       formatter={formatters.roundToPlaces(1)}
-      data={weightedAvgData}
+      chartData={weightedAvgData}
       aggregationOptions={{
         type: 'weightedAvg',
         dataKeys: ['dogs', 'cats'],

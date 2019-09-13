@@ -36,7 +36,7 @@ const getLatestSummaryMetric = (data, aggregationOptions) => {
 };
 
 export default function Summary({
-  data,
+  chartData,
   formatter,
   granularity,
   unit,
@@ -101,7 +101,7 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
-  const currentData = getLatestSummaryMetric(data, aggregationOptions);
+  const currentData = getLatestSummaryMetric(chartData, aggregationOptions);
 
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
