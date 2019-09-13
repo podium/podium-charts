@@ -301,6 +301,11 @@ var Gradient = function Gradient(_ref5) {
   });
 };
 
+var onClickThisRow = function onClickThisRow(rowData) {
+  console.log(rowData);
+  console.log('row clicked!!!');
+};
+
 var dataComponents = {
   name: React.createElement(Name, null),
   favoriteGradient: React.createElement(Gradient, null),
@@ -337,7 +342,9 @@ storiesOf('Reporting Table', module).add('Default', function () {
     loading: false,
     data: dataForComponents,
     headers: headersForComponents,
-    dataComponents: dataComponents
+    dataComponents: dataComponents,
+    onRowClick: onClickThisRow,
+    onRowHoverColor: '#F6F8FF'
   }));
 }, {
   notes: HeaderComponentNotes

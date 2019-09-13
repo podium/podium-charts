@@ -80,10 +80,16 @@ function (_Component) {
       var _this$props = _this.props,
           data = _this$props.data,
           dataComponents = _this$props.dataComponents,
-          headers = _this$props.headers;
+          headers = _this$props.headers,
+          onRowClick = _this$props.onRowClick,
+          onRowHoverColor = _this$props.onRowHoverColor;
       return data && data.map(function (row, rowIndex) {
         return React.createElement(TableRow, {
-          key: "row|".concat(rowIndex)
+          key: "row|".concat(rowIndex),
+          onClick: function onClick() {
+            return onRowClick(row);
+          },
+          hoverColor: onRowHoverColor
         }, headers.map(function (header, headerIndex) {
           var tableCellComponent = dataComponents[header.id];
           var Component = tableCellComponent && React.cloneElement(tableCellComponent, {

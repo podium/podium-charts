@@ -49,7 +49,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  min-height: 56px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  min-height: 56px;\n  :hover {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -100,24 +100,27 @@ export var TableHeaderCellWrapper = styled.th(_templateObject(), black, function
 });
 var borders = "\n  > thead {\n    border-bottom: solid 1px ".concat(mystic, ";\n\n    > tr {\n      :not(:last-child) {\n        border-bottom: 1px solid ").concat(mystic, ";\n      }\n      > th {\n        :first-child {\n          border-right: 1px solid ").concat(mystic, ";\n        }\n      }\n    }\n  }\n\n  > tbody {\n    > tr {\n      :not(:last-child) {\n        border-bottom: 1px solid ").concat(mystic, ";\n      }\n      > td {\n\t\t\t\t:first-child {\n\t\t\t\t\tborder-right: 1px solid ").concat(mystic, ";\n\t\t\t\t}\n      }\n    }\n  }\n");
 export var TableWrapper = styled.table(_templateObject2(), GRAPHIK, borders);
-export var TableRowWrapper = styled.tr(_templateObject3());
+export var TableRowWrapper = styled.tr(_templateObject3(), function (_ref4) {
+  var hoverColor = _ref4.hoverColor;
+  return hoverColor;
+});
 export var TableHeaderWrapper = styled.thead(_templateObject4());
-export var TableCellWrapper = styled.td(_templateObject5(), mineShaft, function (_ref4) {
-  var width = _ref4.width;
+export var TableCellWrapper = styled.td(_templateObject5(), mineShaft, function (_ref5) {
+  var width = _ref5.width;
   return width && "min-width: ".concat(width);
 });
 export var TableBodyWrapper = styled.tbody(_templateObject6());
 export var TableLoadingWrapper = styled.div(_templateObject7());
-export var TableLoadingWhitespace = styled.div(_templateObject8(), function (_ref5) {
-  var width = _ref5.width;
+export var TableLoadingWhitespace = styled.div(_templateObject8(), function (_ref6) {
+  var width = _ref6.width;
   return width && "width: ".concat(width, "px");
-}, function (_ref6) {
-  var height = _ref6.height;
+}, function (_ref7) {
+  var height = _ref7.height;
   return height && "height: ".concat(height, "px");
-}, white, function (_ref7) {
-  var left = _ref7.left;
+}, white, function (_ref8) {
+  var left = _ref8.left;
   return left ? "".concat(left) : '0';
-}, function (_ref8) {
-  var top = _ref8.top;
+}, function (_ref9) {
+  var top = _ref9.top;
   return top ? "".concat(top) : '0';
 });
