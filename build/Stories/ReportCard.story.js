@@ -4,7 +4,7 @@ import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
 import { Chart, XAxis, YAxis, Bar, Granularity, Line, Legend, Summary, Tooltip, TooltipBody, TooltipBodyTime, ReportCard, ReportTitle } from '../';
 import { CustomLegendNotes } from './ReportCardHelpers';
-import { data, powerLevels, weightedAvgData, timeData, customFormatter } from './storyHelpers';
+import { data, dataLegend, powerLevels, powerLevelsLegend, weightedAvgData, weightedAvgDataLegend, timeData, customFormatter } from './storyHelpers';
 storiesOf('Report Card', module).add('w/Chart,Title', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
@@ -34,11 +34,12 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: colors.cobaltBlue
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['sms']
     },
+    overallSummaryMetric: 9400,
     granularity: "month",
     timeRange: "lastYear"
   }));
@@ -76,7 +77,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     })
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    chartData: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['cats', 'dogs'],
@@ -85,11 +86,12 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
         countKey: 'amount'
       }
     },
+    overallSummaryMetric: 3.5,
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    legendData: weightedAvgDataLegend,
     aggregationOptions: {
       type: 'weightedAvg',
       dataKeys: ['cats', 'dogs'],
@@ -135,16 +137,17 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: "#6A3027"
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: powerLevels,
+    chartData: powerLevels,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
     },
+    overallSummaryMetric: 11279.2,
     granularity: "day",
     timeRange: "lastWeek"
   }), React.createElement(Legend, {
     formatter: formatters.nullToValue(formatters.roundToPlaces(1), '(no data)'),
-    data: powerLevels,
+    legendData: powerLevelsLegend,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['goku', 'piccolo', 'vegeta', 'turtle']
@@ -186,16 +189,17 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: colors.cobaltBlue
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
     },
+    overallSummaryMetric: 80.6,
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
     formatter: customFormatter,
-    data: data,
+    legendData: dataLegend,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['organic', 'text']
@@ -242,15 +246,16 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: colors.poppyRed
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['organic', 'text']
     },
+    overallSummaryMetric: 3.7,
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
-    data: weightedAvgData,
+    legendData: dataLegend,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
@@ -287,15 +292,16 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: colors.poppyRed
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'avg',
       dataKeys: ['organic', 'text']
     },
+    overallSummaryMetric: 3.7,
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
-    data: weightedAvgData,
+    legendData: dataLegend,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
@@ -340,7 +346,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     })
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: weightedAvgData,
+    chartData: weightedAvgData,
     aggregationOptions: {
       type: 'weightedAvg',
       options: {
@@ -349,6 +355,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       },
       dataKeys: ['dogs', 'cats']
     },
+    overallSummaryMetric: 3.5,
     granularity: "month",
     timeRange: "lastYear"
   }));
@@ -371,11 +378,12 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     })
   })), React.createElement(Summary, {
     formatter: formatters.commatize,
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['sms']
     },
+    overallSummaryMetric: 9400,
     granularity: "month",
     timeRange: "lastYear"
   }));
@@ -398,11 +406,12 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     content: React.createElement(TooltipBodyTime, null)
   })), React.createElement(Summary, {
     formatter: formatters.commatize,
-    data: timeData,
+    chartData: timeData,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['waitTime']
     },
+    overallSummaryMetric: 3130,
     granularity: "month",
     timeRange: "custom"
   }));
@@ -431,7 +440,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     content: React.createElement(TooltipBodyTime, null)
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
@@ -439,7 +448,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
-    data: data,
+    legendData: dataLegend,
     displayOptions: [{
       name: 'Organic',
       dataKey: 'organic',
@@ -469,16 +478,17 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     color: colors.cobaltBlue
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    chartData: data,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['text', 'organic']
     },
+    overallSummaryMetric: 80.6,
     granularity: "month",
     timeRange: "lastYear"
   }), React.createElement(Legend, {
     formatter: formatters.roundToPlaces(1),
-    data: data,
+    legendData: dataLegend,
     aggregationOptions: {
       type: 'total',
       dataKeys: ['organic', 'text']
@@ -530,7 +540,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     })
   })), React.createElement(Summary, {
     formatter: formatters.roundToPlaces(1),
-    data: [],
+    chartData: [],
     aggregationOptions: {
       type: 'weightedAvg',
       options: {

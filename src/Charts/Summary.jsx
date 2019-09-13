@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import { colors, ReportingDatePicker } from '@podiumhq/podium-ui';
 import Ghost from './Ghost/Ghost';
 import { fullDate } from './utils/chartHelpers';
-import {
-  getRowSummaryMetric,
-  getOverallSummaryMetric
-} from './utils/aggregators';
+import { getRowSummaryMetric } from './utils/aggregators';
 import formatters from './utils/formatters';
 
 const SummaryWrapper = styled.div``;
@@ -39,7 +36,7 @@ const getLatestSummaryMetric = (data, aggregationOptions) => {
 };
 
 export default function Summary({
-  data,
+  chartData,
   formatter,
   granularity,
   unit,
@@ -47,7 +44,8 @@ export default function Summary({
   timeRange,
   dateStart,
   dateEnd,
-  aggregationOptions
+  aggregationOptions,
+  overallSummaryMetric
 }) {
   const titleCase = str => {
     return str
@@ -103,13 +101,14 @@ export default function Summary({
 
   if (loading) return renderGhostState();
 
-  const currentData = getLatestSummaryMetric(data, aggregationOptions);
-  const entireData = getOverallSummaryMetric(data, aggregationOptions);
+  const currentData = getLatestSummaryMetric(chartData, aggregationOptions);
 
   const currentDataFormatted =
     currentData === null ? 'N/A' : `${formatter(currentData)} ${unit}`;
   const entireDataFormatted =
-    entireData === null ? 'N/A' : `${formatter(entireData)} ${unit}`;
+    overallSummaryMetric === null
+      ? 'N/A'
+      : `${formatter(overallSummaryMetric)} ${unit}`;
 
   return (
     <SummaryWrapper>
@@ -127,13 +126,14 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  data: PropTypes.array.isRequired,
+  chartData: PropTypes.array.isRequired,
   aggregationOptions: PropTypes.shape({
     type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
     dataKeys: PropTypes.array.isRequired,
     options: PropTypes.shape({
       valueKey: PropTypes.string,
-      countKey: PropTypes.string
+      countKey: PropTypes.string,
+      overallSummaryMetric: PropTypes.number
     })
   }).isRequired,
   formatter: PropTypes.func,
@@ -152,10 +152,12 @@ Summary.propTypes = {
     'yesterday'
   ]),
   dateStart: PropTypes.string,
-  dateEnd: PropTypes.string
+  dateEnd: PropTypes.string,
+  overallSummaryMetric: PropTypes.number
 };
 
 Summary.defaultProps = {
   unit: '',
-  formatter: formatters.commatize
+  formatter: formatters.commatize,
+  overallSummaryMetric: null
 };

@@ -155,6 +155,11 @@ export var data = [{
   organic: 0,
   date: '2018-12-01T00:00:00.000Z'
 }];
+export var dataLegend = {
+  sms: 9100,
+  text: 26.5,
+  organic: 44
+};
 export var reviewsData = [{
   date: '2018-09-15T23:43:32',
   facebook: {
@@ -287,6 +292,12 @@ export var powerLevels = [{
   vegeta: 21000,
   turtle: null
 }];
+export var powerLevelsLegend = {
+  goku: 10625,
+  piccolo: 3712.5,
+  vegeta: 19500,
+  turtle: null
+};
 export var weightedAvgData = [{
   dogs: {
     cuteness: 5,
@@ -318,6 +329,10 @@ export var weightedAvgData = [{
   },
   date: '2018-11-15T23:43:32'
 }];
+export var weightedAvgDataLegend = {
+  dogs: 2.7,
+  cats: 4.1
+};
 export var weightedAvgDataPrev = [{
   dogs: {
     cuteness: 4,
