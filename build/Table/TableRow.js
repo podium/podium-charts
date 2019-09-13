@@ -4,10 +4,12 @@ import { TableRowWrapper } from './TableStyledComponents';
 import { noop } from 'lodash';
 export default function TableRow(_ref) {
   var children = _ref.children,
-      onClick = _ref.onClick,
+      onRowClick = _ref.onRowClick,
+      rowClickable = _ref.rowClickable,
       hoverColor = _ref.hoverColor;
   return React.createElement(TableRowWrapper, {
-    onClick: onClick,
+    onClick: onRowClick,
+    rowClickable: rowClickable,
     hoverColor: hoverColor
   }, children);
 }

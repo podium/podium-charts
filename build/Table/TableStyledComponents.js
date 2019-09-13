@@ -104,8 +104,8 @@ export var TableRowWrapper = styled.tr(_templateObject3(), function (_ref4) {
   var hoverColor = _ref4.hoverColor;
   return hoverColor;
 }, function (_ref5) {
-  var hoverColor = _ref5.hoverColor;
-  return hoverColor ? 'pointer' : '';
+  var rowClickable = _ref5.rowClickable;
+  return rowClickable ? 'pointer' : 'default';
 });
 export var TableHeaderWrapper = styled.thead(_templateObject4());
 export var TableCellWrapper = styled.td(_templateObject5(), mineShaft, function (_ref6) {

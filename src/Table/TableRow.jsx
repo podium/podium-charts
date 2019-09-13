@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 import { TableRowWrapper } from './TableStyledComponents';
 import { noop } from 'lodash';
 
-export default function TableRow({ children, onClick, hoverColor }) {
+export default function TableRow({
+  children,
+  onRowClick,
+  rowClickable,
+  hoverColor
+}) {
   return (
-    <TableRowWrapper onClick={onClick} hoverColor={hoverColor}>
+    <TableRowWrapper
+      onClick={onRowClick}
+      rowClickable={rowClickable}
+      hoverColor={hoverColor}
+    >
       {children}
     </TableRowWrapper>
   );

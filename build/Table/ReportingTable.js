@@ -81,14 +81,15 @@ function (_Component) {
           data = _this$props.data,
           dataComponents = _this$props.dataComponents,
           headers = _this$props.headers,
-          onRowClick = _this$props.onRowClick,
+          _onRowClick = _this$props.onRowClick,
           onRowHoverColor = _this$props.onRowHoverColor;
       return data && data.map(function (row, rowIndex) {
         return React.createElement(TableRow, {
           key: "row|".concat(rowIndex),
-          onClick: function onClick() {
-            return onRowClick(row);
+          onRowClick: function onRowClick() {
+            return _onRowClick && _onRowClick(row);
           },
+          rowClickable: _onRowClick != null,
           hoverColor: onRowHoverColor
         }, headers.map(function (header, headerIndex) {
           var tableCellComponent = dataComponents[header.id];

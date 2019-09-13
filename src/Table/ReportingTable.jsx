@@ -79,7 +79,8 @@ class ReportingTable extends Component {
         return (
           <TableRow
             key={`row|${rowIndex}`}
-            onClick={() => onRowClick(row)}
+            onRowClick={() => onRowClick && onRowClick(row)}
+            rowClickable={onRowClick != null}
             hoverColor={onRowHoverColor}
           >
             {headers.map((header, headerIndex) => {
