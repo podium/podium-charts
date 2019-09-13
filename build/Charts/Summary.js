@@ -129,7 +129,7 @@ export default function Summary(_ref) {
   return React.createElement(SummaryWrapper, null, shouldRenderValueToDate(timeRange, dateEnd) && React.createElement("div", null, React.createElement(ToDate, null, titleCase(granularity), " to Date"), React.createElement(SummaryLabel, null, currentDataFormatted), React.createElement(Space, null)), renderTimeRange(), React.createElement(SummaryLabel, null, entireDataFormatted));
 }
 Summary.propTypes = {
-  data: PropTypes.array.isRequired,
+  chartData: PropTypes.array.isRequired,
   aggregationOptions: PropTypes.shape({
     type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
     dataKeys: PropTypes.array.isRequired,

@@ -126,7 +126,7 @@ export default function Summary({
 }
 
 Summary.propTypes = {
-  data: PropTypes.array.isRequired,
+  chartData: PropTypes.array.isRequired,
   aggregationOptions: PropTypes.shape({
     type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
     dataKeys: PropTypes.array.isRequired,
