@@ -49,7 +49,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  min-height: 56px;\n  :hover {\n    background-color: ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  min-height: 56px;\n  :hover {\n    background-color: ", ";\n    cursor: ", ";\n  }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -103,24 +103,27 @@ export var TableWrapper = styled.table(_templateObject2(), GRAPHIK, borders);
 export var TableRowWrapper = styled.tr(_templateObject3(), function (_ref4) {
   var hoverColor = _ref4.hoverColor;
   return hoverColor;
+}, function (_ref5) {
+  var hoverColor = _ref5.hoverColor;
+  return hoverColor ? 'pointer' : '';
 });
 export var TableHeaderWrapper = styled.thead(_templateObject4());
-export var TableCellWrapper = styled.td(_templateObject5(), mineShaft, function (_ref5) {
-  var width = _ref5.width;
+export var TableCellWrapper = styled.td(_templateObject5(), mineShaft, function (_ref6) {
+  var width = _ref6.width;
   return width && "min-width: ".concat(width);
 });
 export var TableBodyWrapper = styled.tbody(_templateObject6());
 export var TableLoadingWrapper = styled.div(_templateObject7());
-export var TableLoadingWhitespace = styled.div(_templateObject8(), function (_ref6) {
-  var width = _ref6.width;
+export var TableLoadingWhitespace = styled.div(_templateObject8(), function (_ref7) {
+  var width = _ref7.width;
   return width && "width: ".concat(width, "px");
-}, function (_ref7) {
-  var height = _ref7.height;
+}, function (_ref8) {
+  var height = _ref8.height;
   return height && "height: ".concat(height, "px");
-}, white, function (_ref8) {
-  var left = _ref8.left;
+}, white, function (_ref9) {
+  var left = _ref9.left;
   return left ? "".concat(left) : '0';
-}, function (_ref9) {
-  var top = _ref9.top;
+}, function (_ref10) {
+  var top = _ref10.top;
   return top ? "".concat(top) : '0';
 });
