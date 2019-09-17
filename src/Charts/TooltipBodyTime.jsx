@@ -83,11 +83,11 @@ const fullDate = (date, granularity) => {
   if (granularity === 'week') {
     const startDate = momentDate
       .clone()
-      .startOf('week')
+      .startOf('isoWeek')
       .format('MMM D');
     const endDate = momentDate
       .clone()
-      .endOf('week')
+      .endOf('isoWeek')
       .format('MMM D, YYYY');
     return `${startDate} - ${endDate}`;
   }
