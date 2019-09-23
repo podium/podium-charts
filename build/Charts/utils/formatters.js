@@ -131,8 +131,8 @@ export var currencyRoundedAndShortened = function currencyRoundedAndShortened(pe
   var roundedDollars = Math.round(dollars);
 
   if (roundedDollars >= 0 && roundedDollars <= 999) {
-    return '$'.concat(commatize(roundedDollars));
-  } else if (roundedDollars >= 1000) {
+    return "$".concat(commatize(roundedDollars));
+  } else {
     var newValue = roundedDollars;
     var suffixes = ['', 'K', 'M', 'B', 'T'];
     var suffixNum = 0;
@@ -149,7 +149,7 @@ export var currencyRoundedAndShortened = function currencyRoundedAndShortened(pe
     }
 
     newValue += suffixes[suffixNum];
-    return '$'.concat(newValue);
+    return "$".concat(commatize(newValue));
   }
 };
 export default {
