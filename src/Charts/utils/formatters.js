@@ -125,31 +125,28 @@ export const currencyRounded = pennies => {
 };
 export const currencyRoundedAndShortened = pennies => {
   if (pennies.toString().indexOf('.') !== -1) {
-    throw new TypeError(
-      'Input must be an integer. Value provided: '.concat(pennies)
-    );
+    throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
   }
 
   const dollars = pennies / 100;
   const roundedDollars = Math.round(dollars);
   if (roundedDollars >= 0 && roundedDollars <= 999) {
     return `$${commatize(roundedDollars)}`;
-  } else {
-    let newValue = roundedDollars;
-    const suffixes = ['', 'K', 'M', 'B', 'T'];
-    let suffixNum = 0;
-
-    while (newValue >= 1000) {
-      newValue /= 1000;
-      suffixNum++;
-    }
-    newValue = newValue.toFixed(1);
-    if (newValue.length >= 4) {
-      newValue = Math.round(newValue);
-    }
-    newValue += suffixes[suffixNum];
-    return `$${commatize(newValue)}`;
   }
+  let newValue = roundedDollars;
+  const suffixes = ['', 'K', 'M', 'B', 'T'];
+  let suffixNum = 0;
+
+  while (newValue >= 1000) {
+    newValue /= 1000;
+    suffixNum++;
+  }
+  newValue = newValue.toFixed(1);
+  if (newValue.length >= 4) {
+    newValue = Math.round(newValue);
+  }
+  newValue += suffixes[suffixNum];
+  return `$${commatize(newValue)}`;
 };
 
 export default {

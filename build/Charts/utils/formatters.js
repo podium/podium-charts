@@ -124,7 +124,7 @@ export var currencyRounded = function currencyRounded(pennies) {
 };
 export var currencyRoundedAndShortened = function currencyRoundedAndShortened(pennies) {
   if (pennies.toString().indexOf('.') !== -1) {
-    throw new TypeError('Input must be an integer. Value provided: '.concat(pennies));
+    throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
   }
 
   var dollars = pennies / 100;
@@ -132,25 +132,25 @@ export var currencyRoundedAndShortened = function currencyRoundedAndShortened(pe
 
   if (roundedDollars >= 0 && roundedDollars <= 999) {
     return "$".concat(commatize(roundedDollars));
-  } else {
-    var newValue = roundedDollars;
-    var suffixes = ['', 'K', 'M', 'B', 'T'];
-    var suffixNum = 0;
-
-    while (newValue >= 1000) {
-      newValue /= 1000;
-      suffixNum++;
-    }
-
-    newValue = newValue.toFixed(1);
-
-    if (newValue.length >= 4) {
-      newValue = Math.round(newValue);
-    }
-
-    newValue += suffixes[suffixNum];
-    return "$".concat(commatize(newValue));
   }
+
+  var newValue = roundedDollars;
+  var suffixes = ['', 'K', 'M', 'B', 'T'];
+  var suffixNum = 0;
+
+  while (newValue >= 1000) {
+    newValue /= 1000;
+    suffixNum++;
+  }
+
+  newValue = newValue.toFixed(1);
+
+  if (newValue.length >= 4) {
+    newValue = Math.round(newValue);
+  }
+
+  newValue += suffixes[suffixNum];
+  return "$".concat(commatize(newValue));
 };
 export default {
   abbreviateNumber: abbreviateNumber,
