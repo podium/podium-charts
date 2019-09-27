@@ -32,7 +32,7 @@ import {
 storiesOf('Report Card', module)
   .add('w/Chart,Title', () => (
     <ReportCard>
-      <ReportTitle title="Total Reviews" timeRange="lastYear" />
+      <ReportTitle title="Total Reviews" timeRange="last12Months" />
       <Chart data={data}>
         <YAxis tickFormatter={formatters.abbreviateTime} />
         <XAxis dataKey="date" tickFormatter={formatters.date()} />

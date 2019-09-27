@@ -46,8 +46,8 @@ export var rowTotal = function rowTotal(row, dataKeys) {
     _iteratorError = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-        _iterator["return"]();
+      if (!_iteratorNormalCompletion && _iterator.return != null) {
+        _iterator.return();
       }
     } finally {
       if (_didIteratorError) {
@@ -80,8 +80,8 @@ export var rowAvg = function rowAvg(row, dataKeys) {
     _iteratorError2 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-        _iterator2["return"]();
+      if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+        _iterator2.return();
       }
     } finally {
       if (_didIteratorError2) {
@@ -126,8 +126,8 @@ export var rowWeightedAvg = function rowWeightedAvg(row, dataKeys, options) {
     _iteratorError3 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-        _iterator3["return"]();
+      if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+        _iterator3.return();
       }
     } finally {
       if (_didIteratorError3) {
@@ -177,8 +177,8 @@ export var datasetAvg = function datasetAvg(data, dataKeys) {
         _iteratorError5 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-            _iterator5["return"]();
+          if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
+            _iterator5.return();
           }
         } finally {
           if (_didIteratorError5) {
@@ -192,8 +192,8 @@ export var datasetAvg = function datasetAvg(data, dataKeys) {
     _iteratorError4 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-        _iterator4["return"]();
+      if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+        _iterator4.return();
       }
     } finally {
       if (_didIteratorError4) {
@@ -240,8 +240,8 @@ export var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, opti
         _iteratorError7 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-            _iterator7["return"]();
+          if (!_iteratorNormalCompletion7 && _iterator7.return != null) {
+            _iterator7.return();
           }
         } finally {
           if (_didIteratorError7) {
@@ -255,8 +255,8 @@ export var datasetWeightedAvg = function datasetWeightedAvg(data, dataKeys, opti
     _iteratorError6 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-        _iterator6["return"]();
+      if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+        _iterator6.return();
       }
     } finally {
       if (_didIteratorError6) {
