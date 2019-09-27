@@ -8,7 +8,7 @@ import { data, dataLegend, powerLevels, powerLevelsLegend, weightedAvgData, weig
 storiesOf('Report Card', module).add('w/Chart,Title', function () {
   return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
     title: "Total Reviews",
-    timeRange: "lastYear"
+    timeRange: "last12Months"
   }), React.createElement(Chart, {
     data: data
   }, React.createElement(YAxis, {

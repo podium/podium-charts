@@ -58,7 +58,7 @@ const last12Months = () => [
   moment
     .utc()
     .subtract(12, 'month')
-    .startOf('day'),
+    .startOf('month'),
   moment.utc()
 ];
 

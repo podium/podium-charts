@@ -26,8 +26,8 @@ export var roundToPlaces = function roundToPlaces(places) {
     return commatize(roundedNumber.toString());
   };
 };
-export function secondsToMinutes(_int) {
-  return commatize(Math.round(_int / 60));
+export function secondsToMinutes(int) {
+  return commatize(Math.round(int / 60));
 }
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
