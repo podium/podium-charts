@@ -1,3 +1,9 @@
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  height: 40px;\n  border: solid 1px ", ";\n  border-radius: 0 4px 4px 0;\n  border-left: none;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 8px;\n  box-sizing: border-box;\n  background: ", ";\n"]);
 
@@ -43,14 +49,14 @@ var IconContainer = styled.div(_templateObject3(), colors.iron, colors.whiteSmok
 
 var SearchBar = function SearchBar(_ref2) {
   var onChange = _ref2.onChange,
-      placeholder = _ref2.placeholder,
-      width = _ref2.width;
+      width = _ref2.width,
+      rest = _objectWithoutProperties(_ref2, ["onChange", "width"]);
+
   return React.createElement(Container, {
     width: width
-  }, React.createElement(Input, {
-    onChange: onChange,
-    placeholder: placeholder
-  }), React.createElement(IconContainer, null, React.createElement(IconSearch, {
+  }, React.createElement(Input, _extends({
+    onChange: onChange
+  }, rest)), React.createElement(IconContainer, null, React.createElement(IconSearch, {
     height: "24px",
     width: "24px",
     color: colors.jumbo
