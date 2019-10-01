@@ -36,10 +36,10 @@ const IconContainer = styled.div`
   background: ${colors.whiteSmoke};
 `;
 
-const SearchBar = ({ onChange, placeholder, width }) => {
+const SearchBar = ({ onChange, width, ...rest }) => {
   return (
     <Container width={width}>
-      <Input onChange={onChange} placeholder={placeholder} />
+      <Input onChange={onChange} {...rest} />
       <IconContainer>
         <IconSearch height="24px" width="24px" color={colors.jumbo} />
       </IconContainer>
