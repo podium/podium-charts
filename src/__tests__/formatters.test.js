@@ -3,7 +3,8 @@ import {
   commatize,
   nullToValue,
   currency,
-  currencyRounded
+  currencyRounded,
+  currencyRoundedAndShortened
 } from '../Charts/utils/formatters';
 
 describe('formatters', () => {
@@ -84,6 +85,52 @@ describe('formatters', () => {
     it('should throw an error with malformed input', () => {
       expect(() => {
         currencyRounded(1.23);
+      }).toThrow(`Input must be an integer. Value provided: 1.23`);
+    });
+  });
+
+  describe('currencyRoundedAndShortened', () => {
+    it('should round to the nearest dollar and display whole number for numbers $0-999', () => {
+      let result = currencyRoundedAndShortened(12345);
+      expect(result).toEqual('$123');
+      result = currencyRoundedAndShortened(0);
+      expect(result).toEqual('$0');
+      result = currencyRoundedAndShortened(10);
+      expect(result).toEqual('$0');
+      result = currencyRoundedAndShortened(99900);
+      expect(result).toEqual('$999');
+      result = currencyRoundedAndShortened(99949);
+      expect(result).toEqual('$999');
+      result = currencyRoundedAndShortened(56051);
+      expect(result).toEqual('$561');
+      result = currencyRoundedAndShortened(100);
+      expect(result).toEqual('$1');
+    });
+
+    it('should round to the nearest whole dollar and display 1 decimal place starting at 1.0K and above', () => {
+      let result = currencyRoundedAndShortened(123456789);
+      expect(result).toEqual('$1.2M');
+      result = currencyRoundedAndShortened(99999);
+      expect(result).toEqual('$1.0K');
+      result = currencyRoundedAndShortened(100000);
+      expect(result).toEqual('$1.0K');
+      result = currencyRoundedAndShortened(120000);
+      expect(result).toEqual('$1.2K');
+      result = currencyRoundedAndShortened(23545678);
+      expect(result).toEqual('$236K');
+      result = currencyRoundedAndShortened(12345678900);
+      expect(result).toEqual('$124M');
+      result = currencyRoundedAndShortened(123456789000);
+      expect(result).toEqual('$1.2B');
+      result = currencyRoundedAndShortened(523456789000000);
+      expect(result).toEqual('$5.2T');
+      result = currencyRoundedAndShortened(52300000000000);
+      expect(result).toEqual('$523B');
+    });
+
+    it('should throw an error with malformed input', () => {
+      expect(() => {
+        currencyRoundedAndShortened(1.23);
       }).toThrow(`Input must be an integer. Value provided: 1.23`);
     });
   });

@@ -3,13 +3,7 @@ import moment from 'moment';
 //  time ranges relative to current day
 const today = () => [moment.utc().startOf('day'), moment.utc().endOf('day')];
 
-const thisWeek = () => [
-  moment
-    .utc()
-    .startOf('week')
-    .add(1, 'day'),
-  moment.utc()
-];
+const thisWeek = () => [moment.utc().startOf('isoWeek'), moment.utc()];
 
 const thisMonth = () => [moment.utc().startOf('month'), moment.utc()];
 
@@ -31,13 +25,11 @@ const lastWeek = () => [
   moment
     .utc()
     .subtract(1, 'week')
-    .startOf('week')
-    .add(1, 'day'),
+    .startOf('isoWeek'),
   moment
     .utc()
     .subtract(1, 'week')
-    .endOf('week')
-    .add(1, 'day')
+    .endOf('isoWeek')
 ];
 
 const lastMonth = () => [
@@ -66,7 +58,7 @@ const last12Months = () => [
   moment
     .utc()
     .subtract(12, 'month')
-    .startOf('day'),
+    .startOf('month'),
   moment.utc()
 ];
 

@@ -70,6 +70,10 @@ export const TableWrapper = styled.table`
 
 export const TableRowWrapper = styled.tr`
   min-height: 56px;
+  :hover {
+    background-color: ${({ hoverColor }) => hoverColor};
+    cursor: ${({ rowClickable }) => (rowClickable ? 'pointer' : 'default')};
+  }
 `;
 
 export const TableHeaderWrapper = styled.thead``;

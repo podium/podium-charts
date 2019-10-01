@@ -65,13 +65,24 @@ class ReportingTable extends Component {
   };
 
   renderTableBody = () => {
-    const { data, dataComponents, headers } = this.props;
+    const {
+      data,
+      dataComponents,
+      headers,
+      onRowClick,
+      onRowHoverColor
+    } = this.props;
 
     return (
       data &&
       data.map((row, rowIndex) => {
         return (
-          <TableRow key={`row|${rowIndex}`}>
+          <TableRow
+            key={`row|${rowIndex}`}
+            onRowClick={() => onRowClick && onRowClick(row)}
+            rowClickable={onRowClick != null}
+            hoverColor={onRowHoverColor}
+          >
             {headers.map((header, headerIndex) => {
               const tableCellComponent = dataComponents[header.id];
               const Component =

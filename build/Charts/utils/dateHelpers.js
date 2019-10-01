@@ -5,7 +5,7 @@ var today = function today() {
 };
 
 var thisWeek = function thisWeek() {
-  return [moment.utc().startOf('week').add(1, 'day'), moment.utc()];
+  return [moment.utc().startOf('isoWeek'), moment.utc()];
 };
 
 var thisMonth = function thisMonth() {
@@ -22,7 +22,7 @@ var yesterday = function yesterday() {
 };
 
 var lastWeek = function lastWeek() {
-  return [moment.utc().subtract(1, 'week').startOf('week').add(1, 'day'), moment.utc().subtract(1, 'week').endOf('week').add(1, 'day')];
+  return [moment.utc().subtract(1, 'week').startOf('isoWeek'), moment.utc().subtract(1, 'week').endOf('isoWeek')];
 };
 
 var lastMonth = function lastMonth() {
@@ -34,7 +34,7 @@ var lastYear = function lastYear() {
 };
 
 var last12Months = function last12Months() {
-  return [moment.utc().subtract(12, 'month').startOf('day'), moment.utc()];
+  return [moment.utc().subtract(12, 'month').startOf('month'), moment.utc()];
 }; // Add timestamps to dates
 
 

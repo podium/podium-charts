@@ -122,8 +122,8 @@ var fullDate = function fullDate(date, granularity) {
   if (!momentDate.isValid()) return date;
 
   if (granularity === 'week') {
-    var startDate = momentDate.clone().startOf('week').format('MMM D');
-    var endDate = momentDate.clone().endOf('week').format('MMM D, YYYY');
+    var startDate = momentDate.clone().startOf('isoWeek').format('MMM D');
+    var endDate = momentDate.clone().endOf('isoWeek').format('MMM D, YYYY');
     return "".concat(startDate, " - ").concat(endDate);
   }
 

@@ -253,6 +253,11 @@ const Gradient = ({ rowData }) => (
   <FavGradient gradient={rowData.favoriteGradient} />
 );
 
+const onClickThisRow = rowData => {
+  console.log(rowData);
+  console.log('row clicked!!!');
+};
+
 const dataComponents = {
   name: <Name />,
   favoriteGradient: <Gradient />,
@@ -311,6 +316,8 @@ storiesOf('Reporting Table', module)
           data={dataForComponents}
           headers={headersForComponents}
           dataComponents={dataComponents}
+          onRowClick={onClickThisRow}
+          onRowHoverColor={'#F6F8FF'}
         />
       </Container>
     ),

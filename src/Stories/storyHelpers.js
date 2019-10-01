@@ -73,6 +73,12 @@ export const data = [
   { sms: 400, text: 2.33, organic: 0, date: '2018-12-01T00:00:00.000Z' }
 ];
 
+export const dataLegend = {
+  sms: 9100,
+  text: 26.5,
+  organic: 44
+};
+
 export const reviewsData = [
   {
     date: '2018-09-15T23:43:32',
@@ -181,6 +187,13 @@ export const powerLevels = [
   }
 ];
 
+export const powerLevelsLegend = {
+  goku: 10625,
+  piccolo: 3712.5,
+  vegeta: 19500,
+  turtle: null
+};
+
 export const weightedAvgData = [
   {
     dogs: { cuteness: 5, amount: 10 },
@@ -198,6 +211,11 @@ export const weightedAvgData = [
     date: '2018-11-15T23:43:32'
   }
 ];
+
+export const weightedAvgDataLegend = {
+  dogs: 2.7,
+  cats: 4.1
+};
 
 export const weightedAvgDataPrev = [
   {

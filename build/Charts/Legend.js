@@ -2,6 +2,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _templateObject4() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  margin-right: 8px;\n  color: ", ";\n"]);
 
@@ -50,7 +58,6 @@ import styled from 'styled-components';
 import { colors } from '@podiumhq/podium-ui';
 import get from 'lodash.get';
 import Ghost from './Ghost/Ghost';
-import { getOverallSummaryMetric } from './utils/aggregators';
 import formatters from './utils/formatters';
 import ReportCardContext from './ReportCardContext';
 var LegendWrapper = styled.div(_templateObject(), colors.mineShaft);
@@ -67,24 +74,27 @@ var Label = styled.div(_templateObject4(), function (_ref2) {
 });
 export default function Legend(_ref3) {
   var loading = _ref3.loading,
-      data = _ref3.data,
+      legendData = _ref3.legendData,
       aggregationOptions = _ref3.aggregationOptions,
       displayOptions = _ref3.displayOptions,
       formatter = _ref3.formatter;
 
-  var calculateValue = function calculateValue(dataKey) {
-    var itemAggregationOptions = {
-      type: aggregationOptions.type,
-      dataKeys: [dataKey],
-      options: aggregationOptions.options
-    };
-    return getOverallSummaryMetric(data, itemAggregationOptions);
+  var getDataKeys = function getDataKeys(displayOptions) {
+    return displayOptions.reduce(function (acc, option) {
+      return [].concat(_toConsumableArray(acc), [option.dataKey]);
+    }, []);
   };
 
-  var createAggMap = function createAggMap() {
-    var dataKeys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var getValue = function getValue(legendData, dataKey) {
+    var value = get(legendData, dataKey);
+    if (!value) return null;
+    return value;
+  };
+
+  var createLegendMap = function createLegendMap(legendData) {
+    var dataKeys = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
     return dataKeys.reduce(function (acc, dataKey) {
-      return _objectSpread({}, acc, _defineProperty({}, dataKey, calculateValue(dataKey)));
+      return _objectSpread({}, acc, _defineProperty({}, dataKey, getValue(legendData, dataKey)));
     }, {});
   };
 
@@ -102,8 +112,6 @@ export default function Legend(_ref3) {
     var aggMap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var selectedKey = arguments.length > 1 ? arguments[1] : undefined;
     var onSelectKey = arguments.length > 2 ? arguments[2] : undefined;
-    // TODO: why do we need to reverse the displayOptions?
-    // Maybe we want to reverse the rendering of stacked bars instead
     var legendItems = [];
     var filteredItems = [];
     displayOptions.forEach(function (item) {
@@ -133,16 +141,17 @@ export default function Legend(_ref3) {
   };
 
   if (loading) return renderGhostState();
-  var dataKeys = get(aggregationOptions, 'dataKeys');
-  var aggMap = createAggMap(dataKeys);
+  var dataKeys = getDataKeys(displayOptions);
+  var legendMap = createLegendMap(legendData, dataKeys);
   return React.createElement(ReportCardContext.Consumer, null, function (_ref4) {
     var selectedKey = _ref4.selectedKey,
         onSelectKey = _ref4.onSelectKey;
-    return React.createElement(LegendWrapper, null, renderLegendItems(aggMap, selectedKey, onSelectKey));
+    return React.createElement(LegendWrapper, null, renderLegendItems(legendMap, selectedKey, onSelectKey));
   });
 }
 Legend.propTypes = {
-  data: PropTypes.array.isRequired,
+  /** An object containing the dataKeys and the associated values to be displayed */
+  legendData: PropTypes.object.isRequired,
   aggregationOptions: PropTypes.shape({
     type: PropTypes.oneOf(['avg', 'total', 'weightedAvg']).isRequired,
     dataKeys: PropTypes.array.isRequired,
