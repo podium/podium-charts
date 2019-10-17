@@ -104,6 +104,8 @@ export var getToday = function getToday() {
 }; //handles USD only as of now
 
 export var currency = function currency(pennies) {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
   }
@@ -114,6 +116,8 @@ export var currency = function currency(pennies) {
   return "$".concat(commatize(dollars), ".").concat(formattedCents);
 };
 export var currencyRounded = function currencyRounded(pennies) {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
   }
@@ -123,6 +127,8 @@ export var currencyRounded = function currencyRounded(pennies) {
   return "$".concat(commatize(roundedDollars));
 };
 export var currencyRoundedAndShortened = function currencyRoundedAndShortened(pennies) {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError("Input must be an integer. Value provided: ".concat(pennies));
   }
