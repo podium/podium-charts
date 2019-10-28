@@ -91,7 +91,7 @@ class ReportingTable extends Component {
   renderLoadingBody = () => {
     const { headers } = this.props;
 
-    return [...new Array(6)].map((row, rowIndex) => {
+    return [...new Array(7)].map((row, rowIndex) => {
       const ghostWidth = `${Math.floor(Math.random() * 50) + 20}%`;
       return (
         <TableRow key={`row|${rowIndex}`}>

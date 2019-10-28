@@ -111,7 +111,7 @@ function (_Component) {
       }));
     }, _this.renderLoadingBody = function () {
       var headers = _this.props.headers;
-      return _toConsumableArray(new Array(6)).map(function (row, rowIndex) {
+      return _toConsumableArray(new Array(7)).map(function (row, rowIndex) {
         var ghostWidth = "".concat(Math.floor(Math.random() * 50) + 20, "%");
         return React.createElement(TableRow, {
           key: "row|".concat(rowIndex)
