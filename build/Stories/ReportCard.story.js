@@ -554,4 +554,84 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     dateStart: "2018-12-05",
     dateEnd: "2019-01-10"
   }));
+}).add('Changing time ranges', function () {
+  return React.createElement(Controller, null, function (chartData, legendData) {
+    return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
+      title: "Inbound Leads by Source",
+      timeRange: "custom",
+      dateStart: "2018-09-15T23:43:32",
+      dateEnd: "2018-11-15T23:43:32"
+    }), React.createElement(Chart, {
+      data: chartData
+    }, React.createElement(YAxis, null), React.createElement(XAxis, {
+      dataKey: "date",
+      tickFormatter: formatters.date()
+    }), React.createElement(Line, {
+      dataKey: "dogs.cuteness",
+      name: "Dogs",
+      color: colors.cobaltBlue
+    }), React.createElement(Line, {
+      dataKey: "cats.cuteness",
+      name: "Cats",
+      color: colors.poppyRed
+    }), React.createElement(Tooltip, {
+      content: React.createElement(TooltipBody, {
+        formatter: formatters.roundToPlaces(1),
+        aggregationOptions: {
+          type: 'weightedAvg',
+          dataKeys: ['dogs', 'cats'],
+          options: {
+            valueKey: 'cuteness',
+            countKey: 'amount'
+          }
+        },
+        summaryTitle: "Animals"
+      })
+    })), React.createElement(Summary, {
+      formatter: formatters.roundToPlaces(1),
+      chartData: chartData,
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['cats', 'dogs'],
+        options: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
+      },
+      overallSummaryMetric: 3.5,
+      granularity: "month",
+      timeRange: "lastYear"
+    }), React.createElement(Legend, {
+      formatter: formatters.roundToPlaces(1),
+      legendData: legendData,
+      aggregationOptions: {
+        type: 'weightedAvg',
+        dataKeys: ['cats', 'dogs'],
+        options: {
+          valueKey: 'cuteness',
+          countKey: 'amount'
+        }
+      },
+      displayOptions: [{
+        name: 'Dogs',
+        dataKey: 'dogs',
+        color: colors.cobaltBlue
+      }, {
+        name: 'Cats',
+        dataKey: 'cats',
+        color: colors.poppyRed
+      }]
+    }));
+  });
 });
+
+function Controller(_ref) {
+  var children = _ref.children;
+  var chartData = weightedAvgData;
+  var legendData = weightedAvgDataLegend;
+  return React.createElement("div", null, React.createElement("p", null, React.createElement("button", {
+    onClick: function onClick() {}
+  }, "Sep - Oct"), React.createElement("button", {
+    onClick: function onClick() {}
+  }, "Oct - Nov")), React.createElement("div", null, children(chartData, legendData)));
+}

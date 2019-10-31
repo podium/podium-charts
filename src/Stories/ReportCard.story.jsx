@@ -487,4 +487,81 @@ storiesOf('Report Card', module)
         dateEnd="2019-01-10"
       />
     </ReportCard>
+  ))
+
+  .add('Changing time ranges', () => (
+    <Controller>
+      {(chartData, legendData) => (
+        <ReportCard>
+          <ReportTitle
+            title="Inbound Leads by Source"
+            timeRange="custom"
+            dateStart="2018-09-15T23:43:32"
+            dateEnd="2018-11-15T23:43:32"
+          />
+          <Chart data={chartData}>
+            <YAxis />
+            <XAxis dataKey="date" tickFormatter={formatters.date()} />
+            <Line
+              dataKey="dogs.cuteness"
+              name="Dogs"
+              color={colors.cobaltBlue}
+            />
+            <Line dataKey="cats.cuteness" name="Cats" color={colors.poppyRed} />
+            <Tooltip
+              content={
+                <TooltipBody
+                  formatter={formatters.roundToPlaces(1)}
+                  aggregationOptions={{
+                    type: 'weightedAvg',
+                    dataKeys: ['dogs', 'cats'],
+                    options: { valueKey: 'cuteness', countKey: 'amount' }
+                  }}
+                  summaryTitle="Animals"
+                />
+              }
+            />
+          </Chart>
+          <Summary
+            formatter={formatters.roundToPlaces(1)}
+            chartData={chartData}
+            aggregationOptions={{
+              type: 'weightedAvg',
+              dataKeys: ['cats', 'dogs'],
+              options: { valueKey: 'cuteness', countKey: 'amount' }
+            }}
+            overallSummaryMetric={3.5}
+            granularity="month"
+            timeRange="lastYear"
+          />
+          <Legend
+            formatter={formatters.roundToPlaces(1)}
+            legendData={legendData}
+            aggregationOptions={{
+              type: 'weightedAvg',
+              dataKeys: ['cats', 'dogs'],
+              options: { valueKey: 'cuteness', countKey: 'amount' }
+            }}
+            displayOptions={[
+              { name: 'Dogs', dataKey: 'dogs', color: colors.cobaltBlue },
+              { name: 'Cats', dataKey: 'cats', color: colors.poppyRed }
+            ]}
+          />
+        </ReportCard>
+      )}
+    </Controller>
   ));
+
+function Controller({ children }) {
+  const chartData = weightedAvgData;
+  const legendData = weightedAvgDataLegend;
+  return (
+    <div>
+      <p>
+        <button onClick={() => {}}>Sep - Oct</button>
+        <button onClick={() => {}}>Oct - Nov</button>
+      </p>
+      <div>{children(chartData, legendData)}</div>
+    </div>
+  );
+}
