@@ -1,6 +1,6 @@
 {
   "name": "podium-reporting-toolkit",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A collection of Podium's reporting platform and charting components built in React.",
   "main": "build/index.js",
   "module": "build/index.js",
@@ -68,7 +68,7 @@
     "lodash.get": "^4.4.2",
     "lodash.groupby": "^4.6.0",
     "lodash.set": "^4.3.2",
-    "recharts": "^1.6.1"
+    "recharts": "^1.8.5"
   },
   "peerDependencies": {
     "@podiumhq/podium-ui": "^16.0.1",

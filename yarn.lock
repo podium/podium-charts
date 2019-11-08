@@ -3673,10 +3673,10 @@ core-js@^2.2.2, core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.5.7, 
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
   integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
 
-core-js@^2.5.1:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.7.tgz#c2b19af9b50ec49c356ee087d6155632a889e968"
-  integrity sha512-ydmsQxDVH7lDpYoirXft8S83ddKKfdsrsmWhtyj7xafXVLbLhKOyfD7kAi2ueFfeP7m9rNavjW59O3hLLzzC5A==
+core-js@^2.6.10:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.10.tgz#8a5b8391f8cc7013da703411ce5b585706300d7f"
+  integrity sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -9556,10 +9556,10 @@ react-resize-detector@^3.2.1:
     prop-types "^15.6.2"
     resize-observer-polyfill "^1.5.1"
 
-react-smooth@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-smooth/-/react-smooth-1.0.2.tgz#f7a2d932ece8db898646078c3c97f3e9533e0486"
-  integrity sha512-pIGzL1g9VGAsRsdZQokIK0vrCkcdKtnOnS1gyB2rrowdLy69lNSWoIjCTWAfgbiYvria8tm5hEZqj+jwXMkV4A==
+react-smooth@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-smooth/-/react-smooth-1.0.5.tgz#94ae161d7951cdd893ccb7099d031d342cb762ad"
+  integrity sha512-eW057HT0lFgCKh8ilr0y2JaH2YbNcuEdFpxyg7Gf/qDKk9hqGMyXryZJ8iMGJEuKH0+wxS0ccSsBBB3W8yCn8w==
   dependencies:
     lodash "~4.17.4"
     prop-types "^15.6.0"
@@ -9740,20 +9740,20 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.6.1.tgz#ed505d07ae3ed323443b5387d71254171e62fb2c"
-  integrity sha512-w1rpdE2CCe/0DmtTONaN3wslmGtHsC15aneIMy2GDUqPKldUweEug89Kh9sD/zyq7lGU9zQiXwMPr6dyjQ9JOg==
+recharts@1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.8.5.tgz#ca94a3395550946334a802e35004ceb2583fdb12"
+  integrity sha512-tM9mprJbXVEBxjM7zHsIy6Cc41oO/pVYqyAsOHLxlJrbNBuLs0PHB3iys2M+RqCF0//k8nJtZF6X6swSkWY3tg==
   dependencies:
     classnames "^2.2.5"
-    core-js "^2.5.1"
+    core-js "^2.6.10"
     d3-interpolate "^1.3.0"
     d3-scale "^2.1.0"
     d3-shape "^1.2.0"
     lodash "^4.17.5"
     prop-types "^15.6.0"
     react-resize-detector "^2.3.0"
-    react-smooth "^1.0.0"
+    react-smooth "^1.0.5"
     recharts-scale "^0.4.2"
     reduce-css-calc "^1.3.0"
 
