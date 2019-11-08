@@ -1,4 +1,12 @@
-import React from 'react';
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
@@ -555,12 +563,12 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
     dateEnd: "2019-01-10"
   }));
 }).add('Changing time ranges', function () {
-  return React.createElement(Controller, null, function (chartData, legendData) {
+  return React.createElement(Controller, null, function (chartData, legendData, dateRange) {
     return React.createElement(ReportCard, null, React.createElement(ReportTitle, {
       title: "Inbound Leads by Source",
       timeRange: "custom",
-      dateStart: "2018-09-15T23:43:32",
-      dateEnd: "2018-11-15T23:43:32"
+      dateStart: dateRange.startDate,
+      dateEnd: dateRange.endDate
     }), React.createElement(Chart, {
       data: chartData
     }, React.createElement(YAxis, null), React.createElement(XAxis, {
@@ -600,7 +608,7 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
       },
       overallSummaryMetric: 3.5,
       granularity: "month",
-      timeRange: "lastYear"
+      timeRange: "custom"
     }), React.createElement(Legend, {
       formatter: formatters.roundToPlaces(1),
       legendData: legendData,
@@ -627,11 +635,40 @@ storiesOf('Report Card', module).add('w/Chart,Title', function () {
 
 function Controller(_ref) {
   var children = _ref.children;
-  var chartData = weightedAvgData;
   var legendData = weightedAvgDataLegend;
+  var septOctChartData = weightedAvgData.slice(0, 2);
+  var octNovChartData = weightedAvgData.slice(1, 3);
+  var septOctDateRange = {
+    startDate: '2018-09-01T00:00:00',
+    endDate: '2018-10-31T23:59:59'
+  };
+  var octNovDateRange = {
+    startDate: '2018-10-01T00:00:00',
+    endDate: '2018-11-30T23:59:59'
+  };
+
+  var _useState = useState(septOctDateRange),
+      _useState2 = _slicedToArray(_useState, 2),
+      dateRange = _useState2[0],
+      setDateRange = _useState2[1];
+
+  var _useState3 = useState(septOctChartData),
+      _useState4 = _slicedToArray(_useState3, 2),
+      chartData = _useState4[0],
+      setChartData = _useState4[1];
+
+  var updateStates = function updateStates(dateRange, data) {
+    setDateRange(dateRange);
+    setChartData(data);
+  };
+
   return React.createElement("div", null, React.createElement("p", null, React.createElement("button", {
-    onClick: function onClick() {}
+    onClick: function onClick() {
+      updateStates(septOctDateRange, septOctChartData);
+    }
   }, "Sep - Oct"), React.createElement("button", {
-    onClick: function onClick() {}
-  }, "Oct - Nov")), React.createElement("div", null, children(chartData, legendData)));
+    onClick: function onClick() {
+      updateStates(octNovDateRange, octNovChartData);
+    }
+  }, "Oct - Nov")), React.createElement("div", null, children(chartData, legendData, dateRange)));
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
@@ -491,13 +491,13 @@ storiesOf('Report Card', module)
 
   .add('Changing time ranges', () => (
     <Controller>
-      {(chartData, legendData) => (
+      {(chartData, legendData, dateRange) => (
         <ReportCard>
           <ReportTitle
             title="Inbound Leads by Source"
             timeRange="custom"
-            dateStart="2018-09-15T23:43:32"
-            dateEnd="2018-11-15T23:43:32"
+            dateStart={dateRange.startDate}
+            dateEnd={dateRange.endDate}
           />
           <Chart data={chartData}>
             <YAxis />
@@ -532,7 +532,7 @@ storiesOf('Report Card', module)
             }}
             overallSummaryMetric={3.5}
             granularity="month"
-            timeRange="lastYear"
+            timeRange="custom"
           />
           <Legend
             formatter={formatters.roundToPlaces(1)}
@@ -553,15 +553,42 @@ storiesOf('Report Card', module)
   ));
 
 function Controller({ children }) {
-  const chartData = weightedAvgData;
   const legendData = weightedAvgDataLegend;
+  const septOctChartData = weightedAvgData.slice(0, 2);
+  const octNovChartData = weightedAvgData.slice(1, 3);
+  const septOctDateRange = {
+    startDate: '2018-09-01T00:00:00',
+    endDate: '2018-10-31T23:59:59'
+  };
+  const octNovDateRange = {
+    startDate: '2018-10-01T00:00:00',
+    endDate: '2018-11-30T23:59:59'
+  };
+  const [dateRange, setDateRange] = useState(septOctDateRange);
+  const [chartData, setChartData] = useState(septOctChartData);
+  const updateStates = (dateRange, data) => {
+    setDateRange(dateRange);
+    setChartData(data);
+  };
   return (
     <div>
       <p>
-        <button onClick={() => {}}>Sep - Oct</button>
-        <button onClick={() => {}}>Oct - Nov</button>
+        <button
+          onClick={() => {
+            updateStates(septOctDateRange, septOctChartData);
+          }}
+        >
+          Sep - Oct
+        </button>
+        <button
+          onClick={() => {
+            updateStates(octNovDateRange, octNovChartData);
+          }}
+        >
+          Oct - Nov
+        </button>
       </p>
-      <div>{children(chartData, legendData)}</div>
+      <div>{children(chartData, legendData, dateRange)}</div>
     </div>
   );
 }
