@@ -49,6 +49,10 @@ describe('formatters', () => {
   });
 
   describe('currency', () => {
+    it('should return null with null', () => {
+      const result = currency(null);
+      expect(result).toEqual(null);
+    });
     it('should display with cents', () => {
       const result = currency(12345);
       expect(result).toEqual('$123.45');
@@ -72,6 +76,10 @@ describe('formatters', () => {
   });
 
   describe('currencyRounded', () => {
+    it('should return null with null', () => {
+      const result = currency(null);
+      expect(result).toEqual(null);
+    });
     it('should round to the nearest whole dollar', () => {
       const result = currencyRounded(12345);
       expect(result).toEqual('$123');
@@ -90,6 +98,10 @@ describe('formatters', () => {
   });
 
   describe('currencyRoundedAndShortened', () => {
+    it('should return null with null', () => {
+      const result = currency(null);
+      expect(result).toEqual(null);
+    });
     it('should round to the nearest dollar and display whole number for numbers $0-999', () => {
       let result = currencyRoundedAndShortened(12345);
       expect(result).toEqual('$123');

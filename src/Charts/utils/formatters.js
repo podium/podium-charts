@@ -102,6 +102,8 @@ export const getToday = (format = 'YYYY-MM-DD') => {
 
 //handles USD only as of now
 export const currency = pennies => {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
   }
@@ -114,6 +116,8 @@ export const currency = pennies => {
 };
 
 export const currencyRounded = pennies => {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
   }
@@ -123,7 +127,10 @@ export const currencyRounded = pennies => {
 
   return `$${commatize(roundedDollars)}`;
 };
+
 export const currencyRoundedAndShortened = pennies => {
+  if (pennies === null) return null;
+
   if (pennies.toString().indexOf('.') !== -1) {
     throw new TypeError(`Input must be an integer. Value provided: ${pennies}`);
   }

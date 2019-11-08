@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { TableLoading, ToolTip, IconInfo, colors } from '@podiumhq/podium-ui';
+import styled, { keyframes } from 'styled-components';
+import { ToolTip, IconInfo, colors } from '@podiumhq/podium-ui';
 import {
   Table,
   TableHeader,
@@ -10,6 +10,30 @@ import {
   TableRow,
   TableHeaderCell
 } from './';
+
+const pulsate = keyframes`
+	to { background-position: -200% center; }
+`;
+
+const BodyGhost = styled.div`
+  height: 12px;
+  width: ${({ width }) => width};
+  margin: 8px 0;
+  background: ${colors.mystic};
+  border-radius: 4px;
+  background: linear-gradient(
+    -90deg,
+    rgba(232, 233, 236, 0.3) 0%,
+    ${colors.mystic} 100%
+  );
+
+  animation: ${pulsate} 1.5s linear;
+  -webkit-animation: ${pulsate} 1.5s linear;
+  -webkit-animation-iteration-count: infinite;
+
+  background-size: 200% auto;
+  background-clip: text;
+`;
 
 const MoreInfo = styled.span`
   margin-left: 4px;
@@ -64,14 +88,39 @@ class ReportingTable extends Component {
     );
   };
 
+  renderLoadingBody = () => {
+    const { headers } = this.props;
+
+    return [...new Array(7)].map((row, rowIndex) => {
+      const ghostWidth = `${Math.floor(Math.random() * 50) + 20}%`;
+      return (
+        <TableRow key={`row|${rowIndex}`}>
+          {headers.map((header, headerIndex) => {
+            return (
+              <TableCell
+                key={`cell|${rowIndex}|${headerIndex}`}
+                width={header.width}
+              >
+                <BodyGhost width={ghostWidth} />
+              </TableCell>
+            );
+          })}
+        </TableRow>
+      );
+    });
+  };
+
   renderTableBody = () => {
     const {
       data,
       dataComponents,
       headers,
       onRowClick,
-      onRowHoverColor
+      onRowHoverColor,
+      loading
     } = this.props;
+
+    if (loading) return this.renderLoadingBody();
 
     return (
       data &&
@@ -104,10 +153,7 @@ class ReportingTable extends Component {
   };
 
   render() {
-    const { loading } = this.props;
-    return loading ? (
-      <TableLoading />
-    ) : (
+    return (
       <Table>
         <TableHeader>{this.renderTableHeaders()}</TableHeader>
         <TableBody>{this.renderTableBody()}</TableBody>
