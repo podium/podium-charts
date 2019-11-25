@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import formatters from '../Charts/utils/formatters';
 import colors from '../Colors';
@@ -487,4 +487,108 @@ storiesOf('Report Card', module)
         dateEnd="2019-01-10"
       />
     </ReportCard>
+  ))
+
+  .add('Changing time ranges', () => (
+    <Controller>
+      {(chartData, legendData, dateRange) => (
+        <ReportCard>
+          <ReportTitle
+            title="Inbound Leads by Source"
+            timeRange="custom"
+            dateStart={dateRange.startDate}
+            dateEnd={dateRange.endDate}
+          />
+          <Chart data={chartData}>
+            <YAxis />
+            <XAxis dataKey="date" tickFormatter={formatters.date()} />
+            <Line
+              dataKey="dogs.cuteness"
+              name="Dogs"
+              color={colors.cobaltBlue}
+            />
+            <Line dataKey="cats.cuteness" name="Cats" color={colors.poppyRed} />
+            <Tooltip
+              content={
+                <TooltipBody
+                  formatter={formatters.roundToPlaces(1)}
+                  aggregationOptions={{
+                    type: 'weightedAvg',
+                    dataKeys: ['dogs', 'cats'],
+                    options: { valueKey: 'cuteness', countKey: 'amount' }
+                  }}
+                  summaryTitle="Animals"
+                />
+              }
+            />
+          </Chart>
+          <Summary
+            formatter={formatters.roundToPlaces(1)}
+            chartData={chartData}
+            aggregationOptions={{
+              type: 'weightedAvg',
+              dataKeys: ['cats', 'dogs'],
+              options: { valueKey: 'cuteness', countKey: 'amount' }
+            }}
+            overallSummaryMetric={3.5}
+            granularity="month"
+            timeRange="custom"
+          />
+          <Legend
+            formatter={formatters.roundToPlaces(1)}
+            legendData={legendData}
+            aggregationOptions={{
+              type: 'weightedAvg',
+              dataKeys: ['cats', 'dogs'],
+              options: { valueKey: 'cuteness', countKey: 'amount' }
+            }}
+            displayOptions={[
+              { name: 'Dogs', dataKey: 'dogs', color: colors.cobaltBlue },
+              { name: 'Cats', dataKey: 'cats', color: colors.poppyRed }
+            ]}
+          />
+        </ReportCard>
+      )}
+    </Controller>
   ));
+
+function Controller({ children }) {
+  const legendData = weightedAvgDataLegend;
+  const septOctChartData = weightedAvgData.slice(0, 2);
+  const octNovChartData = weightedAvgData.slice(1, 3);
+  const septOctDateRange = {
+    startDate: '2018-09-01T00:00:00',
+    endDate: '2018-10-31T23:59:59'
+  };
+  const octNovDateRange = {
+    startDate: '2018-10-01T00:00:00',
+    endDate: '2018-11-30T23:59:59'
+  };
+  const [dateRange, setDateRange] = useState(septOctDateRange);
+  const [chartData, setChartData] = useState(septOctChartData);
+  const updateStates = (dateRange, data) => {
+    setDateRange(dateRange);
+    setChartData(data);
+  };
+  return (
+    <div>
+      <p>
+        <button
+          onClick={() => {
+            updateStates(septOctDateRange, septOctChartData);
+          }}
+        >
+          Sep - Oct
+        </button>
+        <button
+          onClick={() => {
+            updateStates(octNovDateRange, octNovChartData);
+          }}
+        >
+          Oct - Nov
+        </button>
+      </p>
+      <div>{children(chartData, legendData, dateRange)}</div>
+    </div>
+  );
+}
