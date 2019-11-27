@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select } from '@podiumhq/podium-ui';
+import { Select, colors } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -107,7 +107,15 @@ export default class Granularity extends Component {
         placeholder={placeholder}
         onChange={e => onChange(e.target.value)}
         value={value}
-        style={{ container: { width: '200px' } }}
+        style={{
+          container: {
+            width: '200px',
+            height: '40px'
+          },
+          trigger: {
+            color: colors.jumbo
+          }
+        }}
       >
         {this.renderOptions(options)}
       </Select>

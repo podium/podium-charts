@@ -30,7 +30,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select } from '@podiumhq/podium-ui';
+import { Select, colors } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 var StyledOption = styled(Select.Option)(_templateObject());
@@ -157,7 +157,11 @@ function (_Component) {
         value: value,
         style: {
           container: {
-            width: '200px'
+            width: '200px',
+            height: '40px'
+          },
+          trigger: {
+            color: colors.jumbo
           }
         }
       }, this.renderOptions(options));
