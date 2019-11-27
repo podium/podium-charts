@@ -17,7 +17,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div span div {\n    color: ", ";\n    width: inherit;\n    padding-right: 0px;\n    border: 2px solid ", ";\n  }\n  div ul {\n    width: 90%;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div ul {\n    width: 90%;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -30,10 +30,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select, colors } from '@podiumhq/podium-ui';
+import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-var GranularityWrapper = styled.div(_templateObject(), colors.jumbo, colors.mystic);
+var GranularityWrapper = styled.div(_templateObject());
 var byMonth = {
   value: 'month',
   label: 'By Month'
@@ -72,7 +72,13 @@ export var getOptions = function getOptions(timeRange) {
   var availableOptions = optionsMap[resolvedTimeRange].filter(function (granularity) {
     return !exclude.includes(granularity.value);
   });
-  return availableOptions || optionsMap.monthToDate;
+  var opts = availableOptions || optionsMap.monthToDate;
+  return opts.map(function (opt) {
+    return React.createElement(Select.Option, {
+      key: opt.value,
+      value: opt.value
+    }, opt.label);
+  });
 };
 
 var getCustomRange = function getCustomRange(dateStart, dateEnd) {
@@ -135,7 +141,7 @@ function (_Component) {
     value: function render() {
       var _this$props3 = this.props,
           value = _this$props3.value,
-          onChange = _this$props3.onChange,
+          _onChange = _this$props3.onChange,
           timeRange = _this$props3.timeRange,
           exclude = _this$props3.exclude,
           dateStart = _this$props3.dateStart,
@@ -143,12 +149,13 @@ function (_Component) {
       var options = getOptions(timeRange, exclude, dateStart, dateEnd);
       var placeholder = options[0].label || '';
       return React.createElement(GranularityWrapper, null, React.createElement(Select, {
-        options: options,
         placeholder: placeholder,
-        onChange: onChange,
-        theme: "light",
-        value: value
-      }));
+        onChange: function onChange(e) {
+          return _onChange(e);
+        },
+        value: value,
+        theme: "dark"
+      }, options));
     }
   }]);
 

@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select, colors } from '@podiumhq/podium-ui';
+import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 
 const GranularityWrapper = styled.div`
   width: 200px;
-  div span div {
-    color: ${colors.jumbo};
-    width: inherit;
-    padding-right: 0px;
-    border: 2px solid ${colors.mystic};
-  }
   div ul {
     width: 90%;
   }
@@ -48,7 +42,12 @@ export const getOptions = (
   const availableOptions = optionsMap[resolvedTimeRange].filter(granularity => {
     return !exclude.includes(granularity.value);
   });
-  return availableOptions || optionsMap.monthToDate;
+  const opts = availableOptions || optionsMap.monthToDate;
+  return opts.map(opt => (
+    <Select.Option key={opt.value} value={opt.value}>
+      {opt.label}
+    </Select.Option>
+  ));
 };
 
 const getCustomRange = (dateStart, dateEnd) => {
@@ -106,12 +105,13 @@ export default class Granularity extends Component {
     return (
       <GranularityWrapper>
         <Select
-          options={options}
           placeholder={placeholder}
-          onChange={onChange}
-          theme="light"
+          onChange={e => onChange(e)}
           value={value}
-        />
+          theme="dark"
+        >
+          {options}
+        </Select>
       </GranularityWrapper>
     );
   }
