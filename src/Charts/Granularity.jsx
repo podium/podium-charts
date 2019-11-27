@@ -39,12 +39,7 @@ export const getOptions = (
   const availableOptions = optionsMap[resolvedTimeRange].filter(granularity => {
     return !exclude.includes(granularity.value);
   });
-  const opts = availableOptions || optionsMap.monthToDate;
-  return opts.map(opt => (
-    <StyledOption key={opt.value} value={opt.value}>
-      {opt.label}
-    </StyledOption>
-  ));
+  return availableOptions || optionsMap.monthToDate;
 };
 
 const getCustomRange = (dateStart, dateEnd) => {
@@ -87,6 +82,14 @@ export default class Granularity extends Component {
     }
   };
 
+  renderOptions = options => {
+    return options.map(opt => (
+      <StyledOption key={opt.value} value={opt.value}>
+        {opt.label}
+      </StyledOption>
+    ));
+  };
+
   render() {
     const {
       value,
@@ -106,7 +109,7 @@ export default class Granularity extends Component {
         value={value}
         style={{ container: { width: '200px' } }}
       >
-        {options}
+        {this.renderOptions(options)}
       </Select>
     );
   }

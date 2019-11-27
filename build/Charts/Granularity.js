@@ -72,13 +72,7 @@ export var getOptions = function getOptions(timeRange) {
   var availableOptions = optionsMap[resolvedTimeRange].filter(function (granularity) {
     return !exclude.includes(granularity.value);
   });
-  var opts = availableOptions || optionsMap.monthToDate;
-  return opts.map(function (opt) {
-    return React.createElement(StyledOption, {
-      key: opt.value,
-      value: opt.value
-    }, opt.label);
-  });
+  return availableOptions || optionsMap.monthToDate;
 };
 
 var getCustomRange = function getCustomRange(dateStart, dateEnd) {
@@ -133,6 +127,13 @@ function (_Component) {
         });
         if (!validRangeValues.includes(value)) onChange(validRangeValues[0]);
       }
+    }, _this.renderOptions = function (options) {
+      return options.map(function (opt) {
+        return React.createElement(StyledOption, {
+          key: opt.value,
+          value: opt.value
+        }, opt.label);
+      });
     }, _temp));
   }
 
@@ -159,7 +160,7 @@ function (_Component) {
             width: '200px'
           }
         }
-      }, options);
+      }, this.renderOptions(options));
     }
   }]);
 
