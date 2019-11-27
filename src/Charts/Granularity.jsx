@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select } from '@podiumhq/podium-ui';
+import { Select, colors } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 
