@@ -17,7 +17,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div ul {\n    width: 90%;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -33,7 +33,7 @@ import PropTypes from 'prop-types';
 import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-var GranularityWrapper = styled.div(_templateObject());
+var StyledOption = styled(Select.Option)(_templateObject());
 var byMonth = {
   value: 'month',
   label: 'By Month'
@@ -74,7 +74,7 @@ export var getOptions = function getOptions(timeRange) {
   });
   var opts = availableOptions || optionsMap.monthToDate;
   return opts.map(function (opt) {
-    return React.createElement(Select.Option, {
+    return React.createElement(StyledOption, {
       key: opt.value,
       value: opt.value
     }, opt.label);
@@ -148,14 +148,19 @@ function (_Component) {
           dateEnd = _this$props3.dateEnd;
       var options = getOptions(timeRange, exclude, dateStart, dateEnd);
       var placeholder = options[0].label || '';
-      return React.createElement(GranularityWrapper, null, React.createElement(Select, {
+      return React.createElement(Select, {
         placeholder: placeholder,
         onChange: function onChange(e) {
           return _onChange(e);
         },
         value: value,
-        theme: "dark"
-      }, options));
+        theme: "dark",
+        style: {
+          container: {
+            width: '200px'
+          }
+        }
+      }, options);
     }
   }]);
 
