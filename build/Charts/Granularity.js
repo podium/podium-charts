@@ -17,7 +17,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  div span div {\n    color: ", ";\n    width: inherit;\n    padding-right: 0px;\n    border: 2px solid ", ";\n  }\n  div ul {\n    width: 90%;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -30,10 +30,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select, colors } from '@podiumhq/podium-ui';
+import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-var GranularityWrapper = styled.div(_templateObject(), colors.jumbo, colors.mystic);
+var StyledOption = styled(Select.Option)(_templateObject());
 var byMonth = {
   value: 'month',
   label: 'By Month'
@@ -127,6 +127,13 @@ function (_Component) {
         });
         if (!validRangeValues.includes(value)) onChange(validRangeValues[0]);
       }
+    }, _this.renderOptions = function (options) {
+      return options.map(function (opt) {
+        return React.createElement(StyledOption, {
+          key: opt.value,
+          value: opt.value
+        }, opt.label);
+      });
     }, _temp));
   }
 
@@ -135,20 +142,25 @@ function (_Component) {
     value: function render() {
       var _this$props3 = this.props,
           value = _this$props3.value,
-          onChange = _this$props3.onChange,
+          _onChange = _this$props3.onChange,
           timeRange = _this$props3.timeRange,
           exclude = _this$props3.exclude,
           dateStart = _this$props3.dateStart,
           dateEnd = _this$props3.dateEnd;
       var options = getOptions(timeRange, exclude, dateStart, dateEnd);
       var placeholder = options[0].label || '';
-      return React.createElement(GranularityWrapper, null, React.createElement(Select, {
-        options: options,
+      return React.createElement(Select, {
         placeholder: placeholder,
-        onChange: onChange,
-        theme: "light",
-        value: value
-      }));
+        onChange: function onChange(e) {
+          return _onChange(e.target.value);
+        },
+        value: value,
+        style: {
+          container: {
+            width: '200px'
+          }
+        }
+      }, this.renderOptions(options));
     }
   }]);
 

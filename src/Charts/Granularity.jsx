@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Select, colors } from '@podiumhq/podium-ui';
+import { Select } from '@podiumhq/podium-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 
-const GranularityWrapper = styled.div`
-  width: 200px;
-  div span div {
-    color: ${colors.jumbo};
-    width: inherit;
-    padding-right: 0px;
-    border: 2px solid ${colors.mystic};
-  }
-  div ul {
-    width: 90%;
-  }
+const StyledOption = styled(Select.Option)`
+  box-sizing: border-box;
 `;
 
 const byMonth = { value: 'month', label: 'By Month' };
@@ -91,6 +82,14 @@ export default class Granularity extends Component {
     }
   };
 
+  renderOptions = options => {
+    return options.map(opt => (
+      <StyledOption key={opt.value} value={opt.value}>
+        {opt.label}
+      </StyledOption>
+    ));
+  };
+
   render() {
     const {
       value,
@@ -104,15 +103,14 @@ export default class Granularity extends Component {
     const placeholder = options[0].label || '';
 
     return (
-      <GranularityWrapper>
-        <Select
-          options={options}
-          placeholder={placeholder}
-          onChange={onChange}
-          theme="light"
-          value={value}
-        />
-      </GranularityWrapper>
+      <Select
+        placeholder={placeholder}
+        onChange={e => onChange(e.target.value)}
+        value={value}
+        style={{ container: { width: '200px' } }}
+      >
+        {this.renderOptions(options)}
+      </Select>
     );
   }
 }
