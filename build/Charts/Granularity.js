@@ -151,10 +151,9 @@ function (_Component) {
       return React.createElement(Select, {
         placeholder: placeholder,
         onChange: function onChange(e) {
-          return _onChange(e);
+          return _onChange(e.target.value);
         },
         value: value,
-        theme: "dark",
         style: {
           container: {
             width: '200px'

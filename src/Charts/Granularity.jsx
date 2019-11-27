@@ -102,9 +102,8 @@ export default class Granularity extends Component {
     return (
       <Select
         placeholder={placeholder}
-        onChange={e => onChange(e)}
+        onChange={e => onChange(e.target.value)}
         value={value}
-        theme="dark"
         style={{ container: { width: '200px' } }}
       >
         {options}
