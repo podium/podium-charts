@@ -49,7 +49,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-flow: row;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-flow: row;\n  justify-content: center;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
