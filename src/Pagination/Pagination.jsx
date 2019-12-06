@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 const Container = styled.div`
   display: flex;
   flex-flow: row;
+  justify-content: center;
 `;
 
 const ChangeLink = styled.div`
